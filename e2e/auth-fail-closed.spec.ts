@@ -39,18 +39,22 @@ test('the before-hydration script resolves when it runs first', async ({ page })
   // No before-hydration script (production builds without Clerk's): islands wait on nothing.
   if (!url) return
 
-  const result = await page.evaluate(async src => {
-    const frame = document.createElement('iframe')
-    const loaded = new Promise(resolve => frame.addEventListener('load', resolve, { once: true }))
-    frame.srcdoc = '<!doctype html><title>before-hydration probe</title>'
-    document.body.append(frame)
-    await loaded
-    const frameWindow = frame.contentWindow as typeof globalThis
-    return frameWindow.eval(`import(${JSON.stringify(src)})`).then(
-      () => 'resolved',
-      (error: Error) => `rejected: ${error.message}`
-    )
-  }, new URL(url, page.url()).href)
-
-  expect(result).toBe('resolved')
+  const src = new URL(url, page.url()).href
+  // A cold dev server can reload the page while it optimizes dependencies, destroying the
+  // probe mid-evaluate. Retry until one probe completes; a regression rejects every time.
+  await expect(async () => {
+    const result = await page.evaluate(async href => {
+      const frame = document.createElement('iframe')
+      const loaded = new Promise(resolve => frame.addEventListener('load', resolve, { once: true }))
+      frame.srcdoc = '<!doctype html><title>before-hydration probe</title>'
+      document.body.append(frame)
+      await loaded
+      const frameWindow = frame.contentWindow as typeof globalThis
+      return frameWindow.eval(`import(${JSON.stringify(href)})`).then(
+        () => 'resolved',
+        (error: Error) => `rejected: ${error.message}`
+      )
+    }, src)
+    expect(result).toBe('resolved')
+  }).toPass({ timeout: 15_000 })
 })
