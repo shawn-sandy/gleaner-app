@@ -277,6 +277,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Interactive sections randomly dead on sites built without a Clerk key** (`astro.config.mjs`):
+  `clerk()` injected its two browser startup scripts on every page even with no publishable key,
+  and whichever ran first threw `@clerk/astro: Missing publishableKey`. Every island awaits the
+  before-hydration script before it starts, so on loads where that copy ran first no island on the
+  page hydrated (a card gallery's Next button and its testimonials froze on about 1 load in 4). A
+  `clerkIntegration()` helper now reads the key with `loadEnv` and, unless it starts with `pk_`,
+  runs Clerk's `astro:config:setup` hook with a no-op `injectScript`. The integration stays
+  registered because `Show` needs its virtual config module. Sites that add a key must rebuild,
+  since the publishable key is baked in at build time
 - **Supabase tables unreachable without automatic Data API grants; users could set their own
   role** (`scripts/migrations/007_data_api_grants.sql`): 001 and 002 relied on Supabase granting
   every API role full access to new tables. Projects without those grants (the default for new
