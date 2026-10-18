@@ -151,6 +151,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **README describes Gleaner** (`README.md`, `plugins/gleaner/skills/README.md`): the root README
+  now mirrors the [Gleaner plugin README](https://github.com/shawn-sandy/gleaner/blob/main/README.md)
+  in place of the Astro Basics overview, and the skills usage guide sits at the same path as
+  upstream. Links to files that only exist in the plugin repository point at GitHub
 - **E2E tests follow one base URL** (`playwright.config.ts`, `e2e/`): specs navigate with relative
   paths instead of a hard-coded `http://localhost:4321`, and `use.baseURL` reads
   `PLAYWRIGHT_BASE_URL` (default `http://localhost:4321`). The dev server Playwright starts uses the
