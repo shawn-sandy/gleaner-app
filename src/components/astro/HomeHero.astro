@@ -332,7 +332,9 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
     margin: 0.5rem 0 0;
   }
 
-  .home-hero .home-hero__fine:first-of-type {
+  /* The first fine-print line, by adjacency: `:first-of-type` counts every
+     `<p>`, and the eyebrow and deck come first, so it never matched. */
+  .home-hero .home-hero__install + .home-hero__fine {
     margin-block-start: 1.75rem;
   }
 

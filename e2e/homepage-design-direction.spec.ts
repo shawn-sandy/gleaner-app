@@ -372,6 +372,24 @@ test.describe('Homepage design direction', () => {
     }
   })
 
+  // The fine print under the install commands is its own group: it must sit
+  // further from the install box than its two lines sit from each other. A
+  // `:first-of-type` selector meant to add that space never matched, because
+  // the eyebrow and deck paragraphs come first.
+  test("the hero's fine print sits apart from the install box", async ({ page }) => {
+    await page.goto('/')
+
+    const gaps = await page.evaluate(() => {
+      const install = document.querySelector('.home-hero__install') as HTMLElement
+      const [first, second] = [...document.querySelectorAll('.home-hero__fine')] as HTMLElement[]
+      const gap = (above: HTMLElement, below: HTMLElement) =>
+        below.getBoundingClientRect().top - above.getBoundingClientRect().bottom
+      return { fromInstall: gap(install, first), betweenLines: gap(first, second) }
+    })
+
+    expect(gaps.fromInstall).toBeGreaterThan(gaps.betweenLines)
+  })
+
   /**
    * Follows the hero's calls to action instead of only loading the homepage.
    *
