@@ -1,0 +1,123 @@
+---
+/**
+ * One ask on the hero's copper string: what the visitor typed, what Gleaner
+ * captured, and Gleaner's confirmation. Several parts on one string end in a
+ * `SavedClip`, which is how Gleaner gathers parts into one clip.
+ *
+ * Renders an `<li>`, so it must sit inside an `<ol>` or `<ul>`. The string and
+ * its wrap are drawn in that list's left padding, set by `--glean-gutter`, and
+ * reach down across the gap to the next item, set by `--glean-gap`. Colours
+ * come from `--glean-*` custom properties with light-theme fallbacks;
+ * `HomeHero.astro` sets both themes.
+ *
+ * @component GleanPart
+ * @example
+ * ```astro
+ * <ol style="--glean-gutter: 3.5rem; --glean-gap: 1.25rem">
+ *   <GleanPart ask="grab the part about easing" reply="Added part 1: easing.">
+ *     <p>Ease out for entrances, ease in for exits.</p>
+ *   </GleanPart>
+ * </ol>
+ * ```
+ */
+export type Props = {
+  /** The visitor's plain-language request, shown after "you". */
+  ask: string
+  /** Gleaner's confirmation, shown after "gleaner". Omit for a closing ask such as "done". */
+  reply?: string
+}
+
+const { ask, reply } = Astro.props
+---
+
+<li class="glean-part">
+  <span class="glean-part__string" aria-hidden="true"></span>
+  <svg class="glean-part__wrap" aria-hidden="true" viewBox="0 0 24 16" focusable="false">
+    <path
+      d="M2 4h20M2 12h20"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3.5"
+      stroke-linecap="round"></path>
+  </svg>
+  <div class="glean-part__card">
+    <p class="glean-part__ask"><span class="glean-part__who">you</span>{ask}</p>
+    <slot />
+    {
+      reply && (
+        <p class="glean-part__reply">
+          <span class="glean-part__who">gleaner</span>
+          {reply}
+        </p>
+      )
+    }
+  </div>
+</li>
+
+<style>
+  .glean-part {
+    /* Horizontal centre of the string, measured from this item's left edge
+       back into the list's padding. */
+    --glean-x: calc(var(--glean-gutter, 3.5rem) * -1 + 1.375rem);
+
+    position: relative;
+  }
+
+  .glean-part__string {
+    background: var(--glean-string, #c46b43);
+    border-radius: 2px;
+
+    /* Runs past this item to the next one, so consecutive parts read as one
+       unbroken string. */
+    bottom: calc(var(--glean-gap, 1.25rem) * -1);
+    left: calc(var(--glean-x) - 1.5px);
+    position: absolute;
+    top: 0;
+    width: 3px;
+  }
+
+  /* Two turns of string, the same wrap the logo ties round the finger. */
+  .glean-part__wrap {
+    color: var(--glean-string, #c46b43);
+    height: 16px;
+    left: calc(var(--glean-x) - 12px);
+    position: absolute;
+    top: 1.375rem;
+    width: 24px;
+  }
+
+  .glean-part__card {
+    background: var(--glean-surface, #fff);
+    border: 1px solid var(--glean-border, #d5e3de);
+    border-radius: 0.875rem;
+    color: var(--glean-ink, #12302b);
+    padding: 1.125rem 1.25rem;
+  }
+
+  .glean-part__ask,
+  .glean-part__reply {
+    font-family: var(--font-family-mono, ui-monospace, monospace);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin: 0;
+    max-width: none;
+  }
+
+  .glean-part__reply {
+    color: var(--glean-reply, #185c53);
+    font-size: 0.8125rem;
+    margin-block-start: 0.75rem;
+  }
+
+  .glean-part__who {
+    margin-inline-end: 1ch;
+  }
+
+  .glean-part__ask .glean-part__who {
+    color: var(--glean-you, #9a4a26);
+  }
+
+  .glean-part__reply .glean-part__who {
+    font-weight: 600;
+  }
+</style>

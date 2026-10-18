@@ -13,6 +13,21 @@ colors:
   warning: '#f59e0b'
   error: '#ef4444'
   info: '#3b82f6'
+  gleaner-evergreen: '#185c53'
+  gleaner-evergreen-deep: '#124a42'
+  gleaner-copper: '#c46b43'
+  gleaner-copper-ink: '#9a4a26'
+  gleaner-ground: '#f5f8f6'
+  gleaner-ink: '#12302b'
+  gleaner-muted: '#4a615c'
+  gleaner-mist: '#e3efeb'
+  gleaner-card: '#ffffff'
+  gleaner-card-border: '#d5e3de'
+  gleaner-mark: '#fbede5'
+  gleaner-mark-ink: '#12302b'
+  gleaner-mark-rule: '#f1d9cb'
+  gleaner-clip-muted: '#cfe5de'
+  gleaner-clip-rule: '#3e7a70'
 typography:
   display:
     fontFamily: 'Inter, ui-sans-serif, system-ui, -apple-system, sans-serif'
@@ -47,12 +62,40 @@ typography:
     fontFamily: 'ui-sans-serif, system-ui, -apple-system, sans-serif'
     fontSize: '0.9375rem'
     fontWeight: 600
+  brand-display:
+    fontFamily: "'Plus Jakarta Sans', Inter, ui-sans-serif, system-ui, sans-serif"
+    fontSize: 'clamp(3rem, 5.4vw, 4.875rem)'
+    fontWeight: 800
+    lineHeight: 1.02
+    letterSpacing: '-0.035em'
+  brand-title:
+    fontFamily: "'Plus Jakarta Sans', Inter, ui-sans-serif, system-ui, sans-serif"
+    fontSize: '1.75rem'
+    fontWeight: 800
+    lineHeight: 1.15
+    letterSpacing: '-0.02em'
+  brand-button:
+    fontFamily: "'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif"
+    fontSize: '1.0625rem'
+    fontWeight: 650
+  brand-nav:
+    fontFamily: "'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif"
+    fontWeight: 600
+    letterSpacing: '-0.01em'
+  ask:
+    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
+    fontSize: '0.875rem'
+    fontWeight: 400
+    lineHeight: 1.5
 rounded:
   none: '0'
   base: '4px'
   lg: '8px'
   2xl: '16px'
   full: '9999px'
+  gleaner-panel: '12px'
+  gleaner-card: '14px'
+  gleaner-pill: '999px'
 spacing:
   1: '4px'
   2: '8px'
@@ -108,6 +151,37 @@ components:
   eyebrow:
     textColor: '{colors.ink-soft}'
     typography: '{typography.label}'
+  gleaner-button:
+    backgroundColor: '{colors.gleaner-evergreen}'
+    textColor: '{colors.gleaner-card}'
+    rounded: '{rounded.gleaner-pill}'
+    padding: '0 26px'
+    typography: '{typography.brand-button}'
+    height: '52px'
+  gleaner-button-hover:
+    backgroundColor: '{colors.gleaner-evergreen-deep}'
+    textColor: '{colors.gleaner-card}'
+  glean-part-card:
+    backgroundColor: '{colors.gleaner-card}'
+    textColor: '{colors.gleaner-ink}'
+    rounded: '{rounded.gleaner-card}'
+    padding: '18px 20px'
+    typography: '{typography.ask}'
+  saved-clip-card:
+    backgroundColor: '{colors.gleaner-evergreen}'
+    textColor: '{colors.gleaner-card}'
+    rounded: '{rounded.2xl}'
+    padding: '22px 24px 24px'
+  saved-clip-tag:
+    backgroundColor: 'transparent'
+    textColor: '{colors.gleaner-clip-muted}'
+    rounded: '{rounded.gleaner-pill}'
+    padding: '4px 12px'
+  gleaner-install-panel:
+    backgroundColor: '{colors.gleaner-mist}'
+    textColor: '{colors.gleaner-evergreen}'
+    rounded: '{rounded.gleaner-panel}'
+    padding: '14px 18px'
 ---
 
 # Design System: Astro Kit
@@ -138,6 +212,13 @@ direction is a build failure, not a disagreement. Confirmed rejections: the viol
 every generated palette converges on, and stock Tailwind sky-500 — the accent is deliberately
 neither.
 
+The site is being rebranded to Gleaner, and the rebrand arrives as a scoped brand layer rather
+than a replacement. The homepage hero, the navigation brand link, and the hero's example thread
+paint in the Gleaner logo's own colours (an evergreen disc and a copper string) and set their
+display moments in the wordmark's typeface. Everything else on the site, including the rest of the
+homepage below the hero, still paints with the instrument palette above. The two layers never share
+a colour, which is what keeps the accent audit meaningful.
+
 **Key Characteristics:**
 
 - One lit indicator: the accent is a signal, never decoration
@@ -146,6 +227,7 @@ neither.
 - Small mono capitals for every annotation and label
 - Measured, not estimated — contrast ratios are recorded and asserted
 - The rendered artifact and its source shown together
+- A scoped Gleaner brand layer (evergreen, copper, Plus Jakarta Sans) that never touches the accent
 
 ## Colors
 
@@ -179,6 +261,44 @@ blue-green that darkens cleanly rather than going muddy.
 Status colours, used only in alerts, form validation, and system feedback — never as brand colour:
 **Success** (`#22c55e`), **Warning** (`#f59e0b`), **Error** (`#ef4444`), **Info** (`#3b82f6`).
 
+### Gleaner Brand Layer
+
+A second, scoped palette drawn from the Gleaner logo: a deep forest evergreen and a warm copper,
+on a faintly green-tinted ground. It paints only the homepage hero and the components that live
+inside it (`HomeHero`, `GleanPart`, `SavedClip`); the navigation brand carries the logo itself but
+keeps inheriting the bar's ink. Light values are the frontmatter tokens; the dark values below are
+set on the hero in both dark scopes. Contrast figures are the ones measured and recorded in
+`HomeHero.astro`, except where marked "computed for this document" (WCAG relative-luminance
+formula run against the shipped hex values).
+
+- **Evergreen** (light `gleaner-evergreen` / dark `#9ed9c8`): The logo disc colour. In light it
+  is the hero headline, the install button fill, the secondary link, the install-command text, and
+  Gleaner's reply line; in dark those roles lift to a pale sage. Headline on ground 7.29:1 light,
+  headline and link 10.93:1 dark. The saved clip card keeps the light evergreen fill in both themes.
+- **Deep Evergreen** (light `gleaner-evergreen-deep` / dark `#b9e6d9`): Install button hover fill.
+- **Copper** (light `gleaner-copper` / dark `#d98a62`): The string and its knot. Graphic only,
+  never text: 3.55:1 on ground light (graphics need 3:1), 6.42:1 dark.
+- **Copper Ink** (light `gleaner-copper-ink` / dark `#eba67f`): The "you" speaker label on an ask,
+  the one place copper becomes text. 6.21:1 on the white card light, 7.32:1 on the dark card
+  (computed for this document).
+- **Ground** (light `gleaner-ground` / dark `#0e1d1a`): The hero band background.
+- **Gleaner Ink** (light `gleaner-ink` / dark `#e4efeb`): Hero body text and card text. 13.24:1
+  light, 14.76:1 dark.
+- **Muted** (light `gleaner-muted` / dark `#a3bab3`): Deck-adjacent fine print, the install label,
+  the mono example heading. 6.22:1 light, 8.46:1 dark.
+- **Mist** (light `gleaner-mist` / dark `#152b27`): The install-command panel. Evergreen command
+  text on it measures 6.61:1 light (computed for this document).
+- **Card / Card Border** (light `gleaner-card`, `gleaner-card-border` / dark `#152b27`,
+  `#2b4842`): The white ask cards on the string and their 1px border.
+- **Mark / Mark Ink / Mark Rule** (light `gleaner-mark`, `gleaner-mark-ink`, `gleaner-mark-rule` /
+  dark `#4b2d20`, `#f7e6dc`, `#6a4030`): A copper-tinted highlight for captured content: the
+  highlighted passage and the captured table, with the rule between table rows. 12.37:1 light,
+  10.21:1 dark (computed for this document).
+- **Clip Muted / Clip Rule** (`gleaner-clip-muted`, `gleaner-clip-rule`, same in both themes):
+  Secondary text, tag outlines, and the destination divider on the evergreen saved clip. Clip Muted on Evergreen 5.91:1 (computed for this document); white clip title on Evergreen 7.79:1.
+- **Button label** is white on Evergreen in light (7.79:1) and the dark ground colour on sage in
+  dark (10.93:1).
+
 ### Named Rules
 
 **The Hydration Rule.** Colour marks interactivity. Static content renders in ink on paper; the
@@ -195,12 +315,32 @@ work reaches for the seven direction tokens; a sky-blue that reaches the screen 
 `:root`, `@media (prefers-color-scheme: dark)`, and `:root[data-theme]`. Redefining only `:root`
 looks correct in light mode and silently keeps the old values the moment the visitor's OS is dark.
 
+**The Separate Hue Rule.** No Gleaner colour equals the site's `--island` accent, in either theme.
+The accent audit in `e2e/homepage-design-direction.spec.ts` compares each element's computed
+colour, background, border, and outline to the resolved `--island`; because the Gleaner layer paints
+the hero headline and cards in evergreen (hue 182 in OKLCH, computed for this document) rather than
+in Harbour Teal (hue 215), the homepage audit still passes with the hero in place. The audit is an
+exact match, so it would not catch a near-miss: keep the brand layer on its own hue family, never
+tuned toward the accent.
+
+**The Component-Scoped Palette Rule.** The Gleaner colours live as custom properties on the
+`.home-hero` element (`--g-*` for the hero, `--glean-*` for the string components), not in
+`src/styles/_design-tokens.scss`. This is a deliberate, recorded compromise: the committed
+`src/styles/index.css` is out of sync with its SCSS source, so recompiling it to add global tokens
+would ship unrelated changes. `GleanPart` and `SavedClip` carry light-theme fallbacks for every
+`--glean-*` property, and `HomeHero` flips them in both dark scopes (`prefers-color-scheme: dark`
+under `:root:not([data-theme='light'])`, and `:root[data-theme='dark']`), honouring the Three
+Scopes Rule. Promote these to the global token file only alongside a deliberate recompile of
+`index.css`.
+
 ## Typography
 
 **Display Font:** Inter 600 (self-hosted, latin subset, single weight; falls back through the
 system sans)
 **Body Font:** System sans stack (`ui-sans-serif, system-ui, -apple-system, …`)
 **Label/Mono Font:** System mono stack (`ui-monospace, SFMono-Regular, Menlo, …`)
+**Gleaner Brand Font:** Plus Jakarta Sans, variable 200-800 (self-hosted single woff2, SIL OFL
+1.1, the wordmark's typeface; falls back to the display or sans stack)
 
 **Character:** Neutral and instrument-like. The display face is tight and confident — negative
 tracking, one weight, no italic — and the system sans underneath it is deliberately anonymous so
@@ -210,9 +350,10 @@ them.
 
 ### Hierarchy
 
-- **Display** (600, `clamp(3rem, 6.6vw, 4.5rem)`, 1.02, `-0.035em`): The homepage hero `h1` only.
-  One knob drives both display and deck size, so the ratio between them stays pinned at 3.2 at
-  every viewport width instead of collapsing at desktop.
+- **Display** (600, `clamp(3rem, 6.6vw, 4.5rem)`, 1.02, `-0.035em`): The instrument-palette display
+  role. One knob drives both display and deck size, so the ratio between them stays pinned at 3.2 at
+  every viewport width instead of collapsing at desktop. The Gleaner homepage hero now sets its `h1`
+  in Brand Display instead (below).
 - **Headline** (600, `h1` scale, `-0.02em`): Page-level `h1` on every other route. Capitalized.
 - **Title** (600, `h2`/`h3` scale, `-0.015em`): Section and card titles. Capitalized.
 - **Deck** (400, `clamp(1.125rem, 0.9vw + 0.9rem, 1.5rem)`, 1.5): The paragraph under a page
@@ -223,6 +364,23 @@ them.
   badges, inline code. Opted into with `data-ui="eyebrow"` or `data-ui="label"`.
 - **Button** (600, 0.9375rem): Interactive control labels. On the body sans, not the display face
   and not the mono label role — a button is neither a title nor an annotation.
+
+### Gleaner Brand Type
+
+- **Brand Display** (Plus Jakarta Sans 800, `clamp(3rem, 5.4vw, 4.875rem)`, 1.02, `-0.035em`,
+  sentence case, balanced wrap): The homepage hero headline, in Evergreen. The deck is derived from
+  it (`clamp(1rem, display / 3.4, 1.375rem)`, body sans, 1.55), so the display-to-deck ratio the
+  direction test asks for (3.0 or more) holds: 3.4 at 1280px and exactly 3.0 at the 48px / 16px
+  floors.
+- **Brand Title** (Plus Jakarta Sans 800, 1.75rem, 1.15, `-0.02em`): The saved clip title. Keeps the
+  case it was saved in rather than taking the site's `h3` capitalisation.
+- **Brand Button** (Plus Jakarta Sans 650, 1.0625rem): The hero install button label.
+- **Brand Nav** (Plus Jakarta Sans 600, `-0.01em`): The site title beside the logo symbol in the
+  navigation bar, on every page, matching the wordmark's SemiBold.
+- **Ask** (mono 400, 0.875rem, 1.5): A visitor's plain-language request inside a string card, and
+  Gleaner's reply at 0.8125rem. The mono voice is what marks a line as something typed to Claude.
+
+Body copy in the hero stays on the system sans token; the brand face never sets reading text.
 
 ### Named Rules
 
@@ -239,6 +397,13 @@ second network request; make that trade deliberately or not at all.
 titles. `h4`–`h6` are used as UI labels — the contact form renders its error summary as an `h6` —
 and capitalizing a sentence produces "Please Correct The Following Errors".
 
+**The Brand Face Rule.** Plus Jakarta Sans is the one deliberate exception to the Three Roles
+Rule, and it is scoped to brand moments: the nav brand, the hero headline, the hero install button,
+and the saved clip title. It never sets body copy, page headings on other routes, or labels. It ships
+as one variable woff2 covering 200-800, preloaded in `Base.astro` alongside the Inter display file,
+so the site now makes two font requests; the `@font-face` is declared in both `Navigation.astro` and
+`HomeHero.astro` against the same URL, which the browser fetches once.
+
 ## Layout
 
 A single centred measure of 80rem (`--max-content-width`, 1280px) governs `main`, direct `section`
@@ -254,8 +419,11 @@ Vertical rhythm runs on an 8pt grid (`--space-*`). `main` carries 2rem block pad
 page-specific margin, which is why the homepage sets `.home-features { margin-block-start: 4rem }`
 at the call site rather than inside `FeatureCards`.
 
-The homepage hero is a two-column grid (`minmax(0, 1fr)` beside a 420px-max specimen column) with a
-3.5rem gutter, collapsing to a single column at 60rem. Interactive controls hold a 44px minimum
+The homepage hero is the Gleaner band: a full-bleed flex row on the shared measure holding the pitch
+(up to 40rem) beside the example thread (up to 36rem), each with a 28rem basis, separated by a 3.5rem
+row gap and a 5rem column gap and wrapping to one column below roughly 60rem. The thread is an
+ordered list whose left padding (`--glean-gutter`, 3.5rem, 2.75rem below 30rem) is the lane the copper
+string runs down; items separate by `--glean-gap` (1.25rem), which the string bridges. Interactive controls hold a 44px minimum
 target (`--space-11`, WCAG 2.2 SC 2.5.8).
 
 ### Named Rules
@@ -304,6 +472,14 @@ Borders are always exactly 1px in Rule; there is no 2px border anywhere in the r
 only 2px stroke in the language is the focus ring, which is a 2px Harbour Teal outline offset by
 2px — deliberately the heaviest line the system draws, because it is the one a keyboard user needs
 to find.
+
+The Gleaner brand layer runs softer and rounder than the instrument system, by design and only
+inside its scope: the hero install button and the saved clip's tags are full pills (999px), the ask
+cards on the string take 14px, the saved clip 16px, and the install-command panel 12px. The string
+itself is a 3px copper line with 2px-rounded ends, crossed by a two-bar wrap (two 3.5px strokes with
+round caps) at each ask, and it ties off in the logo's knot, drawn from the same path data as
+`gleaner-symbol.svg`. Outside the Gleaner scope, the "never pill-shaped" language above still
+holds.
 
 ### Named Rules
 
@@ -372,7 +548,35 @@ block below a hairline with squared corners and its own horizontal scroll.
 
 The rule that makes it worth having: **the rendered instance and the printed snippet are built from
 the same constants**, so the sample cannot drift from the component standing beside it. It appears
-in the homepage hero and in the promoted tier of `FeatureCards`.
+in the promoted tier of `FeatureCards`.
+
+### Gleaner Brand Components
+
+The brand layer's components tell one story: plain-language asks threaded on a copper string that
+ties off in a saved clip. All of them read their colours from the `--glean-*` and `--g-*` properties
+`HomeHero` sets, so they render correctly only inside it, or with light fallbacks alone.
+
+- **Navigation brand:** The 32px `gleaner-symbol.svg` (white hand on its own evergreen disc, so it
+  reads on either theme) beside the site title in Brand Nav, 0.5rem gap, 44px minimum target. The
+  image is decorative (`alt=""`); the title names the link. The text colour still inherits the bar's
+  ink, so it flips with the theme.
+- **Hero install button:** Evergreen pill, white label in Brand Button with a trailing arrow,
+  52px minimum height, 1.625rem inline padding. Hover deepens the fill and adds an underline at
+  3px offset so the state never relies on colour alone; colour-only 150ms `ease-out` transition.
+  Focus is a 2px Evergreen outline at 3px offset, shared with the secondary text link (Evergreen,
+  600, 44px minimum target, 5px underline offset).
+- **Install panel:** Mist panel at 12px radius holding a small muted label and the install commands
+  in mono Evergreen. It wraps instead of scrolling, so a 320px screen needs no scroll box.
+- **GleanPart (signature):** One ask on the string. A list item whose 3px copper string runs from
+  its top through the gap to the next item, so consecutive parts read as one unbroken line, with
+  the two-bar wrap 1.375rem down. The card is white with a 1px border at 14px radius
+  (1.125rem by 1.25rem padding) holding the mono ask after a copper "you", any captured content (a
+  Mark-highlighted passage or table), and an optional Evergreen reply after a bold "gleaner". The
+  string and wrap are `aria-hidden`; the content carries the meaning.
+- **SavedClip (signature):** The last item of the same list. Its string comes down across the gap
+  and stops at the logo's knot (60 by 35px). The card is solid Evergreen at 16px radius in both
+  themes, carrying a small mono "Saved" label, the clip title in Brand Title, a summary in Clip
+  Muted, a row of outlined pill tags in mono, and the destination below a Clip Rule hairline.
 
 ## Do's and Don'ts
 
@@ -391,6 +595,11 @@ in the homepage hero and in the promoted tier of `FeatureCards`.
 - **Do** pair a rendered component with the source that produced it, built from shared constants.
 - **Do** re-measure contrast when repointing a token — the recorded ratios are a budget, not a
   decoration.
+- **Do** keep the Gleaner colours on their own evergreen and copper hues, and confirm the homepage
+  accent audit still passes after any change to them.
+- **Do** set new `--glean-*` values in all three theming scopes on the hero and give string
+  components a light-theme fallback for each property they read.
+- **Do** keep Plus Jakarta Sans to brand moments: nav brand, hero headline, hero CTA, clip title.
 
 ### Don't:
 
@@ -401,7 +610,14 @@ in the homepage hero and in the promoted tier of `FeatureCards`.
 - **Don't** drift the accent toward violet, indigo, or Tailwind sky-500 — those are confirmed
   rejections, not untried options.
 - **Don't** put white text on the accent. Use Paper; white fails contrast in dark mode.
-- **Don't** add a shadow to a resting surface, or a second typeface, or a second display weight.
+- **Don't** add a shadow to a resting surface, or a further typeface beyond Inter and the scoped
+  Gleaner brand face, or a second Inter weight.
+- **Don't** tune a Gleaner colour toward Harbour Teal or reuse `--island` inside the brand layer;
+  the audit only catches exact matches.
+- **Don't** set copper as text anywhere but the "you" label, and don't use the string colour for
+  type; it is measured as a graphic.
+- **Don't** move the Gleaner palette into `_design-tokens.scss` without deliberately recompiling
+  and reviewing `index.css`.
 - **Don't** bake page-specific margin into a reusable component.
 - **Don't** apply `text-transform: capitalize` to `h4`–`h6`; they carry sentence-cased UI labels.
 - **Don't** style navigation state against `[aria-expanded]` — it is an implicit accessibility-tree

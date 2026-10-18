@@ -68,6 +68,19 @@ const { pageTitle, pageDescription, pageImageUrl, hideHeader, hideSiteChrome } =
       preload is discarded and the request happens twice.
     -->
     <link rel="preload" href="/fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin />
+    <!--
+      Gleaner brand face (Plus Jakarta Sans, SIL OFL 1.1), one variable file
+      for every weight. The nav brand on every page and the homepage headline
+      set in it, so it is preloaded like the display face above. Its
+      `@font-face` lives in `Navigation.astro` and `HomeHero.astro`.
+    -->
+    <link
+      rel="preload"
+      href="/fonts/plus-jakarta-sans-wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <!-- PWA Meta Tags -->
     <meta name="description" content={pageDescription || SITE_DESCRIPTION} />

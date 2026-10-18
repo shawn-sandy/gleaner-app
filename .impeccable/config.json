@@ -1,0 +1,27 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "plus jakarta sans",
+        "createdAt": "2026-10-18T19:34:29.884Z",
+        "reason": "Claude: the Gleaner wordmark's own typeface (public/images/gleaner-wordmark.svg); user asked for the hero and nav built from the logos. DESIGN.md still documents the old Astro Kit system."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": ["tests/components/Navigation.astro.test.ts"],
+        "createdAt": "2026-10-18T19:37:35.610Z",
+        "reason": "Claude: the matches are a regex literal (/<img\\b[^>]*>/) in a unit test, not markup"
+      },
+      {
+        "rule": "overused-font",
+        "value": "plus jakarta sans",
+        "createdAt": "2026-10-18T19:38:13.973Z",
+        "reason": "Claude: the Gleaner wordmark's own typeface (public/images/gleaner-wordmark.svg); user asked for the hero and nav built from the logos"
+      }
+    ]
+  }
+}
