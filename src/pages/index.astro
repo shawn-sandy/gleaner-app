@@ -4,17 +4,12 @@ import CollectionList from '#components/astro/CollectionList.astro'
 import Featured from '#components/astro/Featured.astro'
 import HomeFeatures from '#components/astro/HomeFeatures.astro'
 import HomeHero from '#components/astro/HomeHero.astro'
-import { SITE_TITLE } from '#utils/site-config.js'
-
-// The site-wide SITE_DESCRIPTION still describes the Astro starter, so the
-// homepage states what Gleaner is in the README's own words.
-const description =
-  'Gather the best of what you read into tagged, searchable clips. Gleaner is a Claude plugin that saves pages, passages, answers and YouTube moments.'
+import { SITE_DESCRIPTION, SITE_TITLE } from '#utils/site-config.js'
 ---
 
 <Layout
   pageTitle={SITE_TITLE}
-  pageDescription={description}
+  pageDescription={SITE_DESCRIPTION}
   showBreadcrumb={false}
   pageImageUrl="/images/astro-kit-cover.webp"
 >

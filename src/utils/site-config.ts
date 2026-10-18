@@ -22,7 +22,8 @@ export const BREADCRUMB_ROUTE = [
 ]
 
 export const SITE_TITLE = 'Gleaner'
-export const SITE_DESCRIPTION = 'A simple, easy to use multipurpose starter theme for Astro.'
+export const SITE_DESCRIPTION =
+  'Gather the best of what you read into tagged, searchable clips. Gleaner is a Claude plugin that saves pages, passages, answers and YouTube moments.'
 export const SITE_LOGO = '/logo.png'
 export const PAGINATION_COUNT: number = 2
 export const CONTACT_INFO = {

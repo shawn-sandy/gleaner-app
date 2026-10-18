@@ -168,8 +168,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The Gleaner colours live in `src/styles/gleaner-palette.css` on `[data-gleaner]` and flip in
     all three theme scopes; none of them is the `--island` accent, and the homepage accent audit
     still passes. DESIGN.md records the layer with measured contrast
-  - The homepage sends its own Gleaner meta description, and the theme-repaint e2e probe reads the
-    Gleaner ask card now that no `[data-card]` renders on the homepage
+  - `SITE_DESCRIPTION` describes Gleaner, and the `application-name` and
+    `apple-mobile-web-app-title` tags in `Base.astro` read `SITE_TITLE` instead of a hard-coded
+    "AstroKit"; the theme-repaint e2e probe reads the Gleaner ask card now that no `[data-card]`
+    renders on the homepage
 - **README describes Gleaner** (`README.md`, `plugins/gleaner/skills/README.md`): the root README
   now mirrors the [Gleaner plugin README](https://github.com/shawn-sandy/gleaner/blob/main/README.md)
   in place of the Astro Basics overview, and the skills usage guide sits at the same path as
