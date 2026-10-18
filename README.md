@@ -499,7 +499,7 @@ Gleaner's behavior lives in [`plugins/gleaner/skills/glean/SKILL.md`](https://gi
 - **Categories:** edit the list in step 4 (names double as folder names).
 - **Summary length:** adjust the word limits in step 3.
 
-Fork this repo, make your edits in `plugins/gleaner/skills/glean/SKILL.md`, bump `version` in `plugins/gleaner/.claude-plugin/plugin.json`, and add your fork as a marketplace.
+Fork the plugin repository, [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner), make your edits in `plugins/gleaner/skills/glean/SKILL.md`, bump `version` in `plugins/gleaner/.claude-plugin/plugin.json`, and add your fork as a marketplace.
 
 ## Repository layout
 
