@@ -541,6 +541,11 @@ const destinations = [
     align-items: flex-start;
     display: flex;
     gap: 1rem;
+
+    /* The list's gap spaces the callouts; clear the @fpkit/acss `li` margin
+       and indent. */
+    margin: 0;
+    padding-inline-start: 0;
   }
 
   .home-features .home-features__callouts li > div {

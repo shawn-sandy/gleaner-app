@@ -151,6 +151,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Homepage rebuilt around Gleaner** (`src/pages/index.astro`, `src/components/astro/HomeHero.astro`,
+  `src/components/astro/HomeFeatures.astro`, `src/components/astro/SkillCard.astro`,
+  `src/styles/gleaner-palette.css`): the hero, nav brand and the section below the hero now present
+  Gleaner instead of Astro Kit
+  - The hero pairs the pitch and an Install Gleaner link with the README's example told as a copper
+    string of asks (`GleanPart`) that ties off in the clip they saved (`SavedClip`); the nav brand
+    shows the Gleaner symbol beside a larger 1.375rem title (1rem at 360px and narrower, where the
+    bar would otherwise overflow), `SITE_TITLE` is "Gleaner", and Plus Jakarta Sans (the wordmark's
+    face) is self-hosted and preloaded
+  - The Gleaner lists clear the @fpkit/acss `li` margin and indent, which broke the copper string
+    between asks and made the last tag pill taller; `e2e/home-gleaner-lists.spec.ts` guards it
+  - `HomeFeatures` replaces the "What's in the kit" cards: the three skills, what every clip gets
+    (the README's sample clip, captioned "Example", with numbered callouts), and the five save
+    destinations with their `--to` flags. Copy follows the Gleaner README
+  - The Gleaner colours live in `src/styles/gleaner-palette.css` on `[data-gleaner]` and flip in
+    all three theme scopes; none of them is the `--island` accent, and the homepage accent audit
+    still passes. DESIGN.md records the layer with measured contrast
+  - The homepage sends its own Gleaner meta description, and the theme-repaint e2e probe reads the
+    Gleaner ask card now that no `[data-card]` renders on the homepage
 - **README describes Gleaner** (`README.md`, `plugins/gleaner/skills/README.md`): the root README
   now mirrors the [Gleaner plugin README](https://github.com/shawn-sandy/gleaner/blob/main/README.md)
   in place of the Astro Basics overview, and the skills usage guide sits at the same path as

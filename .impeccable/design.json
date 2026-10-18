@@ -558,7 +558,7 @@
       },
       "brand-nav": {
         "displayName": "Brand Nav",
-        "purpose": "Site title beside the logo symbol in the nav, Plus Jakarta Sans 600 to match the wordmark."
+        "purpose": "Site title beside the logo symbol in the nav, Plus Jakarta Sans 600 at 1.375rem (1rem at 360px and narrower) to match the wordmark; the 2em symbol stays twice its size."
       },
       "ask": {
         "displayName": "Ask",

@@ -112,7 +112,7 @@ const {
     showBrand && (
       <a href={brandHref} data-nav-brand>
         {/* Decorative: the link's name is the brand title beside it. */}
-        <img src="/images/gleaner-symbol.svg" alt="" width="32" height="32" />
+        <img src="/images/gleaner-symbol.svg" alt="" width="44" height="44" />
         {brandTitle}
       </a>
     )
@@ -168,8 +168,29 @@ const {
     min-height: 44px;
   }
 
+  /* Large enough to read as the wordmark, with the 2em symbol matching the
+     44px menu toggle beside it. `[href]` lifts the size above the site's
+     `a[href]` link rule, which a lone attribute would lose to under Astro's
+     `:where()` scoping. */
+  [data-nav-brand][href] {
+    font-size: 1.375rem;
+  }
+
+  /* Below 360px the toggle, the brand and the account links only fit on one
+     bar with the brand at 1rem, so it returns to that size there rather than
+     widen the page (e2e: no horizontal overflow at 320px). */
+  @media (max-width: 22.5rem) {
+    [data-nav-brand][href] {
+      font-size: 1rem;
+    }
+  }
+
+  /* Twice the text height at any size, the proportion `gleaner-wordmark.svg`
+     draws the symbol and the name at. */
   [data-nav-brand] img {
     display: block;
     flex: none;
+    height: 2em;
+    width: 2em;
   }
 </style>

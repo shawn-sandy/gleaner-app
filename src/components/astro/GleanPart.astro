@@ -8,7 +8,7 @@
  * its wrap are drawn in that list's left padding, set by `--glean-gutter`, and
  * reach down across the gap to the next item, set by `--glean-gap`. Colours
  * come from `--glean-*` custom properties with light-theme fallbacks;
- * `HomeHero.astro` sets both themes.
+ * `src/styles/gleaner-palette.css` sets both themes on `[data-gleaner]`.
  *
  * @component GleanPart
  * @example
@@ -60,6 +60,10 @@ const { ask, reply } = Astro.props
        back into the list's padding. */
     --glean-x: calc(var(--glean-gutter, 3.5rem) * -1 + 1.375rem);
 
+    /* @fpkit/acss gives every `li` an 8px bottom margin and marker indent;
+       either would open a break in the string and shift the card. */
+    margin: 0;
+    padding-inline-start: 0;
     position: relative;
   }
 

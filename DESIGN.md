@@ -85,6 +85,7 @@ typography:
     fontWeight: 650
   brand-nav:
     fontFamily: "'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif"
+    fontSize: '1.375rem'
     fontWeight: 600
     letterSpacing: '-0.01em'
   ask:
@@ -463,8 +464,9 @@ them.
 - **Brand Title** (Plus Jakarta Sans 800, 1.75rem, 1.15, `-0.02em`): The saved clip title. Keeps the
   case it was saved in rather than taking the site's `h3` capitalisation.
 - **Brand Button** (Plus Jakarta Sans 650, 1.0625rem): The hero install button label.
-- **Brand Nav** (Plus Jakarta Sans 600, `-0.01em`): The site title beside the logo symbol in the
-  navigation bar, on every page, matching the wordmark's SemiBold.
+- **Brand Nav** (Plus Jakarta Sans 600, 1.375rem, `-0.01em`; 1rem at 360px and narrower): The site
+  title beside the logo symbol in the navigation bar, on every page, matching the wordmark's
+  SemiBold. Below 360px the toggle, brand and account links only fit on one bar at 1rem.
 - **Ask** (mono 400, 0.875rem, 1.5): A visitor's plain-language request inside a string card, and
   Gleaner's reply at 0.8125rem. The mono voice is what marks a line as something typed to Claude.
   The skill cards' "Things to say" lists use the same role.
@@ -677,10 +679,11 @@ colours from the `--glean-*` and `--g-*` properties `src/styles/gleaner-palette.
 `[data-gleaner]`, so they render correctly only inside a `data-gleaner` element, or with light
 fallbacks alone.
 
-- **Navigation brand:** The 32px `gleaner-symbol.svg` (white hand on its own evergreen disc, so it
-  reads on either theme) beside the site title in Brand Nav, 0.5rem gap, 44px minimum target. The
-  image is decorative (`alt=""`); the title names the link. The text colour still inherits the bar's
-  ink, so it flips with the theme.
+- **Navigation brand:** The `gleaner-symbol.svg` (white hand on its own evergreen disc, so it reads
+  on either theme) at 2em, twice the title's size as the wordmark draws it (44px beside the 1.375rem
+  title, 32px at 1rem), beside the site title in Brand Nav, 0.5rem gap, 44px minimum target. The
+  image is decorative (`alt=""`); the title names the link. The title takes the site's link colour,
+  as every link does, so it flips with the theme.
 - **Hero install button:** Evergreen pill, white label in Brand Button with a trailing arrow,
   52px minimum height, 1.625rem inline padding. Hover deepens the fill and adds an underline at
   3px offset so the state never relies on colour alone; colour-only 150ms `ease-out` transition.

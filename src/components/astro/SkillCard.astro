@@ -129,6 +129,12 @@ const { name, title, description, asks } = Astro.props
     padding: 1.25rem 0 0;
   }
 
+  /* The gap spaces the lines; clear the @fpkit/acss `li` margin and indent. */
+  .skill-card .skill-card__asks li {
+    margin: 0;
+    padding-inline-start: 0;
+  }
+
   .skill-card .skill-card__you {
     color: var(--glean-you, #9a4a26);
     margin-inline-end: 1ch;

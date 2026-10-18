@@ -7,7 +7,7 @@
  * Renders an `<li>`, so it must be the last item of the list its `GleanPart`s
  * sit in. Its string reaches up across `--glean-gap` to meet the part above.
  * Colours come from `--glean-*` custom properties with light-theme fallbacks;
- * `HomeHero.astro` sets both themes. The title is set in the brand face, whose
+ * `src/styles/gleaner-palette.css` sets both themes. The title is set in the brand face, whose
  * `@font-face` the hero and the nav declare; alone it falls back to the
  * display stack.
  *
@@ -64,6 +64,9 @@ const { title, summary, tags, destination } = Astro.props
     /* Same string centre as `GleanPart`, so the two line up. */
     --glean-x: calc(var(--glean-gutter, 3.5rem) * -1 + 1.375rem);
 
+    /* Clears the @fpkit/acss `li` marker indent, as `GleanPart` does. */
+    margin: 0;
+    padding-inline-start: 0;
     position: relative;
   }
 
@@ -143,11 +146,14 @@ const { title, summary, tags, destination } = Astro.props
     padding: 0;
   }
 
+  /* `margin: 0` clears the @fpkit/acss `li` margin, which every pill but the
+     last kept, so the last one stretched taller than the rest. */
   .saved-clip__tags li {
     border: 1px solid var(--glean-clip-muted, #cfe5de);
     border-radius: 999px;
     font-size: 0.8125rem;
     line-height: 1.4;
+    margin: 0;
     padding: 0.25rem 0.75rem;
   }
 
