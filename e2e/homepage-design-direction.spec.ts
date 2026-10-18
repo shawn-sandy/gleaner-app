@@ -1,3 +1,4 @@
+import { URL } from 'node:url'
 import { test, expect } from '@playwright/test'
 
 /**
@@ -392,6 +393,16 @@ test.describe('Homepage design direction', () => {
     expect(hrefs.length, 'hero should link somewhere').toBeGreaterThan(0)
 
     for (const href of hrefs) {
+      // A jump within the page already open (the hero's "/#how") fetches
+      // nothing, so `page.goto` returns null and there is no status to read.
+      // That link works when its target is on the page, so assert that.
+      const target = new URL(href, page.url())
+      const here = new URL(page.url())
+      if (target.hash && target.pathname === here.pathname && target.search === here.search) {
+        await expect(page.locator(target.hash), `${href} points at nothing`).toHaveCount(1)
+        continue
+      }
+
       const response = await page.goto(href)
       expect(response?.status(), `${href} should not be an error page`).toBeLessThan(400)
 
