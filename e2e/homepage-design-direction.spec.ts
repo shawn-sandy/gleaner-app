@@ -196,7 +196,9 @@ test.describe('Homepage design direction', () => {
           body: getComputedStyle(document.body).backgroundColor,
           bodyText: getComputedStyle(document.body).color,
           header: bg('body > header'),
-          card: bg('[data-card]'),
+          // The homepage's card surface is the Gleaner ask card; the kit's
+          // `[data-card]` cards no longer render here.
+          card: bg('.glean-part__card'),
         }
       })
 
@@ -230,17 +232,20 @@ test.describe('Homepage design direction', () => {
     // a selector that stops matching -- e.g. if `Base.astro` ever wraps the
     // header slot in a container, breaking `body > header` -- would silently
     // remove that surface from the check while the test still passed on
-    // `[data-card]` alone.
+    // the card probe alone.
     expect(light.header, 'body > header matched nothing; update the selector').not.toBeNull()
-    expect(light.card, '[data-card] matched nothing; update the selector').not.toBeNull()
+    expect(light.card, '.glean-part__card matched nothing; update the selector').not.toBeNull()
     expect(dark.header, 'body > header matched nothing in dark; update the selector').not.toBeNull()
-    expect(dark.card, '[data-card] matched nothing in dark; update the selector').not.toBeNull()
+    expect(
+      dark.card,
+      '.glean-part__card matched nothing in dark; update the selector'
+    ).not.toBeNull()
 
     // At least one *painted element* — not just a `:root` variable — has to
     // respond, which is what the baseline failed to do.
     const painted = [
       ['body > header', light.header, dark.header],
-      ['[data-card]', light.card, dark.card],
+      ['.glean-part__card', light.card, dark.card],
     ].filter(([, l, d]) => l !== null && d !== null && l !== d)
 
     expect(

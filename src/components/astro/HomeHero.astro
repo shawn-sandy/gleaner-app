@@ -12,10 +12,11 @@
  * copper string. Each `GleanPart` is one plain-language ask, and the string
  * ties off in the logo's knot at the `SavedClip` those asks produced.
  *
- * Colours come from the Gleaner logo (evergreen #185C53, copper #C46B43) and
- * are set here as `--g-*` and `--glean-*` custom properties for both themes.
- * None of them is the site's `--island` accent, so the homepage's accent audit
- * in `e2e/homepage-design-direction.spec.ts` still holds.
+ * Colours come from the Gleaner logo (evergreen #185C53, copper #C46B43), as
+ * the `--g-*` and `--glean-*` properties `src/styles/gleaner-palette.css` sets
+ * on `[data-gleaner]` for both themes. None of them is the site's `--island`
+ * accent, so the homepage's accent audit in
+ * `e2e/homepage-design-direction.spec.ts` still holds.
  *
  * @component HomeHero
  * @example
@@ -29,6 +30,7 @@
  */
 import GleanPart from '#components/astro/GleanPart.astro'
 import SavedClip from '#components/astro/SavedClip.astro'
+import '#styles/gleaner-palette.css'
 
 export type Props = {
   /** Mono eyebrow set above the headline. */
@@ -48,7 +50,7 @@ const {
 const repo = 'https://github.com/shawn-sandy/gleaner'
 ---
 
-<header class="home-hero" data-home-hero>
+<header class="home-hero" data-home-hero data-gleaner>
   <div class="home-hero__lede">
     <p class="home-hero__eyebrow" data-ui="eyebrow">{eyebrow}</p>
     <h1 class="home-hero__display" data-ui="display">{headline}</h1>
@@ -140,34 +142,7 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
   }
 
   .home-hero {
-    /*
-     * Light palette. Contrast, measured: ink on ground 13.24:1, muted on
-     * ground 6.22:1, headline on ground 7.29:1, white on the evergreen
-     * button 7.79:1, the copper string on ground 3.55:1 (a graphic, so 3:1).
-     */
-    --g-ground: #f5f8f6;
-    --g-ink: #12302b;
-    --g-muted: #4a615c;
-    --g-headline: #185c53;
-    --g-button-bg: #185c53;
-    --g-button-ink: #fff;
-    --g-button-hover: #124a42;
-    --g-link: #185c53;
-    --g-code-bg: #e3efeb;
-    --g-code-ink: #185c53;
-    --glean-string: #c46b43;
-    --glean-surface: #fff;
-    --glean-border: #d5e3de;
-    --glean-ink: #12302b;
-    --glean-you: #9a4a26;
-    --glean-reply: #185c53;
-    --glean-mark-bg: #fbede5;
-    --glean-mark-ink: #12302b;
-    --glean-mark-rule: #f1d9cb;
-    --glean-clip-bg: #185c53;
-    --glean-clip-ink: #fff;
-    --glean-clip-muted: #cfe5de;
-    --glean-clip-rule: #3e7a70;
+    /* Colours are the `[data-gleaner]` palette in gleaner-palette.css. */
     --glean-gutter: 3.5rem;
     --glean-gap: 1.25rem;
 
@@ -430,60 +405,11 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
   }
 
   /*
-   * Dark palette. Measured on the #0e1d1a ground: ink 14.76:1, muted 8.46:1,
-   * headline and link 10.93:1, button label 10.93:1, the string 6.42:1. The
-   * saved clip keeps its evergreen card, which reads on either ground.
-   */
-  @media (prefers-color-scheme: dark) {
-    :global(:root:not([data-theme='light'])) .home-hero {
-      --g-ground: #0e1d1a;
-      --g-ink: #e4efeb;
-      --g-muted: #a3bab3;
-      --g-headline: #9ed9c8;
-      --g-button-bg: #9ed9c8;
-      --g-button-ink: #0e1d1a;
-      --g-button-hover: #b9e6d9;
-      --g-link: #9ed9c8;
-      --g-code-bg: #152b27;
-      --g-code-ink: #9ed9c8;
-      --glean-string: #d98a62;
-      --glean-surface: #152b27;
-      --glean-border: #2b4842;
-      --glean-ink: #e4efeb;
-      --glean-you: #eba67f;
-      --glean-reply: #9ed9c8;
-      --glean-mark-bg: #4b2d20;
-      --glean-mark-ink: #f7e6dc;
-      --glean-mark-rule: #6a4030;
-    }
-  }
-
-  /*
-   * The theme toggle. Repeats the dark values, and the surface itself, because
+   * The theme toggle. Repaints the surface itself, because
    * `:root[data-theme='dark'] body > header` in the site stylesheet paints
    * every header and outranks a lone class.
    */
   :global(:root[data-theme='dark']) .home-hero {
-    --g-ground: #0e1d1a;
-    --g-ink: #e4efeb;
-    --g-muted: #a3bab3;
-    --g-headline: #9ed9c8;
-    --g-button-bg: #9ed9c8;
-    --g-button-ink: #0e1d1a;
-    --g-button-hover: #b9e6d9;
-    --g-link: #9ed9c8;
-    --g-code-bg: #152b27;
-    --g-code-ink: #9ed9c8;
-    --glean-string: #d98a62;
-    --glean-surface: #152b27;
-    --glean-border: #2b4842;
-    --glean-ink: #e4efeb;
-    --glean-you: #eba67f;
-    --glean-reply: #9ed9c8;
-    --glean-mark-bg: #4b2d20;
-    --glean-mark-ink: #f7e6dc;
-    --glean-mark-rule: #6a4030;
-
     background-color: var(--g-ground);
     color: var(--g-ink);
   }
