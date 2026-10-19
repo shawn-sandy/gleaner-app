@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import CollectionList from '#components/astro/CollectionList.astro'
 import Featured from '#components/astro/Featured.astro'
 import HomeFeatures from '#components/astro/HomeFeatures.astro'
 import HomeHero from '#components/astro/HomeHero.astro'
+import HomeInstall from '#components/astro/HomeInstall.astro'
 import { SITE_DESCRIPTION, SITE_TITLE } from '#utils/site-config.js'
 ---
 
@@ -12,6 +12,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '#utils/site-config.js'
   pageDescription={SITE_DESCRIPTION}
   showBreadcrumb={false}
   pageImageUrl="/images/astro-kit-cover.webp"
+  hideSidebar
 >
   <HomeHero slot="header" />
   <div slot="featured">
@@ -20,46 +21,21 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '#utils/site-config.js'
     </section> -->
     <HomeFeatures />
   </div>
-  <section class="home-latest" aria-labelledby="home-latest-title">
-    <h2 class="home-section-title" id="home-latest-title">Latest posts</h2>
-    <CollectionList pageSize={2} />
-  </section>
+  <HomeInstall />
 </Layout>
 
 <style>
-  /* Both section headings share the title role and the hairline the compact
-     feature rows use. */
-  .home-section-title {
-    border-block-end: 1px solid var(--rule);
-    font-size: var(--font-size-3xl);
-    margin-block: 0 var(--space-7);
-    padding-block-end: var(--space-3);
-  }
-
-  /* Post titles come from BlogPosts, whose links take the vendor --h3 scale
-     (48px at desktop) and outranked everything below the hero. On the
-     homepage they are list items, so they take the size of the card titles. */
-  .home-latest :global(h2 a[href]) {
-    font-size: var(--font-size-xl);
-  }
-
-  /* `main > section` carries 2rem of inline padding, which set the post list
-     32px in from the hero and features above it. This keeps the post list and
-     the sidebar beside it on the shared gutter, so their outer edges meet the
-     features' edges: 1.25rem while the viewport is narrower than the measure,
-     easing to 0 once main is centred with room to spare. Scoped through :has
-     so it cannot reach another page's main. */
-  :global(main:has(.home-latest) > section) {
+  /* `main > section` carries 2rem of inline padding, which set the install
+     guide 32px in from the hero and features above it. This keeps it on the
+     shared gutter, so its outer edges meet the features' edges: 1.25rem while
+     the viewport is narrower than the measure, easing to 0 once main is
+     centred with room to spare. Scoped through :has so it cannot reach another
+     page's main. */
+  :global(main:has(.home-install) > section) {
     padding-inline: clamp(
       0rem,
       calc((var(--max-content-width, 80rem) + 2.5rem - 100vw) / 2),
       1.25rem
     );
-  }
-
-  @media (max-width: 60rem) {
-    .home-section-title {
-      font-size: var(--font-size-2xl);
-    }
   }
 </style>

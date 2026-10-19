@@ -151,6 +151,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Homepage quick install guide** (`src/pages/index.astro`, `src/components/astro/HomeInstall.astro`,
+  `src/layouts/Layout.astro`): the "Latest posts" list and its sidebar give way to a two-column
+  install guide, one card for Claude and one for ChatGPT
+  - Steps follow the Gleaner README's Install section and its `docs/chatgpt-marketplace.md`; each
+    card links to the full guide
+  - `Layout.astro` gains a `hideSidebar` prop; the homepage sets it, and every other page keeps the
+    sidebar
+  - The columns stack once two 22rem cards no longer fit; the Claude Code commands wrap rather than
+    scroll at phone width
+  - Only the cards set `data-gleaner`. The "Quick install" heading and intro stay on the site's
+    Inter heading and colours, so the homepage keeps the display-role heading that
+    `e2e/homepage-design-direction.spec.ts` checks now that "Latest posts" is gone
+  - Code on the cards sits on `--g-chip`, as the skill cards' command pills do: the dark palette's
+    `--g-code-bg` is the card's own colour, so code lost its surface there
+  - `tests/components/HomeInstall.astro.test.ts` guards the heading order and catches Astro dropping
+    the space around an inline element at a source line break; `e2e/home-install.spec.ts` checks
+    that code stands apart from its card in both themes
 - **Body copy set in Plus Jakarta Sans** (`src/styles/_design-tokens.scss`, `DESIGN.md`,
   `.impeccable/design.json`): `--font-family-sans` now leads with Plus Jakarta Sans, so body text on
   every site route outside the Starlight docs renders in the Gleaner wordmark's typeface at 400 instead of the system sans. Headings
