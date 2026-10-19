@@ -168,11 +168,16 @@ const {
   /* `_navigation.scss` pins the open panel at `top: 4rem` to clear a 64px
      bar; the padded bar is up to 84px (60px brand plus `--space-3` twice), so
      the panel would cover its lower 20px. This starts it below the tallest
-     bar; narrower bars leave a small gap instead. `[id]` (every panel has
-     one) lifts this above that file's (0,3,1) rule, which a scoped copy of
-     the same selector would only tie and lose on source order. */
+     bar; narrower bars leave a small gap instead. The height cap moves with
+     it, keeping that file's 1rem gap above the viewport's bottom edge. `[id]`
+     (every panel has one) lifts this above that file's (0,3,1) rule, which a
+     scoped copy of the same selector would only tie and lose on source
+     order. */
   nav[data-site-nav]:has(> [popover]) > [popover][id] {
-    top: calc(2 * 1.875rem + 2 * var(--space-3));
+    --panel-top: calc(2 * 1.875rem + 2 * var(--space-3));
+
+    max-height: calc(100dvh - var(--panel-top) - 1rem);
+    top: var(--panel-top);
   }
 
   /* Layout and face only. Weight and underline stay in `_navigation.scss`.
