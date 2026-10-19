@@ -36,8 +36,8 @@ command does not show up after an update in Claude Code, run `/reload-plugins`.
 ### 1.0.0: Gleaner is born
 
 Gleaner started life as a skill called _page-to-project_. Version 1.0.0 renamed
-it and published it as a plugin marketplace. The first release set the shape
-everything else builds on:
+it and published it as a plugin in the new `shawn-sandy` marketplace. The first
+release set the shape everything else builds on:
 
 - Plain-language requests instead of fixed commands.
 - Part clips: collect highlights or described sections across several pages,
