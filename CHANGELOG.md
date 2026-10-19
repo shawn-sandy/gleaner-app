@@ -390,6 +390,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Nav bar wider than a phone for signed-out visitors** (`src/components/astro/Navigation.astro`):
+  beside Clerk's "Sign in" button, the login slot's acss padding (1rem on the list, 0.75rem on each
+  item) made the page scroll sideways by 27px at 320px and 7px at 375px. Up to 30rem the list sets
+  `--nav-padding-inline` to 0.25rem, so the bar fits from 320px up in both themes with its 16px edge
+  kept; wider screens keep the old spacing
+  - The e2e reflow checks did not catch it: without a Clerk key the sign-in button never renders,
+    and the nav suite skips itself while the menu is parked
+
 - **Nav brand unreadable in dark mode** (`src/components/astro/Navigation.astro`): the evergreen
   name from the entry below measured 2.45:1 on the dark bar. In dark mode it now uses the Gleaner
   palette's mint `#9ed9c8` (12:1), whether the OS preference or the theme toggle picked dark;
