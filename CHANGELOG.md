@@ -169,14 +169,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Homepage feature section copy** (`src/components/astro/HomeFeatures.astro`): shorter, plainer
   wording with the same facts; the section headline, card titles and callout titles are unchanged
-  - Every skill card opens with what you can save, and the glean card's ask reads "save that
-    answer" instead of "save that"
-  - "Claude's answer" becomes "the answer you got", matching the hero, since Gleaner also runs in
-    ChatGPT
-  - The clip heading reads "What's in every clip", and its intro names the opening fields (source,
-    date, category, tags) instead of "the details at the top"
-  - The filing callout no longer reads as if the category were a type, and the search callout says
-    what Gleaner searches
+  - The glean and youtube cards open with what you can save; the youtube card uses the README's
+    "a whole video or just the moments that matter"
+  - "Claude's answer" becomes "the answer you got", matching the hero, and the intro says "Claude or
+    ChatGPT picks the right one", since Gleaner also runs in ChatGPT
+  - The clip heading reads "What's in every clip", and its intro says "a title and details such as
+    the source, date and tags" instead of "the details at the top"
+  - The filing callout no longer reads as if the category were a type
   - The `--to` flag in the destinations intro keeps its leading space after the line rewrap, and
     `white-space: nowrap` stops it breaking at its hyphens
 

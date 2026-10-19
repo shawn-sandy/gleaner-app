@@ -32,13 +32,13 @@ const skills = [
     title: 'Pages, parts and answers',
     description:
       'Save a whole page, gather passages from several tabs into one clip, or keep the answer you got about a page, steps and code intact.',
-    asks: ['save this page', 'grab the part about easing', 'save that answer'],
+    asks: ['save this page', 'grab the part about easing', 'save that'],
   },
   {
     name: 'youtube',
     title: 'Videos and the moments in them',
     description:
-      'Save a video or one stretch of it. Gleaner reads the transcript and writes a TL;DR plus key moments that each link to the exact second.',
+      'Save a whole video or just the moments that matter. Gleaner builds the summary from the transcript, with key moments that link to the exact second.',
     asks: ['save this video', 'keep 3:10 to 5:40', 'grab the part about generics'],
   },
   {
@@ -98,7 +98,7 @@ const destinations = [
       <div class="home-features__lede">
         <p>
           Gleaner has three skills, and you never have to choose. Describe what you want, and Claude
-          picks the right one from your words and the page you're on.
+          or ChatGPT picks the right one from your words and the page you're on.
         </p>
         <p class="home-features__muted">
           In Claude Code, you can also run each one by its command.
@@ -114,8 +114,8 @@ const destinations = [
       <div class="home-features__head">
         <h3 class="home-features__subtitle">What's in every clip</h3>
         <p class="home-features__muted">
-          One Markdown file of about 400 words at most. It opens with the source, date, category and
-          tags, then a TL;DR, key points, notable details and takeaways.
+          One Markdown file of about 400 words at most. A title and details such as the source, date
+          and tags come first, then a TL;DR, key points, notable details and takeaways.
         </p>
       </div>
 
