@@ -4,8 +4,15 @@ import Header from '#components/astro/Header.astro'
 import Sidebar from '#components/astro/Sidebar.astro'
 import MainSection from '#components/astro/MainSection.astro'
 import { SITE_DESCRIPTION } from '#utils/site-config'
-const { pageTitle, pageDescription, pageImageUrl, hideHeader, showBreadcrumb, breadcrumbRoutes } =
-  Astro.props
+const {
+  pageTitle,
+  pageDescription,
+  pageImageUrl,
+  hideHeader,
+  hideSidebar,
+  showBreadcrumb,
+  breadcrumbRoutes,
+} = Astro.props
 
 // Resolved once so the fallback `Header` below is rendered from exactly the
 // same values that are handed to `Base`. A page without its own description
@@ -55,11 +62,15 @@ const resolvedDescription = pageDescription || SITE_DESCRIPTION
       <article>
         <slot />
       </article>
-      <aside>
-        <slot name="sidebar" />
-        <Sidebar />
-        <slot name="sidebar-footer" />
-      </aside>
+      {
+        !hideSidebar && (
+          <aside>
+            <slot name="sidebar" />
+            <Sidebar />
+            <slot name="sidebar-footer" />
+          </aside>
+        )
+      }
     </section>
   </MainSection>
 </Base>
