@@ -118,7 +118,7 @@ roles is the smallest set that reads as deliberate.
 | Role        | Token                   | Applies to                                                        | Treatment                                  |
 | ----------- | ----------------------- | ----------------------------------------------------------------- | ------------------------------------------ |
 | **Display** | `--font-family-display` | `h1` through `h6`                                                 | Inter 600, negative tracking               |
-| **Body**    | `--font-family-sans`    | `body`, `p`, `li`, and everything inheriting from `body`          | System sans stack                          |
+| **Body**    | `--font-family-sans`    | `body`, `p`, `li`, and everything inheriting from `body`          | Plus Jakarta Sans 400                      |
 | **Mono**    | `--font-family-mono`    | `code`, `kbd`, `samp`, `[data-ui="eyebrow"]`, `[data-ui="label"]` | Uppercase, `0.12em` tracking, `--ink-soft` |
 
 Details worth knowing:

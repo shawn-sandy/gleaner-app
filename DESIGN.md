@@ -49,12 +49,12 @@ typography:
     fontWeight: 600
     letterSpacing: '-0.015em'
   deck:
-    fontFamily: 'ui-sans-serif, system-ui, -apple-system, sans-serif'
+    fontFamily: "'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif"
     fontSize: 'clamp(1.125rem, 0.9vw + 0.9rem, 1.5rem)'
     fontWeight: 400
     lineHeight: 1.5
   body:
-    fontFamily: 'ui-sans-serif, system-ui, -apple-system, sans-serif'
+    fontFamily: "'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif"
     fontSize: '1rem'
     fontWeight: 400
     lineHeight: 1.5
@@ -64,7 +64,7 @@ typography:
     fontWeight: 400
     letterSpacing: '0.12em'
   button:
-    fontFamily: 'ui-sans-serif, system-ui, -apple-system, sans-serif'
+    fontFamily: "'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif"
     fontSize: '0.9375rem'
     fontWeight: 600
   brand-display:
@@ -261,7 +261,7 @@ a needle rather than a brand flourish.
 
 The density is calm and generous. Content sits on an 80rem measure with real air around it, prose
 is capped at 60ch, and surfaces separate by tone and a single hairline rather than by shadow or
-ornament. Type does the structural work: one display face at one weight, the system sans for
+ornament. Type does the structural work: one display face at one weight, Plus Jakarta Sans for
 reading, and small mono capitals for anything that annotates rather than speaks. When a component
 needs to explain itself, it does so by standing next to the source that produced it — the
 instrument shows its reading and its calibration together.
@@ -426,16 +426,17 @@ the global token file only alongside a deliberate recompile of `index.css`.
 
 **Display Font:** Inter 600 (self-hosted, latin subset, single weight; falls back through the
 system sans)
-**Body Font:** System sans stack (`ui-sans-serif, system-ui, -apple-system, …`)
+**Body Font:** Plus Jakarta Sans 400 (`--font-family-sans`; falls back through the system sans
+stack `ui-sans-serif, system-ui, -apple-system, …`)
 **Label/Mono Font:** System mono stack (`ui-monospace, SFMono-Regular, Menlo, …`)
 **Gleaner Brand Font:** Plus Jakarta Sans, variable 200-800 (self-hosted single woff2, SIL OFL
-1.1, the wordmark's typeface; falls back to the display or sans stack)
+1.1, the wordmark's typeface). The same file sets body copy at 400 and the brand roles at 600-800.
 
 **Character:** Neutral and instrument-like. The display face is tight and confident — negative
-tracking, one weight, no italic — and the system sans underneath it is deliberately anonymous so
-that reading feels like reading rather than like being marketed to. The mono capitals are the
-system's annotation voice: everything that labels, measures, or points at something else speaks in
-them.
+tracking, one weight, no italic — and the body face underneath it is Plus Jakarta Sans, the
+wordmark's typeface at a reading weight, so body copy and the Gleaner brand share one voice. The
+mono capitals are the system's annotation voice: everything that labels, measures, or points at
+something else speaks in them.
 
 ### Hierarchy
 
@@ -480,8 +481,9 @@ them.
 - **Chip Mono** (mono 400, 0.8125rem, 1.4): The command and `--to` flag chips. The same size sets the
   sample clip's mono path in its caption and the destination paths, at 1.5.
 
-Body copy in the hero and the feature section stays on the system sans token, and mono stays on
-`--font-family-mono`; the brand face never sets reading text. The feature section's callout `h4`
+Body copy in the hero and the feature section takes the body token (`--font-family-sans`, Plus
+Jakarta Sans 400), and mono stays on `--font-family-mono`. The brand roles part from body copy by
+weight, size and colour, not by family. The feature section's callout `h4`
 titles (1.1875rem, 1.3) stay on the site display face. The feature design canvas's JetBrains Mono
 was deliberately not adopted: the site self-hosts its fonts and makes no font CDN request.
 
@@ -500,15 +502,14 @@ second network request; make that trade deliberately or not at all.
 titles. `h4`–`h6` are used as UI labels — the contact form renders its error summary as an `h6` —
 and capitalizing a sentence produces "Please Correct The Following Errors".
 
-**The Brand Face Rule.** Plus Jakarta Sans is the one deliberate exception to the Three Roles
-Rule, and it is scoped to brand moments: the nav brand, the hero headline, the hero install button,
-the saved clip title, and the homepage feature section's `h2` and `h3` headings and skill names. It
-never sets body copy, page headings on other routes, or labels. It ships
-as one variable woff2 covering 200-800, preloaded in `Base.astro` alongside the Inter display file,
-so the site now makes two font requests; the `@font-face` is declared in both `Navigation.astro` and
-`HomeHero.astro` against the same URL, which the browser fetches once. `HomeFeatures` and
-`SkillCard` declare no `@font-face` of their own and rely on the navigation's, which renders on
-every page.
+**The Brand Face Rule.** Plus Jakarta Sans does two jobs. At 400 it is the body face, the
+`--font-family-sans` token, so it sets reading text on every route. At 600-800 it is the Gleaner
+brand face, and that use is scoped to brand moments: the nav brand, the hero headline, the hero
+install button, the saved clip title, and the homepage feature section's `h2` and `h3` headings and
+skill names. Those are the only headings it sets; page headings on other routes stay on the Inter
+display face, and labels stay mono. It ships as one variable woff2 covering 200-800, declared once
+in `src/styles/_design-tokens.scss` and preloaded in `Base.astro` alongside the Inter display file,
+so the site makes two font requests in total.
 
 ## Layout
 
@@ -742,8 +743,8 @@ fallbacks alone.
   `src/styles/gleaner-palette.css`, import that stylesheet in any component that sets
   `data-gleaner`, and give components that read the palette a light-theme fallback for each
   property they read.
-- **Do** keep Plus Jakarta Sans to brand moments: nav brand, hero headline, hero CTA, clip title,
-  and the feature section's headings and skill names.
+- **Do** keep Plus Jakarta Sans headings to brand moments: nav brand, hero headline, hero CTA, clip
+  title, and the feature section's headings and skill names. Everywhere else it sets body copy only.
 
 ### Don't:
 
@@ -754,8 +755,8 @@ fallbacks alone.
 - **Don't** drift the accent toward violet, indigo, or Tailwind sky-500 — those are confirmed
   rejections, not untried options.
 - **Don't** put white text on the accent. Use Paper; white fails contrast in dark mode.
-- **Don't** add a shadow to a resting surface, or a further typeface beyond Inter and the scoped
-  Gleaner brand face, or a second Inter weight.
+- **Don't** add a shadow to a resting surface, or a further typeface beyond Inter and Plus Jakarta
+  Sans, or a second Inter weight.
 - **Don't** tune a Gleaner colour toward Harbour Teal or reuse `--island` inside the brand layer;
   the audit only catches exact matches.
 - **Don't** set copper as text anywhere but the "you" label, and don't use the string colour for
