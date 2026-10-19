@@ -34,11 +34,17 @@ describe('HomeFeatures', () => {
   it('states as many skills in the lede as it renders cards', async () => {
     const html = await render()
     const numbers = ['one', 'two', 'three', 'four', 'five', 'six']
+    // Only the lede's own text, so a count elsewhere in the section cannot stand in for it.
+    const lede =
+      /<div\b[^>]*class="[^"]*\bhome-features__lede\b[^"]*"[^>]*>([\s\S]*?)<\/div>/.exec(
+        html
+      )?.[1] ?? ''
     const stated = /\b(\d+|one|two|three|four|five|six)\s+skills\b/i.exec(
-      html.replace(/<[^>]*>/g, ' ')
+      lede.replace(/<[^>]*>/g, ' ')
     )?.[1]
     const cards = html.match(/<li\b[^>]*class="[^"]*\bskill-card\b(?!_)/g) ?? []
 
+    expect(lede, 'the lede did not render').not.toBe('')
     expect(stated, 'the lede no longer states how many skills there are').toBeDefined()
     expect(cards.length, 'no skill cards rendered').toBeGreaterThan(0)
     const count = Number(stated) || numbers.indexOf((stated as string).toLowerCase()) + 1
