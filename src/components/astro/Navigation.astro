@@ -111,6 +111,8 @@ const {
   {
     showBrand && (
       <a href={brandHref} data-nav-brand>
+        {/* Decorative: the link's name is the brand title beside it. */}
+        <img src="/images/gleaner-symbol.svg" alt="" width="44" height="44" />
         {brandTitle}
       </a>
     )
@@ -139,3 +141,56 @@ const {
 
   <slot name="login" />
 </nav>
+
+<style>
+  /* The brand face, set to match the wordmark's Plus Jakarta Sans SemiBold.
+     Declared here rather than in `_design-tokens.scss` because the committed
+     `index.css` is out of step with its SCSS source, so a recompile would ship
+     unrelated changes. Same declaration as `HomeHero.astro`; the browser fetches
+     the one URL once. */
+  @font-face {
+    font-display: swap;
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 200 800;
+    src: url('/fonts/plus-jakarta-sans-wght.woff2') format('woff2');
+  }
+
+  /* Layout and face only. Weight and underline stay in `_navigation.scss`, and
+     the text colour keeps inheriting the bar's, so it flips with the theme.
+     The symbol is a white hand on its own evergreen disc and reads on both. */
+  [data-nav-brand] {
+    align-items: center;
+    display: inline-flex;
+    font-family: 'Plus Jakarta Sans', var(--font-family-sans, sans-serif);
+    gap: 0.5rem;
+    letter-spacing: -0.01em;
+    min-height: 44px;
+  }
+
+  /* Large enough to read as the wordmark, with the 2em symbol matching the
+     44px menu toggle beside it. `[href]` lifts the size above the site's
+     `a[href]` link rule, which a lone attribute would lose to under Astro's
+     `:where()` scoping. */
+  [data-nav-brand][href] {
+    font-size: 1.375rem;
+  }
+
+  /* Below 360px the toggle, the brand and the account links only fit on one
+     bar with the brand at 1rem, so it returns to that size there rather than
+     widen the page (e2e: no horizontal overflow at 320px). */
+  @media (max-width: 22.5rem) {
+    [data-nav-brand][href] {
+      font-size: 1rem;
+    }
+  }
+
+  /* Twice the text height at any size, the proportion `gleaner-wordmark.svg`
+     draws the symbol and the name at. */
+  [data-nav-brand] img {
+    display: block;
+    flex: none;
+    height: 2em;
+    width: 2em;
+  }
+</style>

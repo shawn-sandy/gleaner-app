@@ -3,14 +3,15 @@ import Base from './Base.astro'
 import Header from '#components/astro/Header.astro'
 import Sidebar from '#components/astro/Sidebar.astro'
 import MainSection from '#components/astro/MainSection.astro'
+import { SITE_DESCRIPTION } from '#utils/site-config'
 const { pageTitle, pageDescription, pageImageUrl, hideHeader, showBreadcrumb, breadcrumbRoutes } =
   Astro.props
 
 // Resolved once so the fallback `Header` below is rendered from exactly the
-// same values that are handed to `Base`, keeping every non-homepage route
-// byte-identical to the header it rendered before the slot was forwarded.
+// same values that are handed to `Base`. A page without its own description
+// gets the site's, in the meta tag and the header subtitle alike.
 const resolvedTitle = pageTitle || 'Authentication'
-const resolvedDescription = pageDescription || 'Sign in to your account'
+const resolvedDescription = pageDescription || SITE_DESCRIPTION
 ---
 
 <Base

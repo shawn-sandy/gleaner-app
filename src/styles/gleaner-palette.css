@@ -1,0 +1,113 @@
+/*
+ * The Gleaner brand palette, drawn from the logo (evergreen #185C53, copper
+ * #C46B43), for any element marked `data-gleaner`: the homepage hero and the
+ * feature section below it. `--g-*` paints those sections' own surfaces, type
+ * and controls (`--g-band`, `--g-card`, `--g-chip` and `--g-marker-*` belong to
+ * `HomeFeatures`); `--glean-*` paints the string components (`GleanPart`,
+ * `SavedClip`), which carry light fallbacks so they still render on their own.
+ *
+ * Kept out of `_design-tokens.scss` on purpose: the committed `index.css` is
+ * out of step with its SCSS source, so a recompile would ship unrelated
+ * changes (DESIGN.md, "The Component-Scoped Palette Rule"). Imported by each
+ * component that sets `data-gleaner`; the browser loads it once.
+ *
+ * None of these values is the site's `--island` accent, so the homepage accent
+ * audit in `e2e/homepage-design-direction.spec.ts` still holds.
+ */
+[data-gleaner] {
+  /*
+   * Light palette. Contrast on the hero ground, measured: ink 13.24:1, muted
+   * 6.22:1, headline 7.29:1, white on the evergreen button 7.79:1, the copper
+   * string 3.55:1 (a graphic, so 3:1).
+   */
+  --g-ground: #f5f8f6;
+  --g-ink: #12302b;
+  --g-muted: #4a615c;
+  --g-headline: #185c53;
+  --g-button-bg: #185c53;
+  --g-button-ink: #fff;
+  --g-button-hover: #124a42;
+  --g-link: #185c53;
+  --g-code-bg: #e3efeb;
+  --g-code-ink: #185c53;
+  --g-band: #fff;
+  --g-card: #f5f8f6;
+  --g-chip: #e3efeb;
+  --g-marker-bg: #9a4a26;
+  --g-marker-ink: #fff;
+  --glean-string: #c46b43;
+  --glean-surface: #fff;
+  --glean-border: #d5e3de;
+  --glean-ink: #12302b;
+  --glean-you: #9a4a26;
+  --glean-reply: #185c53;
+  --glean-mark-bg: #fbede5;
+  --glean-mark-ink: #12302b;
+  --glean-mark-rule: #f1d9cb;
+  --glean-clip-bg: #185c53;
+  --glean-clip-ink: #fff;
+  --glean-clip-muted: #cfe5de;
+  --glean-clip-rule: #3e7a70;
+}
+
+/*
+ * Dark palette. Measured on the #0e1d1a hero ground: ink 14.76:1, muted
+ * 8.46:1, headline and link 10.93:1, button label 10.93:1, the string 6.42:1.
+ * The saved clip keeps its evergreen card, which reads on either ground.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) [data-gleaner] {
+    --g-ground: #0e1d1a;
+    --g-ink: #e4efeb;
+    --g-muted: #a3bab3;
+    --g-headline: #9ed9c8;
+    --g-button-bg: #9ed9c8;
+    --g-button-ink: #0e1d1a;
+    --g-button-hover: #b9e6d9;
+    --g-link: #9ed9c8;
+    --g-code-bg: #152b27;
+    --g-code-ink: #9ed9c8;
+    --g-band: #0e1d1a;
+    --g-card: #152b27;
+    --g-chip: #234240;
+    --g-marker-bg: #d98a62;
+    --g-marker-ink: #0e1d1a;
+    --glean-string: #d98a62;
+    --glean-surface: #152b27;
+    --glean-border: #2b4842;
+    --glean-ink: #e4efeb;
+    --glean-you: #eba67f;
+    --glean-reply: #9ed9c8;
+    --glean-mark-bg: #4b2d20;
+    --glean-mark-ink: #f7e6dc;
+    --glean-mark-rule: #6a4030;
+  }
+}
+
+/* The theme toggle, which must beat the OS preference in either direction. */
+:root[data-theme='dark'] [data-gleaner] {
+  --g-ground: #0e1d1a;
+  --g-ink: #e4efeb;
+  --g-muted: #a3bab3;
+  --g-headline: #9ed9c8;
+  --g-button-bg: #9ed9c8;
+  --g-button-ink: #0e1d1a;
+  --g-button-hover: #b9e6d9;
+  --g-link: #9ed9c8;
+  --g-code-bg: #152b27;
+  --g-code-ink: #9ed9c8;
+  --g-band: #0e1d1a;
+  --g-card: #152b27;
+  --g-chip: #234240;
+  --g-marker-bg: #d98a62;
+  --g-marker-ink: #0e1d1a;
+  --glean-string: #d98a62;
+  --glean-surface: #152b27;
+  --glean-border: #2b4842;
+  --glean-ink: #e4efeb;
+  --glean-you: #eba67f;
+  --glean-reply: #9ed9c8;
+  --glean-mark-bg: #4b2d20;
+  --glean-mark-ink: #f7e6dc;
+  --glean-mark-rule: #6a4030;
+}

@@ -1,3 +1,4 @@
+import { URL } from 'node:url'
 import { test, expect } from '@playwright/test'
 
 /**
@@ -196,7 +197,9 @@ test.describe('Homepage design direction', () => {
           body: getComputedStyle(document.body).backgroundColor,
           bodyText: getComputedStyle(document.body).color,
           header: bg('body > header'),
-          card: bg('[data-card]'),
+          // The homepage's card surface is the Gleaner ask card; the kit's
+          // `[data-card]` cards no longer render here.
+          card: bg('.glean-part__card'),
         }
       })
 
@@ -230,17 +233,20 @@ test.describe('Homepage design direction', () => {
     // a selector that stops matching -- e.g. if `Base.astro` ever wraps the
     // header slot in a container, breaking `body > header` -- would silently
     // remove that surface from the check while the test still passed on
-    // `[data-card]` alone.
+    // the card probe alone.
     expect(light.header, 'body > header matched nothing; update the selector').not.toBeNull()
-    expect(light.card, '[data-card] matched nothing; update the selector').not.toBeNull()
+    expect(light.card, '.glean-part__card matched nothing; update the selector').not.toBeNull()
     expect(dark.header, 'body > header matched nothing in dark; update the selector').not.toBeNull()
-    expect(dark.card, '[data-card] matched nothing in dark; update the selector').not.toBeNull()
+    expect(
+      dark.card,
+      '.glean-part__card matched nothing in dark; update the selector'
+    ).not.toBeNull()
 
     // At least one *painted element* — not just a `:root` variable — has to
     // respond, which is what the baseline failed to do.
     const painted = [
       ['body > header', light.header, dark.header],
-      ['[data-card]', light.card, dark.card],
+      ['.glean-part__card', light.card, dark.card],
     ].filter(([, l, d]) => l !== null && d !== null && l !== d)
 
     expect(
@@ -366,6 +372,24 @@ test.describe('Homepage design direction', () => {
     }
   })
 
+  // The fine print under the install commands is its own group: it must sit
+  // further from the install box than its two lines sit from each other. A
+  // `:first-of-type` selector meant to add that space never matched, because
+  // the eyebrow and deck paragraphs come first.
+  test("the hero's fine print sits apart from the install box", async ({ page }) => {
+    await page.goto('/')
+
+    const gaps = await page.evaluate(() => {
+      const install = document.querySelector('.home-hero__install') as HTMLElement
+      const [first, second] = [...document.querySelectorAll('.home-hero__fine')] as HTMLElement[]
+      const gap = (above: HTMLElement, below: HTMLElement) =>
+        below.getBoundingClientRect().top - above.getBoundingClientRect().bottom
+      return { fromInstall: gap(install, first), betweenLines: gap(first, second) }
+    })
+
+    expect(gaps.fromInstall).toBeGreaterThan(gaps.betweenLines)
+  })
+
   /**
    * Follows the hero's calls to action instead of only loading the homepage.
    *
@@ -387,6 +411,16 @@ test.describe('Homepage design direction', () => {
     expect(hrefs.length, 'hero should link somewhere').toBeGreaterThan(0)
 
     for (const href of hrefs) {
+      // A jump within the page already open (the hero's "/#how") fetches
+      // nothing, so `page.goto` returns null and there is no status to read.
+      // That link works when its target is on the page, so assert that.
+      const target = new URL(href, page.url())
+      const here = new URL(page.url())
+      if (target.hash && target.pathname === here.pathname && target.search === here.search) {
+        await expect(page.locator(target.hash), `${href} points at nothing`).toHaveCount(1)
+        continue
+      }
+
       const response = await page.goto(href)
       expect(response?.status(), `${href} should not be an error page`).toBeLessThan(400)
 

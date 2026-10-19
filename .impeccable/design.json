@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-07T00:00:00.000Z",
+  "generatedAt": "2026-10-18T00:00:00.000Z",
   "title": "Design System: Astro Kit",
   "extensions": {
     "colorMeta": {
@@ -175,12 +175,350 @@
           "#7bc5ff",
           "#a1eeff"
         ]
+      },
+      "gleaner-evergreen": {
+        "role": "secondary",
+        "displayName": "Evergreen",
+        "canonical": "oklch(43.1% 0.068 182.4)",
+        "darkValue": "#9ed9c8",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Hero headline, install button, link, reply. Saved clip card keeps #185c53 in both themes. Feature section titles, skill names, chip text and the usage-guide link.",
+        "tonalRamp": [
+          "#000f0c",
+          "#012b26",
+          "#014b43",
+          "#296a61",
+          "#4e8e83",
+          "#70b0a5",
+          "#95d6cb",
+          "#bcfef2"
+        ]
+      },
+      "gleaner-evergreen-deep": {
+        "role": "secondary",
+        "displayName": "Deep Evergreen",
+        "canonical": "oklch(37.1% 0.058 181.5)",
+        "darkValue": "#b9e6d9",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Install button hover.",
+        "tonalRamp": [
+          "#000f0c",
+          "#002b25",
+          "#124a42",
+          "#346960",
+          "#578c82",
+          "#78aea4",
+          "#9ed4ca",
+          "#c4fcf1"
+        ]
+      },
+      "gleaner-copper": {
+        "role": "secondary",
+        "displayName": "Copper",
+        "canonical": "oklch(62.2% 0.126 44.0)",
+        "darkValue": "#d98a62",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. The string and knot. Graphic only (3.55:1 light, 6.42:1 dark). Also the 2px string in the feature section's sample clip (measured against the clip card it sits on: 3.55:1 light, 5.52:1 dark).",
+        "tonalRamp": [
+          "#190400",
+          "#401400",
+          "#6c2700",
+          "#954115",
+          "#bd643c",
+          "#e2865e",
+          "#ffb392",
+          "#feeae1"
+        ]
+      },
+      "gleaner-copper-ink": {
+        "role": "secondary",
+        "displayName": "Copper Ink",
+        "canonical": "oklch(50.4% 0.118 43.3)",
+        "darkValue": "#eba67f",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. The 'you' label on an ask. 5.81:1 light, 7.32:1 dark on the feature section's skill card (measured). Its light value is also the marker fill.",
+        "tonalRamp": [
+          "#1a0400",
+          "#401400",
+          "#6c2701",
+          "#92431f",
+          "#ba6743",
+          "#df8864",
+          "#ffb293",
+          "#ffe9e1"
+        ]
+      },
+      "gleaner-ground": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "canonical": "oklch(97.6% 0.004 157.2)",
+        "darkValue": "#0e1d1a",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Hero band background.",
+        "tonalRamp": [
+          "#0a0c0a",
+          "#222523",
+          "#3e403f",
+          "#5c5e5d",
+          "#7e817f",
+          "#9fa2a0",
+          "#c5c8c6",
+          "#ecefed"
+        ]
+      },
+      "gleaner-ink": {
+        "role": "neutral",
+        "displayName": "Gleaner Ink",
+        "canonical": "oklch(28.4% 0.037 181.2)",
+        "darkValue": "#e4efeb",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss.",
+        "tonalRamp": [
+          "#000f0c",
+          "#0b2a25",
+          "#284641",
+          "#46655f",
+          "#688881",
+          "#89aaa3",
+          "#aed0c9",
+          "#d5f7f0"
+        ]
+      },
+      "gleaner-muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "oklch(47.2% 0.029 180.2)",
+        "darkValue": "#a3bab3",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss.",
+        "tonalRamp": [
+          "#000f0c",
+          "#132925",
+          "#2f4540",
+          "#4c635e",
+          "#6e8681",
+          "#8fa8a2",
+          "#b4cec8",
+          "#dbf5ef"
+        ]
+      },
+      "gleaner-mist": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "canonical": "oklch(94.2% 0.014 174.2)",
+        "darkValue": "#152b27",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Install-command panel.",
+        "tonalRamp": [
+          "#060d0b",
+          "#1d2623",
+          "#39423f",
+          "#56605d",
+          "#78837f",
+          "#99a4a1",
+          "#bfcac6",
+          "#e6f2ee"
+        ]
+      },
+      "gleaner-card": {
+        "role": "neutral",
+        "displayName": "Card",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "darkValue": "#152b27",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Ask cards on the string; also the button and clip label colour in light.",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a1a1a1",
+          "#c7c7c7",
+          "#eeeeee"
+        ]
+      },
+      "gleaner-card-border": {
+        "role": "neutral",
+        "displayName": "Card Border",
+        "canonical": "oklch(90.4% 0.016 172.6)",
+        "darkValue": "#2b4842",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Also the feature band's top border, card borders and hairlines.",
+        "tonalRamp": [
+          "#050d0a",
+          "#1c2723",
+          "#37433f",
+          "#55615d",
+          "#77847f",
+          "#98a5a0",
+          "#bdcbc6",
+          "#e4f2ed"
+        ]
+      },
+      "gleaner-mark": {
+        "role": "neutral",
+        "displayName": "Mark",
+        "canonical": "oklch(95.5% 0.019 52.0)",
+        "darkValue": "#4b2d20",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Highlight behind captured passages and tables.",
+        "tonalRamp": [
+          "#110905",
+          "#2c221c",
+          "#483d37",
+          "#675b54",
+          "#8a7d76",
+          "#ac9f97",
+          "#d2c4bd",
+          "#f9ebe3"
+        ]
+      },
+      "gleaner-mark-ink": {
+        "role": "neutral",
+        "displayName": "Mark Ink",
+        "canonical": "oklch(28.4% 0.037 181.2)",
+        "darkValue": "#f7e6dc",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss.",
+        "tonalRamp": [
+          "#000f0c",
+          "#0b2a25",
+          "#284641",
+          "#46655f",
+          "#688881",
+          "#89aaa3",
+          "#aed0c9",
+          "#d5f7f0"
+        ]
+      },
+      "gleaner-mark-rule": {
+        "role": "neutral",
+        "displayName": "Mark Rule",
+        "canonical": "oklch(90.1% 0.033 52.3)",
+        "darkValue": "#6a4030",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss.",
+        "tonalRamp": [
+          "#160701",
+          "#311f15",
+          "#4e3b30",
+          "#6d594d",
+          "#917b6f",
+          "#b39c8f",
+          "#d9c2b4",
+          "#feeade"
+        ]
+      },
+      "gleaner-clip-muted": {
+        "role": "neutral",
+        "displayName": "Clip Muted",
+        "canonical": "oklch(90.4% 0.025 174.7)",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Same in both themes.",
+        "tonalRamp": [
+          "#010f0a",
+          "#172823",
+          "#32443f",
+          "#4f625d",
+          "#71857f",
+          "#92a7a0",
+          "#b7cdc6",
+          "#def4ed"
+        ]
+      },
+      "gleaner-clip-rule": {
+        "role": "neutral",
+        "displayName": "Clip Rule",
+        "canonical": "oklch(53.6% 0.065 181.6)",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Same in both themes.",
+        "tonalRamp": [
+          "#000f0c",
+          "#002b26",
+          "#044b42",
+          "#2d6a60",
+          "#518d83",
+          "#73afa4",
+          "#98d6ca",
+          "#bffdf1"
+        ]
+      },
+      "gleaner-band": {
+        "role": "neutral",
+        "displayName": "Band",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "darkValue": "#0e1d1a",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Feature section background (--g-band). Lede 14.16:1 light, 14.76:1 dark; muted 6.65:1 light, 8.46:1 dark (measured).",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a1a1a1",
+          "#c7c7c7",
+          "#eeeeee"
+        ]
+      },
+      "gleaner-surface": {
+        "role": "neutral",
+        "displayName": "Feature Card",
+        "canonical": "oklch(97.6% 0.004 157.2)",
+        "darkValue": "#152b27",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Skill cards and the sample clip card (--g-card). Muted on it 6.22:1 light, 7.27:1 dark (measured).",
+        "tonalRamp": [
+          "#0a0c0a",
+          "#222523",
+          "#3e403f",
+          "#5c5e5d",
+          "#7e817f",
+          "#9fa2a0",
+          "#c5c8c6",
+          "#ecefed"
+        ]
+      },
+      "gleaner-chip": {
+        "role": "neutral",
+        "displayName": "Chip",
+        "canonical": "oklch(94.2% 0.014 174.2)",
+        "darkValue": "#234240",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Command and --to flag chips (--g-chip). Evergreen text on it 6.61:1 light, 6.86:1 dark (measured).",
+        "tonalRamp": [
+          "#060d0b",
+          "#1d2623",
+          "#39423f",
+          "#56605d",
+          "#78837f",
+          "#99a4a1",
+          "#bfcac6",
+          "#e6f2ee"
+        ]
+      },
+      "gleaner-marker": {
+        "role": "secondary",
+        "displayName": "Marker",
+        "canonical": "oklch(50.4% 0.118 43.3)",
+        "darkValue": "#d98a62",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Numbered clip markers (--g-marker-bg); dark uses the string copper. Fill against the clip card 5.81:1 light, 5.52:1 dark, a graphic (measured).",
+        "tonalRamp": [
+          "#1a0400",
+          "#401400",
+          "#6c2701",
+          "#92431f",
+          "#ba6743",
+          "#df8864",
+          "#ffb293",
+          "#ffe9e1"
+        ]
+      },
+      "gleaner-marker-ink": {
+        "role": "neutral",
+        "displayName": "Marker Ink",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "darkValue": "#0e1d1a",
+        "note": "Gleaner brand layer; scoped to [data-gleaner] in src/styles/gleaner-palette.css, not in _design-tokens.scss. Marker numeral (--g-marker-ink). 6.21:1 light, 6.42:1 dark (measured).",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a1a1a1",
+          "#c7c7c7",
+          "#eeeeee"
+        ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "The homepage hero h1 only. One knob drives display and deck together, pinning their ratio at 3.2 across every viewport width."
+        "purpose": "The instrument-palette display role. One knob drives display and deck together, pinning their ratio at 3.2 across every viewport width. The Gleaner homepage hero now uses brand-display instead."
       },
       "headline": {
         "displayName": "Headline",
@@ -205,6 +543,42 @@
       "button": {
         "displayName": "Button",
         "purpose": "Interactive control labels on the body sans at 0.9375rem/600 — neither the display face nor the mono label role."
+      },
+      "brand-display": {
+        "displayName": "Brand Display",
+        "purpose": "Gleaner hero headline in Plus Jakarta Sans 800, Evergreen. Deck derived as display / 3.4 (3.4 at 1280px, 3.0 at the floors)."
+      },
+      "brand-title": {
+        "displayName": "Brand Title",
+        "purpose": "Saved clip title in Plus Jakarta Sans 800. Keeps its saved case."
+      },
+      "brand-button": {
+        "displayName": "Brand Button",
+        "purpose": "Hero install button label in Plus Jakarta Sans 650."
+      },
+      "brand-nav": {
+        "displayName": "Brand Nav",
+        "purpose": "Site title beside the logo symbol in the nav, Plus Jakarta Sans 600 at 1.375rem (1rem at 360px and narrower) to match the wordmark; the 2em symbol stays twice its size."
+      },
+      "ask": {
+        "displayName": "Ask",
+        "purpose": "Mono plain-language ask and Gleaner reply inside a string card. Also the skill cards' Things to say lists."
+      },
+      "brand-section-title": {
+        "displayName": "Brand Section Title",
+        "purpose": "Feature section h2 in Plus Jakarta Sans 800, Evergreen, sentence case. Scales in container units against the band."
+      },
+      "brand-section-subtitle": {
+        "displayName": "Brand Section Subtitle",
+        "purpose": "Feature section h3 headings in Plus Jakarta Sans 800, Evergreen, sentence case."
+      },
+      "brand-skill-name": {
+        "displayName": "Brand Skill Name",
+        "purpose": "Skill name on a SkillCard in Plus Jakarta Sans 800; a command name, so lower case."
+      },
+      "chip-mono": {
+        "displayName": "Chip Mono",
+        "purpose": "Command and --to flag chips on --font-family-mono; the same 0.8125rem sets the clip caption path and destination paths at 1.5."
       }
     },
     "shadows": [
@@ -242,10 +616,40 @@
       }
     ],
     "breakpoints": [
-      { "name": "reflow-floor", "value": "320px" },
-      { "name": "nav-stack", "value": "580px" },
-      { "name": "hero-collapse", "value": "960px" },
-      { "name": "measure", "value": "1280px" }
+      {
+        "name": "reflow-floor",
+        "value": "320px"
+      },
+      {
+        "name": "nav-stack",
+        "value": "580px"
+      },
+      {
+        "name": "hero-collapse",
+        "value": "960px"
+      },
+      {
+        "name": "measure",
+        "value": "1280px"
+      },
+      {
+        "name": "gleaner-gutter-narrow",
+        "value": "480px"
+      }
+    ],
+    "fonts": [
+      {
+        "family": "Plus Jakarta Sans",
+        "file": "/fonts/plus-jakarta-sans-wght.woff2",
+        "weights": "200 800",
+        "license": "SIL OFL 1.1",
+        "preloaded": true,
+        "declaredIn": [
+          "src/components/astro/Navigation.astro",
+          "src/components/astro/HomeHero.astro"
+        ],
+        "scope": "Gleaner brand moments only: nav brand, hero headline, hero CTA, saved clip title, feature section h2/h3 headings and skill names."
+      }
     ]
   },
   "components": [
@@ -304,18 +708,67 @@
       "description": "The signature pattern: a rendered component and the source that produced it, shown as one framed object. Both are built from the same constants, so the snippet cannot drift from the component beside it. The code block squares its corners because it spans the frame edge-to-edge.",
       "html": "<figure class=\"ds-specimen\"><figcaption class=\"ds-specimen-label\">Rendered</figcaption><div class=\"ds-specimen-body\"><div class=\"ds-specimen-card\"><h3 class=\"ds-specimen-title\">Accessibility First</h3><p class=\"ds-specimen-text\">Screen-reader support, keyboard navigation and WCAG-compliant patterns, built in.</p></div></div><pre class=\"ds-specimen-code\"><code>import Card from '#components/astro/Card.astro'\n\n&lt;Card cardTitle=\"Accessibility First\"&gt;\n  &lt;p&gt;Screen-reader support, keyboard navigation.&lt;/p&gt;\n&lt;/Card&gt;</code></pre></figure>",
       "css": ".ds-specimen { background: var(--paper, #fcfcfd); border: 1px solid var(--rule, #dde1e6); border-radius: 8px; margin: 0; max-width: 26rem; overflow: hidden; } .ds-specimen-label { background: var(--paper-sunk, #f1f3f5); border-bottom: 1px solid var(--rule, #dde1e6); color: var(--ink-soft, #5a6472); font-family: var(--font-family-mono, ui-monospace, Menlo, monospace); font-size: 0.65625rem; letter-spacing: 0.12em; padding: 0.625rem 1rem; text-transform: uppercase; } .ds-specimen-body { padding: 1.5rem 1.25rem; } .ds-specimen-card { background: var(--paper-sunk, #f1f3f5); border: 1px solid var(--rule, #dde1e6); border-radius: 8px; padding: 1.25rem; } .ds-specimen-title { color: var(--ink, #101418); font-family: var(--font-family-display, system-ui, sans-serif); font-size: 1.125rem; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 0.5rem; } .ds-specimen-text { color: var(--ink-soft, #5a6472); font-family: var(--font-family-sans, system-ui, sans-serif); font-size: 0.9375rem; line-height: 1.5; margin: 0; } .ds-specimen-code { background: var(--paper-sunk, #f1f3f5); border-top: 1px solid var(--rule, #dde1e6); border-radius: 0; color: var(--ink-soft, #5a6472); font-family: var(--font-family-mono, ui-monospace, Menlo, monospace); font-size: 0.78125rem; line-height: 1.7; margin: 0; overflow-x: auto; padding: 1rem 1.25rem; white-space: pre; }"
+    },
+    {
+      "name": "Gleaner Install Button",
+      "kind": "button",
+      "refersTo": "gleaner-button",
+      "description": "The hero call to action: an Evergreen pill with a white Plus Jakarta Sans label and trailing arrow. Hover deepens the fill and underlines the label.",
+      "html": "<a class=\"ds-g-btn\" href=\"#\">Install Gleaner<svg aria-hidden=\"true\" viewBox=\"0 0 24 24\" width=\"18\" height=\"18\"><path d=\"M5 12h14M13 6l6 6-6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>",
+      "css": ".ds-g-btn { align-items: center; background: #185c53; border-radius: 999px; color: #fff; display: inline-flex; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 1.0625rem; font-weight: 650; gap: 0.625rem; min-height: 3.25rem; padding: 0 1.625rem; text-decoration: none; transition: background-color 150ms ease-out; } .ds-g-btn:hover { background: #124a42; text-decoration: underline; text-underline-offset: 3px; } .ds-g-btn:focus-visible { outline: 2px solid #185c53; outline-offset: 3px; }"
+    },
+    {
+      "name": "Glean Part",
+      "kind": "custom",
+      "refersTo": "glean-part-card",
+      "description": "One plain-language ask on the copper string: a 3px copper line with a two-bar wrap, and a white card holding the mono ask, captured content, and Gleaner's reply.",
+      "html": "<ol class=\"ds-g-thread\"><li class=\"ds-g-part\"><span class=\"ds-g-string\" aria-hidden=\"true\"></span><svg class=\"ds-g-wrap\" aria-hidden=\"true\" viewBox=\"0 0 24 16\"><path d=\"M2 4h20M2 12h20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3.5\" stroke-linecap=\"round\"/></svg><div class=\"ds-g-card\"><p class=\"ds-g-ask\"><span class=\"ds-g-you\">you</span>grab the part about animation lengths</p><p class=\"ds-g-passage\"><mark>Keep most UI transitions short: around 200 to 300 ms.</mark></p><p class=\"ds-g-reply\"><b>gleaner</b> Added part 1: animation lengths.</p></div></li></ol>",
+      "css": ".ds-g-thread { background: #f5f8f6; list-style: none; margin: 0; max-width: 32rem; padding: 1rem 1rem 1rem 3.5rem; } .ds-g-part { position: relative; } .ds-g-string { background: #c46b43; border-radius: 2px; bottom: 0; left: calc(-3.5rem + 1.375rem - 1.5px); position: absolute; top: 0; width: 3px; } .ds-g-wrap { color: #c46b43; height: 16px; left: calc(-3.5rem + 1.375rem - 12px); position: absolute; top: 1.375rem; width: 24px; } .ds-g-card { background: #fff; border: 1px solid #d5e3de; border-radius: 0.875rem; color: #12302b; padding: 1.125rem 1.25rem; } .ds-g-ask, .ds-g-reply { font-family: ui-monospace, Menlo, monospace; font-size: 0.875rem; line-height: 1.5; margin: 0; } .ds-g-you { color: #9a4a26; margin-inline-end: 1ch; } .ds-g-passage { font-family: system-ui, sans-serif; font-size: 1.0625rem; line-height: 1.5; margin: 0.875rem 0 0; } .ds-g-passage mark { background: #fbede5; border-radius: 0.25rem; color: #12302b; padding: 0.125rem 0.25rem; } .ds-g-reply { color: #185c53; font-size: 0.8125rem; margin-block-start: 0.75rem; }"
+    },
+    {
+      "name": "Saved Clip",
+      "kind": "card",
+      "refersTo": "saved-clip-card",
+      "description": "Where the string ties off in the logo's knot: a solid Evergreen card with the clip title in Plus Jakarta Sans, a summary, outlined pill tags, and the destination below a hairline.",
+      "html": "<div class=\"ds-g-clip\"><p class=\"ds-g-clip-label\">Saved</p><h3 class=\"ds-g-clip-title\">Motion timing guidelines</h3><p class=\"ds-g-clip-summary\">Two parts on picking durations by element size.</p><ul class=\"ds-g-clip-tags\"><li>#motion</li><li>#animation</li></ul><p class=\"ds-g-clip-dest\">Google Drive › Browser Research</p></div>",
+      "css": ".ds-g-clip { background: #185c53; border-radius: 1rem; color: #fff; max-width: 28rem; padding: 1.375rem 1.5rem 1.5rem; } .ds-g-clip-label, .ds-g-clip-tags li, .ds-g-clip-dest { font-family: ui-monospace, Menlo, monospace; } .ds-g-clip-label { color: #cfe5de; font-size: 0.75rem; letter-spacing: 0.08em; margin: 0; text-transform: uppercase; } .ds-g-clip-title { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin: 0.5rem 0 0; } .ds-g-clip-summary { color: #cfe5de; font-family: system-ui, sans-serif; margin: 0.5rem 0 0; } .ds-g-clip-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 1rem 0 0; padding: 0; } .ds-g-clip-tags li { border: 1px solid #cfe5de; border-radius: 999px; color: #cfe5de; font-size: 0.8125rem; padding: 0.25rem 0.75rem; } .ds-g-clip-dest { border-top: 1px solid #3e7a70; color: #cfe5de; font-size: 0.8125rem; margin: 1.125rem 0 0; padding-top: 0.875rem; }"
+    },
+    {
+      "name": "Skill Card",
+      "kind": "card",
+      "refersTo": "skill-card",
+      "description": "One Gleaner skill: the name in Plus Jakarta Sans, a mono command chip, a title, a muted description, and a Things to say list pinned to the foot.",
+      "html": "<ul class=\"ds-g-skills\"><li class=\"ds-g-skill\"><h3 class=\"ds-g-skill-name\">glean</h3><code class=\"ds-g-chip\">/gleaner:glean</code><p class=\"ds-g-skill-title\">Pages, parts and answers</p><p class=\"ds-g-skill-desc\">Save a whole page, collect passages from several tabs into one clip, or keep Claude's answer about the page.</p><ul class=\"ds-g-asks\" aria-label=\"Things to say\"><li><span class=\"ds-g-you\">you</span>save this page</li><li><span class=\"ds-g-you\">you</span>save that</li></ul></li></ul>",
+      "css": ".ds-g-skills { background: #fff; list-style: none; margin: 0; padding: 1.5rem; } .ds-g-skill { background: #f5f8f6; border: 1px solid #d5e3de; border-radius: 1rem; color: #12302b; display: flex; flex-direction: column; max-width: 22rem; padding: 1.75rem 1.75rem 1.5rem; } .ds-g-skill-name { color: #185c53; font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif; font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 0.625rem; } .ds-g-chip { align-self: flex-start; background: #e3efeb; border-radius: 999px; color: #185c53; font-family: ui-monospace, Menlo, monospace; font-size: 0.8125rem; line-height: 1.4; padding: 0.25rem 0.75rem; } .ds-g-skill-title { font-family: system-ui, sans-serif; font-size: 1.125rem; font-weight: 700; line-height: 1.4; margin: 1rem 0 0; } .ds-g-skill-desc { color: #4a615c; font-family: system-ui, sans-serif; line-height: 1.6; margin: 0.5rem 0 1.5rem; } .ds-g-asks { border-top: 1px solid #d5e3de; display: flex; flex-direction: column; font-family: ui-monospace, Menlo, monospace; font-size: 0.875rem; gap: 0.625rem; line-height: 1.5; list-style: none; margin: auto 0 0; padding: 1.25rem 0 0; } .ds-g-you { color: #9a4a26; margin-inline-end: 1ch; }"
+    },
+    {
+      "name": "Clip Anatomy",
+      "kind": "custom",
+      "refersTo": "clip-anatomy-card",
+      "description": "The sample clip as its Markdown file: numbered copper markers in a gutter, a 2px copper string linking marker 3 to the lines filed with it, Markdown syntax muted and aria-hidden.",
+      "html": "<figure class=\"ds-g-clip\"><figcaption><span class=\"ds-g-clip-label\">Example</span><span class=\"ds-g-clip-path\">AI &amp; Agents / 2026-10-16-organize-work-with-projects.md</span></figcaption><div class=\"ds-g-clip-body\"><div class=\"ds-g-line\"><span class=\"ds-g-marker\" aria-hidden=\"true\">3</span><span><span class=\"ds-g-syntax\" aria-hidden=\"true\">**</span><b>Category:</b><span class=\"ds-g-syntax\" aria-hidden=\"true\">**</span> AI &amp; Agents</span></div><div class=\"ds-g-line\"><span class=\"ds-g-gutter ds-g-string\" aria-hidden=\"true\"></span><span><span class=\"ds-g-syntax\" aria-hidden=\"true\">**</span><b>Type:</b><span class=\"ds-g-syntax\" aria-hidden=\"true\">**</span> docs</span></div><div class=\"ds-g-line\"><span class=\"ds-g-gutter ds-g-string ds-g-end\" aria-hidden=\"true\"></span><span><span class=\"ds-g-syntax\" aria-hidden=\"true\">**</span><b>Tags:</b><span class=\"ds-g-syntax\" aria-hidden=\"true\">**</span> #cowork #claude-projects</span></div><div class=\"ds-g-line\"><span class=\"ds-g-marker\" aria-hidden=\"true\">4</span><span><span class=\"ds-g-syntax\" aria-hidden=\"true\">**</span><b>Note:</b><span class=\"ds-g-syntax\" aria-hidden=\"true\">**</span> <mark>setting up page clipping</mark></span></div></div></figure>",
+      "css": ".ds-g-clip { background: #f5f8f6; border: 1px solid #d5e3de; border-radius: 1rem; color: #12302b; margin: 0; max-width: 42.5rem; overflow: hidden; } .ds-g-clip figcaption { align-items: center; border-bottom: 1px solid #d5e3de; display: flex; flex-wrap: wrap; gap: 0.375rem 1rem; justify-content: space-between; padding: 0.75rem 1.25rem; } .ds-g-clip-label { color: #4a615c; font-family: system-ui, sans-serif; font-size: 0.8125rem; font-weight: 600; } .ds-g-clip-path { font-family: ui-monospace, Menlo, monospace; font-size: 0.8125rem; line-height: 1.5; overflow-wrap: anywhere; } .ds-g-clip-body { display: flex; flex-direction: column; font-family: ui-monospace, Menlo, monospace; font-size: 0.875rem; line-height: 1.5rem; padding: 1.25rem 1.5rem 1.5rem 1rem; } .ds-g-line { align-items: flex-start; display: flex; gap: 0.75rem; } .ds-g-line b { font-weight: 500; } .ds-g-gutter { align-self: stretch; flex: none; width: 1.375rem; } .ds-g-string { background: linear-gradient(#c46b43, #c46b43) center / 2px 100% no-repeat; } .ds-g-end { background-position: center top; background-size: 2px calc(100% - 0.375rem); } .ds-g-marker { background: #9a4a26; border-radius: 999px; color: #fff; flex: none; font-size: 0.75rem; height: 1.375rem; line-height: 1.375rem; margin-top: 1px; text-align: center; width: 1.375rem; } .ds-g-syntax { color: #4a615c; } .ds-g-clip mark { background: #fbede5; border-radius: 0.25rem; color: #12302b; padding: 1px 0.25rem; }"
+    },
+    {
+      "name": "Destination Card",
+      "kind": "card",
+      "refersTo": "destination-card",
+      "description": "One save destination on the feature band: a bold name, its mono path, and a --to flag chip pinned to the foot.",
+      "html": "<ul class=\"ds-g-places\"><li><strong>Google Drive</strong><span class=\"ds-g-where\"><span>Browser Research/</span><span>&lt;category&gt;/</span></span><code class=\"ds-g-flag\">--to drive</code></li></ul>",
+      "css": ".ds-g-places { background: #fff; color: #12302b; display: flex; font-family: system-ui, sans-serif; list-style: none; margin: 0; padding: 1.5rem; } .ds-g-places li { border: 1px solid #d5e3de; border-radius: 0.875rem; display: flex; flex: 0 1 14rem; flex-direction: column; gap: 0.5rem; padding: 1.25rem; } .ds-g-places strong { font-size: 1.0625rem; font-weight: 700; line-height: 1.3; } .ds-g-where { color: #4a615c; font-family: ui-monospace, Menlo, monospace; font-size: 0.8125rem; line-height: 1.5; } .ds-g-where span { display: inline-block; } .ds-g-flag { align-self: flex-start; background: #e3efeb; border-radius: 999px; color: #185c53; font-family: ui-monospace, Menlo, monospace; font-size: 0.8125rem; line-height: 1.4; margin-top: auto; padding: 0.25rem 0.75rem; }"
     }
   ],
   "narrative": {
     "northStar": "The Instrument Reading",
-    "overview": "Astro Kit looks like the face of a measuring instrument. The ground is neutral and quiet, the scale is precise and legible at a glance, and exactly one thing on the dial is lit. Nothing is decorated for its own sake; every mark on the surface is there because it reports something. The palette's own token names say it out loud — ink, paper, island — and the accent behaves like a needle rather than a brand flourish.\n\nThe density is calm and generous. Content sits on an 80rem measure with real air around it, prose is capped at 60ch, and surfaces separate by tone and a single hairline rather than by shadow or ornament. Type does the structural work: one display face at one weight, the system sans for reading, and small mono capitals for anything that annotates rather than speaks. When a component needs to explain itself, it does so by standing next to the source that produced it — the instrument shows its reading and its calibration together.\n\nWhat makes the system unusual is that its central rule is enforced by tests rather than taste. Colour marks hydration: static content is ink on paper, and the accent appears only on things a visitor can operate. e2e/homepage-design-direction.spec.ts walks the rendered homepage and fails the build if a non-interactive element computes to the accent, and e2e/home-accessibility.spec.ts asserts the 4.5:1 contrast floor against the tokens the page actually resolves. Breaking the direction is a build failure, not a disagreement. Confirmed rejections: the violet/indigo family every generated palette converges on, and stock Tailwind sky-500 — the accent is deliberately neither.",
+    "overview": "Astro Kit looks like the face of a measuring instrument. The ground is neutral and quiet, the scale is precise and legible at a glance, and exactly one thing on the dial is lit. Nothing is decorated for its own sake; every mark on the surface is there because it reports something. The palette's own token names say it out loud — ink, paper, island — and the accent behaves like a needle rather than a brand flourish.\n\nThe density is calm and generous. Content sits on an 80rem measure with real air around it, prose is capped at 60ch, and surfaces separate by tone and a single hairline rather than by shadow or ornament. Type does the structural work: one display face at one weight, the system sans for reading, and small mono capitals for anything that annotates rather than speaks. When a component needs to explain itself, it does so by standing next to the source that produced it — the instrument shows its reading and its calibration together.\n\nWhat makes the system unusual is that its central rule is enforced by tests rather than taste. Colour marks hydration: static content is ink on paper, and the accent appears only on things a visitor can operate. e2e/homepage-design-direction.spec.ts walks the rendered homepage and fails the build if a non-interactive element computes to the accent, and e2e/home-accessibility.spec.ts asserts the 4.5:1 contrast floor against the tokens the page actually resolves. Breaking the direction is a build failure, not a disagreement. Confirmed rejections: the violet/indigo family every generated palette converges on, and stock Tailwind sky-500 — the accent is deliberately neither.\n\nThe site is being rebranded to Gleaner, and the rebrand arrives as a scoped brand layer rather than a replacement. The homepage hero, the navigation brand link, the hero's example thread, and the homepage feature section below the hero paint in the Gleaner logo's own colours (an evergreen disc and a copper string) and set their display moments in the wordmark's typeface. The homepage's latest-posts list and every other route still paint with the instrument palette above. The two layers never share a colour, which is what keeps the accent audit meaningful.",
     "keyCharacteristics": [
       "One lit indicator: the accent is a signal, never decoration",
       "Ink-on-paper neutrals with tonal layering instead of shadow",
       "Three type roles and no fourth",
       "Small mono capitals for every annotation and label",
       "Measured, not estimated — contrast ratios are recorded and asserted",
-      "The rendered artifact and its source shown together"
+      "The rendered artifact and its source shown together",
+      "A scoped Gleaner brand layer (evergreen, copper, Plus Jakarta Sans) that never touches the accent"
     ],
     "rules": [
       {
@@ -367,6 +820,21 @@
         "name": "The Squared-Insert Rule",
         "body": "An element that spans its container edge-to-edge drops its own radius to zero and separates with a hairline instead. The code block inside a specimen card is the canonical case: it runs the full card width, so a rounded corner inside a rounded corner would read as a mistake.",
         "section": "shapes"
+      },
+      {
+        "name": "The Separate Hue Rule",
+        "body": "No Gleaner colour equals the site's --island accent, in either theme. The accent audit in e2e/homepage-design-direction.spec.ts compares each element's computed colour, background, border, and outline to the resolved --island; because the Gleaner layer paints the hero headline and cards in evergreen (hue 182 in OKLCH, computed for this document) rather than in Harbour Teal (hue 215), the homepage audit still passes with the hero and the feature section in place; the accent tests were re-run in light and dark after the feature section shipped. The audit is an exact match, so it would not catch a near-miss: keep the brand layer on its own hue family, never tuned toward the accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Component-Scoped Palette Rule",
+        "body": "The Gleaner colours live as custom properties on any element marked data-gleaner (--g-* for the sections' own surfaces, type, and controls, --glean-* for the string components), set in one shared stylesheet, src/styles/gleaner-palette.css, not in src/styles/_design-tokens.scss. This is a deliberate, recorded compromise: the committed src/styles/index.css is out of sync with its SCSS source, so recompiling it to add global tokens would ship unrelated changes. The stylesheet sets the light values on [data-gleaner] and flips them in both dark scopes (prefers-color-scheme: dark under :root:not([data-theme='light']), and :root[data-theme='dark']), honouring the Three Scopes Rule. Each component that sets data-gleaner (HomeHero, HomeFeatures) imports the stylesheet itself, and the browser loads it once; components that read the palette from inside one (GleanPart, SavedClip, SkillCard) carry light-theme fallbacks for every property they read. Promote these to the global token file only alongside a deliberate recompile of index.css.",
+        "section": "colors"
+      },
+      {
+        "name": "The Brand Face Rule",
+        "body": "Plus Jakarta Sans is the one deliberate exception to the Three Roles Rule, and it is scoped to brand moments: the nav brand, the hero headline, the hero install button, the saved clip title, and the homepage feature section's h2 and h3 headings and skill names. It never sets body copy, page headings on other routes, or labels. It ships as one variable woff2 covering 200-800, preloaded in Base.astro alongside the Inter display file, so the site now makes two font requests; the @font-face is declared in both Navigation.astro and HomeHero.astro against the same URL, which the browser fetches once. HomeFeatures and SkillCard declare no @font-face of their own and rely on the navigation's, which renders on every page.",
+        "section": "typography"
       }
     ],
     "dos": [
@@ -377,14 +845,20 @@
       "Do put annotations, eyebrows, and captions in mono capitals via data-ui=\"eyebrow\" or data-ui=\"label\" rather than styling them ad hoc.",
       "Do let long content scroll inside its own box; check 320px before shipping.",
       "Do pair a rendered component with the source that produced it, built from shared constants.",
-      "Do re-measure contrast when repointing a token — the recorded ratios are a budget, not a decoration."
+      "Do re-measure contrast when repointing a token — the recorded ratios are a budget, not a decoration.",
+      "Do keep the Gleaner colours on their own evergreen and copper hues, and confirm the homepage accent audit still passes after any change to them.",
+      "Do set new --g-* and --glean-* values in all three theming scopes in src/styles/gleaner-palette.css, import that stylesheet in any component that sets data-gleaner, and give components that read the palette a light-theme fallback for each property they read.",
+      "Do keep Plus Jakarta Sans to brand moments: nav brand, hero headline, hero CTA, clip title, and the feature section's headings and skill names."
     ],
     "donts": [
       "Don't put the accent on a heading, a decorative border, a hairline, or a card surface. The test will catch it, and it is the one rule the whole system rests on.",
       "Don't reach for the legacy --color-primary-* sky-blue or --color-neutral-* greys in new work; they exist only for backward compatibility.",
       "Don't drift the accent toward violet, indigo, or Tailwind sky-500 — those are confirmed rejections, not untried options.",
       "Don't put white text on the accent. Use Paper; white fails contrast in dark mode.",
-      "Don't add a shadow to a resting surface, or a second typeface, or a second display weight.",
+      "Don't add a shadow to a resting surface, or a further typeface beyond Inter and the scoped Gleaner brand face, or a second Inter weight.",
+      "Don't tune a Gleaner colour toward Harbour Teal or reuse --island inside the brand layer; the audit only catches exact matches.",
+      "Don't set copper as text anywhere but the \"you\" label, and don't use the string colour for type; it is measured as a graphic.",
+      "Don't move the Gleaner palette into _design-tokens.scss without deliberately recompiling and reviewing index.css.",
       "Don't bake page-specific margin into a reusable component.",
       "Don't apply text-transform: capitalize to h4–h6; they carry sentence-cased UI labels.",
       "Don't style navigation state against [aria-expanded] — it is an implicit accessibility-tree mapping on a popover invoker, not a DOM attribute, and never matches."

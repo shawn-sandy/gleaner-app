@@ -1,0 +1,169 @@
+---
+/**
+ * The clip at the end of the hero's copper string: the string ties off in the
+ * logo's knot and the card shows what Gleaner saved (title, summary, tags and
+ * where it was filed).
+ *
+ * Renders an `<li>`, so it must be the last item of the list its `GleanPart`s
+ * sit in. Its string reaches up across `--glean-gap` to meet the part above.
+ * Colours come from `--glean-*` custom properties with light-theme fallbacks;
+ * `src/styles/gleaner-palette.css` sets both themes. The title is set in the brand face, whose
+ * `@font-face` the hero and the nav declare; alone it falls back to the
+ * display stack.
+ *
+ * @component SavedClip
+ * @example
+ * ```astro
+ * <ol style="--glean-gutter: 3.5rem; --glean-gap: 1.25rem">
+ *   <GleanPart ask="save this page" />
+ *   <SavedClip
+ *     title="Motion timing guidelines"
+ *     summary="Two parts on picking durations by element size."
+ *     tags={['#motion', '#animation']}
+ *     destination="Google Drive › Browser Research / Design Engineering"
+ *   />
+ * </ol>
+ * ```
+ */
+export type Props = {
+  /** Clip title, rendered as an `h3` under the hero's example `h2`. */
+  title: string
+  /** One-line summary of what was saved. */
+  summary: string
+  /** Tags as written, including the leading `#`. */
+  tags: string[]
+  /** Where the clip was filed, for example "Notion › Design research". */
+  destination: string
+}
+
+const { title, summary, tags, destination } = Astro.props
+---
+
+<li class="saved-clip">
+  <span class="saved-clip__string" aria-hidden="true"></span>
+  <!-- The knot from public/images/gleaner-symbol.svg, in the same coordinates. -->
+  <svg class="saved-clip__bow" aria-hidden="true" viewBox="276 88 130 76" focusable="false">
+    <g fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round">
+      <path d="M283 108h67"></path>
+      <path stroke-linecap="round" d="M305 124h45l23-24q16-12 22 3 7 17-13 24h-29l35 31"></path>
+    </g>
+  </svg>
+  <div class="saved-clip__card">
+    <p class="saved-clip__label">Saved</p>
+    <h3 class="saved-clip__title">{title}</h3>
+    <p class="saved-clip__summary">{summary}</p>
+    <ul class="saved-clip__tags" aria-label="Tags">
+      {tags.map(tag => <li>{tag}</li>)}
+    </ul>
+    <p class="saved-clip__destination">{destination}</p>
+  </div>
+</li>
+
+<style>
+  .saved-clip {
+    /* Same string centre as `GleanPart`, so the two line up. */
+    --glean-x: calc(var(--glean-gutter, 3.5rem) * -1 + 1.375rem);
+
+    /* Clears the @fpkit/acss `li` marker indent, as `GleanPart` does. */
+    margin: 0;
+    padding-inline-start: 0;
+    position: relative;
+  }
+
+  /* Comes down from the part above and stops at the knot. */
+  .saved-clip__string {
+    background: var(--glean-string, #c46b43);
+    border-radius: 2px;
+    height: calc(var(--glean-gap, 1.25rem) + 1.75rem);
+    left: calc(var(--glean-x) - 1.5px);
+    position: absolute;
+    top: calc(var(--glean-gap, 1.25rem) * -1);
+    width: 3px;
+  }
+
+  /* 18.5px is where the knot's wrap sits inside the 60px-wide drawing. */
+  .saved-clip__bow {
+    color: var(--glean-string, #c46b43);
+    height: 35px;
+    left: calc(var(--glean-x) - 18.5px);
+    position: absolute;
+    top: 1.125rem;
+    width: 60px;
+  }
+
+  .saved-clip__card {
+    background: var(--glean-clip-bg, #185c53);
+    border-radius: 1rem;
+    color: var(--glean-clip-ink, #fff);
+    padding: 1.375rem 1.5rem 1.5rem;
+  }
+
+  .saved-clip__label,
+  .saved-clip__tags li,
+  .saved-clip__destination {
+    font-family: var(--font-family-mono, ui-monospace, monospace);
+  }
+
+  .saved-clip__label {
+    color: var(--glean-clip-muted, #cfe5de);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .saved-clip__title {
+    color: var(--glean-clip-ink, #fff);
+    font-family: 'Plus Jakarta Sans', var(--font-family-display, sans-serif);
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0.5rem 0 0;
+
+    /* The site capitalises every h3; a clip title keeps the case it was saved in. */
+    text-transform: none;
+  }
+
+  .saved-clip__summary {
+    color: var(--glean-clip-muted, #cfe5de);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0.5rem 0 0;
+    max-width: none;
+  }
+
+  .saved-clip__tags {
+    display: flex;
+
+    /* @fpkit/acss stacks every list in a column; tags sit in a row. */
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+  }
+
+  /* `margin: 0` clears the @fpkit/acss `li` margin, which every pill but the
+     last kept, so the last one stretched taller than the rest. */
+  .saved-clip__tags li {
+    border: 1px solid var(--glean-clip-muted, #cfe5de);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0.25rem 0.75rem;
+  }
+
+  .saved-clip__destination {
+    border-block-start: 1px solid var(--glean-clip-rule, #3e7a70);
+    color: var(--glean-clip-muted, #cfe5de);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    margin: 1.125rem 0 0;
+    max-width: none;
+    padding-block-start: 0.875rem;
+  }
+</style>

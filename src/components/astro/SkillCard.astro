@@ -1,0 +1,142 @@
+---
+/**
+ * One Gleaner skill as a card: its name, the `/gleaner:<name>` command that
+ * calls it in Claude Code, what it is for, and a few things to say to it.
+ *
+ * Renders an `<li>`, so it belongs in a `<ul>`. Colours come from the
+ * `[data-gleaner]` palette (`src/styles/gleaner-palette.css`) with light
+ * fallbacks. The name is set in Plus Jakarta Sans, whose `@font-face` the
+ * navigation declares on every page.
+ *
+ * @component SkillCard
+ * @example
+ * ```astro
+ * <ul>
+ *   <SkillCard
+ *     name="glean"
+ *     title="Pages, parts and answers"
+ *     description="Save a whole page or just the parts that matter."
+ *     asks={['save this page', 'save that']}
+ *   />
+ * </ul>
+ * ```
+ */
+export type Props = {
+  /** Skill name, which is also the command after `/gleaner:`. */
+  name: string
+  /** One line on what the skill keeps. */
+  title: string
+  /** A sentence or two on how it works. */
+  description: string
+  /** Plain-language requests, shown after "you". */
+  asks: string[]
+}
+
+const { name, title, description, asks } = Astro.props
+---
+
+<li class="skill-card">
+  <div class="skill-card__head">
+    <h3 class="skill-card__name">{name}</h3>
+    <code class="skill-card__command">/gleaner:{name}</code>
+  </div>
+  <p class="skill-card__title">{title}</p>
+  <p class="skill-card__description">{description}</p>
+  <ul class="skill-card__asks" aria-label="Things to say">
+    {
+      asks.map(ask => (
+        <li>
+          <span class="skill-card__you">you</span>
+          {ask}
+        </li>
+      ))
+    }
+  </ul>
+</li>
+
+<style>
+  /* Two classes throughout: Astro scopes with `:where()`, so a lone class
+     would lose to the site's own heading, code and list rules. */
+  .skill-card {
+    background: var(--g-card, #f5f8f6);
+    border: 1px solid var(--glean-border, #d5e3de);
+    border-radius: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 20rem;
+    flex-direction: column;
+    min-width: 0;
+    padding: 1.75rem 1.75rem 1.5rem;
+  }
+
+  .skill-card .skill-card__head {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .skill-card .skill-card__name {
+    color: var(--g-headline, #185c53);
+    font-family: 'Plus Jakarta Sans', var(--font-family-display, sans-serif);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0;
+
+    /* A command name, so it keeps its lower case. */
+    text-transform: none;
+  }
+
+  .skill-card .skill-card__command {
+    background: var(--g-chip, #e3efeb);
+    border-radius: 999px;
+    color: var(--g-headline, #185c53);
+    font-family: var(--font-family-mono, ui-monospace, monospace);
+    font-size: 0.8125rem;
+    letter-spacing: normal;
+    line-height: 1.4;
+    padding: 0.25rem 0.75rem;
+    text-transform: none;
+  }
+
+  .skill-card .skill-card__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 1rem 0 0;
+  }
+
+  .skill-card .skill-card__description {
+    color: var(--g-muted, #4a615c);
+    line-height: 1.6;
+    margin: 0.5rem 0 1.5rem;
+    max-width: none;
+  }
+
+  /* Pinned to the card's foot, so the three cards' phrase lists line up. */
+  .skill-card .skill-card__asks {
+    border-block-start: 1px solid var(--glean-border, #d5e3de);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family-mono, ui-monospace, monospace);
+    font-size: 0.875rem;
+    gap: 0.625rem;
+    line-height: 1.5;
+    list-style: none;
+    margin: auto 0 0;
+    padding: 1.25rem 0 0;
+  }
+
+  /* The gap spaces the lines; clear the @fpkit/acss `li` margin and indent. */
+  .skill-card .skill-card__asks li {
+    margin: 0;
+    padding-inline-start: 0;
+  }
+
+  .skill-card .skill-card__you {
+    color: var(--glean-you, #9a4a26);
+    margin-inline-end: 1ch;
+  }
+</style>
