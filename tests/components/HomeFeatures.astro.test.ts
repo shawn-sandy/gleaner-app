@@ -34,14 +34,15 @@ describe('HomeFeatures', () => {
   it('states as many skills in the lede as it renders cards', async () => {
     const html = await render()
     const numbers = ['one', 'two', 'three', 'four', 'five', 'six']
-    const stated = /\b(one|two|three|four|five|six)\s+skills\b/i.exec(
+    const stated = /\b(\d+|one|two|three|four|five|six)\s+skills\b/i.exec(
       html.replace(/<[^>]*>/g, ' ')
     )?.[1]
     const cards = html.match(/<li\b[^>]*class="[^"]*\bskill-card\b(?!_)/g) ?? []
 
     expect(stated, 'the lede no longer states how many skills there are').toBeDefined()
     expect(cards.length, 'no skill cards rendered').toBeGreaterThan(0)
-    expect(numbers.indexOf((stated as string).toLowerCase()) + 1).toBe(cards.length)
+    const count = Number(stated) || numbers.indexOf((stated as string).toLowerCase()) + 1
+    expect(count).toBe(cards.length)
   })
 
   it('hides the numbered markers from screen readers, leaving the meaning to the list', async () => {
