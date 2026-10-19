@@ -160,6 +160,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     sidebar
   - The columns stack once two 22rem cards no longer fit; the Claude Code commands wrap rather than
     scroll at phone width
+  - Only the cards set `data-gleaner`. The "Quick install" heading and intro stay on the site's
+    Inter heading and colours, so the homepage keeps the display-role heading that
+    `e2e/homepage-design-direction.spec.ts` checks now that "Latest posts" is gone
   - Code on the cards sits on `--g-chip`, as the skill cards' command pills do: the dark palette's
     `--g-code-bg` is the card's own colour, so code lost its surface there
   - `tests/components/HomeInstall.astro.test.ts` guards the heading order and catches Astro dropping

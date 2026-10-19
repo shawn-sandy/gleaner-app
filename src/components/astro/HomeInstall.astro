@@ -4,8 +4,10 @@
  * ChatGPT, collapsing to one column on narrow screens.
  *
  * Steps follow the Gleaner README's Install section (Claude) and its
- * `docs/chatgpt-marketplace.md` (ChatGPT). Sets `data-gleaner` itself, so it
- * paints the Gleaner palette wherever it is used.
+ * `docs/chatgpt-marketplace.md` (ChatGPT). The cards set `data-gleaner`, so
+ * they paint the Gleaner palette wherever they are used. The heading and intro
+ * stay outside it, on the site's own type and colours: they are the homepage's
+ * one display-role heading (`e2e/homepage-design-direction.spec.ts`).
  *
  * @component HomeInstall
  * @example
@@ -23,7 +25,7 @@ export type Props = Record<string, never>
 const repo = 'https://github.com/shawn-sandy/gleaner'
 ---
 
-<section class="home-install" data-gleaner aria-labelledby="home-install-title">
+<section class="home-install" aria-labelledby="home-install-title">
   <div class="home-install__head">
     <h2 class="home-install__title" id="home-install-title">Quick install</h2>
     <p class="home-install__lede">
@@ -33,7 +35,7 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
     </p>
   </div>
 
-  <div class="home-install__cols">
+  <div class="home-install__cols" data-gleaner>
     <div class="home-install__card">
       <h3 class="home-install__name">Claude</h3>
       <p class="home-install__where">Chrome side panel, Cowork and Claude Code</p>
@@ -90,7 +92,6 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
   /* Two classes throughout: Astro scopes with `:where()`, so a lone class
      would lose to the site's own heading, list, code and link rules. */
   .home-install {
-    color: var(--g-ink, #12302b);
     display: flex;
     flex-direction: column;
     font-family: var(--font-family-sans, sans-serif);
@@ -102,12 +103,10 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
     max-width: 40rem;
   }
 
+  /* Outside `[data-gleaner]`, so the face, weight and colour are the site's
+     heading rules; only the size and case are set here. */
   .home-install .home-install__title {
-    color: var(--g-headline, #185c53);
-    font-family: 'Plus Jakarta Sans', var(--font-family-display, sans-serif);
     font-size: clamp(1.625rem, 4vw, 2.125rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
     line-height: 1.15;
     margin: 0;
 
@@ -116,7 +115,6 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
   }
 
   .home-install .home-install__lede {
-    color: var(--g-muted, #4a615c);
     font-size: 1.0625rem;
     line-height: 1.6;
     margin: 0.75rem 0 0;
@@ -125,6 +123,7 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
 
   /* Two columns while each can keep 22rem, one below that. */
   .home-install .home-install__cols {
+    color: var(--g-ink, #12302b);
     display: grid;
     gap: 1.5rem;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
@@ -172,8 +171,9 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
   }
 
   /* `--g-chip`, not `--g-code-bg`: in the dark palette the code background is
-     the card's own colour, so code on a card lost its surface. */
-  .home-install code {
+     the card's own colour, so code on a card lost its surface. Scoped to the
+     cards; the intro's code is outside the palette and keeps the site's. */
+  .home-install .home-install__cols code {
     background: var(--g-chip, #e3efeb);
     border-radius: 0.375rem;
     color: var(--g-code-ink, #185c53);
