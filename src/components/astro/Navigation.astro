@@ -232,6 +232,19 @@ const {
     }
   }
 
+  /* The login slot (theme toggle, then Clerk's sign-in or account button)
+     takes acss's 1rem list and 0.75rem item padding, both read from
+     `--nav-padding-inline`. Beside a signed-out visitor's "Sign in" button
+     that padding pushed the bar 27px past a 320px screen and 7px past 375px.
+     Set on the list rather than the bar, which reads the same property for
+     its own edges. `:global` because the list is slotted in from
+     `Base.astro`, so it carries none of this component's scope. */
+  @media (max-width: 30rem) {
+    [data-site-nav] > :global(ul) {
+      --nav-padding-inline: 0.25rem;
+    }
+  }
+
   /* Twice the text height at any size, the proportion `gleaner-wordmark.svg`
      draws the symbol and the name at. */
   [data-nav-brand] img {

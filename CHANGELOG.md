@@ -167,6 +167,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Homepage feature section: the follow-up skill** (`src/components/astro/HomeFeatures.astro`): a
+  fourth card for `follow-up`, the skill upstream Gleaner added, and the intro now says "four
+  skills"
+  - The card's title, description and asks follow the Gleaner README and skills README; the asks
+    are the README's own examples, word for word, like the other cards'
+  - The skill cards sit in a grid of up to two columns, so four make an even two by two instead of
+    three in a row and one stretched alone; one column below about 704px
+  - Cards side by side share their row's tracks through `subgrid`, so their phrase lists start
+    level even where the follow-up card's longest ask wraps (about 704px to 848px)
+  - A new test checks that the intro's skill count matches the cards rendered
+
 - **Homepage feature section copy** (`src/components/astro/HomeFeatures.astro`): shorter, plainer
   wording with the same facts; the section headline, card titles and callout titles are unchanged
   - The glean and youtube cards open with what you can save; the youtube card uses the README's
@@ -378,6 +389,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Supabase test page**: `/supabase-test` and `/api/supabase-test`
 
 ### Fixed
+
+- **Nav bar wider than a phone for signed-out visitors** (`src/components/astro/Navigation.astro`):
+  beside Clerk's "Sign in" button, the login slot's acss padding (1rem on the list, 0.75rem on each
+  item) made the page scroll sideways by 27px at 320px and 7px at 375px. Up to 30rem the list sets
+  `--nav-padding-inline` to 0.25rem, so the bar fits from 320px up in both themes with its 16px edge
+  kept; wider screens keep the old spacing
+  - The e2e reflow checks did not catch it: without a Clerk key the sign-in button never renders,
+    and the nav suite skips itself while the menu is parked
 
 - **Nav brand unreadable in dark mode** (`src/components/astro/Navigation.astro`): the evergreen
   name from the entry below measured 2.45:1 on the dark bar. In dark mode it now uses the Gleaner

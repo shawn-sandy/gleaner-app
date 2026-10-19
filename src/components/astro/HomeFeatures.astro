@@ -1,6 +1,6 @@
 ---
 /**
- * The homepage feature section under the Gleaner hero: the three skills, what
+ * The homepage feature section under the Gleaner hero: the four skills, what
  * every clip gets (the README's sample clip with numbered callouts), and the
  * places a clip can be saved.
  *
@@ -47,6 +47,17 @@ const skills = [
     description:
       'Choose where clips go and in what format on your first save. Pages and videos share these settings, which can sync through Google Drive if you want.',
     asks: ['always save here', 'use markdown by default', 'show my preferences'],
+  },
+  {
+    name: 'follow-up',
+    title: 'What to do next with a clip',
+    description:
+      'Ask what to do next with a saved clip. Gleaner reads its note, summary and links, then suggests three follow-ups and saves them to the clip.',
+    asks: [
+      'what should I follow up on?',
+      'suggest follow-ups for that clip',
+      'suggest follow-ups for my view transitions clip',
+    ],
   },
 ]
 
@@ -97,7 +108,7 @@ const destinations = [
       </h2>
       <div class="home-features__lede">
         <p>
-          Gleaner has three skills, and you never have to choose. Describe what you want, and Claude
+          Gleaner has four skills, and you never have to choose. Describe what you want, and Claude
           or ChatGPT picks the right one from your words and the page you're on.
         </p>
         <p class="home-features__muted">
@@ -380,6 +391,35 @@ const destinations = [
   .home-features .home-features__skills > :global(li),
   .home-features .home-features__places > li {
     margin: 0;
+  }
+
+  /* A grid of up to two columns, so the four skills make an even two by two
+     instead of three and one stretched alone. Each card shares its row's four
+     tracks (head, title, description, phrases), so the phrase lists in a row
+     start level even when one runs a line longer. */
+  .home-features .home-features__skills {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-features .home-features__skills > :global(li) {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+
+  /* The shared track lines the phrases up; the card's own pin to its foot
+     would push the shorter list back down. */
+  .home-features .home-features__skills :global(.skill-card__asks) {
+    margin-block-start: 0;
+  }
+
+  /* Two columns once two cards fit at their 20rem, plus the gap. */
+  @container (width >= 41.5rem) {
+    .home-features .home-features__skills {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .home-features .home-features__anatomy {
