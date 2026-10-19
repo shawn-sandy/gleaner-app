@@ -153,7 +153,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Body copy set in Plus Jakarta Sans** (`src/styles/_design-tokens.scss`, `DESIGN.md`,
   `.impeccable/design.json`): `--font-family-sans` now leads with Plus Jakarta Sans, so body text on
-  every route renders in the Gleaner wordmark's typeface at 400 instead of the system sans. Headings
+  every site route outside the Starlight docs renders in the Gleaner wordmark's typeface at 400 instead of the system sans. Headings
   stay on Inter 600, and labels stay mono
   - The `@font-face` moved from `Navigation.astro` and `HomeHero.astro` into the global token file,
     so it is declared once. It reuses the variable woff2 the nav brand already preloads, so the site

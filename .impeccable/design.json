@@ -645,7 +645,7 @@
         "license": "SIL OFL 1.1",
         "preloaded": true,
         "declaredIn": ["src/styles/_design-tokens.scss"],
-        "scope": "Body copy on every route at 400 (--font-family-sans). As a heading face (600-800), Gleaner brand moments only: nav brand, hero headline, hero CTA, saved clip title, feature section h2/h3 headings and skill names."
+        "scope": "Body copy on every site route outside the Starlight docs at 400 (--font-family-sans). As a heading face (600-800), Gleaner brand moments only: nav brand, hero headline, hero CTA, saved clip title, feature section h2/h3 headings and skill names."
       }
     ]
   },
@@ -830,7 +830,7 @@
       },
       {
         "name": "The Brand Face Rule",
-        "body": "Plus Jakarta Sans does two jobs. At 400 it is the body face, the --font-family-sans token, so it sets reading text on every route. At 600-800 it is the Gleaner brand face, and that use is scoped to brand moments: the nav brand, the hero headline, the hero install button, the saved clip title, and the homepage feature section's h2 and h3 headings and skill names. Those are the only headings it sets; page headings on other routes stay on the Inter display face, and labels stay mono. It ships as one variable woff2 covering 200-800, declared once in src/styles/_design-tokens.scss and preloaded in Base.astro alongside the Inter display file, so the site makes two font requests in total.",
+        "body": "Plus Jakarta Sans does two jobs. At 400 it is the body face, the --font-family-sans token, so it sets reading text on every site route outside the Starlight docs. At 600-800 it is the Gleaner brand face, and that use is scoped to brand moments: the nav brand, the hero headline, the hero install button, the saved clip title, and the homepage feature section's h2 and h3 headings and skill names. Those are the only headings it sets; page headings on other routes stay on the Inter display face, and labels stay mono. It ships as one variable woff2 covering 200-800, declared once in src/styles/_design-tokens.scss and preloaded in Base.astro alongside the Inter display file, so the site makes two font requests in total.",
         "section": "typography"
       }
     ],

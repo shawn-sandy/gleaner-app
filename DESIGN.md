@@ -503,7 +503,7 @@ titles. `h4`–`h6` are used as UI labels — the contact form renders its error
 and capitalizing a sentence produces "Please Correct The Following Errors".
 
 **The Brand Face Rule.** Plus Jakarta Sans does two jobs. At 400 it is the body face, the
-`--font-family-sans` token, so it sets reading text on every route. At 600-800 it is the Gleaner
+`--font-family-sans` token, so it sets reading text on every site route outside the Starlight docs. At 600-800 it is the Gleaner
 brand face, and that use is scoped to brand moments: the nav brand, the hero headline, the hero
 install button, the saved clip title, and the homepage feature section's `h2` and `h3` headings and
 skill names. Those are the only headings it sets; page headings on other routes stay on the Inter

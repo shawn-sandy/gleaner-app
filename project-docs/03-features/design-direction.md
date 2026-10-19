@@ -129,7 +129,7 @@ Details worth knowing:
   used for UI labels - the contact form renders its error summary as an `h6` - and capitalizing a sentence would
   produce "Please Correct The Following Errors".
 - **Tracking is negative on display.** `-0.015em` on `h1`-`h6`, tightened to `-0.02em` on `h1`.
-- **The display stack falls back through the system sans**, so a failed font request degrades to the body face rather
+- **The display stack falls back through the system sans**, so a failed font request degrades to a sans rather
   than to a serif.
 - **Body is declared on `body`, not `html`.** @fpkit/acss sets `font-family` on `html`, which is why one face used to
   render everywhere. Declaring the body role on `body` beats that by inheritance and leaves the headings free.
