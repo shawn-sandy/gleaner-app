@@ -167,6 +167,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Homepage feature section: the follow-up skill** (`src/components/astro/HomeFeatures.astro`): a
+  fourth card for `follow-up`, the skill upstream Gleaner added, and the intro now says "four
+  skills"
+  - The card's title, description and asks follow the Gleaner README and skills README; the asks
+    are the README's own examples, word for word, like the other cards'
+  - The skill cards sit in a grid of up to two columns, so four make an even two by two instead of
+    three in a row and one stretched alone; one column below about 704px
+  - Cards side by side share their row's tracks through `subgrid`, so their phrase lists start
+    level even where the follow-up card's longest ask wraps (about 704px to 848px)
+  - A new test checks that the intro's skill count matches the cards rendered
+
 - **Homepage feature section copy** (`src/components/astro/HomeFeatures.astro`): shorter, plainer
   wording with the same facts; the section headline, card titles and callout titles are unchanged
   - The glean and youtube cards open with what you can save; the youtube card uses the README's
