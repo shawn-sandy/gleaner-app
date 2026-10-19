@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Copy buttons on the install commands** (`src/components/astro/CopyCommand.astro`,
+  `src/components/astro/HomeHero.astro`, `src/components/astro/HomeInstall.astro`): each Claude
+  Code command in the hero and the Quick install card sits on its own row with an icon button
+  that copies it
+  - One command per button, because Claude Code takes a single slash command per message; the
+    old two-line `<pre>` would have pasted both into one prompt
+  - Copies with the Clipboard API and swaps the icon for a check. If the copy fails (plain
+    `http`, permission denied) it selects the command so Ctrl+C or Command+C still works. Both
+    outcomes are announced through a `role="status"` region, and the button's accessible name is
+    "Copy" plus the command
+  - The click logic lives in `src/utils/copy-command.ts` as one delegated listener on the
+    document, so buttons rendered after the script runs work too
+  - 32px square, borderless, and colour-only on hover and focus; selectors use two classes because
+    Astro's `:where()` scoping loses to the vendor `button`, `button[type]` and
+    `button:is(:hover, :focus)` rules (fixed height, primary fill, a 103% scale and dimming)
+
 - **Dashboard app shell** (`src/layouts/Dashboard.astro`, `src/components/dashboard/`): `/dashboard`,
   `/dashboard/users` and `/profile` now share a dashboard layout with its own sidebar in place of
   the site navigation and footer
@@ -150,6 +166,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The `project-setup` skill now hands login and database setup off to it
 
 ### Changed
+
+- **Homepage hero copy** (`src/components/astro/HomeHero.astro`): the hero now names ChatGPT
+  alongside Claude, as the Quick install section already did
+  - Eyebrow "Read-it-later for Claude and ChatGPT"; the deck says "save" to match the install
+    steps and no longer repeats the destination list from the fine print
+  - The second link reads "See an example", since it jumps to a static example rather than a demo
+  - The requirements line reads "Needs a paid Claude plan or a ChatGPT workspace"
 
 - **Site navigation bar** (`src/components/astro/Navigation.astro`, `src/layouts/Base.astro`): a
   larger brand, more room, and the menu parked
@@ -343,6 +366,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Supabase test page**: `/supabase-test` and `/api/supabase-test`
 
 ### Fixed
+
+- **Nav brand unreadable in dark mode** (`src/components/astro/Navigation.astro`): the evergreen
+  name from the entry below measured 2.45:1 on the dark bar. In dark mode it now uses the Gleaner
+  palette's mint `#9ed9c8` (12:1), whether the OS preference or the theme toggle picked dark;
+  light mode keeps the evergreen (7.6:1). `e2e/navigation-popover.spec.ts` holds all four theme
+  routes to 4.5:1
 
 - **Brand name painted in link teal** (`src/components/astro/Navigation.astro`): the site's
   `a[href]` rule gave the brand `--link-color`, so it never followed the theme as its comment

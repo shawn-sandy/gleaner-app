@@ -185,7 +185,8 @@ const {
 
   /* Layout and face only. Weight and underline stay in `_navigation.scss`.
      The symbol is a white hand on its own evergreen disc and reads on both
-     themes; the name matches that disc (see `[href]` below). */
+     themes; on the light bar the name matches that disc (see `[href]`
+     below). */
   [data-nav-brand] {
     align-items: center;
     display: inline-flex;
@@ -202,11 +203,24 @@ const {
      and colour above the site's `a[href]` link rule, which a lone attribute
      would lose to under Astro's `:where()` scoping; without it that rule
      paints the brand in `--link-color` teal. The colour is the evergreen
-     fill of `gleaner-symbol.svg`'s disc, fixed in both themes like the
-     symbol itself. */
+     fill of `gleaner-symbol.svg`'s disc. */
   [data-nav-brand][href] {
     color: #185c53;
     font-size: clamp(1.375rem, 15vw - 2.25rem, 1.875rem);
+  }
+
+  /* On the dark bar the evergreen fails contrast, so the name switches to
+     the mint `--g-headline` of `gleaner-palette.css`'s dark theme, through
+     the same two routes the bar takes: the OS preference, unless the toggle
+     chose light, and the toggle's dark (e2e: navigation-popover.spec.ts). */
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) [data-nav-brand][href] {
+      color: #9ed9c8;
+    }
+  }
+
+  :global(:root[data-theme='dark']) [data-nav-brand][href] {
+    color: #9ed9c8;
   }
 
   /* Below 360px the toggle, the brand and the account links only fit on one
