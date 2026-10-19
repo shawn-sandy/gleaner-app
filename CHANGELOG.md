@@ -172,6 +172,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `apple-mobile-web-app-title` tags in `Base.astro` read `SITE_TITLE` instead of a hard-coded
     "AstroKit"; the theme-repaint e2e probe reads the Gleaner ask card now that no `[data-card]`
     renders on the homepage
+  - `Layout.astro` falls back to `SITE_DESCRIPTION` instead of "Sign in to your account" for pages
+    that pass no description (`/about`, `/blog`, the tag pages and others), in both the meta
+    description and the header subtitle
 - **README describes Gleaner** (`README.md`, `plugins/gleaner/skills/README.md`): the root README
   now mirrors the [Gleaner plugin README](https://github.com/shawn-sandy/gleaner/blob/main/README.md)
   in place of the Astro Basics overview, and the skills usage guide sits at the same path as
