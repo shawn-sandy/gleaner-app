@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Gleaner release history post** (`src/content/posts/gleaner-1-0-to-2-5.md`): a blog post that
+  walks through all 19 Gleaner plugin releases, 1.0.0 to 2.5.0, grouped by release day, with the
+  install commands and a summary of where the plugin stands at 2.5.0. Written from the
+  [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) changelog and commit history
+
 - **Copy buttons on the install commands** (`src/components/astro/CopyCommand.astro`,
   `src/components/astro/HomeHero.astro`, `src/components/astro/HomeInstall.astro`): each Claude
   Code command in the hero and the Quick install card sits on its own row with an icon button
@@ -362,6 +367,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Minor updates and refinements
 
 ### Removed
+
+- **Starter blog posts** (`src/content/posts/`): the four template posts by "Astro Learner"
+  (`post-1.md`, `post-2.md`, `mdx-example.mdx`, `youtube.mdx`), leaving the Gleaner release history
+  post as the only post. `e2e/astro-v7-upgrade.spec.ts` now loads `/posts/gleaner-1-0-to-2-5` in
+  place of the removed `/posts/post-2`
 
 - **Messages feature**: the `messages` table, the dashboard inbox (`/dashboard/messages`), the
   `/forum` page (it only listed messages), `/api/messages`, `MessageList.astro`, `MessagesList.tsx`,
