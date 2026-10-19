@@ -144,4 +144,13 @@ describe('Navigation.astro popover markup contract', () => {
     expect(attr(findPanel(html).tag, 'id')).toBe('custom-menu')
     expect(attr(openTag(html, 'button'), 'popovertarget')).toBe('custom-menu')
   })
+
+  it('drops only the hamburger when showMenu is false', async () => {
+    const html = await render({ showMenu: false })
+
+    expect(html).not.toMatch(/<button\b/)
+    // The panel stays: the bar's row layout in `_navigation.scss` keys off
+    // `:has(> [popover])`, so removing it would stack the bar on phones.
+    expect(attr(findPanel(html).tag, 'popover')).toBe('auto')
+  })
 })

@@ -99,7 +99,8 @@ nav[data-site-nav]:has(> [popover]) {
     position: fixed;
 
     // Clears the 4rem bar, so the panel never covers the login control
-    // while it is in the focus path (WCAG 2.2 SC 2.4.11).
+    // while it is in the focus path (WCAG 2.2 SC 2.4.11). Navigation.astro
+    // overrides this for its padded, taller bar.
     top: 4rem;
     z-index: var(--z-index-popover);
   }

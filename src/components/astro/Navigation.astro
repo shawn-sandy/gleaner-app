@@ -34,6 +34,13 @@ export type Props = {
   menuId?: string
   /** Render the brand link. Set false when a consumer supplies its own. */
   showBrand?: boolean
+  /**
+   * Render the hamburger button. Set false to park the menu: the panel still
+   * renders, because the bar's row layout in `_navigation.scss` keys off
+   * `:has(> [popover])`. With the Popover API it stays closed and unreachable;
+   * without it, that file's fallback shows its links in the bar as before.
+   */
+  showMenu?: boolean
 }
 
 const {
@@ -41,6 +48,7 @@ const {
   brandHref = '/',
   menuId = 'site-nav-popover',
   showBrand = true,
+  showMenu = true,
 } = Astro.props
 ---
 
@@ -90,23 +98,27 @@ const {
 </style>
 
 <nav aria-label="Primary" data-site-nav>
-  <button type="button" popovertarget={menuId} aria-label="Menu">
-    <svg
-      aria-hidden="true"
-      focusable="false"
-      viewBox="0 0 24 24"
-      width="24"
-      height="24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-    >
-      <path d="M4 7h16"></path>
-      <path d="M4 12h16"></path>
-      <path d="M4 17h16"></path>
-    </svg>
-  </button>
+  {
+    showMenu && (
+      <button type="button" popovertarget={menuId} aria-label="Menu">
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <path d="M4 7h16" />
+          <path d="M4 12h16" />
+          <path d="M4 17h16" />
+        </svg>
+      </button>
+    )
+  }
 
   {
     showBrand && (
@@ -143,9 +155,37 @@ const {
 </nav>
 
 <style>
-  /* Layout and face only. Weight and underline stay in `_navigation.scss`, and
-     the text colour keeps inheriting the bar's, so it flips with the theme.
-     The symbol is a white hand on its own evergreen disc and reads on both. */
+  /* Room above and below the 60px brand. The attribute outranks acss's
+     `body > nav { padding-block: unset }` on narrow screens. `body` is a flex
+     column and `_base.scss`'s explicit `min-height: 4rem` replaces the
+     content-sized floor, so without `flex-shrink: 0` the 84px bar is squeezed
+     back to 64px and the padding collapses into the brand. */
+  [data-site-nav] {
+    flex-shrink: 0;
+    padding-block: var(--space-3);
+  }
+
+  /* `_navigation.scss` pins the open panel at `top: 4rem` to clear a 64px
+     bar; the padded bar is up to 84px (60px brand plus `--space-3` twice), so
+     the panel would cover its lower 20px. This starts it below the tallest
+     bar; narrower bars leave a small gap instead. The height cap moves with
+     it, keeping that file's 1rem gap above the viewport's bottom edge. `[id]`
+     (every panel has one) lifts this above that file's (0,3,1) rule, which a
+     scoped copy of the same selector would only tie and lose on source
+     order. The `@supports` guard keeps that specificity away from the
+     no-popover fallback, whose static panel needs `max-height: none`. */
+  @supports selector(:popover-open) {
+    nav[data-site-nav]:has(> [popover]) > [popover][id] {
+      --panel-top: calc(2 * 1.875rem + 2 * var(--space-3));
+
+      max-height: calc(100dvh - var(--panel-top) - 1rem);
+      top: var(--panel-top);
+    }
+  }
+
+  /* Layout and face only. Weight and underline stay in `_navigation.scss`.
+     The symbol is a white hand on its own evergreen disc and reads on both
+     themes; the name matches that disc (see `[href]` below). */
   [data-nav-brand] {
     align-items: center;
     display: inline-flex;
@@ -155,12 +195,18 @@ const {
     min-height: 44px;
   }
 
-  /* Large enough to read as the wordmark, with the 2em symbol matching the
-     44px menu toggle beside it. `[href]` lifts the size above the site's
-     `a[href]` link rule, which a lone attribute would lose to under Astro's
-     `:where()` scoping. */
+  /* Tops out at 1.875rem, a 60px symbol, from 440px wide, and holds at
+     1.375rem below about 387px (15vw - 2.25rem = 22px). The slope
+     keeps the brand inside what the toggle, gaps and theme button leave of
+     the bar (e2e: no horizontal overflow at 390px). `[href]` lifts the size
+     and colour above the site's `a[href]` link rule, which a lone attribute
+     would lose to under Astro's `:where()` scoping; without it that rule
+     paints the brand in `--link-color` teal. The colour is the evergreen
+     fill of `gleaner-symbol.svg`'s disc, fixed in both themes like the
+     symbol itself. */
   [data-nav-brand][href] {
-    font-size: 1.375rem;
+    color: #185c53;
+    font-size: clamp(1.375rem, 15vw - 2.25rem, 1.875rem);
   }
 
   /* Below 360px the toggle, the brand and the account links only fit on one

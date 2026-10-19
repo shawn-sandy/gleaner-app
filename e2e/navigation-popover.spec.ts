@@ -64,6 +64,17 @@ async function expectPopoverOpen(target: Locator, open: boolean): Promise<void> 
 }
 
 test.describe('Primary navigation popover', () => {
+  // Base.astro can park the menu with `<Navigation showMenu={false}>`, which
+  // leaves no hamburger to drive. Skip at runtime rather than with `.skip`, so
+  // the suite comes back on its own when the prop returns to its default.
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/')
+    test.skip(
+      (await hamburger(page).count()) === 0,
+      'menu parked: Base.astro passes showMenu={false}'
+    )
+  })
+
   test('panel is closed on load while the hamburger is visible', async ({ page }) => {
     await page.goto('/')
 
@@ -223,18 +234,6 @@ test.describe('Primary navigation popover', () => {
     expect(summary, `axe violations in ${NAV}`).toEqual([])
   })
 
-  test('anonymous visitors get no dashboard or profile links anywhere', async ({ page }) => {
-    await page.goto('/')
-
-    // The popover is presentational, never access control: authenticated-only
-    // links must be absent from the response, open panel or not.
-    await hamburger(page).click()
-    await expectPopoverOpen(panel(page), true)
-
-    expect(await page.locator('a[href="/dashboard"]').count()).toBe(0)
-    expect(await page.locator('a[href="/profile"]').count()).toBe(0)
-  })
-
   test('open panel adds no horizontal scrolling at 320px', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 640 })
     await page.goto('/')
@@ -274,4 +273,16 @@ test.describe('Primary navigation popover', () => {
     expect(box!.x).toBeGreaterThanOrEqual(-1)
     expect(box!.x + box!.width).toBeLessThanOrEqual(open.clientWidth + 1)
   })
+})
+
+// Outside the describe so the parked-menu skip cannot take it down: it needs
+// no open panel, since the closed popover's links are still in the DOM
+// `count()` walks.
+test('anonymous visitors get no dashboard or profile links anywhere', async ({ page }) => {
+  await page.goto('/')
+
+  // The popover is presentational, never access control: authenticated-only
+  // links must be absent from the response, open panel or not.
+  expect(await page.locator('a[href="/dashboard"]').count()).toBe(0)
+  expect(await page.locator('a[href="/profile"]').count()).toBe(0)
 })

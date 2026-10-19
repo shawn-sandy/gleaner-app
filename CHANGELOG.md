@@ -151,6 +151,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site navigation bar** (`src/components/astro/Navigation.astro`, `src/layouts/Base.astro`): a
+  larger brand, more room, and the menu parked
+  - The brand grows from 1.375rem to 1.875rem (a 60px symbol) between about 387px and 440px wide;
+    the existing 1rem rule below 360px still keeps a 320px phone free of horizontal scrolling
+  - The bar gets `--space-3` block padding and `flex-shrink: 0`; `body` is a flex column and
+    `_base.scss`'s explicit `min-height: 4rem` let it squeeze the taller bar back to 64px. The open
+    panel now starts below the 84px bar instead of at `_navigation.scss`'s `top: 4rem`
+  - New `showMenu` prop (default `true`). `Base.astro` passes `false`, so the hamburger is hidden
+    until the menu is ready; the panel still renders because the bar's row layout keys off
+    `:has(> [popover])`. The e2e hamburger suite skips itself at runtime while no hamburger is
+    present, and its anonymous-visitor link check now runs on its own
+  - While parked, signed-in visitors have no nav route to `/dashboard` or `/profile`: those links
+    live in the panel
+
 - **Homepage quick install guide** (`src/pages/index.astro`, `src/components/astro/HomeInstall.astro`,
   `src/layouts/Layout.astro`): the "Latest posts" list and its sidebar give way to a two-column
   install guide, one card for Claude and one for ChatGPT
@@ -329,6 +343,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Supabase test page**: `/supabase-test` and `/api/supabase-test`
 
 ### Fixed
+
+- **Brand name painted in link teal** (`src/components/astro/Navigation.astro`): the site's
+  `a[href]` rule gave the brand `--link-color`, so it never followed the theme as its comment
+  claimed. It now uses the symbol disc's evergreen `#185C53` in both themes
 
 - **Interactive sections randomly dead on sites built without a Clerk key** (`astro.config.mjs`):
   `clerk()` injected its two browser startup scripts on every page even with no publishable key,
