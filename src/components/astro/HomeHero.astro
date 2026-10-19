@@ -42,9 +42,9 @@ export type Props = {
 }
 
 const {
-  eyebrow = 'A Claude plugin for Chrome and Claude Code',
+  eyebrow = 'Read-it-later for Claude and ChatGPT',
   headline = 'Gather the best of what you read.',
-  deck = 'Ask Claude in plain words to keep a page, a passage, a YouTube moment or its own answer. Gleaner writes a short summary, tags it, and files it in Google Drive, Notion or your project. Later, ask what you saved and it finds it.',
+  deck = 'Ask in plain words to save a page, a passage, a YouTube moment or the answer you just got. Gleaner writes a short summary, tags it and files it by topic. Later, ask what you saved and it finds it.',
 } = Astro.props as Props
 
 const repo = 'https://github.com/shawn-sandy/gleaner'
@@ -72,7 +72,7 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
       <!-- Root-relative rather than a bare `#how`: the CTA check in
            e2e/homepage-design-direction.spec.ts follows every `/` link the hero
            has, and on this page the browser still treats it as a same-page jump. -->
-      <a class="home-hero__link" href="/#how">See it in action</a>
+      <a class="home-hero__link" href="/#how">See an example</a>
     </div>
 
     <div class="home-hero__install">
@@ -88,7 +88,7 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
       >, your <strong>Claude Code project</strong> or a private <strong>claude.ai artifact</strong>.
     </p>
     <p class="home-hero__fine">
-      Open source, MIT. Needs a paid Claude plan with the Chrome side panel.
+      Open source, MIT licensed. Needs a paid Claude plan or a ChatGPT workspace.
     </p>
   </div>
 
