@@ -1,0 +1,185 @@
+---
+/**
+ * One command on its own row, with an icon button that copies it to the
+ * clipboard.
+ *
+ * One command per instance on purpose: Claude Code takes a single slash
+ * command per message, so a button that copied a two-line block would paste
+ * both lines into one prompt and run neither.
+ *
+ * The button is icon-only so the command keeps the row's width, and its
+ * accessible name ("Copy " plus the command, in visually hidden text) keeps a
+ * page with several of them from reading as a list of identical controls. On
+ * success the copy icon turns into a check. On failure the command is
+ * selected, so a keyboard copy works. Either result is announced through a
+ * `role="status"` region that is in the markup from the start, because a live
+ * region added at click time is not reliably announced.
+ *
+ * Colours read the `--g-*` palette from `src/styles/gleaner-palette.css` when
+ * a `[data-gleaner]` ancestor sets it, and fall back to the inherited colour.
+ *
+ * @component CopyCommand
+ * @example
+ * ```astro
+ * <CopyCommand command="/plugin install gleaner@shawn-sandy" />
+ * ```
+ */
+
+export type Props = {
+  /** The exact text shown and copied. */
+  command: string
+}
+
+const { command } = Astro.props as Props
+---
+
+<div class="copy-command">
+  <code class="copy-command__text">{command}</code>
+  <button class="copy-command__button" type="button" data-copy={command}>
+    <span class="copy-command__hidden">Copy {command}</span>
+    <svg
+      class="copy-command__icon copy-command__icon--copy"
+      aria-hidden="true"
+      focusable="false"
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+      <path d="M5 15V6a2 2 0 0 1 2-2h8"></path>
+    </svg>
+    <svg
+      class="copy-command__icon copy-command__icon--done"
+      aria-hidden="true"
+      focusable="false"
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M5 12.5l4.5 4.5L19 7.5"></path>
+    </svg>
+  </button>
+  <span class="copy-command__hidden" role="status" data-copy-status></span>
+</div>
+
+<script>
+  /** How long the check and the announcement stay before the button resets. */
+  const RESET_MS = 2000
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+    const row = button.parentElement
+    const status = row?.querySelector('[data-copy-status]')
+    let timer: number | undefined
+
+    button.addEventListener('click', async () => {
+      let copied = true
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? '')
+      } catch {
+        // No Clipboard API (a page served over plain http) or permission
+        // denied: select the command so Ctrl+C or Command+C still works.
+        copied = false
+        const code = row?.querySelector('code')
+        if (code) window.getSelection()?.selectAllChildren(code)
+      }
+
+      if (copied) button.dataset.state = 'copied'
+      if (status) {
+        status.textContent = copied
+          ? 'Copied to the clipboard.'
+          : "Couldn't copy. The command is selected, so press Ctrl+C or Command+C to copy it."
+      }
+
+      window.clearTimeout(timer)
+      timer = window.setTimeout(() => {
+        delete button.dataset.state
+        if (status) status.textContent = ''
+      }, RESET_MS)
+    })
+  }
+</script>
+
+<style>
+  .copy-command {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+  }
+
+  .copy-command + .copy-command {
+    margin-block-start: 0.25rem;
+  }
+
+  /* Wraps instead of scrolling, so a 320px screen needs no scroll box. */
+  .copy-command .copy-command__text {
+    background: none;
+    color: var(--g-code-ink, inherit);
+    font-family: var(--font-family-mono, ui-monospace, monospace);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    padding: 0;
+  }
+
+  /*
+   * Two classes, because Astro scopes with `:where()` and adds no weight: a
+   * lone class loses to the vendor `button` and `button[type]` rules, which
+   * fix the height and paint buttons the primary colour.
+   */
+  .copy-command .copy-command__button {
+    align-items: center;
+    background: transparent;
+    block-size: 2rem;
+    border: 0;
+    border-radius: 0.5rem;
+    color: var(--g-code-ink, inherit);
+    cursor: pointer;
+    display: inline-flex;
+    flex: none;
+    inline-size: 2rem;
+    justify-content: center;
+    padding: 0;
+
+    /* Colour only, so there is no motion to suppress for reduced motion. */
+    transition: background-color 150ms ease-out;
+  }
+
+  .copy-command .copy-command__button:hover {
+    background-color: color-mix(in srgb, currentcolor 12%, transparent);
+  }
+
+  .copy-command .copy-command__button:focus-visible {
+    outline: 2px solid var(--g-headline, currentcolor);
+    outline-offset: 2px;
+  }
+
+  .copy-command .copy-command__icon--done,
+  .copy-command .copy-command__button[data-state='copied'] .copy-command__icon--copy {
+    display: none;
+  }
+
+  .copy-command .copy-command__button[data-state='copied'] .copy-command__icon--done {
+    display: block;
+  }
+
+  .copy-command__hidden {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+</style>

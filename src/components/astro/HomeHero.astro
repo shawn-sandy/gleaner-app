@@ -28,6 +28,7 @@
  * </Layout>
  * ```
  */
+import CopyCommand from '#components/astro/CopyCommand.astro'
 import GleanPart from '#components/astro/GleanPart.astro'
 import SavedClip from '#components/astro/SavedClip.astro'
 import '#styles/gleaner-palette.css'
@@ -77,9 +78,8 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
 
     <div class="home-hero__install">
       <p class="home-hero__install-label">In Claude Code</p>
-      <pre
-        class="home-hero__code"><code>/plugin marketplace add shawn-sandy/gleaner
-/plugin install gleaner@shawn-sandy</code></pre>
+      <CopyCommand command="/plugin marketplace add shawn-sandy/gleaner" />
+      <CopyCommand command="/plugin install gleaner@shawn-sandy" />
     </div>
 
     <p class="home-hero__fine">
@@ -291,27 +291,6 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
     font-weight: 600;
     line-height: 1.4;
     margin: 0 0 0.5rem;
-  }
-
-  /* Wraps instead of scrolling, so a 320px screen needs no scroll box. */
-  .home-hero .home-hero__code {
-    background: none;
-    border: 0;
-    color: var(--g-code-ink);
-    font-family: var(--font-family-mono, ui-monospace, monospace);
-    font-size: 0.875rem;
-    line-height: 1.7;
-    margin: 0;
-    overflow-wrap: anywhere;
-    padding: 0;
-    white-space: pre-wrap;
-  }
-
-  .home-hero .home-hero__code code {
-    background: none;
-    color: inherit;
-    font: inherit;
-    padding: 0;
   }
 
   .home-hero .home-hero__fine {
