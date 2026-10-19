@@ -41,9 +41,19 @@ test.describe('Homepage design direction', () => {
     await page.evaluate(() => document.fonts.ready)
 
     const roles = await page.evaluate(() => {
-      const family = (el: Element | null) => (el ? getComputedStyle(el).fontFamily : null)
+      // The first family is the face that renders once `document.fonts` is
+      // ready. Comparing whole stacks let two roles on the same face pass
+      // because their fallback lists differed.
+      const family = (el: Element | null) =>
+        el ? getComputedStyle(el).fontFamily.split(',')[0].trim() : null
 
-      const heading = document.querySelector('h1')
+      // Display role: the first heading outside the Gleaner brand layer. Inside
+      // `[data-gleaner]` the brand headings deliberately set in Plus Jakarta
+      // Sans, the same face as body copy, so they cannot stand for the role.
+      const heading =
+        Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, h6')).find(
+          h => !h.closest('[data-gleaner]')
+        ) ?? null
       const label = document.querySelector('[data-ui="eyebrow"], [data-ui="label"]')
 
       // Body copy: the first paragraph that is not itself a label/eyebrow and
@@ -63,7 +73,7 @@ test.describe('Homepage design direction', () => {
     })
 
     // Each role must exist on the page at all.
-    expect(roles.heading, 'no h1 on the homepage').toBeTruthy()
+    expect(roles.heading, 'no heading outside [data-gleaner] on the homepage').toBeTruthy()
     expect(roles.body, 'no body-copy paragraph on the homepage').toBeTruthy()
     expect(roles.label, 'no [data-ui="eyebrow"]/[data-ui="label"] element').toBeTruthy()
 

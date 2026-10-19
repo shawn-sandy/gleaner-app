@@ -165,6 +165,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `tests/components/HomeInstall.astro.test.ts` guards the heading order and catches Astro dropping
     the space around an inline element at a source line break; `e2e/home-install.spec.ts` checks
     that code stands apart from its card in both themes
+- **Body copy set in Plus Jakarta Sans** (`src/styles/_design-tokens.scss`, `DESIGN.md`,
+  `.impeccable/design.json`): `--font-family-sans` now leads with Plus Jakarta Sans, so body text on
+  every site route outside the Starlight docs renders in the Gleaner wordmark's typeface at 400 instead of the system sans. Headings
+  stay on Inter 600, and labels stay mono
+  - The `@font-face` moved from `Navigation.astro` and `HomeHero.astro` into the global token file,
+    so it is declared once. It reuses the variable woff2 the nav brand already preloads, so the site
+    still makes two font requests
+
 - **Homepage rebuilt around Gleaner** (`src/pages/index.astro`, `src/components/astro/HomeHero.astro`,
   `src/components/astro/HomeFeatures.astro`, `src/components/astro/SkillCard.astro`,
   `src/styles/gleaner-palette.css`): the hero, nav brand and the section below the hero now present

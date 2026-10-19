@@ -143,19 +143,6 @@ const {
 </nav>
 
 <style>
-  /* The brand face, set to match the wordmark's Plus Jakarta Sans SemiBold.
-     Declared here rather than in `_design-tokens.scss` because the committed
-     `index.css` is out of step with its SCSS source, so a recompile would ship
-     unrelated changes. Same declaration as `HomeHero.astro`; the browser fetches
-     the one URL once. */
-  @font-face {
-    font-display: swap;
-    font-family: 'Plus Jakarta Sans';
-    font-style: normal;
-    font-weight: 200 800;
-    src: url('/fonts/plus-jakarta-sans-wght.woff2') format('woff2');
-  }
-
   /* Layout and face only. Weight and underline stay in `_navigation.scss`, and
      the text colour keeps inheriting the bar's, so it flips with the theme.
      The symbol is a white hand on its own evergreen disc and reads on both. */
