@@ -31,21 +31,21 @@ const skills = [
     name: 'glean',
     title: 'Pages, parts and answers',
     description:
-      "Save a whole page, collect passages from several tabs into one clip, or keep Claude's answer about the page with its steps and code intact.",
+      'Save a whole page, gather passages from several tabs into one clip, or keep the answer you got about a page, steps and code intact.',
     asks: ['save this page', 'grab the part about easing', 'save that'],
   },
   {
     name: 'youtube',
     title: 'Videos and the moments in them',
     description:
-      'Gleaner reads the transcript and saves a TL;DR with key moments that each link to the second they happen.',
+      'Save a whole video or just the moments that matter. Gleaner builds the summary from the transcript, with key moments that link to the exact second.',
     asks: ['save this video', 'keep 3:10 to 5:40', 'grab the part about generics'],
   },
   {
     name: 'preferences',
     title: 'Where clips go, set once',
     description:
-      'Choose a default destination and format on your first save. Page and video saves share the settings, with optional Google Drive sync.',
+      'Choose where clips go and in what format on your first save. Pages and videos share these settings, which can sync through Google Drive if you want.',
     asks: ['always save here', 'use markdown by default', 'show my preferences'],
   },
 ]
@@ -54,19 +54,19 @@ const skills = [
 const callouts = [
   {
     title: 'Search by asking',
-    body: 'Ask "what did I save about Cowork?" and get a table, newest first, with a link to each clip. Titles, tags, notes and summary text all match.',
+    body: 'Ask "what did I save about Cowork?" to get a table of matching clips, newest first, each linked. Gleaner searches titles, tags, notes and summaries.',
   },
   {
     title: 'One clip per page',
-    body: 'Add more from a page you clipped this session and it goes into that clip. From an earlier session you get an updated copy that links back; old clips are never changed.',
+    body: 'Add more from a page you clipped this session, and it joins that clip. If the clip is from an earlier session, Gleaner saves an updated copy that links back. It never edits an old clip.',
   },
   {
     title: 'Filed for you',
-    body: 'One category, which is also its folder, a type, and 3 to 6 specific tags. Gleaner reuses the tag spellings you already have.',
+    body: 'Each clip gets a category, which doubles as its folder, plus a type and 3 to 6 specific tags. Gleaner reuses the tags you already have, spelled the same way.',
   },
   {
     title: 'Your reasons, kept',
-    body: 'Add a note to any request, like "…for the motion post", and it\'s saved with the clip. Gleaner never invents one.',
+    body: 'Add a reason to any request, like "…for the motion post", and it\'s saved as the clip\'s note. Gleaner never writes one for you.',
   },
 ]
 
@@ -97,10 +97,12 @@ const destinations = [
       </h2>
       <div class="home-features__lede">
         <p>
-          Gleaner ships three skills. You don't pick one: describe what you want, and Claude loads
-          the right skill from your words and the page you're on.
+          Gleaner has three skills, and you never have to choose. Describe what you want, and Claude
+          or ChatGPT picks the right one from your words and the page you're on.
         </p>
-        <p class="home-features__muted">In Claude Code you can also call each one directly.</p>
+        <p class="home-features__muted">
+          In Claude Code, you can also run each one by its command.
+        </p>
       </div>
     </div>
 
@@ -110,10 +112,10 @@ const destinations = [
 
     <div class="home-features__anatomy">
       <div class="home-features__head">
-        <h3 class="home-features__subtitle">What every clip gets</h3>
+        <h3 class="home-features__subtitle">What's in every clip</h3>
         <p class="home-features__muted">
-          A Markdown file of up to about 400 words: the details at the top, then a TL;DR, key
-          points, notable details and takeaways.
+          One Markdown file of about 400 words at most. A title and details such as the source, date
+          and tags come first, then a TL;DR, key points, notable details and takeaways.
         </p>
       </div>
 
@@ -232,9 +234,9 @@ const destinations = [
       <div class="home-features__destinations-head">
         <h3 class="home-features__subtitle">Saves where you already keep things</h3>
         <p class="home-features__muted">
-          Google Drive is the default in the Chrome side panel, your project folder in Claude Code.
-          Name another place in words, or add <code class="home-features__inline-code">--to</code> for
-          one save.
+          By default, clips go to Google Drive from the Chrome side panel and to your project folder
+          in Claude Code. To save one somewhere else, name the place or add{' '}
+          <code class="home-features__inline-code">--to</code>.
         </p>
       </div>
 
@@ -646,10 +648,12 @@ const destinations = [
     padding: 0.25rem 0.75rem;
   }
 
+  /* A flag never breaks at its hyphens. */
   .home-features .home-features__inline-code {
     background: none;
     font-size: 0.875rem;
     padding: 0;
+    white-space: nowrap;
   }
 
   .home-features .home-features__foot {
