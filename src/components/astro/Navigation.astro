@@ -143,9 +143,19 @@ const {
 </nav>
 
 <style>
-  /* Layout and face only. Weight and underline stay in `_navigation.scss`, and
-     the text colour keeps inheriting the bar's, so it flips with the theme.
-     The symbol is a white hand on its own evergreen disc and reads on both. */
+  /* Room above and below the 60px brand. The attribute outranks acss's
+     `body > nav { padding-block: unset }` on narrow screens. `body` is a flex
+     column and acss's explicit `min-height: 4rem` replaces the content-sized
+     floor, so without `flex-shrink: 0` the 84px bar is squeezed back to 64px
+     and the padding collapses into the brand. */
+  [data-site-nav] {
+    flex-shrink: 0;
+    padding-block: var(--space-3);
+  }
+
+  /* Layout and face only. Weight and underline stay in `_navigation.scss`.
+     The symbol is a white hand on its own evergreen disc and reads on both
+     themes; the name matches that disc (see `[href]` below). */
   [data-nav-brand] {
     align-items: center;
     display: inline-flex;
@@ -155,12 +165,18 @@ const {
     min-height: 44px;
   }
 
-  /* Large enough to read as the wordmark, with the 2em symbol matching the
-     44px menu toggle beside it. `[href]` lifts the size above the site's
-     `a[href]` link rule, which a lone attribute would lose to under Astro's
-     `:where()` scoping. */
+  /* Tops out at 1.875rem, a 60px symbol that still fits the 4rem bar, from
+     about 440px wide, and holds at 1.375rem below about 400px. The slope
+     keeps the brand inside what the toggle, gaps and theme button leave of
+     the bar (e2e: no horizontal overflow at 390px). `[href]` lifts the size
+     and colour above the site's `a[href]` link rule, which a lone attribute
+     would lose to under Astro's `:where()` scoping; without it that rule
+     paints the brand in `--link-color` teal. The colour is the evergreen
+     fill of `gleaner-symbol.svg`'s disc, fixed in both themes like the
+     symbol itself. */
   [data-nav-brand][href] {
-    font-size: 1.375rem;
+    color: #185c53;
+    font-size: clamp(1.375rem, 15vw - 2.25rem, 1.875rem);
   }
 
   /* Below 360px the toggle, the brand and the account links only fit on one
