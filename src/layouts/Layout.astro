@@ -4,6 +4,22 @@ import Header from '#components/astro/Header.astro'
 import Sidebar from '#components/astro/Sidebar.astro'
 import MainSection from '#components/astro/MainSection.astro'
 import { SITE_DESCRIPTION } from '#utils/site-config'
+
+export type Props = {
+  pageTitle?: string
+  pageDescription?: string
+  pageImageUrl?: string
+  hideHeader?: boolean
+  /** Skip the sidebar `<aside>`, and with it the `sidebar` and `sidebar-footer` slots. */
+  hideSidebar?: boolean
+  showBreadcrumb?: boolean
+  breadcrumbRoutes?: Array<{
+    name: string
+    url: string
+    path?: string
+  }>
+}
+
 const {
   pageTitle,
   pageDescription,
