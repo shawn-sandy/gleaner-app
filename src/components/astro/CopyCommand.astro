@@ -73,40 +73,9 @@ const { command } = Astro.props as Props
 </div>
 
 <script>
-  /** How long the check and the announcement stay before the button resets. */
-  const RESET_MS = 2000
+  import { bindCopyCommands } from '#utils/copy-command'
 
-  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
-    const row = button.parentElement
-    const status = row?.querySelector('[data-copy-status]')
-    let timer: number | undefined
-
-    button.addEventListener('click', async () => {
-      let copied = true
-      try {
-        await navigator.clipboard.writeText(button.dataset.copy ?? '')
-      } catch {
-        // No Clipboard API (a page served over plain http) or permission
-        // denied: select the command so Ctrl+C or Command+C still works.
-        copied = false
-        const code = row?.querySelector('code')
-        if (code) window.getSelection()?.selectAllChildren(code)
-      }
-
-      if (copied) button.dataset.state = 'copied'
-      if (status) {
-        status.textContent = copied
-          ? 'Copied to the clipboard.'
-          : "Couldn't copy. The command is selected, so press Ctrl+C or Command+C to copy it."
-      }
-
-      window.clearTimeout(timer)
-      timer = window.setTimeout(() => {
-        delete button.dataset.state
-        if (status) status.textContent = ''
-      }, RESET_MS)
-    })
-  }
+  bindCopyCommands()
 </script>
 
 <style>
@@ -136,7 +105,8 @@ const { command } = Astro.props as Props
   /*
    * Two classes, because Astro scopes with `:where()` and adds no weight: a
    * lone class loses to the vendor `button` and `button[type]` rules, which
-   * fix the height and paint buttons the primary colour.
+   * fix the height and paint buttons the primary colour, and to its
+   * `button:is(:hover, :focus)`, which scales and dims them (cancelled below).
    */
   .copy-command .copy-command__button {
     align-items: center;
@@ -147,10 +117,12 @@ const { command } = Astro.props as Props
     color: var(--g-code-ink, inherit);
     cursor: pointer;
     display: inline-flex;
+    filter: none;
     flex: none;
     inline-size: 2rem;
     justify-content: center;
     padding: 0;
+    transform: none;
 
     /* Colour only, so there is no motion to suppress for reduced motion. */
     transition: background-color 150ms ease-out;

@@ -39,13 +39,31 @@ describe('CopyCommand', () => {
   it('names the button after the command it copies', async () => {
     const html = await render(INSTALL[1])
     const button = /<button\b[^>]*>([\s\S]*?)<\/button>/.exec(html)?.[1] ?? ''
-    const name = button.replace(/<[^>]+>/g, '')
+    // Content under aria-hidden is not part of the name.
+    const name = button
+      .replace(/<(\w+)\b[^>]*\saria-hidden="true"[^>]*>[\s\S]*?<\/\1>/g, '')
+      .replace(/<[^>]+>/g, '')
 
     expect(name).toContain(INSTALL[1])
   })
 
-  it('has a status region to announce the result of a copy', async () => {
-    expect(await render(INSTALL[0])).toMatch(/\srole="status"/)
+  // Inside the button the announcement would also become part of its name.
+  it('has a status region, outside the button, to announce the result', async () => {
+    const html = await render(INSTALL[0])
+    const status = /<[^>]*\srole="status"[^>]*>/.exec(html)
+
+    expect(status?.[0]).not.toMatch(/aria-hidden/)
+    expect(status!.index).toBeGreaterThan(html.indexOf('</button>'))
+  })
+
+  // `tests/utils/copy-command.test.ts` drives the handler against these hooks.
+  it('renders the hooks the click handler looks for', async () => {
+    const html = await render(INSTALL[0])
+    const button = /<button\b[^>]*>/.exec(html)?.[0] ?? ''
+
+    expect(button).toMatch(/\sclass="[^"]*\bcopy-command__button\b/)
+    expect(html).toMatch(/<code\b/)
+    expect(html).toMatch(/\sdata-copy-status/)
   })
 })
 

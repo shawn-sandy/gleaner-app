@@ -14,7 +14,14 @@ test.describe('Homepage install guide', () => {
       const clashes = await page.locator('.home-install__card').evaluateAll(cards =>
         cards.flatMap(card => {
           const cardBg = getComputedStyle(card).backgroundColor
-          return [...card.querySelectorAll('pre, :not(pre) > code')]
+          // The Claude Code box is a div of `CopyCommand` rows whose own
+          // `<code>` is transparent on purpose, so the box is the surface to
+          // check, not that code.
+          return [
+            ...card.querySelectorAll(
+              'pre, .home-install__code, :not(pre) > code:not(.copy-command__text)'
+            ),
+          ]
             .map(el => ({
               text: el.textContent?.trim().slice(0, 30),
               bg: getComputedStyle(el).backgroundColor,
