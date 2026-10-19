@@ -16,7 +16,7 @@ test.describe('Home Page Structure', () => {
     // Test that sections exist (components may add more than expected)
     const sections = page.locator('section')
     const sectionCount = await sections.count()
-    expect(sectionCount).toBeGreaterThanOrEqual(2) // At minimum Featured + CollectionList sections
+    expect(sectionCount).toBeGreaterThanOrEqual(2) // At minimum the features and install sections
   })
 
   test('has proper page landmarks', async ({ page }) => {

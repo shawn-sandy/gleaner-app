@@ -18,11 +18,14 @@ describe('HomeInstall', () => {
 
   // Astro drops a line break between text and an inline element that starts
   // the next source line, rendering "chooseAdd" or "marketplace,shawn-sandy".
-  it('keeps a space before every inline strong or code that follows text', async () => {
+  it('keeps a space around every inline element that meets text', async () => {
     const html = await render()
-    const glued = [...html.matchAll(/([^\s>(])<(strong|code)\b[^>]*>([^<]{0,20})/g)].map(
-      m => `${m[1]}${m[3]}`
-    )
+    const inline = 'strong|code|em|a'
+    const glued = [
+      new RegExp(`[^\\s>(]<(?:${inline})\\b[^>]*>[^<]{0,20}`, 'g'), // text<code>
+      new RegExp(`</(?:${inline})>[\\w(]`, 'g'), // </code>text
+      new RegExp(`</(?:${inline})><(?:${inline})\\b`, 'g'), // </strong><code>
+    ].flatMap(pattern => html.match(pattern) ?? [])
 
     expect(glued).toEqual([])
   })
