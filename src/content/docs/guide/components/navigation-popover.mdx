@@ -53,12 +53,13 @@ Four details carry the whole pattern:
 
 All props are optional.
 
-| Prop         | Type      | Default              | Description                                                          |
-| ------------ | --------- | -------------------- | -------------------------------------------------------------------- |
-| `brandTitle` | `string`  | `SITE_TITLE`         | Text of the brand link on the left of the bar.                       |
-| `brandHref`  | `string`  | `'/'`                | Destination of the brand link.                                       |
-| `menuId`     | `string`  | `'site-nav-popover'` | id of the popover panel, wired to the button's `popovertarget`.      |
-| `showBrand`  | `boolean` | `true`               | Render the brand link. Set `false` when a consumer supplies its own. |
+| Prop         | Type      | Default              | Description                                                                                                                |
+| ------------ | --------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `brandTitle` | `string`  | `SITE_TITLE`         | Text of the brand link on the left of the bar.                                                                             |
+| `brandHref`  | `string`  | `'/'`                | Destination of the brand link.                                                                                             |
+| `menuId`     | `string`  | `'site-nav-popover'` | id of the popover panel, wired to the button's `popovertarget`.                                                            |
+| `showBrand`  | `boolean` | `true`               | Render the brand link. Set `false` when a consumer supplies its own.                                                       |
+| `showMenu`   | `boolean` | `true`               | Render the hamburger button. Set `false` to park the menu; the closed panel still renders so the bar keeps its row layout. |
 
 `menuId` matters when more than one `Navigation` renders on a page: `id` values must stay unique, and a duplicate id
 sends both buttons to the same panel.

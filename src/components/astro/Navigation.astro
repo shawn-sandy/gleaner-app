@@ -34,6 +34,12 @@ export type Props = {
   menuId?: string
   /** Render the brand link. Set false when a consumer supplies its own. */
   showBrand?: boolean
+  /**
+   * Render the hamburger button. Set false to park the menu: the panel still
+   * renders, closed and unreachable, because the bar's row layout in
+   * `_navigation.scss` keys off `:has(> [popover])`.
+   */
+  showMenu?: boolean
 }
 
 const {
@@ -41,6 +47,7 @@ const {
   brandHref = '/',
   menuId = 'site-nav-popover',
   showBrand = true,
+  showMenu = true,
 } = Astro.props
 ---
 
@@ -90,23 +97,27 @@ const {
 </style>
 
 <nav aria-label="Primary" data-site-nav>
-  <button type="button" popovertarget={menuId} aria-label="Menu">
-    <svg
-      aria-hidden="true"
-      focusable="false"
-      viewBox="0 0 24 24"
-      width="24"
-      height="24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-    >
-      <path d="M4 7h16"></path>
-      <path d="M4 12h16"></path>
-      <path d="M4 17h16"></path>
-    </svg>
-  </button>
+  {
+    showMenu && (
+      <button type="button" popovertarget={menuId} aria-label="Menu">
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <path d="M4 7h16" />
+          <path d="M4 12h16" />
+          <path d="M4 17h16" />
+        </svg>
+      </button>
+    )
+  }
 
   {
     showBrand && (
