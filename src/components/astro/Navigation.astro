@@ -36,8 +36,9 @@ export type Props = {
   showBrand?: boolean
   /**
    * Render the hamburger button. Set false to park the menu: the panel still
-   * renders, closed and unreachable, because the bar's row layout in
-   * `_navigation.scss` keys off `:has(> [popover])`.
+   * renders, because the bar's row layout in `_navigation.scss` keys off
+   * `:has(> [popover])`. With the Popover API it stays closed and unreachable;
+   * without it, that file's fallback shows its links in the bar as before.
    */
   showMenu?: boolean
 }
@@ -156,12 +157,22 @@ const {
 <style>
   /* Room above and below the 60px brand. The attribute outranks acss's
      `body > nav { padding-block: unset }` on narrow screens. `body` is a flex
-     column and acss's explicit `min-height: 4rem` replaces the content-sized
-     floor, so without `flex-shrink: 0` the 84px bar is squeezed back to 64px
-     and the padding collapses into the brand. */
+     column and `_base.scss`'s explicit `min-height: 4rem` replaces the
+     content-sized floor, so without `flex-shrink: 0` the 84px bar is squeezed
+     back to 64px and the padding collapses into the brand. */
   [data-site-nav] {
     flex-shrink: 0;
     padding-block: var(--space-3);
+  }
+
+  /* `_navigation.scss` pins the open panel at `top: 4rem` to clear a 64px
+     bar; the padded bar is up to 84px (60px brand plus `--space-3` twice), so
+     the panel would cover its lower 20px. This starts it below the tallest
+     bar; narrower bars leave a small gap instead. `[id]` (every panel has
+     one) lifts this above that file's (0,3,1) rule, which a scoped copy of
+     the same selector would only tie and lose on source order. */
+  nav[data-site-nav]:has(> [popover]) > [popover][id] {
+    top: calc(2 * 1.875rem + 2 * var(--space-3));
   }
 
   /* Layout and face only. Weight and underline stay in `_navigation.scss`.
@@ -176,8 +187,8 @@ const {
     min-height: 44px;
   }
 
-  /* Tops out at 1.875rem, a 60px symbol that still fits the 4rem bar, from
-     about 440px wide, and holds at 1.375rem below about 400px. The slope
+  /* Tops out at 1.875rem, a 60px symbol, from 440px wide, and holds at
+     1.375rem below about 387px (15vw - 2.25rem = 22px). The slope
      keeps the brand inside what the toggle, gaps and theme button leave of
      the bar (e2e: no horizontal overflow at 390px). `[href]` lifts the size
      and colour above the site's `a[href]` link rule, which a lone attribute

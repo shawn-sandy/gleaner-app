@@ -53,13 +53,17 @@ Four details carry the whole pattern:
 
 All props are optional.
 
-| Prop         | Type      | Default              | Description                                                                                                                |
-| ------------ | --------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `brandTitle` | `string`  | `SITE_TITLE`         | Text of the brand link on the left of the bar.                                                                             |
-| `brandHref`  | `string`  | `'/'`                | Destination of the brand link.                                                                                             |
-| `menuId`     | `string`  | `'site-nav-popover'` | id of the popover panel, wired to the button's `popovertarget`.                                                            |
-| `showBrand`  | `boolean` | `true`               | Render the brand link. Set `false` when a consumer supplies its own.                                                       |
-| `showMenu`   | `boolean` | `true`               | Render the hamburger button. Set `false` to park the menu; the closed panel still renders so the bar keeps its row layout. |
+| Prop         | Type      | Default              | Description                                                                                                         |
+| ------------ | --------- | -------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `brandTitle` | `string`  | `SITE_TITLE`         | Text of the brand link on the left of the bar.                                                                      |
+| `brandHref`  | `string`  | `'/'`                | Destination of the brand link.                                                                                      |
+| `menuId`     | `string`  | `'site-nav-popover'` | id of the popover panel, wired to the button's `popovertarget`.                                                     |
+| `showBrand`  | `boolean` | `true`               | Render the brand link. Set `false` when a consumer supplies its own.                                                |
+| `showMenu`   | `boolean` | `true`               | Render the hamburger button. Set `false` to park the menu; the panel still renders so the bar keeps its row layout. |
+
+With `showMenu={false}` the panel stays closed in browsers with the Popover API. Browsers without it fall back to
+showing the panel's links in the bar, as they do with the button. Links passed to the default slot, such as
+`Base.astro`'s dashboard and profile links, have no way in while the menu is parked.
 
 `menuId` matters when more than one `Navigation` renders on a page: `id` values must stay unique, and a duplicate id
 sends both buttons to the same panel.

@@ -63,9 +63,18 @@ async function expectPopoverOpen(target: Locator, open: boolean): Promise<void> 
     .toBe(open)
 }
 
-// Parked: Base.astro renders `<Navigation showMenu={false}>`, so there is no
-// hamburger to drive. Drop `.skip` when that prop goes back to its default.
-test.describe.skip('Primary navigation popover', () => {
+test.describe('Primary navigation popover', () => {
+  // Base.astro can park the menu with `<Navigation showMenu={false}>`, which
+  // leaves no hamburger to drive. Skip at runtime rather than with `.skip`, so
+  // the suite comes back on its own when the prop returns to its default.
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/')
+    test.skip(
+      (await hamburger(page).count()) === 0,
+      'menu parked: Base.astro passes showMenu={false}'
+    )
+  })
+
   test('panel is closed on load while the hamburger is visible', async ({ page }) => {
     await page.goto('/')
 
@@ -266,8 +275,9 @@ test.describe.skip('Primary navigation popover', () => {
   })
 })
 
-// Outside the parked block: it needs no open panel, since the closed popover's
-// links are still in the DOM `count()` walks.
+// Outside the describe so the parked-menu skip cannot take it down: it needs
+// no open panel, since the closed popover's links are still in the DOM
+// `count()` walks.
 test('anonymous visitors get no dashboard or profile links anywhere', async ({ page }) => {
   await page.goto('/')
 

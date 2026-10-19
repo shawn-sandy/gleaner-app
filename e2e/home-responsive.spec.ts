@@ -25,7 +25,8 @@ test.describe('Home Page Responsive Design', () => {
   // at a 320px viewport. The offender was @fpkit/acss's
   // `body { min-width: 20.3125rem }` (325px) floor, overridden in
   // src/styles/_base.scss. Nav-specific reflow is covered separately by
-  // e2e/navigation-popover.spec.ts.
+  // e2e/navigation-popover.spec.ts, which skips itself while the menu is
+  // parked (`showMenu={false}`).
   // Parameterised over both colour schemes. The design direction repaints every
   // global surface and adds a dark branch that swaps borders, padding-bearing
   // bands and the hero specimen, so reflow has to be proved in both themes
