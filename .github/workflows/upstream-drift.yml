@@ -1,0 +1,59 @@
+name: Upstream drift
+
+# Keeps one issue open while Gleaner (shawn-sandy/gleaner) has changes the site copy has not
+# caught up with. scripts/check-upstream.mjs compares the bookmark in upstream-sync.json with
+# Gleaner's main branch; the PR that updates the site moves the bookmark, and the next run closes
+# the issue. Issues opened with the workflow token start no other workflows, so claude.yml does
+# not pick this one up. GitHub pauses schedules in public repos after 60 days without activity;
+# re-enable it from the Actions tab if that happens.
+
+on:
+  schedule:
+    - cron: '23 10 * * *' # daily, 10:23 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: upstream-drift
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # Fails the job if GitHub cannot be reached, so an outage never closes the issue.
+      - name: Compare the bookmark with Gleaner's main branch
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/check-upstream.mjs > drift-report.md
+      # Only primary's bookmark counts: a manual run on a branch that already moved it would close
+      # the issue before that branch merges.
+      - name: Open, update, or close the drift issue
+        if: github.ref == 'refs/heads/primary'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          open=$(gh issue list --label upstream-drift --state open --json number --jq '.[0].number // empty')
+          if [ ! -s drift-report.md ]; then
+            if [ -n "$open" ]; then
+              gh issue close "$open" --comment "The site copy has caught up with Gleaner."
+            fi
+            exit 0
+          fi
+          if [ -n "$open" ]; then
+            gh issue edit "$open" --body-file drift-report.md
+          else
+            gh label create upstream-drift --force --color 185C53 \
+              --description "Gleaner changed something the site copies"
+            gh issue create --title "Gleaner changed: update the site copy" \
+              --label upstream-drift --body-file drift-report.md
+          fi

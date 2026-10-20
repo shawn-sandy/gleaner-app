@@ -71,6 +71,9 @@ jobs:
       # config read as "configured", header injection through the contact-form
       # subject, and an unbounded provider call inside the request path.
       - run: npx vitest run tests/email.test.ts tests/send-email.test.ts
+      # Hard gate: the upstream drift check. Its workflow closes the drift issue on an empty report,
+      # so a regression that loses a change would hide drift instead of failing.
+      - run: npx vitest run tests/check-upstream.test.ts
       # Informational, not blocking: the rest of the suite carries ~49
       # pre-existing failures unrelated to Astro (role-validator, csrf,
       # etc.), plus tests/integration/** needs live
