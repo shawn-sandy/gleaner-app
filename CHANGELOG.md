@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Upstream drift check** (`scripts/check-upstream.mjs`, `upstream-sync.json`,
+  `.github/workflows/upstream-drift.yml`): a daily workflow keeps one issue open while
+  [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) has changes the site's hand-written
+  copy has not caught up with, listing each changed upstream file and the site files to check
+  - `upstream-sync.json` holds the bookmark, the upstream commit the site copy was last brought up
+    to date with. The PR that updates the site moves it, and the next run closes the issue. It
+    starts at `fd87a03`, the upstream commit the README copy matches most closely
+  - Watched: the README and skills guide (copied here, and followed by the homepage sections), a
+    skill added, removed or renamed (the homepage skill cards), the manifests and ChatGPT guide
+    (install steps, the hero's install commands, and the site description), and the logo (palette
+    and favicon). Edits inside a skill and version-only bumps to a manifest that stayed put are left
+    out, since most upstream commits make them and they change nothing the site shows
+  - `npm run check:upstream` runs the same check locally, for when Actions is unavailable. A GitHub
+    error, a comparison without a file list, or a bookmark main is not ahead of fails the run
+    instead of reading as "up to date". Only a run on `primary` opens, updates or closes the issue
+  - `tests/check-upstream.test.ts` is a hard gate in CI
 - **Changelog page from Gleaner's GitHub releases** (`src/pages/changelog.astro`,
   `src/libs/gleaner-releases.ts`, `src/components/astro/ReleaseNote.astro`): `/changelog` lists
   every published [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) release, newest

@@ -45,6 +45,7 @@
     "test:axiom-simple": "tsx scripts/simple-axiom-test.ts",
     "diagnose:axiom": "tsx scripts/diagnose-axiom.ts",
     "check:axiom": "tsx scripts/check-axiom-logs.ts",
+    "check:upstream": "node scripts/check-upstream.mjs",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "lint:styles": "stylelint 'src/**/*.{css,scss}'",
