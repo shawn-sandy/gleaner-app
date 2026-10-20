@@ -18,8 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     starts at `fd87a03`, the upstream commit the README copy matches most closely
   - Watched: the README and skills guide (copied here, and followed by the homepage sections), a
     skill added, removed or renamed (the homepage skill cards), the manifests and ChatGPT guide
-    (install steps, the hero's install commands, and the site description), and the logo (palette
-    and favicon). Edits inside a skill and version-only bumps to a manifest that stayed put are left
+    (install steps, the hero's install commands, and the site description), and the logo (the symbol
+    and wordmark files, palette, favicon, `SavedClip`'s knot, and the nav brand's colour). Edits inside a skill and version-only bumps to a manifest that stayed put are left
     out, since most upstream commits make them and they change nothing the site shows
   - `npm run check:upstream` runs the same check locally, for when Actions is unavailable. A GitHub
     error, a comparison without a file list, or a bookmark main is not ahead of fails the run

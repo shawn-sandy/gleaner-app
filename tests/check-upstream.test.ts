@@ -43,6 +43,13 @@ describe('findDrift', () => {
     expect(siteFilesFor([marketplace])).toContain('src/components/astro/HomeHero.astro')
   })
 
+  it('sends a logo change to every file that copies the symbol, its colour or its knot', () => {
+    const site = siteFilesFor([{ filename: 'gleaner-symbol.svg', status: 'modified' }])
+    expect(site).toContain('src/components/astro/SavedClip.astro')
+    expect(site).toContain('src/components/astro/Navigation.astro')
+    expect(site).toContain('public/images/gleaner-wordmark.svg')
+  })
+
   it('ignores an edit inside a skill, which rarely changes the homepage', () => {
     expect(
       findDrift([{ filename: 'plugins/gleaner/skills/glean/SKILL.md', status: 'modified' }])
