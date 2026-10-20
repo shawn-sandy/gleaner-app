@@ -214,6 +214,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Homepage search and clip-anatomy copy scoped** (`src/components/astro/HomeFeatures.astro`): the
+  feature heading, the "Search by asking" callout and "What's in every clip" now match what
+  Gleaner does under its chat default
+  - Search only finds stored clips, so the heading reads "Store it, find it again" and the callout
+    says a clip left in the chat won't turn up
+  - The section list is labeled as a page clip's; videos get key moments and tutorial pages get
+    numbered steps in place of key points (tutorial videos keep key moments)
 - **Site copy caught up with Gleaner `79b80e2`** (`README.md`, `plugins/gleaner/skills/README.md`,
   `src/components/astro/HomeHero.astro`, `src/components/astro/HomeFeatures.astro`,
   `src/components/astro/HomeInstall.astro`, `src/utils/site-config.ts`, `upstream-sync.json`): the
