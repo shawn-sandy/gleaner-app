@@ -7,6 +7,15 @@ const today = new Date()
 
 <footer>
   <div>
+    <nav aria-label="Footer">
+      <p>
+        <a href="/">Home</a>{' '}
+        <span aria-hidden="true">·</span>{' '}
+        <a href="/posts/1">Blog</a>{' '}
+        <span aria-hidden="true">·</span>{' '}
+        <a href="/changelog">Changelog</a>
+      </p>
+    </nav>
     <p>
       Learn more about my projects on{' '}
 
@@ -44,5 +53,11 @@ const today = new Date()
      setting font-size here would just fight its own rule. */
   footer p :global(a[href]) {
     --link-fs: 0.875rem;
+  }
+
+  /* The global `p + p` rule spaces the footer lines 1rem apart, but the links
+     line sits inside a nav, so the paragraph after it is no longer a `p + p`. */
+  footer nav + p {
+    margin-block-start: 1rem;
   }
 </style>

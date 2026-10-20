@@ -9,6 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Changelog page from Gleaner's GitHub releases** (`src/pages/changelog.astro`,
+  `src/libs/gleaner-releases.ts`, `src/components/astro/ReleaseNote.astro`): `/changelog` lists
+  every published [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) release, newest
+  first, with its notes, date, and a link to the release on GitHub
+  - A `releases` content collection loads the releases from the GitHub API at build time, skipping
+    drafts. It sends `GITHUB_TOKEN` when set (documented, commented out, in `.env.example`) to lift
+    the anonymous limit of 60 requests an hour. Every release is fetched and rendered before the
+    stored list changes, so if GitHub cannot be reached, or a release body cannot be rendered, it
+    logs a warning and keeps the last good list; an outage or an offline dev server never fails
+    the build. With nothing stored, the page links to GitHub's releases page instead
+  - The rendered notes go through `filterXSS` (the `xss` package, now a direct dependency at the
+    version already installed through the Netlify adapter), because Markdown passes raw HTML
+    through and GitHub only sanitizes it on its own release page
+  - Gleaner's release workflow calls a Netlify build hook after it publishes a release, so the
+    page updates without a commit here. The hook URL lives in the gleaner repo's
+    `NETLIFY_BUILD_HOOK` secret
+  - Dates use New York time, so a late-evening release keeps the day the release post gives it on
+    a build server running in UTC
+  - The changelog starts at 2.2.0: versions 1.0.0 to 2.1.0 were never published as GitHub
+    Releases
+
+- **Footer links** (`src/components/astro/Footer.astro`): a Home, Blog, and Changelog line above
+  the social links, in a `nav` labelled "Footer". The home e2e specs now look up the
+  `navigation` landmark by its "Primary" name, since an unnamed lookup matches both navs
+
 - **Gleaner release history post** (`src/content/posts/gleaner-1-0-to-2-5.md`): a blog post that
   walks through all 19 Gleaner plugin releases, 1.0.0 to 2.5.0, grouped by release day, with the
   install commands and a summary of where the plugin stands at 2.5.0. Written from the

@@ -1,0 +1,40 @@
+---
+/**
+ * One Gleaner release on the changelog: its title, publish date, a link to the
+ * release on GitHub, and its rendered notes in the default slot.
+ */
+export type Props = {
+  /** The release title, such as "Gleaner 2.7.0". */
+  title: string
+  /** The release tag, such as "v2.7.0". Also the article's id, so `/changelog#v2.7.0` links to it. */
+  tag: string
+  /** The release page on GitHub. */
+  url: string
+  publishedAt: Date
+}
+
+const { title, tag, url, publishedAt } = Astro.props
+
+// Dates in the author's zone, so a late-evening release keeps the day the blog gives it,
+// and a build server in UTC prints the same day as a laptop in New York.
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  dateStyle: 'long',
+  timeZone: 'America/New_York',
+})
+---
+
+<article class="release-note" id={tag}>
+  <h2>{title}</h2>
+  <p>
+    <time datetime={publishedAt.toISOString()}>{dateFormat.format(publishedAt)}</time>
+    {' · '}
+    <a href={url}>{tag} on GitHub</a>
+  </p>
+  <slot />
+</article>
+
+<style>
+  .release-note + .release-note {
+    margin-block-start: 3rem;
+  }
+</style>

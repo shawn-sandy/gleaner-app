@@ -16,7 +16,7 @@ test.describe('Home Page Responsive Design', () => {
 
       // Test that main structure remains intact
       await expect(page.locator('main')).toBeVisible()
-      await expect(page.getByRole('navigation')).toBeVisible()
+      await expect(page.getByRole('navigation', { name: 'Primary' })).toBeVisible()
       await expect(page.locator('h1').first()).toBeVisible()
     }
   })
