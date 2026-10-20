@@ -65,7 +65,7 @@ const skills = [
 const callouts = [
   {
     title: 'Search by asking',
-    body: 'Ask "what did I save about Cowork?" to get a table of matching clips, newest first, each linked. Gleaner searches titles, tags, notes and summaries.',
+    body: 'Ask "what did I save about Cowork?" to get a table of matching stored clips, newest first, each linked. Gleaner searches titles, tags, notes and summaries. A clip left in the chat isn\'t stored, so it won\'t turn up.',
   },
   {
     title: 'One clip per page',
@@ -105,7 +105,7 @@ const destinations = [
   <div class="home-features__inner">
     <div class="home-features__intro">
       <h2 class="home-features__title" id="home-features-title">
-        Ask in plain words. Find it again later.
+        Ask in plain words. Store it, find it again.
       </h2>
       <div class="home-features__lede">
         <p>
@@ -128,7 +128,8 @@ const destinations = [
         <p class="home-features__muted">
           About 400 words at most, in plain language: an HTML file in the chat, or Markdown when
           it's saved to a folder or Drive. A title and details such as the source, date and tags
-          come first, then a TL;DR, key points, notable details and takeaways.
+          come first. A page clip follows with a TL;DR, key points, notable details and takeaways.
+          Videos get key moments in place of key points, and tutorials get numbered steps.
         </p>
       </div>
 
