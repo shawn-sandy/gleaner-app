@@ -11,7 +11,7 @@ test.describe('Home Page Structure', () => {
     await expect(page.locator('h1').first()).toBeVisible()
 
     // Test for navigation
-    await expect(page.getByRole('navigation')).toBeVisible()
+    await expect(page.getByRole('navigation', { name: 'Primary' })).toBeVisible()
 
     // Test that sections exist (components may add more than expected)
     const sections = page.locator('section')
@@ -24,7 +24,7 @@ test.describe('Home Page Structure', () => {
 
     // Test ARIA landmarks
     await expect(page.getByRole('main')).toBeVisible()
-    await expect(page.getByRole('navigation')).toBeVisible()
+    await expect(page.getByRole('navigation', { name: 'Primary' })).toBeVisible()
 
     // Test for header/banner (if present)
     const banner = page.getByRole('banner')

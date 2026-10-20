@@ -3,6 +3,8 @@ import { docsSchema } from '@astrojs/starlight/schema'
 import { glob } from 'astro/loaders'
 import { defineCollection, z } from 'astro:content'
 
+import { gleanerReleasesLoader } from '#libs/gleaner-releases'
+
 const baseSchema = z.object({
   title: z.string(),
   pubDate: z.date(),
@@ -50,8 +52,19 @@ const content = defineCollection({
   schema: baseSchema,
 })
 
+/** Gleaner's GitHub releases, loaded at build time. Each release rebuilds the site via a Netlify build hook. */
+const releases = defineCollection({
+  loader: gleanerReleasesLoader({ token: import.meta.env.GITHUB_TOKEN }),
+  schema: z.object({
+    title: z.string(),
+    url: z.string(),
+    publishedAt: z.coerce.date(),
+  }),
+})
+
 export const collections = {
   posts,
   docs,
   content,
+  releases,
 }
