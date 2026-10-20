@@ -1,12 +1,13 @@
 # Gleaner skills
 
-Gleaner ships three skills. You don't have to pick one: describe what you want, and Claude loads the right skill from your words and the page you're on. In Claude Code you can also call each one directly.
+Gleaner ships four skills. You don't have to pick one: describe what you want, and Claude loads the right skill from your words and the page you're on. In Claude Code you can also call each one directly.
 
 | Skill                                                                                                       | Claude Code command    | Use it for                                                                      |
 | ----------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------- |
 | [glean](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/glean/SKILL.md)             | `/gleaner:glean`       | Web pages, parts of pages, Claude's answers about them, and finding saved clips |
 | [preferences](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/preferences/SKILL.md) | `/gleaner:preferences` | Shared destinations, formats, setup, show, update, reset, and sync              |
 | [youtube](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/youtube/SKILL.md)         | `/gleaner:youtube`     | YouTube videos and moments from them                                            |
+| [follow-up](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/follow-up/SKILL.md)     | `/gleaner:follow-up`   | Three suggested next steps for a saved clip, saved into it                      |
 
 The youtube skill handles only what's different about video: reading the transcript and writing a summary with timestamped links. Everything else (notes, parts, destinations, categories, saving, and search) comes from glean. A video clip lands in the same folder, with the same categories and tags, as a page clip, and "what did I save about X?" finds both.
 
@@ -20,7 +21,7 @@ The rename does not change existing clips or plain-language requests such as "sa
 
 ## preferences: shared save settings
 
-On the first unconfigured save, choose a verified default destination, a format (left unset by default, so Gleaner saves Markdown where supported; `default_format` is written only if you pick `auto` or `markdown`), and optional Drive sync, or choose “just this save” to keep session settings. Existing environment defaults remain when setup is skipped. Both page and video saves use the same preferences.
+Gleaner skips the setup prompt on your first save, since its default, the chat, needs nothing stored; it mentions setup once instead. Run `/gleaner:preferences setup` to choose a verified default destination, a format (left unset by default, so chat clips are HTML files and stored clips are Markdown where supported; `default_format` is written only if you pick `auto` or `markdown`), and optional Drive sync, or choose “just this save” to keep session settings. Existing environment defaults remain when setup is skipped. Both page and video saves use the same preferences.
 
 ```text
 /gleaner:preferences setup
@@ -31,14 +32,14 @@ reset my project format override
 sync my preferences
 ```
 
-“Always” persists at user scope unless project/session scope is explicit; “save this here” stays temporary. Precedence is explicit request (`--to` before words), session, project, user, then environment defaults. With no format set, Gleaner saves raw `markdown` wherever the destination supports it. `auto` preserves native output, such as Google Docs in Drive; raw `markdown` supports local/Cowork and capable Drive connectors, with a prompt for incompatible Notion/artifact saves.
+“Always” persists at user scope unless project/session scope is explicit; “save this here” stays temporary. Precedence is explicit request (`--to` before words), session, project, user, then environment defaults. With no format set, chat clips are HTML files and Gleaner saves raw `markdown` wherever another destination supports it. `auto` preserves native output, such as an HTML file in the chat or Google Docs in Drive; raw `markdown` supports the chat, local/Cowork, and capable Drive connectors, with a prompt for incompatible Notion/artifact saves.
 
 Preferences use local user storage and optional project overrides. Drive sync runs only during invocations, keeps project overrides and metadata local, and asks about conflicts. Disconnected writes stay pending; cloud-only hosts can persist in Drive, otherwise settings are session-only. See [storage and sync details](../../../README.md#shared-preferences) and the [shared contract](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/preferences/references/contract.md).
 
 ## Before you start
 
 - **A page Claude can see.** Use the Claude side panel in Chrome, or the Browser pane in Claude Code desktop (Cmd+Shift+B on Mac, Ctrl+Shift+B on Windows). In ChatGPT, use connected Chrome tabs or the Work browser. Or skip browsing and put a URL in the request.
-- **A destination.** The default is Google Drive in the Chrome side panel and ChatGPT, and the project folder in Claude Code. Other destinations need their connector or app; see [Choosing where clips go](../../../README.md#choosing-where-clips-go).
+- **A destination, if you want one stored.** Until you set your own with preferences, every surface gives you the clip as an HTML file in the conversation. Other destinations need their connector or app; see [Choosing where clips go](../../../README.md#choosing-where-clips-go).
 
 ## glean: pages, parts, answers, and search
 
@@ -52,11 +53,11 @@ keep this article for later, good intro to view transitions
 save https://example.com/article
 ```
 
-Gleaner reads the page, skips navigation and ads, and saves a clip of up to ~400 words: a TL;DR, key points, notable details, and takeaways. Anything you add after the request ("good intro to view transitions") is saved as the clip's note.
+Gleaner reads the page, skips navigation and ads, and saves a plain-language clip of up to ~400 words: a TL;DR, key points (or a numbered Steps section for a tutorial), notable details, and takeaways, plus a short explanation of how the main idea works when the TL;DR can't cover it. Technical terms are explained the first time they appear. Anything you add after the request ("good intro to view transitions") is saved as the clip's note.
 
 ### Collect parts, then save once
 
-Highlight text and say "add this", or describe the part and let Gleaner find it. Parts can come from several tabs and sites.
+Highlight text and say "add this", or describe the part and let Gleaner find it. Parts can come from several tabs and sites. In ChatGPT, where highlights usually can't be read, describe the part or paste it.
 
 ```text
 grab the part about animation lengths, for the motion post
@@ -127,7 +128,7 @@ clip this talk, for the motion post
 save https://youtu.be/<video-id> --to notion
 ```
 
-Gleaner reads the transcript and saves a clip with a TL;DR, **key moments** that each link to the second they happen, notable details, and takeaways. A **Video** line records the channel, publish date, length, and whether the transcript came from captions or auto-captions. Every link to a video is saved as its canonical watch URL, so saving it again from a different link is still caught as a duplicate.
+Gleaner reads the transcript and saves the same plain-language clip as for a page, with **key moments** that each link to the second they happen in place of key points. A **Video** line records the channel, publish date, length, and whether the transcript came from captions or auto-captions. Every link to a video is saved as its canonical watch URL, so saving it again from a different link is still caught as a duplicate.
 
 ### Collect moments
 
@@ -144,7 +145,7 @@ done
 
 ### When there's no transcript
 
-Without captions (or during a live stream), Gleaner saves a clip of the whole video from its title, description, and chapters, and says so.
+Without captions (or during a live stream), Gleaner asks whether to save the video anyway; say no and nothing is saved. Say yes, and it asks for a short description, adds it to the video's own description, and saves a clip of the whole video from the title, that description, and the chapters. Say "just save it" to skip the description, or paste the transcript instead for a full summary.
 
 A part can't be clipped without the transcript. If you ask for one anyway, Gleaner asks you to paste the transcript and offers a description-only clip of the whole video instead.
 
@@ -155,6 +156,19 @@ To copy a transcript on YouTube, open **…more** under the video, then **Show t
 - **Ads:** if an ad is playing, Gleaner skips it or waits for it to end before reading the transcript.
 - **Auto-captions:** Gleaner checks names and code terms against the title and description, since auto-captions often mishear them.
 - **Private, members-only, or age-restricted videos:** sign in to YouTube in the browser Gleaner is using. The Claude Code Browser pane has its own sign-ins, separate from Chrome.
+- **ChatGPT without a JavaScript tool** (connected Chrome tabs, or a Work browser without one): Gleaner reads a transcript only when the video's tab shows one, so paste it if the tab doesn't (see [When there's no transcript](#when-theres-no-transcript)). It also can't read where you are in the video, so give "add this part" a time range or topic instead.
+
+## follow-up: what to do next with a clip
+
+Ask right after a save, or point at any saved clip by link, path, or topic:
+
+```text
+what should I follow up on?
+suggest follow-ups for my view transitions clip
+/gleaner:follow-up ./browser-research/design-engineering/2026-10-18-motion-timing.md
+```
+
+Gleaner reads the clip's link, TL;DR, note, content, and the links inside it, then suggests three follow-ups, each tied to something in the clip, such as reading a linked page, moving the post your note mentions forward, or comparing it with clips that share its tags. Pick one, or say what you'd rather do. When the clip has no note, takeaways, or links to work from, Gleaner asks what you want instead of guessing. The follow-ups are saved after the clip's takeaways, under a dated Follow-ups heading. A clip from an earlier session is never edited: you get an updated copy that links to the original. Nothing else is saved unless you ask.
 
 ## More help
 
