@@ -214,6 +214,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site copy caught up with Gleaner `79b80e2`** (`README.md`, `plugins/gleaner/skills/README.md`,
+  `src/components/astro/HomeHero.astro`, `src/components/astro/HomeFeatures.astro`,
+  `src/components/astro/HomeInstall.astro`, `src/utils/site-config.ts`, `upstream-sync.json`): the
+  README and skills guide mirrors match upstream again, now with four skills and the follow-up
+  guide, and the homepage follows Gleaner's new default
+  - Clips now come back as an HTML file in the chat unless you name a place or set a default, so
+    the hero's example clip, its fine print, and the destinations list lead with the chat, and the
+    install cards call Google Drive optional rather than the default save location
+  - The hero eyebrow and site description call Gleaner "a web clipper for Claude and ChatGPT", as
+    upstream's README title now does. The preferences card says to run setup, since the first save
+    no longer asks
+  - The bookmark moves from `fd87a03` to `79b80e2`, so the next drift check reports nothing
 - **Homepage feature section: the follow-up skill** (`src/components/astro/HomeFeatures.astro`): a
   fourth card for `follow-up`, the skill upstream Gleaner added, and the intro now says "four
   skills"
