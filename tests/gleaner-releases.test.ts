@@ -44,6 +44,7 @@ const published = {
 
 afterEach(() => {
   vi.unstubAllGlobals()
+  vi.restoreAllMocks()
 })
 
 describe('gleanerReleasesLoader', () => {
@@ -137,17 +138,44 @@ describe('gleanerReleasesLoader', () => {
     expect(context.logger.warn).toHaveBeenCalledWith(expect.stringContaining('unidentified alias'))
   })
 
-  it('strips script and event-handler HTML from the rendered notes', async () => {
+  it('removes script, event-handler, and unknown-tag HTML from the notes without leaving it as text', async () => {
     respondWith([published])
     const { entries, context, asLoaderContext } = fakeContext()
     context.renderMarkdown.mockResolvedValue({
-      html: '<p>Fixed <img src="x" onerror="alert(1)"><a href="javascript:alert(2)">a link</a></p><script>alert(3)</script>',
+      html:
+        '<p>Fixed <img src="x" onerror="alert(1)"><a href="javascript:alert(2)">a link</a></p>' +
+        '<script>alert(3)</script><ul><li><input type="checkbox" disabled> A task</li></ul>',
     })
 
     await gleanerReleasesLoader().load(asLoaderContext)
 
     const html = entries.get('v2.6.0')?.rendered?.html ?? ''
     expect(html, 'the notes did not render').toContain('Fixed')
-    expect(html).not.toMatch(/onerror|javascript:|<script/i)
+    expect(html, 'a task list item lost its text').toContain('A task')
+    expect(html).not.toMatch(/onerror|javascript:|<script|<input/i)
+    expect(html, 'markup was escaped into visible text instead of removed').not.toMatch(
+      /&lt;|alert/
+    )
+  })
+
+  it('gives up on a request GitHub never answers and keeps the stored releases', async () => {
+    const timedOut = AbortSignal.abort(
+      Object.assign(new Error('The operation timed out.'), { name: 'TimeoutError' })
+    )
+    const timeout = vi.spyOn(AbortSignal, 'timeout').mockReturnValue(timedOut)
+    vi.stubGlobal(
+      'fetch',
+      vi.fn((_url: string, init?: { signal?: AbortSignal }) =>
+        init?.signal?.aborted ? Promise.reject(init.signal.reason) : new Promise(() => {})
+      )
+    )
+    const stored = { id: 'v2.5.0', data: { title: 'Gleaner 2.5.0' } }
+    const { entries, context, asLoaderContext } = fakeContext([stored])
+
+    await gleanerReleasesLoader().load(asLoaderContext)
+
+    expect(timeout).toHaveBeenCalledWith(expect.any(Number))
+    expect(entries.get('v2.5.0')).toBe(stored)
+    expect(context.logger.warn).toHaveBeenCalledWith(expect.stringContaining('timed out'))
   })
 })

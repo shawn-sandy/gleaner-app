@@ -23,9 +23,9 @@ export const GLEANER_RELEASES_URL =
  * `filterXSS` before they reach this site.
  *
  * Every release is fetched and rendered before the store changes, so any failure (GitHub
- * unreachable or refusing, or a body that opens with `---` and is misread as invalid
- * frontmatter) logs a warning and keeps the last good list rather than a partial one. An
- * offline dev server or a GitHub outage never fails the build.
+ * unreachable, refusing, or silent for 15 s, or a body that opens with `---` and is misread
+ * as invalid frontmatter) logs a warning and keeps the last good list rather than a partial
+ * one. An offline dev server or a GitHub outage never fails the build.
  *
  * @param options.token - A GitHub token raises the rate limit from 60 to 5,000 requests an
  *   hour. Builds on shared machines, such as Netlify's, can hit the anonymous limit.
@@ -37,6 +37,8 @@ export function gleanerReleasesLoader({ token }: { token?: string | undefined } 
       const entries: Parameters<typeof store.set>[0][] = []
       try {
         const response = await fetch(GLEANER_RELEASES_URL, {
+          // Without a signal a stalled connection holds the build for undici's 300 s timeouts.
+          signal: AbortSignal.timeout(15_000),
           headers: {
             Accept: 'application/vnd.github+json',
             ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -59,7 +61,15 @@ export function gleanerReleasesLoader({ token }: { token?: string | undefined } 
           entries.push({
             id: release.tag_name,
             data,
-            rendered: { ...rendered, html: filterXSS(rendered.html) },
+            rendered: {
+              ...rendered,
+              // Remove tags outside the whitelist (and script and style contents) rather than
+              // escaping them, which would print the markup as text.
+              html: filterXSS(rendered.html, {
+                stripIgnoreTag: true,
+                stripIgnoreTagBody: ['script', 'style'],
+              }),
+            },
           })
         }
       } catch (error) {
