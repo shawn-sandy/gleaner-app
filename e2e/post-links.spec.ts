@@ -26,4 +26,21 @@ test.describe('Post links', () => {
       }
     })
   }
+
+  // The paginated list used `post.slug` as a relative href, so its links
+  // rendered with no href at all rather than as `/posts/undefined`.
+  test('every post in the paginated list links to its post', async ({ page, request }) => {
+    await page.goto('/posts/1')
+
+    const hrefs = await page
+      .locator('article h2 a')
+      .evaluateAll(links => links.map(link => link.getAttribute('href')))
+
+    expect(hrefs, 'no posts in the list').not.toHaveLength(0)
+    for (const href of hrefs) {
+      expect(href, 'a post link has no href').not.toBeNull()
+      const response = await request.get(new URL(href ?? '', page.url()).href)
+      expect(response.status(), href ?? '').toBe(200)
+    }
+  })
 })
