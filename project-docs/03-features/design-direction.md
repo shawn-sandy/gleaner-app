@@ -226,6 +226,101 @@ the direction rather than follow it:
 Applying your accent to a heading, a decorative border or a static card background reintroduces exactly the ambiguity
 the direction removes, and it fails `e2e/homepage-design-direction.spec.ts` if you run this project's suite.
 
+## The Gleaner Brand Layer
+
+The site's Gleaner rebrand is a scoped layer over the direction above, not a replacement. The homepage hero, the
+feature section, the Quick install cards and the blog section's posts paint in the Gleaner logo's colours - an evergreen
+disc and a copper string - and set their display moments in the wordmark's typeface. The Quick install and blog
+headings, and every other site route outside the Starlight docs, still use the seven direction tokens. The two layers
+never share a colour. `DESIGN.md` is the full record; this section is the contract.
+
+### The scoped palette
+
+`src/styles/gleaner-palette.css` sets two families of custom properties on any element marked `data-gleaner`: `--g-*`
+for the sections' own surfaces, type and controls (`--g-ground`, `--g-ink`, `--g-muted`, `--g-headline`,
+`--g-button-*`, `--g-link`, `--g-code-*`, `--g-band`, `--g-card`, `--g-chip`, `--g-marker-*`), and `--glean-*` for the
+string components (`--glean-string`, `--glean-surface`, `--glean-border`, `--glean-ink`, `--glean-you`,
+`--glean-reply`, `--glean-mark-*`, `--glean-clip-*`).
+
+It uses the same three theming scopes as the direction tokens: light values on `[data-gleaner]`, dark values under
+`@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) [data-gleaner] }` and under
+`:root[data-theme='dark'] [data-gleaner]`. The `:not()` means a light toggle needs no block of its own. Neither dark
+block sets `--glean-clip-*`, so the saved clip and the blog's latest-post card keep their evergreen fill in both themes.
+
+- **Each component that sets `data-gleaner` imports the stylesheet** - `HomeHero`, `HomeFeatures`, `HomeInstall`,
+  `HomeBlog` - and the browser loads it once.
+- **Components that only read the palette carry fallbacks.** `GleanPart`, `SavedClip` and `SkillCard` give every
+  property a light-theme fallback; `CopyCommand` falls back to the inherited colour.
+- **The palette stays out of `_design-tokens.scss` on purpose.** The committed `src/styles/index.css` is out of step
+  with its SCSS source, so a recompile would ship unrelated changes. Promote it only alongside a deliberate recompile
+  and review of `index.css`.
+
+### The Separate Hue Rule
+
+No Gleaner colour equals `--island`, in either theme. The accent audit in `e2e/homepage-design-direction.spec.ts`
+compares every non-interactive element's computed colour, background, painted border and outline with the resolved
+`--island`, in light and dark. It still passes with the Gleaner sections in place because evergreen is its own hue: in
+OKLCH, `#185c53` sits at hue 182 against Harbour Teal's 215, and the dark `#9ed9c8` at 175 against `#6bb9c9` at 212.
+The audit is an exact match, so it would not catch a near-miss. Never tune a Gleaner colour toward `--island`, and
+never reuse `--island` inside the brand layer.
+
+Hero contrast, computed with the WCAG formula from the shipped hex values: headline on ground 7.29:1 light, 10.93:1
+dark; ink 13.24:1 and 14.76:1; muted 6.22:1 and 8.46:1; the install button label on its fill 7.79:1 and 10.93:1; the
+copper string, a graphic, 3.55:1 and 6.42:1. `e2e/home-accessibility.spec.ts` asserts the AA floor for the direction
+tokens only, so these are a recorded budget, not an assertion.
+
+### Brand type
+
+Plus Jakarta Sans ships as one variable woff2 (`public/fonts/plus-jakarta-sans-wght.woff2`, 200-800, SIL OFL 1.1). At
+400 it is the body face, `--font-family-sans`, so bold body text (links, labels, `strong`) renders in it at 600-700.
+Its display use, as the Gleaner brand face at 600-800, is reserved for brand moments: the
+navigation wordmark (600, drawn into its SVG), the hero headline (800), the hero install button (650), the saved clip
+title (800), the feature section's `h2` and `h3` and skill names (800), the Quick install card names (800), and the
+blog's post titles (800 for the latest, 700 for earlier rows). Page headings on other site routes outside the Starlight
+docs stay on Inter 600 and labels stay mono, so the three type roles still hold and the brand face costs no font
+request beyond the body face. The components name the face directly, so overriding `--font-family-sans` leaves the
+brand moments on Plus Jakarta Sans.
+
+### Brand components
+
+| Component      | `data-gleaner`                    | Used in                                                    | What it is                                                          |
+| -------------- | --------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------- |
+| `HomeHero`     | On its `header`                   | `src/pages/index.astro`, header slot                       | Hero band: logo, headline, install button and panel, example thread |
+| `GleanPart`    | Reads it                          | `HomeHero`'s example thread                                | One ask on the copper string                                        |
+| `SavedClip`    | Reads it                          | The last item of the same thread                           | The evergreen clip the string ties off in                           |
+| `HomeFeatures` | On its `section`                  | `src/pages/index.astro`, featured slot                     | Feature band: skill cards, sample clip anatomy, save destinations   |
+| `SkillCard`    | Reads it                          | `HomeFeatures`                                             | One skill card                                                      |
+| `HomeInstall`  | On its card grid, not its heading | `src/pages/index.astro`, main content                      | Claude and ChatGPT Quick install cards                              |
+| `HomeBlog`     | On its posts, not its heading     | `src/pages/index.astro`, main content                      | Latest-post card and up to three earlier rows; omitted with no post |
+| `CopyCommand`  | Reads it, else inherits           | `HomeHero`'s install panel and `HomeInstall`'s Claude card | One install command with a copy button                              |
+
+`CopyCommand` holds one command per instance because Claude Code takes one slash command per message. Its accessible
+name is "Copy " plus the command, and the result is announced through a `role="status"` region present from the start.
+
+The hero logo (`gleaner-symbol.svg`, `--hero-logo-size: clamp(7rem, 25vw, 12.5rem)`) fades to transparent over the first
+logo-height of scroll with `animation-timeline: scroll()` and `animation-range: 0 var(--hero-logo-size)`. The rule sits
+inside `@supports (animation-timeline: scroll()) and (animation-range: 0 1px)` and
+`@media (prefers-reduced-motion: no-preference)`, so reduced motion and unsupported browsers keep the logo opaque. The
+range is checked because Firefox 144 with scroll-driven animations switched on has the timeline but not the range, and
+would spread the fade over the whole page. It is the system's only scroll-linked animation.
+
+### What a Gleaner override must not break
+
+The brand components are not package exports, so the Gleaner layer is not part of the consumer contract. A fork or a
+page that reskins them overrides `--g-*` and `--glean-*` with the stylesheet's own selectors, in all three scopes,
+loaded after it; the dark selectors carry (0,3,0), so redefining only `[data-gleaner]` loses in dark mode. Keep:
+
+- **The Separate Hue Rule** - in both directions: re-pointing `--island` has to clear the Gleaner values too. Run the
+  accent audit in light and dark.
+- **Copper as a graphic** - `--glean-string` is measured at 3:1; only `--glean-you` sets copper as text.
+- **`--glean-clip-*` readable in both themes** - it does not flip, and the "Read the post" button inverts it.
+- **The hero ratio** - the hero `h1` over the following paragraph must stay at 3.0 or more at 1280px and 390px; the deck
+  is derived from the headline size.
+- **The type-role probe** - the direction spec reads the display role from the first heading outside `[data-gleaner]`,
+  today "Quick install", so keep `data-gleaner` off the Quick install and blog headings.
+- **The recorded contrast** - no test asserts it. Re-measure every pair a change touches, and keep the components' light
+  fallbacks in step if you change the stylesheet's defaults.
+
 ## Verification
 
 Measured against the running dev server, light and dark:
@@ -247,8 +342,26 @@ Automated coverage:
 - `tests/integration/design-tokens.test.ts` - `--card-background` and `--header-background` each keep at least one
   `var()` consumer in the compiled CSS, and the dark block sets at least one painted property rather than variables alone
 
+The Gleaner brand layer:
+
+- `e2e/homepage-design-direction.spec.ts` - the accent audit runs over the Gleaner sections in light and dark, the
+  hero's display-to-deck ratio clears 3.0 at 1280 and 390, and the type-role probe skips headings inside
+  `[data-gleaner]`
+- `e2e/home-hero-logo-fade.spec.ts` - the logo fades out over its own height of scroll and back in at the top, and
+  stays opaque under reduced motion; the fade test skips itself where scroll-driven animations are unsupported
+- `e2e/home-gleaner-lists.spec.ts` - no list item in a Gleaner section carries the vendor margin or indent, and the
+  hero's copper string runs unbroken from ask to ask
+- `e2e/home-install.spec.ts` - the install cards' code stands apart from its card in light and dark
+- `e2e/home-blog.spec.ts` - every blog link lands on a page that renders, and row title links keep their heading's size
+  and weight
+- `e2e/copy-command.spec.ts` - the hero's first copy button neither scales nor dims on hover or focus
+
 ## Related
 
+- `DESIGN.md` - the full design record for both layers, with every contrast figure
+- `src/styles/gleaner-palette.css` - the Gleaner `--g-*` and `--glean-*` palette in all three theming scopes
+- `src/components/astro/` - `HomeHero`, `GleanPart`, `SavedClip`, `HomeFeatures`, `SkillCard`, `HomeInstall`,
+  `HomeBlog` and `CopyCommand`
 - `src/styles/DESIGN-TOKENS-README.md` - the wider token layer this direction extends
 - `docs/prototypes/restyle-astro-kit-homepage.html` - clickable prototype of the target state, with a working
   light/dark switch
