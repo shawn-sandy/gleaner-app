@@ -5,29 +5,30 @@ import { test, expect, type Page } from '@playwright/test'
  * stays put for visitors who ask for reduced motion.
  */
 
-const logo = '.home-hero__logo'
+/**
+ * The hero logo, found by its role and accessible name. Scoped to the banner
+ * (the hero `header`) because the site nav's brand image is also "Gleaner".
+ */
+const logo = (page: Page) =>
+  page.getByRole('banner').getByRole('img', { name: 'Gleaner', exact: true })
 
 /** Scrolls the page to `y` and returns the logo's computed opacity. */
 async function opacityAt(page: Page, y: number): Promise<number> {
-  return page.evaluate(
-    async ([selector, top]) => {
-      window.scrollTo({ top: Number(top), behavior: 'instant' })
-      // A scroll timeline updates on the next frame. Reading in the same task
-      // returns the pre-scroll opacity, which made the reduced-motion check pass
-      // with the fade still running.
-      await new Promise(resolve =>
-        window.requestAnimationFrame(() => window.requestAnimationFrame(resolve))
-      )
-      const el = document.querySelector(String(selector))
-      return el ? Number(getComputedStyle(el).opacity) : Number.NaN
-    },
-    [logo, y]
-  )
+  await page.evaluate(async top => {
+    window.scrollTo({ top, behavior: 'instant' })
+    // A scroll timeline updates on the next frame. Reading in the same task
+    // returns the pre-scroll opacity, which made the reduced-motion check pass
+    // with the fade still running.
+    await new Promise(resolve =>
+      window.requestAnimationFrame(() => window.requestAnimationFrame(resolve))
+    )
+  }, y)
+  return logo(page).evaluate(el => Number(getComputedStyle(el).opacity))
 }
 
 /** The logo's rendered height, which is also the fade's scroll distance. */
 async function logoHeight(page: Page): Promise<number> {
-  return page.locator(logo).evaluate(el => el.getBoundingClientRect().height)
+  return logo(page).evaluate(el => el.getBoundingClientRect().height)
 }
 
 test.describe('home hero logo scroll fade', () => {
