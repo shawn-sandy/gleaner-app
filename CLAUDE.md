@@ -42,6 +42,13 @@ What am I creating?
 4. **Path Alias Imports**: All internal imports use `#` prefix (MANDATORY)
 5. **Component Segregation**: Clear separation between SSR (Astro) and client (React) components
 
+### Deployments (Netlify)
+
+- **Production**: <https://gleaneragent.com>
+- **Dev**: <https://gleaner-app.netlify.app/>
+
+When asked to "open dev site" or "open production site" (or "prod site"), open the matching URL in the browser.
+
 ---
 
 ## Repository Structure (Quick Reference)

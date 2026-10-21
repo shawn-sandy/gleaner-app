@@ -87,6 +87,13 @@ astro-basics/
 
 **See detailed patterns:** [CLAUDE-PATTERNS.md](CLAUDE-PATTERNS.md)
 
+## Deployments (Netlify)
+
+- **Production**: <https://gleaneragent.com>
+- **Dev**: <https://gleaner-app.netlify.app/>
+
+When asked to "open dev site" or "open production site" (or "prod site"), open the matching URL in the browser.
+
 ## Build, Test, and Development Commands
 
 ### Development
