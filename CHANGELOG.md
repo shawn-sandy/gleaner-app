@@ -222,6 +222,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Homepage YouTube copy caught up with Gleaner `2bc1086`** (`src/components/astro/HomeFeatures.astro`):
+  the youtube skill card and "What's in every clip" still said video clips are built from the
+  transcript
+  - The youtube skill card says a video's summary comes from its description, with its channel,
+    useful links and chapters, and that clipping moments needs a pasted transcript
+  - "What's in every clip" adds the channel line, the links list and chapters as key moments
+  - The hero and site description are unchanged: upstream's intro and manifests still describe
+    saving parts of a video
 - **README mirrors caught up with Gleaner `2bc1086`** (`README.md`,
   `plugins/gleaner/skills/README.md`, `upstream-sync.json`): the README and skills guide match
   upstream again, rebuilt the way the last sync did: upstream text, links to files that only exist
