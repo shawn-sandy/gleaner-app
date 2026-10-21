@@ -55,7 +55,7 @@ the styles cannot reach a consumer's own popover navigation on the same page.
 
 | Prop         | Type      | Default              | Description                                                          |
 | ------------ | --------- | -------------------- | -------------------------------------------------------------------- |
-| `brandTitle` | `string`  | `SITE_TITLE`         | Text of the brand link on the left of the bar.                       |
+| `brandTitle` | `string`  | `SITE_TITLE`         | Accessible name of the brand link: the alt text of its wordmark.     |
 | `brandHref`  | `string`  | `'/'`                | Destination of the brand link.                                       |
 | `menuId`     | `string`  | `'site-nav-popover'` | id of the popover panel, wired to the button's `popovertarget`.      |
 | `showBrand`  | `boolean` | `true`               | Render the brand link. Set `false` when a consumer supplies its own. |

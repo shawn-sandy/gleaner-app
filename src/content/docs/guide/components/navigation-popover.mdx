@@ -19,7 +19,9 @@ directive, and no open-state class toggled on the DOM.
 
 ```astro
 <nav aria-label="Primary" data-site-nav>
-  <a href="/" data-nav-brand>Site title</a>
+  <a href="/" data-nav-brand>
+    <img src="/images/gleaner-wordmark-65px.svg" alt="Site title" width="213" height="65" />
+  </a>
 
   <button type="button" popovertarget="site-nav-popover" aria-label="Menu">
     <svg aria-hidden="true" focusable="false"><!-- hamburger --></svg>
@@ -55,7 +57,7 @@ All props are optional.
 
 | Prop         | Type      | Default              | Description                                                                                                         |
 | ------------ | --------- | -------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `brandTitle` | `string`  | `SITE_TITLE`         | Text of the brand link on the left of the bar.                                                                      |
+| `brandTitle` | `string`  | `SITE_TITLE`         | Accessible name of the brand link: the alt text of its wordmark.                                                    |
 | `brandHref`  | `string`  | `'/'`                | Destination of the brand link.                                                                                      |
 | `menuId`     | `string`  | `'site-nav-popover'` | id of the popover panel, wired to the button's `popovertarget`.                                                     |
 | `showBrand`  | `boolean` | `true`               | Render the brand link. Set `false` when a consumer supplies its own.                                                |
