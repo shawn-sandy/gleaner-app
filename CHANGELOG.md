@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   that follows the 1.0 to 2.5 post through the next four releases: clips in the chat by default
   (2.6.0), plain-language clips with How it works, Steps, and a follow-up prompt (2.7.0), HTML
   files in the chat (2.8.0), and split articles and canonical-URL duplicate checks (2.9.0), with
-  the install commands and where the plugin stands at 2.9.0. Written from the
+  the install commands, where the plugin stands at 2.9.0, and a note on the unreleased switch to
+  description-based YouTube clips on upstream `main`. Written from the
   [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) GitHub release notes and README
   changelog
 - **Upstream drift check** (`scripts/check-upstream.mjs`, `upstream-sync.json`,
@@ -221,22 +222,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Homepage copy updated for Gleaner 2.7.0 to 2.9.0 and `2bc1086`**
-  (`src/components/astro/HomeFeatures.astro`, `src/components/astro/HomeHero.astro`,
-  `src/utils/site-config.ts`): the homepage follows what installs from upstream `main` today
-  - YouTube clips are now written from the video's description and any chapters, since Gleaner no
-    longer captures transcripts, so the youtube skill card describes the channel, useful links and
-    chapter links, says a pasted transcript is what lets you clip moments, and leads its examples
-    with whole-video asks. The hero deck and site description say "YouTube video" in place of
-    "YouTube moment"
-  - "What's in every clip" says a video's key moments are its chapters, when it has them, with the
-    description's links, and that every clip ends with a prompt to paste later for follow-ups
-    (2.7.0)
-  - The "One clip per page" callout says that, where Gleaner can run a script on the page, a share
-    or tracking link to an article you clipped counts as the same page, from 2.9.0's canonical-URL
-    matching
-  - The README and skills guide mirrors and `upstream-sync.json` are not part of this change, so the
-    drift check still reports upstream as ahead
 - **Browser and home-screen icons use the stacked-card symbol** (`public/favicon.svg`,
   `public/icons/icon-192x192.png`, `public/icons/icon-512x512.png`): the tab icon was still the
   evergreen hand without the cards, and the PNG icons were the Astro starter logo
