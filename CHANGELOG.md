@@ -245,6 +245,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     rows (with their contrast on Paper, computed from the shipped hex values), `CopyCommand`, and
     the hero logo's scroll-driven fade and the conditions that keep it opaque
   - Adds three brand type roles and six frontmatter component entries
+- **Design Direction guide covers the Gleaner brand layer** (`src/content/docs/guide/design-direction.mdx`,
+  `project-docs/03-features/design-direction.md`): the Starlight guide and the project docs page documented only the
+  instrument system, so both now carry the Gleaner layer from `DESIGN.md`
+  - The scoped palette: `data-gleaner`, the `--g-*` and `--glean-*` properties in `src/styles/gleaner-palette.css`, its
+    three theming scopes, and why it stays out of `_design-tokens.scss`
+  - The Separate Hue Rule and why the exact-match accent audit still passes (evergreen at OKLCH hue 182 against Harbour
+    Teal's 215), with the hero contrast figures computed from the shipped hex values
+  - Plus Jakarta Sans's display use at 600-800, limited to brand moments, and each brand component with where it is
+    used, including the hero logo's scroll fade and its reduced-motion and `@supports` conditions
+  - What a Gleaner palette override must not break, and the brand layer's e2e coverage under Verification
+  - The guide's Related Files table lists the brand components and no longer calls `HomeHero` a component specimen
 - **Homepage YouTube copy caught up with Gleaner `2bc1086`** (`src/components/astro/HomeFeatures.astro`):
   the youtube skill card and "What's in every clip" still said video clips are built from the
   transcript
