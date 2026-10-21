@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Homepage blog section** (`src/components/astro/HomeBlog.astro`): "From the blog", under the
+  quick-install guide, features the newest published post on an evergreen card with a "Read the
+  post" link, lists up to three earlier posts as rows of date, title and a one-line description,
+  and links to `/blog`
+  - Reads the `posts` collection: published posts only, newest first, posts with the same `pubDate`
+    by id so the order does not depend on the order the collection returns. With no published post
+    the section is left out
+  - The earlier-posts list carries `role="list"`, which Safari otherwise drops from a list styled
+    `list-style: none`
+  - Prints each post's frontmatter day in UTC, so a build machine west of UTC does not date
+    `pubDate: 2026-10-21` as October 20
+  - `tests/components/HomeBlog.astro.test.ts` covers the order, the four-post cap, the same-date
+    tie, the time zone, the `/blog` link, the list role, and the one-post and no-post cases;
+    `e2e/home-blog.spec.ts` checks every link in the section lands on a page that renders, and
+    that each row title link keeps its heading's size and weight against the site's `a` rule
 - **Gleaner 2.6 to 2.9 release post** (`src/content/posts/gleaner-2-6-to-2-9.md`): a blog post
   that follows the 1.0 to 2.5 post through the next four releases: clips in the chat by default
   (2.6.0), plain-language clips with How it works, Steps, and a follow-up prompt (2.7.0), HTML
