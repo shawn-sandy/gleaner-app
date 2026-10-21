@@ -230,6 +230,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The hero symbol scales from 112px on a phone to 200px from an 800px viewport up
   - The four nav brand contrast e2e tests went with the brand text they measured, and the upstream
     drift check's logo watch lists the new wordmark files in place of `Navigation.astro`
+- **Stacked-card Gleaner symbol** (`public/images/gleaner-symbol.svg`): the symbol now sits on three
+  stacked rounded cards, the back two tilted, in place of the evergreen disc. The homepage hero
+  draws this file, and the nav's wordmark carries the same symbol. Upstream Gleaner still uses the
+  disc
+  - New alongside it: `gleaner-sq.svg` and `gleaner-square copy.svg` (copies of the new symbol),
+    `gleaner-stacked-wordmark.svg` (the symbol beside "Gleaner", 716×300) and
+    `gleaner-wordmark-65px.svg` (the same wordmark at 65px tall)
 - **Homepage search and clip-anatomy copy scoped** (`src/components/astro/HomeFeatures.astro`): the
   feature heading, the "Search by asking" callout and "What's in every clip" now match what
   Gleaner does under its chat default
