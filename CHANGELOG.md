@@ -214,6 +214,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **README mirrors caught up with Gleaner `2bc1086`** (`README.md`,
+  `plugins/gleaner/skills/README.md`, `upstream-sync.json`): the README and skills guide match
+  upstream again, rebuilt the way the last sync did: upstream text, links to files that only exist
+  upstream pointed at GitHub, the fork step still naming shawn-sandy/gleaner, then Prettier
+  - They cover 2.9.0 (articles split across pages read to the end, canonical-URL duplicate checks,
+    parts that start from a matching heading) and the unreleased YouTube change: clips are written
+    from the video's description and chapters, with a Channel line and a Links section, and a
+    pasted transcript is needed for a fuller summary or for parts
+  - `docs/chatgpt-marketplace.md` changed only its YouTube guidance and test checklist, which the
+    install cards don't show, so `HomeInstall.astro` is unchanged. The homepage copy for these
+    changes was updated separately
+  - The bookmark moves from `79b80e2` to `2bc1086`, so the next drift check reports nothing
 - **Browser and home-screen icons use the stacked-card symbol** (`public/favicon.svg`,
   `public/icons/icon-192x192.png`, `public/icons/icon-512x512.png`): the tab icon was still the
   evergreen hand without the cards, and the PNG icons were the Astro starter logo
