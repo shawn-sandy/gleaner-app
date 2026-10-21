@@ -212,9 +212,11 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
    * Fades the logo out over the first logo-height of scroll, as it moves up
    * toward the pinned site nav (e2e: home-hero-logo-fade.spec.ts). Browsers
    * without scroll-driven animations keep it opaque, and so does reduced
-   * motion.
+   * motion. `animation-range` is checked too: Firefox 144 with scroll-driven
+   * animations switched on has the timeline but not the range, and spread the
+   * fade over the whole page.
    */
-  @supports (animation-timeline: scroll()) {
+  @supports (animation-timeline: scroll()) and (animation-range: 0 1px) {
     @media (prefers-reduced-motion: no-preference) {
       .home-hero .home-hero__logo {
         animation: home-hero-logo-fade linear both;

@@ -34,7 +34,11 @@ test.describe('home hero logo scroll fade', () => {
   test('fades out as the page scrolls down and back in at the top', async ({ page }) => {
     await page.goto('/')
     test.skip(
-      !(await page.evaluate(() => window.CSS.supports('animation-timeline: scroll()'))),
+      !(await page.evaluate(
+        () =>
+          window.CSS.supports('animation-timeline: scroll()') &&
+          window.CSS.supports('animation-range: 0 1px')
+      )),
       'No scroll-driven animations here, so the logo stays opaque by design.'
     )
     const height = await logoHeight(page)
