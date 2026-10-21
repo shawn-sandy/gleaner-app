@@ -214,20 +214,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Site copy caught up with Gleaner `2bc1086`** (`README.md`, `plugins/gleaner/skills/README.md`,
-  `src/components/astro/HomeFeatures.astro`, `upstream-sync.json`): YouTube clips are now written
-  from the video's description and chapters, with a Channel line and a Links section, since
-  Gleaner no longer captures transcripts. A pasted transcript gives a fuller summary and is needed
-  for parts
-  - `README.md` and `plugins/gleaner/skills/README.md` mirror upstream again, rebuilt the way the
-    last sync did. They also pick up Gleaner 2.9.0: split articles read to the end, canonical-URL
-    duplicate checks, parts that start at the matching heading, and schema.org types
-  - The youtube skill card says a video's summary comes from its description, and that clipping
-    moments needs the pasted transcript. "What's in every clip" adds the channel line, chapters as
-    key moments, and the links list
-  - The hero, install cards and site description need no change: the ChatGPT guide's import steps
-    are unchanged, and upstream still describes saving parts of a video
-  - `upstream-sync.json` moves to `2bc1086`, so the drift check reports nothing
+- **Homepage YouTube copy caught up with Gleaner `2bc1086`** (`src/components/astro/HomeFeatures.astro`):
+  the youtube skill card and "What's in every clip" still said video clips are built from the
+  transcript
+  - The youtube skill card says a video's summary comes from its description, with its channel,
+    useful links and chapters, and that clipping moments needs a pasted transcript
+  - "What's in every clip" adds the channel line, the links list and chapters as key moments
+  - The hero and site description are unchanged: upstream's intro and manifests still describe
+    saving parts of a video
+- **README mirrors caught up with Gleaner `2bc1086`** (`README.md`,
+  `plugins/gleaner/skills/README.md`, `upstream-sync.json`): the README and skills guide match
+  upstream again, rebuilt the way the last sync did: upstream text, links to files that only exist
+  upstream pointed at GitHub, the fork step still naming shawn-sandy/gleaner, then Prettier
+  - They cover 2.9.0 (articles split across pages read to the end, canonical-URL duplicate checks,
+    parts that start from a matching heading) and the unreleased YouTube change: clips are written
+    from the video's description and chapters, with a Channel line and a Links section, and a
+    pasted transcript is needed for a fuller summary or for parts
+  - `docs/chatgpt-marketplace.md` changed only its YouTube guidance and test checklist, which the
+    install cards don't show, so `HomeInstall.astro` is unchanged. The homepage copy for these
+    changes was updated separately
+  - The bookmark moves from `79b80e2` to `2bc1086`, so the next drift check reports nothing
 - **Browser and home-screen icons use the stacked-card symbol** (`public/favicon.svg`,
   `public/icons/icon-192x192.png`, `public/icons/icon-512x512.png`): the tab icon was still the
   evergreen hand without the cards, and the PNG icons were the Astro starter logo
