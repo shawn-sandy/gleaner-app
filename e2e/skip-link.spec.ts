@@ -38,6 +38,29 @@ test.describe('Skip to main content link', () => {
       .toBeGreaterThanOrEqual(0)
   })
 
+  test('paints above the sticky site nav when focused', async ({ page }) => {
+    await page.goto('/')
+
+    const skip = page.locator(SKIP)
+    await page.keyboard.press('Tab')
+    await expect(skip).toBeFocused()
+
+    // Inside the viewport is not enough: the nav is pinned over the same strip,
+    // so the link has to be the top element at its own centre.
+    await expect
+      .poll(
+        async () =>
+          skip.evaluate(el => {
+            const r = el.getBoundingClientRect()
+            return el.contains(
+              document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)
+            )
+          }),
+        { timeout: 2000 }
+      )
+      .toBe(true)
+  })
+
   test('moves keyboard focus to the main landmark, not just the scroll position', async ({
     page,
   }) => {

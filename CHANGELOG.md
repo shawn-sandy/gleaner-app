@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Watched: the README and skills guide (copied here, and followed by the homepage sections), a
     skill added, removed or renamed (the homepage skill cards), the manifests and ChatGPT guide
     (install steps, the hero's install commands, and the site description), and the logo (the symbol
-    and wordmark files, palette, favicon, `SavedClip`'s knot, and the nav brand's colour). Edits
+    and wordmark files, palette, favicon, and `SavedClip`'s knot). Edits
     inside a skill and version-only bumps to a manifest that stayed put are left out, since most
     upstream commits make them and they change nothing the site shows
   - `npm run check:upstream` runs the same check locally, for when Actions is unavailable. A GitHub
@@ -214,9 +214,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site nav pinned, with the Gleaner wordmark as its brand** (`src/components/astro/Navigation.astro`,
+  `src/components/astro/HomeHero.astro`, `public/images/gleaner-wordmark-65px.svg`): the nav stays
+  at the top of the viewport as the page scrolls, and the homepage hero opens with the Gleaner
+  symbol
+  - The brand link is now the 65px wordmark image, 2em tall (60px down to 32px by width), and
+    `brandTitle` is its alt text rather than visible text, so it should keep "Gleaner" in it. The
+    name in the image is dark green, so it reads poorly on the dark bar
+  - acss's `html, body { height: 100% }` held `body` to one viewport, so the sticky bar scrolled
+    away after the first screen. `body` now grows with the page when it holds the nav, and
+    `scroll-padding-top` lands anchor jumps, the skip link's included, below the bar
+  - The focused skip link paints above the bar (`--z-index-skipLink`); at acss's z-index 100 the
+    sticky bar covered it. `e2e/skip-link.spec.ts` now checks it is the top element, and
+    `e2e/navigation-popover.spec.ts` checks the bar stays pinned past the first screen
+  - The hero symbol scales from 112px on a phone to 200px from an 800px viewport up
+  - The four nav brand contrast e2e tests went with the brand text they measured, and the upstream
+    drift check's logo watch lists the new wordmark files in place of `Navigation.astro`
 - **Stacked-card Gleaner symbol** (`public/images/gleaner-symbol.svg`): the symbol now sits on three
-  stacked rounded cards, the back two tilted, in place of the evergreen disc. The nav brand draws
-  this file, so the site's nav logo changes with it. Upstream Gleaner still uses the disc
+  stacked rounded cards, the back two tilted, in place of the evergreen disc. The homepage hero
+  draws this file, and the nav's wordmark carries the same symbol. Upstream Gleaner still uses the
+  disc
   - New alongside it: `gleaner-sq.svg` and `gleaner-square copy.svg` (copies of the new symbol),
     `gleaner-stacked-wordmark.svg` (the symbol beside "Gleaner", 716×300) and
     `gleaner-wordmark-65px.svg` (the same wordmark at 65px tall)

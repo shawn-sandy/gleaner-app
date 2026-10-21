@@ -13,7 +13,7 @@ test.describe('Site identity metadata', () => {
       const meta = (name: string) =>
         document.querySelector(`meta[name="${name}"]`)?.getAttribute('content') ?? ''
       return {
-        siteTitle: document.querySelector('[data-nav-brand]')?.textContent?.trim() ?? '',
+        siteTitle: document.querySelector('[data-nav-brand] img')?.getAttribute('alt') ?? '',
         applicationName: meta('application-name'),
         appleTitle: meta('apple-mobile-web-app-title'),
       }
@@ -30,7 +30,7 @@ test.describe('Site identity metadata', () => {
   test('a page without its own description describes the site', async ({ page }) => {
     await page.goto('/about')
 
-    const siteTitle = (await page.locator('[data-nav-brand]').textContent())?.trim() ?? ''
+    const siteTitle = (await page.locator('[data-nav-brand] img').getAttribute('alt')) ?? ''
     const description = await page.locator('meta[name="description"]').getAttribute('content')
 
     expect(siteTitle, 'no site title in the nav brand').not.toBe('')

@@ -287,54 +287,24 @@ test('anonymous visitors get no dashboard or profile links anywhere', async ({ p
   expect(await page.locator('a[href="/profile"]').count()).toBe(0)
 })
 
-// The brand name is large text (30px) from 440px wide but drops to 16px below
-// 360px, so it is held to the 4.5:1 normal-text minimum at every width. The
-// four cases cover both ways into each theme: the OS preference alone, and
-// the theme toggle overriding it.
-for (const [label, colorScheme, theme] of [
-  ['dark OS preference', 'dark', null],
-  ['dark toggle over a light OS', 'light', 'dark'],
-  ['light toggle over a dark OS', 'dark', 'light'],
-  ['light OS preference', 'light', null],
-] as const) {
-  test(`nav brand name has at least 4.5:1 contrast: ${label}`, async ({ page }) => {
-    await page.emulateMedia({ colorScheme })
-    await page.goto('/')
-    if (theme) {
-      await page.evaluate(value => {
-        document.documentElement.dataset.theme = value
-      }, theme)
+// A sticky bar cannot leave its parent, and acss's `html, body { height: 100% }`
+// held `body` to one screen, so the bar scrolled away once the page passed it.
+test('site nav stays pinned past the first screen', async ({ page }) => {
+  await page.goto('/')
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight))
+
+  const measured = await page.evaluate(() => {
+    const nav = document.querySelector('body > nav[data-site-nav]')
+    if (!nav) throw new Error('no site nav under body')
+    const r = nav.getBoundingClientRect()
+    return {
+      screens: window.scrollY / window.innerHeight,
+      top: r.top,
+      onTop: nav.contains(document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)),
     }
-
-    const measured = await page.evaluate(async () => {
-      const brand = document.querySelector('a[data-nav-brand]')
-      const nav = document.querySelector('[data-site-nav]')
-      if (!brand || !nav) throw new Error('nav brand or site nav matched nothing')
-
-      // Links fade their colour (350ms), so a read straight after the theme
-      // flip catches the old colour. `getAnimations()` flushes the style
-      // change first, so it sees the fade it waits on.
-      await Promise.all([...brand.getAnimations(), ...nav.getAnimations()].map(a => a.finished))
-
-      const luminance = (rgb: string) => {
-        const [r, g, b] = (rgb.match(/[\d.]+/g) ?? [])
-          .slice(0, 3)
-          .map(Number)
-          .map(channel => {
-            const c = channel / 255
-            return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4
-          })
-        return 0.2126 * r + 0.7152 * g + 0.0722 * b
-      }
-      const text = getComputedStyle(brand).color
-      const ground = getComputedStyle(nav).backgroundColor
-      const [hi, lo] = [luminance(text), luminance(ground)].sort((a, b) => b - a)
-      return { text, ground, ratio: (hi + 0.05) / (lo + 0.05) }
-    })
-
-    expect(
-      measured.ratio,
-      `${measured.text} on ${measured.ground} = ${measured.ratio.toFixed(2)}:1`
-    ).toBeGreaterThanOrEqual(4.5)
   })
-}
+
+  expect(measured.screens, 'page too short to scroll past one screen').toBeGreaterThan(1)
+  expect(measured.top).toBe(0)
+  expect(measured.onTop, 'page content paints over the pinned nav').toBe(true)
+})

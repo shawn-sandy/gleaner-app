@@ -6,7 +6,7 @@ import { SITE_TITLE } from '#utils/site-config'
  * @component Navigation
  * @example
  * ```astro
- * <Navigation brandTitle="Docs" brandHref="/guide/" menuId="docs-nav-popover">
+ * <Navigation brandTitle="Gleaner docs" brandHref="/guide/" menuId="docs-nav-popover">
  *   <ul data-nav-account><li><a href="/dashboard">Dashboard</a></li></ul>
  *   <ul slot="login"><li><button type="button">Sign in</button></li></ul>
  * </Navigation>
@@ -26,7 +26,11 @@ import { SITE_TITLE } from '#utils/site-config'
  * response whether the panel is open or not.
  */
 export type Props = {
-  /** Text of the brand link on the left of the bar. */
+  /**
+   * Accessible name of the brand link: the alt text of its Gleaner wordmark.
+   * Keep "Gleaner" in it, so the name contains the label the wordmark shows
+   * (WCAG 2.5.3).
+   */
   brandTitle?: string
   /** Destination of the brand link. */
   brandHref?: string
@@ -123,9 +127,8 @@ const {
   {
     showBrand && (
       <a href={brandHref} data-nav-brand>
-        {/* Decorative: the link's name is the brand title beside it. */}
-        <img src="/images/gleaner-symbol.svg" alt="" width="44" height="44" />
-        {brandTitle}
+        {/* The wordmark draws the name, so its alt is the link's name. */}
+        <img src="/images/gleaner-wordmark-65px.svg" alt={brandTitle} width="213" height="65" />
       </a>
     )
   }
@@ -165,6 +168,38 @@ const {
     padding-block: var(--space-3);
   }
 
+  /* Pinned to the top of the viewport when it is the page's own bar, a direct
+     child of `body`, not when a consumer nests it. `_navigation.scss` gives
+     the bar the body's background, so content scrolls under an opaque bar. */
+  :global(body) > [data-site-nav] {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-index-sticky);
+  }
+
+  /* acss slides its skip link (`body > a[href^='#']`, z-index 100) in at the
+     top of the page on focus, which is under the bar's sticky layer, so the
+     focused link was covered (e2e: skip-link.spec.ts). `html` outranks that
+     selector by one element. */
+  :global(html body > a[href^='#']) {
+    z-index: var(--z-index-skipLink);
+  }
+
+  /* A sticky bar cannot leave its parent, and acss's `html, body { height:
+     100% }` holds `body` to one viewport while the page overflows it, so the
+     bar scrolled away after the first screen. `auto` lets `body` grow with
+     the page; acss's `min-height: 100vh` still fills short pages. */
+  :global(body:has(> nav[data-site-nav])) {
+    height: auto;
+  }
+
+  /* Anchor jumps, the skip link's included, land below the pinned bar, not
+     under it (WCAG 2.2 SC 2.4.11). Clears the tallest bar, as `--panel-top` below
+     does, plus 1rem. */
+  :global(html:has(> body > nav[data-site-nav])) {
+    scroll-padding-top: calc(2 * 1.875rem + 2 * var(--space-3) + 1rem);
+  }
+
   /* `_navigation.scss` pins the open panel at `top: 4rem` to clear a 64px
      bar; the padded bar is up to 84px (60px brand plus `--space-3` twice), so
      the panel would cover its lower 20px. This starts it below the tallest
@@ -183,44 +218,22 @@ const {
     }
   }
 
-  /* Layout and face only. Weight and underline stay in `_navigation.scss`.
-     The symbol is a white hand on its own evergreen disc and reads on both
-     themes; on the light bar the name matches that disc (see `[href]`
-     below). */
+  /* Layout only. Weight and underline stay in `_navigation.scss`. */
   [data-nav-brand] {
     align-items: center;
     display: inline-flex;
-    font-family: 'Plus Jakarta Sans', var(--font-family-sans, sans-serif);
-    gap: 0.5rem;
-    letter-spacing: -0.01em;
     min-height: 44px;
   }
 
-  /* Tops out at 1.875rem, a 60px symbol, from 440px wide, and holds at
-     1.375rem below about 387px (15vw - 2.25rem = 22px). The slope
-     keeps the brand inside what the toggle, gaps and theme button leave of
-     the bar (e2e: no horizontal overflow at 390px). `[href]` lifts the size
-     and colour above the site's `a[href]` link rule, which a lone attribute
-     would lose to under Astro's `:where()` scoping; without it that rule
-     paints the brand in `--link-color` teal. The colour is the evergreen
-     fill of `gleaner-symbol.svg`'s disc. */
+  /* Sizes the wordmark, which is 2em tall (see `img` below). Tops out at
+     1.875rem, a 60px wordmark, from 440px wide, and holds at 1.375rem below
+     about 387px (15vw - 2.25rem = 22px). The slope keeps the brand inside
+     what the toggle, gaps and theme button leave of the bar (e2e: no
+     horizontal overflow at 390px). `[href]` lifts the size above the site's
+     `a[href]` link rule, which a lone attribute would lose to under Astro's
+     `:where()` scoping. */
   [data-nav-brand][href] {
-    color: #185c53;
     font-size: clamp(1.375rem, 15vw - 2.25rem, 1.875rem);
-  }
-
-  /* On the dark bar the evergreen fails contrast, so the name switches to
-     the mint `--g-headline` of `gleaner-palette.css`'s dark theme, through
-     the same two routes the bar takes: the OS preference, unless the toggle
-     chose light, and the toggle's dark (e2e: navigation-popover.spec.ts). */
-  @media (prefers-color-scheme: dark) {
-    :global(:root:not([data-theme='light'])) [data-nav-brand][href] {
-      color: #9ed9c8;
-    }
-  }
-
-  :global(:root[data-theme='dark']) [data-nav-brand][href] {
-    color: #9ed9c8;
   }
 
   /* Below 360px the toggle, the brand and the account links only fit on one
@@ -245,12 +258,13 @@ const {
     }
   }
 
-  /* Twice the text height at any size, the proportion `gleaner-wordmark.svg`
-     draws the symbol and the name at. */
-  [data-nav-brand] img {
+  /* Twice the brand's font size, at the wordmark's own proportions. `[href]`
+     lifts it above acss's `img[alt]`, whose `block-size: auto` wins a tie by
+     loading later and would hold the wordmark at its 65px file height. */
+  [data-nav-brand][href] img {
     display: block;
     flex: none;
     height: 2em;
-    width: 2em;
+    width: auto;
   }
 </style>

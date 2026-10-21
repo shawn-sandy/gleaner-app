@@ -680,11 +680,11 @@ colours from the `--glean-*` and `--g-*` properties `src/styles/gleaner-palette.
 `[data-gleaner]`, so they render correctly only inside a `data-gleaner` element, or with light
 fallbacks alone.
 
-- **Navigation brand:** The `gleaner-symbol.svg` (white hand on its own evergreen disc, so it reads
-  on either theme) at 2em, twice the title's size as the wordmark draws it (44px beside the 1.375rem
-  title, 32px at 1rem), beside the site title in Brand Nav, 0.5rem gap, 44px minimum target. The
-  image is decorative (`alt=""`); the title names the link. The title takes the site's link colour,
-  as every link does, so it flips with the theme.
+- **Navigation brand:** `gleaner-wordmark-65px.svg`, the symbol beside "Gleaner" in Plus Jakarta
+  Sans SemiBold, drawn 2em tall: 60px from 440px wide, 44px at the 1.375rem floor, 32px below 360px,
+  44px minimum target. Its alt is the brand title, which names the link. The name's evergreen fill
+  is fixed in the file, so unlike the old text title it does not flip with the theme and reads
+  poorly on the dark bar. The bar is pinned to the top of the viewport.
 - **Hero install button:** Evergreen pill, white label in Brand Button with a trailing arrow,
   52px minimum height, 1.625rem inline padding. Hover deepens the fill and adds an underline at
   3px offset so the state never relies on colour alone; colour-only 150ms `ease-out` transition.

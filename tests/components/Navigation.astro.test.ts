@@ -87,16 +87,16 @@ describe('Navigation.astro popover markup contract', () => {
     expect(attr(brand as string, 'href')).toBe('/')
   })
 
-  it('shows the Gleaner symbol beside the brand title without renaming the link', async () => {
-    const html = await render({ brandTitle: 'Docs' })
+  it('draws the brand as the Gleaner wordmark, named by the brand title', async () => {
+    const html = await render({ brandTitle: 'Gleaner docs' })
     const inner = /<a\b[^>]*\bdata-nav-brand\b[^>]*>([\s\S]*?)<\/a>/.exec(html)?.[1] ?? ''
     const img = /<img\b[^>]*>/.exec(inner)?.[0]
 
     expect(img, 'no <img> inside the brand link').toBeDefined()
-    expect(attr(img as string, 'src')).toBe('/images/gleaner-symbol.svg')
-    // Empty alt keeps the link's accessible name to the title, not "Gleaner Docs".
-    expect(attr(img as string, 'alt')).toBe('')
-    expect(inner.replace(/<[^>]*>/g, '').trim()).toBe('Docs')
+    expect(attr(img as string, 'src')).toBe('/images/gleaner-wordmark-65px.svg')
+    // The wordmark draws the name, so its alt is the link's accessible name.
+    expect(attr(img as string, 'alt')).toBe('Gleaner docs')
+    expect(inner.replace(/<[^>]*>/g, '').trim(), 'brand text beside the wordmark').toBe('')
   })
 
   it('hides the hamburger icon from assistive tech and the tab order', async () => {

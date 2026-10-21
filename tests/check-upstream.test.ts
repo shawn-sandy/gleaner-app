@@ -46,8 +46,10 @@ describe('findDrift', () => {
   it('sends a logo change to every file that copies the symbol, its colour or its knot', () => {
     const site = siteFilesFor([{ filename: 'gleaner-symbol.svg', status: 'modified' }])
     expect(site).toContain('src/components/astro/SavedClip.astro')
-    expect(site).toContain('src/components/astro/Navigation.astro')
     expect(site).toContain('public/images/gleaner-wordmark.svg')
+    // The nav brand draws this one, the symbol beside the name at 65px tall.
+    expect(site).toContain('public/images/gleaner-wordmark-65px.svg')
+    expect(site).toContain('public/images/gleaner-wordmark-140px.svg')
   })
 
   it('ignores an edit inside a skill, which rarely changes the homepage', () => {

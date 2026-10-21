@@ -51,14 +51,18 @@ The root `nav` also carries `data-site-nav`. Every selector in the stylesheet
 and in the component's inline first-paint block is scoped to that marker, so
 the styles cannot reach a consumer's own popover navigation on the same page.
 
+As a direct child of `body` the bar is sticky at the top of the viewport, and it
+sets `body { height: auto }`, `html { scroll-padding-top }` and the skip link's
+z-index to suit. See "Pinned to the top" in the navigation guide.
+
 **Props** (all optional):
 
-| Prop         | Type      | Default              | Description                                                          |
-| ------------ | --------- | -------------------- | -------------------------------------------------------------------- |
-| `brandTitle` | `string`  | `SITE_TITLE`         | Text of the brand link on the left of the bar.                       |
-| `brandHref`  | `string`  | `'/'`                | Destination of the brand link.                                       |
-| `menuId`     | `string`  | `'site-nav-popover'` | id of the popover panel, wired to the button's `popovertarget`.      |
-| `showBrand`  | `boolean` | `true`               | Render the brand link. Set `false` when a consumer supplies its own. |
+| Prop         | Type      | Default              | Description                                                                                         |
+| ------------ | --------- | -------------------- | --------------------------------------------------------------------------------------------------- |
+| `brandTitle` | `string`  | `SITE_TITLE`         | Accessible name of the brand link: the alt text of its wordmark. Keep "Gleaner" in it (WCAG 2.5.3). |
+| `brandHref`  | `string`  | `'/'`                | Destination of the brand link.                                                                      |
+| `menuId`     | `string`  | `'site-nav-popover'` | id of the popover panel, wired to the button's `popovertarget`.                                     |
+| `showBrand`  | `boolean` | `true`               | Render the brand link. Set `false` when a consumer supplies its own.                                |
 
 **Slots:**
 
