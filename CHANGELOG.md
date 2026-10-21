@@ -503,6 +503,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Post links pointed at `/posts/undefined`** (`PostsList.astro`, `ContentList.astro`,
+  `AstroPages.astro`, `CollectionList.astro`, `CollectionTagList.astro`, `src/pages/tags/[tag].astro`):
+  post URLs were built from `post.slug`, which the content layer's glob loader no longer sets. The
+  sidebar's recent-posts list on every page and the tag pages linked each post to the 404 at
+  `/posts/undefined`, and the paginated lists at `/posts/1` and `/content/1` rendered their links
+  with no `href` at all. They now use `post.id`, which the post route matches on. The components
+  guide's `PostCard` example is updated to match
+  - `e2e/post-links.spec.ts` checks that every post link on `/posts/gleaner-1-0-to-2-5`, `/blog`,
+    `/tags/gleaner`, and `/posts/1` returns 200
+
 - **Nav bar wider than a phone for signed-out visitors** (`src/components/astro/Navigation.astro`):
   beside Clerk's "Sign in" button, the login slot's acss padding (1rem on the list, 0.75rem on each
   item) made the page scroll sideways by 27px at 320px and 7px at 375px. Up to 30rem the list sets
