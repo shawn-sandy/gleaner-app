@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Gleaner 2.6 to 2.9 release post** (`src/content/posts/gleaner-2-6-to-2-9.md`): a blog post
+  that follows the 1.0 to 2.5 post through the next four releases: clips in the chat by default
+  (2.6.0), plain-language clips with How it works, Steps, and a follow-up prompt (2.7.0), HTML
+  files in the chat (2.8.0), and split articles and canonical-URL duplicate checks (2.9.0), with
+  the install commands, where the plugin stands at 2.9.0, and a note on the unreleased switch to
+  description-based YouTube clips on upstream `main`. Written from the
+  [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) GitHub release notes and README
+  changelog
 - **Upstream drift check** (`scripts/check-upstream.mjs`, `upstream-sync.json`,
   `.github/workflows/upstream-drift.yml`): a daily workflow keeps one issue open while
   [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) has changes the site's hand-written
