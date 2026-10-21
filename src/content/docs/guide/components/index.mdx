@@ -232,7 +232,7 @@ const publishedPosts = posts.filter(post => post.data.publish)
         description={post.data.description}
         pubDate={post.data.pubDate}
         author={post.data.author}
-        href={`/posts/${post.slug}`}
+        href={`/posts/${post.id}`}
         featured={post.data.featured}
       />
     ))
