@@ -462,9 +462,10 @@ recorded compromise: the committed `src/styles/index.css` is out of sync with it
 recompiling it to add global tokens would ship unrelated changes. The stylesheet sets the light
 values on `[data-gleaner]` and flips them in both dark scopes (`prefers-color-scheme: dark` under
 `:root:not([data-theme='light'])`, and `:root[data-theme='dark']`), honouring the Three Scopes Rule.
-Each component that sets `data-gleaner` (`HomeHero`, `HomeFeatures`) imports the stylesheet itself,
-and the browser loads it once; components that read the palette from inside one (`GleanPart`,
-`SavedClip`, `SkillCard`) carry light-theme fallbacks for every property they read. Promote these to
+Each component that sets `data-gleaner` (`HomeHero`, `HomeFeatures`, `HomeInstall`, `HomeBlog`)
+imports the stylesheet itself, and the browser loads it once; components that read the palette
+from inside one (`GleanPart`, `SavedClip`, `SkillCard`) carry light-theme fallbacks for every
+property they read. Promote these to
 the global token file only alongside a deliberate recompile of `index.css`.
 
 ## Typography
@@ -786,8 +787,9 @@ fallbacks alone.
   minimum).
 - **Quick install card (`HomeInstall`):** One card per assistant, Claude and ChatGPT: a Feature
   Card at 16px radius with a 1px Card Border, padded `clamp(1.25rem, 3vw, 1.75rem)`. It holds the
-  name in Install Card Name, where Gleaner runs in Muted, the steps as an ordered list (1.6 line,
-  0.5rem apart, 1.25rem indent) with inline code on Chip at 6px radius, an optional bold
+  assistant name in Install Card Name (Evergreen), a Muted line saying where Gleaner runs, the
+  steps as an ordered list (1.6 line, 0.5rem apart, 1.25rem indent) with inline code on Chip at
+  6px radius, an optional bold
   "In Claude Code" label above `CopyCommand` rows on a Chip block (8px radius, 0.875rem by 1rem
   padding), a 0.9375rem Muted "Needs" line, and an underlined Evergreen 600 link to the full guide
   pinned to the card's foot by an auto top margin, so the two cards' links line up.
