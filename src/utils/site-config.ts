@@ -23,7 +23,7 @@ export const BREADCRUMB_ROUTE = [
 
 export const SITE_TITLE = 'Gleaner'
 export const SITE_DESCRIPTION =
-  'Gather the best of what you read into tagged, searchable clips. Gleaner is a web clipper for Claude and ChatGPT that saves pages, passages, answers and YouTube moments.'
+  'Gather the best of what you read into tagged, searchable clips. Gleaner is a web clipper for Claude and ChatGPT that saves pages, passages, answers and YouTube videos.'
 export const SITE_LOGO = '/logo.png'
 export const PAGINATION_COUNT: number = 2
 export const CONTACT_INFO = {
