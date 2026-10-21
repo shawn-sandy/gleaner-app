@@ -45,9 +45,9 @@ What am I creating?
 ### Deployments (Netlify)
 
 - **Production**: <https://gleaneragent.com>
-- **Dev**: <https://gleaner-app.netlify.app/>
+- **Staging**: <https://gleaner-app.netlify.app/>
 
-When asked to "open dev site" or "open production site" (or "prod site"), open the matching URL in the browser.
+When asked to "open staging site" or "open production site" (or "prod site"), open the matching URL in the browser.
 
 ---
 
