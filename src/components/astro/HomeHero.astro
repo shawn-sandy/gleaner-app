@@ -199,11 +199,37 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
 
   /* 200px from an 800px viewport up, down to 112px on a phone. */
   .home-hero .home-hero__logo {
+    --hero-logo-size: clamp(7rem, 25vw, 12.5rem);
+
     display: block;
     height: auto;
     margin: 0 0 2rem;
     max-width: 100%;
-    width: clamp(7rem, 25vw, 12.5rem);
+    width: var(--hero-logo-size);
+  }
+
+  /*
+   * Fades the logo out over the first logo-height of scroll, as it moves up
+   * toward the pinned site nav (e2e: home-hero-logo-fade.spec.ts). Browsers
+   * without scroll-driven animations keep it opaque, and so does reduced
+   * motion. `animation-range` is checked too: Firefox 144 with scroll-driven
+   * animations switched on has the timeline but not the range, and spread the
+   * fade over the whole page.
+   */
+  @supports (animation-timeline: scroll()) and (animation-range: 0 1px) {
+    @media (prefers-reduced-motion: no-preference) {
+      .home-hero .home-hero__logo {
+        animation: home-hero-logo-fade linear both;
+        animation-range: 0 var(--hero-logo-size);
+        animation-timeline: scroll();
+      }
+    }
+  }
+
+  @keyframes home-hero-logo-fade {
+    to {
+      opacity: 0;
+    }
   }
 
   .home-hero .home-hero__eyebrow,
