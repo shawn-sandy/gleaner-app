@@ -57,6 +57,12 @@ const { pageTitle, pageDescription, pageImageUrl, hideHeader, hideSiteChrome } =
     </script>
 
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <!--
+      Both icons are the Gleaner symbol. The ICO (16, 32 and 48px frames) is for
+      browsers without SVG favicons; `sizes="32x32"` keeps Chrome from picking it
+      over the SVG, which every other browser prefers.
+    -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!--
