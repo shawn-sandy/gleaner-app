@@ -1,5 +1,5 @@
 ---
-name: Astro Kit
+name: Gleaner
 description: Ink on paper with a single lit indicator — a component kit whose accent colour is a machine-checked signal, not decoration.
 colors:
   ink: '#101418'
@@ -245,15 +245,44 @@ components:
     textColor: '{colors.gleaner-ink}'
     rounded: '{rounded.gleaner-card}'
     padding: '20px'
+  copy-command-button:
+    backgroundColor: 'transparent'
+    textColor: '{colors.gleaner-evergreen}'
+    rounded: '{rounded.lg}'
+    size: '32px'
+  install-card:
+    backgroundColor: '{colors.gleaner-surface}'
+    textColor: '{colors.gleaner-ink}'
+    rounded: '{rounded.2xl}'
+    padding: '28px'
+  install-card-code:
+    backgroundColor: '{colors.gleaner-chip}'
+    textColor: '{colors.gleaner-evergreen}'
+    rounded: '{rounded.lg}'
+    padding: '14px 16px'
+  blog-latest-card:
+    backgroundColor: '{colors.gleaner-evergreen}'
+    textColor: '{colors.gleaner-card}'
+    rounded: '{rounded.2xl}'
+    padding: '40px'
+  blog-read-button:
+    backgroundColor: '{colors.gleaner-card}'
+    textColor: '{colors.gleaner-evergreen}'
+    rounded: '{rounded.lg}'
+    padding: '10px 18px'
+    height: '44px'
+  blog-read-button-hover:
+    backgroundColor: '{colors.gleaner-clip-muted}'
+    textColor: '{colors.gleaner-evergreen}'
 ---
 
-# Design System: Astro Kit
+# Design System: Gleaner
 
 ## Overview
 
 **Creative North Star: "The Instrument Reading"**
 
-Astro Kit looks like the face of a measuring instrument. The ground is neutral and quiet, the
+Under its brand layer, Gleaner looks like the face of a measuring instrument. The ground is neutral and quiet, the
 scale is precise and legible at a glance, and exactly one thing on the dial is lit. Nothing is
 decorated for its own sake; every mark on the surface is there because it reports something. The
 palette's own token names say it out loud — `ink`, `paper`, `island` — and the accent behaves like
@@ -275,12 +304,12 @@ direction is a build failure, not a disagreement. Confirmed rejections: the viol
 every generated palette converges on, and stock Tailwind sky-500 — the accent is deliberately
 neither.
 
-The site is being rebranded to Gleaner, and the rebrand arrives as a scoped brand layer rather
-than a replacement. The homepage hero, the navigation brand link, the hero's example thread, and the
-homepage feature section below the hero paint in the Gleaner logo's own colours (an evergreen disc
-and a copper string) and set their display moments in the wordmark's typeface. The homepage's
-latest-posts list and every other route still paint with the instrument palette above. The two layers never share
-a colour, which is what keeps the accent audit meaningful.
+The Gleaner brand arrives as a scoped layer rather than a replacement. The homepage hero, the
+navigation brand link, the hero's example thread, the feature section below the hero, the Quick
+install cards and the blog section's posts paint in the Gleaner logo's own colours (an evergreen
+disc and a copper string) and set their display moments in the wordmark's typeface. The Quick
+install and blog headings, and every other route, still paint with the instrument palette above.
+The two layers never share a colour, which is what keeps the accent audit meaningful.
 
 **Key Characteristics:**
 
@@ -328,8 +357,11 @@ Status colours, used only in alerts, form validation, and system feedback — ne
 
 A second, scoped palette drawn from the Gleaner logo: a deep forest evergreen and a warm copper,
 on a faintly green-tinted ground. It paints only elements marked `data-gleaner`: the homepage hero
-(`HomeHero`, with `GleanPart` and `SavedClip` inside it) and the homepage feature section
-(`HomeFeatures`, with `SkillCard` inside it). The navigation brand carries the logo itself but
+(`HomeHero`, with `GleanPart`, `SavedClip` and `CopyCommand` inside it), the homepage feature
+section (`HomeFeatures`, with `SkillCard` inside it), the Quick install cards (`HomeInstall`, which
+marks its card grid, not its heading) and the blog section's posts (`HomeBlog`, which likewise
+marks only its posts). `CopyCommand` sets no `data-gleaner` of its own: it reads the palette from
+the section around it and falls back to the inherited colour. The navigation brand carries the logo itself but
 keeps inheriting the bar's ink. Light values are the frontmatter tokens; the dark values below are
 set on `[data-gleaner]` in both dark scopes by `src/styles/gleaner-palette.css`. Hero contrast
 figures are the ones measured and recorded in that stylesheet; feature-section figures marked
@@ -340,9 +372,12 @@ document" come from the WCAG relative-luminance formula run against the shipped 
 - **Evergreen** (light `gleaner-evergreen` / dark `#9ed9c8`): The logo disc colour. In light it
   is the hero headline, the install button fill, the secondary link, the install-command text, and
   Gleaner's reply line; in dark those roles lift to a pale sage. Headline on ground 7.29:1 light,
-  headline and link 10.93:1 dark. The saved clip card keeps the light evergreen fill in both themes.
-  In the feature section it is the section title and subtitles, the skill names, the chip text, and
-  the usage-guide link (measured): section title and link on the band 7.79:1 light, 10.93:1 dark;
+  headline and link 10.93:1 dark. The saved clip card and the blog's latest-post card keep the
+  light evergreen fill in both themes. In the Quick install cards it is the assistant name and the
+  install-guide link; in the blog section, the post-title links and "All posts", which sit on the
+  page's Paper: 7.60:1 light, 12.00:1 dark (computed for this document). In the feature section
+  it is the section title and subtitles, the skill names, the chip text, and the usage-guide link
+  (measured): section title and link on the band 7.79:1 light, 10.93:1 dark;
   skill name on its card 7.29:1 light, 9.39:1 dark.
 - **Deep Evergreen** (light `gleaner-evergreen-deep` / dark `#b9e6d9`): Install button hover fill.
 - **Copper** (light `gleaner-copper` / dark `#d98a62`): The string and its knot. Graphic only,
@@ -356,10 +391,14 @@ document" come from the WCAG relative-luminance formula run against the shipped 
 - **Band** (light `gleaner-band` / dark `#0e1d1a`): The feature section's background. White in light,
   so the section steps up from the hero's tinted ground; in dark it takes the hero's ground colour.
   Measured on it: lede 14.16:1 light, 14.76:1 dark; muted 6.65:1 light, 8.46:1 dark.
-- **Feature Card** (light `gleaner-surface` / dark `#152b27`): The skill cards and the sample clip
-  card, one tone off the band. Muted text on it 6.22:1 light, 7.27:1 dark (measured).
-- **Chip** (light `gleaner-chip` / dark `#234240`): The `/gleaner:` command chip and the `--to` flag
-  chips. Evergreen command text on it 6.61:1 light, 6.86:1 dark (measured).
+- **Feature Card** (light `gleaner-surface` / dark `#152b27`): The skill cards, the sample clip
+  card and the Quick install cards, one tone off the band. Muted text on it 6.22:1 light, 7.27:1
+  dark (measured).
+- **Chip** (light `gleaner-chip` / dark `#234240`): The `/gleaner:` command chip, the `--to` flag
+  chips, and inside the Quick install cards both the inline code and the block that holds the
+  `CopyCommand` rows. Evergreen command text on it 6.61:1 light, 6.86:1 dark (measured). The install
+  cards use Chip rather than Mist because in dark Mist is the card's own colour, so code on a card
+  would lose its surface.
 - **Marker / Marker Ink** (light `gleaner-marker`, `gleaner-marker-ink` / dark `#d98a62`, `#0e1d1a`):
   The numbered copper markers on the sample clip and its callouts. In light the fill is the Copper
   Ink value under a white numeral; in dark it is the string's copper under a ground-coloured numeral.
@@ -368,9 +407,12 @@ document" come from the WCAG relative-luminance formula run against the shipped 
 - **Gleaner Ink** (light `gleaner-ink` / dark `#e4efeb`): Hero body text and card text. 13.24:1
   light, 14.76:1 dark.
 - **Muted** (light `gleaner-muted` / dark `#a3bab3`): Deck-adjacent fine print, the install label,
-  the mono example heading. 6.22:1 light, 8.46:1 dark.
-- **Mist** (light `gleaner-mist` / dark `#152b27`): The install-command panel. Evergreen command
-  text on it measures 6.61:1 light (computed for this document).
+  the mono example heading. 6.22:1 light, 8.46:1 dark. It is also the "Earlier posts" label and the
+  post dates and one-line descriptions on Paper: 6.49:1 light, 9.29:1 dark (computed for this
+  document).
+- **Mist** (light `gleaner-mist` / dark `#152b27`): The hero's install-command panel, which holds
+  the `CopyCommand` rows. Evergreen command text on it measures 6.61:1 light (computed for this
+  document).
 - **Card / Card Border** (light `gleaner-card`, `gleaner-card-border` / dark `#152b27`,
   `#2b4842`): The white ask cards on the string and their 1px border. The border colour is also the
   feature band's top border, every feature-section card border, and its hairlines.
@@ -381,6 +423,9 @@ document" come from the WCAG relative-luminance formula run against the shipped 
   the highlighted note).
 - **Clip Muted / Clip Rule** (`gleaner-clip-muted`, `gleaner-clip-rule`, same in both themes):
   Secondary text, tag outlines, and the destination divider on the evergreen saved clip. Clip Muted on Evergreen 5.91:1 (computed for this document); white clip title on Evergreen 7.79:1.
+  The blog's latest-post card uses the same family: its date line and description in Clip Muted,
+  its title in white, and a white "Read the post" button with an Evergreen label (7.79:1) that
+  turns Clip Muted on hover (5.91:1, as above).
 - **Button label** is white on Evergreen in light (7.79:1) and the dark ground colour on sage in
   dark (10.93:1).
 
@@ -417,9 +462,10 @@ recorded compromise: the committed `src/styles/index.css` is out of sync with it
 recompiling it to add global tokens would ship unrelated changes. The stylesheet sets the light
 values on `[data-gleaner]` and flips them in both dark scopes (`prefers-color-scheme: dark` under
 `:root:not([data-theme='light'])`, and `:root[data-theme='dark']`), honouring the Three Scopes Rule.
-Each component that sets `data-gleaner` (`HomeHero`, `HomeFeatures`) imports the stylesheet itself,
-and the browser loads it once; components that read the palette from inside one (`GleanPart`,
-`SavedClip`, `SkillCard`) carry light-theme fallbacks for every property they read. Promote these to
+Each component that sets `data-gleaner` (`HomeHero`, `HomeFeatures`, `HomeInstall`, `HomeBlog`)
+imports the stylesheet itself, and the browser loads it once; components that read the palette
+from inside one (`GleanPart`, `SavedClip`, `SkillCard`) carry light-theme fallbacks for every
+property they read. Promote these to
 the global token file only alongside a deliberate recompile of `index.css`.
 
 ## Typography
@@ -480,6 +526,18 @@ something else speaks in them.
   a skill card. It is a command name, so it keeps its lower case.
 - **Chip Mono** (mono 400, 0.8125rem, 1.4): The command and `--to` flag chips. The same size sets the
   sample clip's mono path in its caption and the destination paths, at 1.5.
+- **Install Card Name** (Plus Jakarta Sans 800, 1.75rem, 1.1, `-0.02em`): "Claude" and "ChatGPT" on
+  the Quick install cards, in Evergreen.
+- **Latest Post Title** (Plus Jakarta Sans 800, `clamp(1.75rem, 4vw, 2.375rem)`, 1.15, `-0.02em`):
+  The newest post's title on the blog's evergreen card, in white, sentence case.
+- **Post Row Title** (Plus Jakarta Sans 700, 1.125rem, 1.4): An earlier post's title in the blog
+  list, set as an Evergreen link that inherits its heading's font rather than the site's 16px/400
+  `a` rule.
+
+The Quick install and blog headings ("Quick install", "From the blog") sit outside `data-gleaner`
+on the site's own heading face, weight and colour; their components set only the size
+(`clamp(1.625rem, 4vw, 2.125rem)`, 1.15) and sentence case. The Quick install heading is the
+homepage's one display-role heading that `e2e/homepage-design-direction.spec.ts` checks.
 
 Body copy in the hero and the feature section takes the body token (`--font-family-sans`, Plus
 Jakarta Sans 400), and mono stays on `--font-family-mono`. The brand roles part from body copy by
@@ -505,8 +563,9 @@ and capitalizing a sentence produces "Please Correct The Following Errors".
 **The Brand Face Rule.** Plus Jakarta Sans does two jobs. At 400 it is the body face, the
 `--font-family-sans` token, so it sets reading text on every site route outside the Starlight docs. At 600-800 it is the Gleaner
 brand face, and that use is scoped to brand moments: the nav brand, the hero headline, the hero
-install button, the saved clip title, and the homepage feature section's `h2` and `h3` headings and
-skill names. Those are the only headings it sets; page headings on other routes stay on the Inter
+install button, the saved clip title, the homepage feature section's `h2` and `h3` headings and
+skill names, the Quick install cards' assistant names, and the blog section's post titles. Those
+are the only headings it sets; page headings on other routes stay on the Inter
 display face, and labels stay mono. It ships as one variable woff2 covering 200-800, declared once
 in `src/styles/_design-tokens.scss` and preloaded in `Base.astro` alongside the Inter display file,
 so the site makes two font requests in total.
@@ -523,8 +582,8 @@ element.
 Vertical rhythm runs on an 8pt grid (`--space-*`). `main` carries 2rem block padding; sections take
 2rem inline padding; sibling sections separate by 2rem; elements inside an `article` separate by
 1.5rem. Composed pages own the space between their own regions — a reusable component never carries
-page-specific margin, which is why the homepage sets the latest-posts list's gutter in
-`index.astro`, where it is composed, rather than inside the components around it.
+page-specific margin, which is why the homepage sets the Quick install and blog sections' gutter in
+`index.astro`, where they are composed, rather than inside the components around them.
 
 The homepage hero is the Gleaner band: a full-bleed flex row on the shared measure holding the pitch
 (up to 40rem) beside the example thread (up to 36rem), each with a 28rem basis, separated by a 3.5rem
@@ -543,6 +602,18 @@ cards (20rem basis, 1.5rem gap); the sample clip (32.5rem basis, 42.5rem cap) be
 (22.5rem basis), 2.5rem by 4rem gaps; and five destination cards (12.5rem basis, 1rem gap) below a
 hairline. The lists own their spacing through the gap and clear the site's per-item margin, so the
 last card in a row is never taller than the rest.
+
+Below the feature section, the page returns to `main`: Quick install, then the blog, both inside
+the layout's main-content `section` and its `article`. Neither is a band. Each is a `section` on the
+page's Paper, a flex column with `2rem` above and `3rem` below. `index.astro` overrides that
+wrapper's 2rem inline padding (`main:has(.home-install) > section`) with
+`clamp(0rem, calc((80rem + 2.5rem - 100vw) / 2), 1.25rem)`, so their outer edges meet the feature
+section's: 1.25rem while the viewport is narrower than the measure, easing to 0 once `main` is
+centred with room to spare. Quick install puts its two cards in a grid,
+`repeat(auto-fit, minmax(min(100%, 22rem), 1fr))` with a 1.5rem gap, so they sit side by side
+while each keeps 22rem and stack below that. The blog stacks its latest-post card, the earlier-post
+list and the "All posts" link 2rem apart; each earlier-post row keeps its date (8.5rem) beside the
+title and description while the summary keeps 20rem, and drops it above them below that.
 
 ### Named Rules
 
@@ -685,13 +756,57 @@ fallbacks alone.
   44px minimum target. Its alt is the brand title, which names the link. The name's evergreen fill
   is fixed in the file, so unlike the old text title it does not flip with the theme and reads
   poorly on the dark bar. The bar is pinned to the top of the viewport.
+- **Hero logo:** `gleaner-symbol.svg` above the eyebrow, `clamp(7rem, 25vw, 12.5rem)` wide (112px
+  on a phone, 200px from an 800px viewport), with 2rem below it and the alt "Gleaner". It fades out
+  over the first logo-height of scroll as it rises toward the pinned nav: a scroll-driven
+  animation (`animation-timeline: scroll()`, `animation-range: 0 var(--hero-logo-size)`) from full
+  opacity to 0. It applies only under `prefers-reduced-motion: no-preference` and only where the
+  browser supports both `animation-timeline: scroll()` and `animation-range`; Firefox 144 with
+  scroll-driven animations switched on has the timeline but not the range, and would spread the
+  fade over the whole page. Everywhere else the logo stays opaque. It is the system's only
+  scroll-linked animation; `e2e/home-hero-logo-fade.spec.ts` covers it.
 - **Hero install button:** Evergreen pill, white label in Brand Button with a trailing arrow,
   52px minimum height, 1.625rem inline padding. Hover deepens the fill and adds an underline at
   3px offset so the state never relies on colour alone; colour-only 150ms `ease-out` transition.
   Focus is a 2px Evergreen outline at 3px offset, shared with the secondary text link (Evergreen,
   600, 44px minimum target, 5px underline offset).
-- **Install panel:** Mist panel at 12px radius holding a small muted label and the install commands
-  in mono Evergreen. It wraps instead of scrolling, so a 320px screen needs no scroll box.
+- **Install panel:** Mist panel at 12px radius (0.875rem by 1.125rem padding, 30rem cap) holding a
+  small muted 600 label ("In Claude Code") and one `CopyCommand` row per install command.
+- **CopyCommand:** One command on its own row with an icon button that copies it. One command per
+  instance on purpose: Claude Code takes a single slash command per message, so a button that
+  copied two lines would paste both into one prompt and run neither. The command is mono 0.875rem
+  on a 1.6 line in Evergreen (`--g-code-ink`) and wraps anywhere instead of scrolling, so a 320px
+  screen needs no scroll box. The button is a transparent 2rem square at 8px radius, with the icon
+  in the same Evergreen; hover fills it at 12% of the current colour (colour-only 150ms `ease-out`),
+  focus draws a 2px Evergreen outline at 2px offset, and a copy turns the copy icon into a check.
+  If the copy fails, the command is selected so a keyboard copy works. Its accessible name is
+  "Copy " plus the command, in visually hidden text, so several on one page never read as identical
+  controls, and the result is announced through a `role="status"` region that is in the markup from
+  the start, because one added at click time is not reliably announced. Rows separate by 0.25rem.
+  The button is 32px, under the 44px target the rest of the system holds (it clears WCAG 2.2's 24px
+  minimum).
+- **Quick install card (`HomeInstall`):** One card per assistant, Claude and ChatGPT: a Feature
+  Card at 16px radius with a 1px Card Border, padded `clamp(1.25rem, 3vw, 1.75rem)`. It holds the
+  assistant name in Install Card Name (Evergreen), a Muted line saying where Gleaner runs, the
+  steps as an ordered list (1.6 line, 0.5rem apart, 1.25rem indent) with inline code on Chip at
+  6px radius, an optional bold
+  "In Claude Code" label above `CopyCommand` rows on a Chip block (8px radius, 0.875rem by 1rem
+  padding), a 0.9375rem Muted "Needs" line, and an underlined Evergreen 600 link to the full guide
+  pinned to the card's foot by an auto top margin, so the two cards' links line up.
+- **Blog latest-post card (`HomeBlog`):** The newest published post on a solid Evergreen card at
+  16px radius in both themes, padded `clamp(1.5rem, 4vw, 2.5rem)` with a 1rem gap. A Clip Muted
+  meta line (a 700 uppercase "Latest" at 0.8125rem with 0.06em tracking, then the date), the title
+  in Latest Post Title, the description in Clip Muted at 1.0625rem, and a white "Read the post"
+  button: Evergreen 700 label with a trailing arrow, 8px radius, 44px minimum height, Clip Muted on
+  hover, and a 2px white focus outline at 3px offset, because the site's ring is drawn for the page
+  ground. With no published post, the whole section is left out.
+- **Blog post rows (`HomeBlog`):** Up to three earlier posts under a Muted "Earlier posts" label,
+  each row between Card Border hairlines with 1.25rem block padding: the date in Muted with tabular
+  figures, then the title in Post Row Title as an Evergreen link and a one-line Muted description cut
+  with an ellipsis. The list carries `role="list"`, which Safari drops from a list with
+  `list-style: none`. "All posts" closes the section as an Evergreen 600 link with a trailing arrow
+  and a 44px minimum target. Posts sort newest first and fall back to their id when two share a
+  date; dates print in UTC, so a build machine west of UTC never dates a post a day early.
 - **GleanPart (signature):** One ask on the string. A list item whose 3px copper string runs from
   its top through the gap to the next item, so consecutive parts read as one unbroken line, with
   the two-bar wrap 1.375rem down. The card is white with a 1px border at 14px radius
@@ -744,7 +859,9 @@ fallbacks alone.
   `data-gleaner`, and give components that read the palette a light-theme fallback for each
   property they read.
 - **Do** keep Plus Jakarta Sans headings to brand moments: nav brand, hero headline, hero CTA, clip
-  title, and the feature section's headings and skill names. Everywhere else it sets body copy only.
+  title, the feature section's headings and skill names, the Quick install cards' names, and the
+  blog's post titles. Everywhere else it sets body copy only.
+- **Do** give every install command its own `CopyCommand`; one button never copies two commands.
 
 ### Don't:
 
