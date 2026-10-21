@@ -214,6 +214,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site copy caught up with Gleaner `2bc1086`** (`README.md`, `plugins/gleaner/skills/README.md`,
+  `src/components/astro/HomeFeatures.astro`, `upstream-sync.json`): YouTube clips are now written
+  from the video's description and chapters, with a Channel line and a Links section, since
+  Gleaner no longer captures transcripts. A pasted transcript gives a fuller summary and is needed
+  for parts
+  - `README.md` and `plugins/gleaner/skills/README.md` mirror upstream again, rebuilt the way the
+    last sync did. They also pick up Gleaner 2.9.0: split articles read to the end, canonical-URL
+    duplicate checks, parts that start at the matching heading, and schema.org types
+  - The youtube skill card says a video's summary comes from its description, and that clipping
+    moments needs the pasted transcript. "What's in every clip" adds the channel line, chapters as
+    key moments, and the links list
+  - The hero, install cards and site description need no change: the ChatGPT guide's import steps
+    are unchanged, and upstream still describes saving parts of a video
+  - `upstream-sync.json` moves to `2bc1086`, so the drift check reports nothing
 - **Browser and home-screen icons use the stacked-card symbol** (`public/favicon.svg`,
   `public/icons/icon-192x192.png`, `public/icons/icon-512x512.png`): the tab icon was still the
   evergreen hand without the cards, and the PNG icons were the Astro starter logo
