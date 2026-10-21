@@ -375,7 +375,7 @@ document" come from the WCAG relative-luminance formula run against the shipped 
   headline and link 10.93:1 dark. The saved clip card and the blog's latest-post card keep the
   light evergreen fill in both themes. In the Quick install cards it is the assistant name and the
   install-guide link; in the blog section, the post-title links and "All posts", which sit on the
-  page's Paper: 7.60:1 light, 11.99:1 dark (computed for this document). In the feature section
+  page's Paper: 7.60:1 light, 12.00:1 dark (computed for this document). In the feature section
   it is the section title and subtitles, the skill names, the chip text, and the usage-guide link
   (measured): section title and link on the band 7.79:1 light, 10.93:1 dark;
   skill name on its card 7.29:1 light, 9.39:1 dark.
@@ -405,8 +405,7 @@ document" come from the WCAG relative-luminance formula run against the shipped 
   Numeral on marker 6.21:1 light, 6.42:1 dark; marker fill against the clip card 5.81:1 light, 5.52:1
   dark, a graphic (measured).
 - **Gleaner Ink** (light `gleaner-ink` / dark `#e4efeb`): Hero body text and card text. 13.24:1
-  light, 14.76:1 dark. The blog section's posts sit on the page's Paper, where it measures 13.80:1
-  light, 16.20:1 dark (computed for this document).
+  light, 14.76:1 dark.
 - **Muted** (light `gleaner-muted` / dark `#a3bab3`): Deck-adjacent fine print, the install label,
   the mono example heading. 6.22:1 light, 8.46:1 dark. It is also the "Earlier posts" label and the
   post dates and one-line descriptions on Paper: 6.49:1 light, 9.29:1 dark (computed for this
@@ -426,7 +425,7 @@ document" come from the WCAG relative-luminance formula run against the shipped 
   Secondary text, tag outlines, and the destination divider on the evergreen saved clip. Clip Muted on Evergreen 5.91:1 (computed for this document); white clip title on Evergreen 7.79:1.
   The blog's latest-post card uses the same family: its date line and description in Clip Muted,
   its title in white, and a white "Read the post" button with an Evergreen label (7.79:1) that
-  turns Clip Muted on hover (5.90:1, computed for this document).
+  turns Clip Muted on hover (5.91:1, as above).
 - **Button label** is white on Evergreen in light (7.79:1) and the dark ground colour on sage in
   dark (10.93:1).
 
@@ -603,9 +602,10 @@ cards (20rem basis, 1.5rem gap); the sample clip (32.5rem basis, 42.5rem cap) be
 hairline. The lists own their spacing through the gap and clear the site's per-item margin, so the
 last card in a row is never taller than the rest.
 
-Below the feature section, the page returns to `main` and its sections: Quick install, then the
-blog. Neither is a band. Each is a `section` on the page's Paper, a flex column with `2rem` above
-and `3rem` below. `index.astro` overrides `main > section`'s 2rem inline padding with
+Below the feature section, the page returns to `main`: Quick install, then the blog, both inside
+the layout's main-content `section` and its `article`. Neither is a band. Each is a `section` on the
+page's Paper, a flex column with `2rem` above and `3rem` below. `index.astro` overrides that
+wrapper's 2rem inline padding (`main:has(.home-install) > section`) with
 `clamp(0rem, calc((80rem + 2.5rem - 100vw) / 2), 1.25rem)`, so their outer edges meet the feature
 section's: 1.25rem while the viewport is narrower than the measure, easing to 0 once `main` is
 centred with room to spare. Quick install puts its two cards in a grid,
@@ -762,8 +762,8 @@ fallbacks alone.
   opacity to 0. It applies only under `prefers-reduced-motion: no-preference` and only where the
   browser supports both `animation-timeline: scroll()` and `animation-range`; Firefox 144 with
   scroll-driven animations switched on has the timeline but not the range, and would spread the
-  fade over the whole page. Everywhere else the logo stays opaque. It is the one thing in the system
-  that moves; `e2e/home-hero-logo-fade.spec.ts` covers it.
+  fade over the whole page. Everywhere else the logo stays opaque. It is the system's only
+  scroll-linked animation; `e2e/home-hero-logo-fade.spec.ts` covers it.
 - **Hero install button:** Evergreen pill, white label in Brand Button with a trailing arrow,
   52px minimum height, 1.625rem inline padding. Hover deepens the fill and adds an underline at
   3px offset so the state never relies on colour alone; colour-only 150ms `ease-out` transition.
