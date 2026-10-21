@@ -91,17 +91,18 @@ export const WATCHES = [
     ],
   },
   {
-    // Copies of the logo: the symbol and wordmark files, the favicon and palette drawn from it,
-    // SavedClip's knot paths, and the nav brand's hard-coded disc colour. Components that only
-    // use the palette's colours as var() fallbacks follow the palette.
+    // Copies of the logo: the symbol and wordmark files (the nav brand draws the 65px one), the
+    // favicon and palette drawn from it, and SavedClip's knot paths. Components that only use the
+    // palette's colours as var() fallbacks follow the palette.
     matches: touches('gleaner-symbol.svg'),
     site: [
       'public/images/gleaner-symbol.svg',
       'public/images/gleaner-wordmark.svg',
+      'public/images/gleaner-wordmark-65px.svg',
+      'public/images/gleaner-wordmark-140px.svg',
       'public/favicon.svg',
       'src/styles/gleaner-palette.css',
       'src/components/astro/SavedClip.astro',
-      'src/components/astro/Navigation.astro',
     ],
   },
 ]

@@ -286,3 +286,25 @@ test('anonymous visitors get no dashboard or profile links anywhere', async ({ p
   expect(await page.locator('a[href="/dashboard"]').count()).toBe(0)
   expect(await page.locator('a[href="/profile"]').count()).toBe(0)
 })
+
+// A sticky bar cannot leave its parent, and acss's `html, body { height: 100% }`
+// held `body` to one screen, so the bar scrolled away once the page passed it.
+test('site nav stays pinned past the first screen', async ({ page }) => {
+  await page.goto('/')
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight))
+
+  const measured = await page.evaluate(() => {
+    const nav = document.querySelector('body > nav[data-site-nav]')
+    if (!nav) throw new Error('no site nav under body')
+    const r = nav.getBoundingClientRect()
+    return {
+      screens: window.scrollY / window.innerHeight,
+      top: r.top,
+      onTop: nav.contains(document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)),
+    }
+  })
+
+  expect(measured.screens, 'page too short to scroll past one screen').toBeGreaterThan(1)
+  expect(measured.top).toBe(0)
+  expect(measured.onTop, 'page content paints over the pinned nav').toBe(true)
+})

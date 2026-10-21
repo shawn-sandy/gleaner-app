@@ -88,14 +88,14 @@ describe('Navigation.astro popover markup contract', () => {
   })
 
   it('draws the brand as the Gleaner wordmark, named by the brand title', async () => {
-    const html = await render({ brandTitle: 'Docs' })
+    const html = await render({ brandTitle: 'Gleaner docs' })
     const inner = /<a\b[^>]*\bdata-nav-brand\b[^>]*>([\s\S]*?)<\/a>/.exec(html)?.[1] ?? ''
     const img = /<img\b[^>]*>/.exec(inner)?.[0]
 
     expect(img, 'no <img> inside the brand link').toBeDefined()
     expect(attr(img as string, 'src')).toBe('/images/gleaner-wordmark-65px.svg')
     // The wordmark draws the name, so its alt is the link's accessible name.
-    expect(attr(img as string, 'alt')).toBe('Docs')
+    expect(attr(img as string, 'alt')).toBe('Gleaner docs')
     expect(inner.replace(/<[^>]*>/g, '').trim(), 'brand text beside the wordmark').toBe('')
   })
 

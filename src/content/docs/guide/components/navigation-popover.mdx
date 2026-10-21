@@ -57,7 +57,7 @@ All props are optional.
 
 | Prop         | Type      | Default              | Description                                                                                                         |
 | ------------ | --------- | -------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `brandTitle` | `string`  | `SITE_TITLE`         | Accessible name of the brand link: the alt text of its wordmark.                                                    |
+| `brandTitle` | `string`  | `SITE_TITLE`         | Accessible name of the brand link: the alt text of its wordmark. Keep "Gleaner" in it (WCAG 2.5.3).                 |
 | `brandHref`  | `string`  | `'/'`                | Destination of the brand link.                                                                                      |
 | `menuId`     | `string`  | `'site-nav-popover'` | id of the popover panel, wired to the button's `popovertarget`.                                                     |
 | `showBrand`  | `boolean` | `true`               | Render the brand link. Set `false` when a consumer supplies its own.                                                |
@@ -75,7 +75,12 @@ sends both buttons to the same panel.
 import Navigation from '#components/astro/Navigation.astro'
 ---
 
-<Navigation brandTitle="Docs" brandHref="/guide/" menuId="docs-nav-popover" showBrand={true}>
+<Navigation
+  brandTitle="Gleaner docs"
+  brandHref="/guide/"
+  menuId="docs-nav-popover"
+  showBrand={true}
+>
   <p>Rendered inside the popover panel.</p>
 
   <ul slot="login">
@@ -340,6 +345,19 @@ protection. Gate protected content on the server instead - middleware, `Astro.lo
 
 See the [Page-Level Protection guide](/guide/page-level-protection/) and the
 [Role Guard guide](/guide/role-guard-usage/) for the supported approaches.
+
+## Pinned to the top
+
+When the bar is the page's own, a direct child of `body` as `Base.astro` renders it, it is `position: sticky` at
+`top: 0` with `--z-index-sticky`. Three page-level rules in `Navigation.astro` come with it:
+
+- `body` gets `height: auto` in place of acss's `height: 100%`. A sticky element cannot leave its parent, and a body
+  held to one screen let the bar scroll away after the first screen. acss's `min-height` still fills short pages.
+- `html` gets a `scroll-padding-top` that clears the tallest bar plus 1rem, so anchor jumps, the skip link's
+  included, land below the bar.
+- acss's skip link gets `--z-index-skipLink`, so it paints above the bar when focused.
+
+A consumer that nests `Navigation` anywhere else gets none of these.
 
 ## Accessibility notes
 

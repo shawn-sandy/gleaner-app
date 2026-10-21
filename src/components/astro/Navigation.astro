@@ -6,7 +6,7 @@ import { SITE_TITLE } from '#utils/site-config'
  * @component Navigation
  * @example
  * ```astro
- * <Navigation brandTitle="Docs" brandHref="/guide/" menuId="docs-nav-popover">
+ * <Navigation brandTitle="Gleaner docs" brandHref="/guide/" menuId="docs-nav-popover">
  *   <ul data-nav-account><li><a href="/dashboard">Dashboard</a></li></ul>
  *   <ul slot="login"><li><button type="button">Sign in</button></li></ul>
  * </Navigation>
@@ -26,7 +26,11 @@ import { SITE_TITLE } from '#utils/site-config'
  * response whether the panel is open or not.
  */
 export type Props = {
-  /** Accessible name of the brand link: the alt text of its Gleaner wordmark. */
+  /**
+   * Accessible name of the brand link: the alt text of its Gleaner wordmark.
+   * Keep "Gleaner" in it, so the name contains the label the wordmark shows
+   * (WCAG 2.5.3).
+   */
   brandTitle?: string
   /** Destination of the brand link. */
   brandHref?: string
@@ -173,6 +177,14 @@ const {
     z-index: var(--z-index-sticky);
   }
 
+  /* acss slides its skip link (`body > a[href^='#']`, z-index 100) in at the
+     top of the page on focus, which is under the bar's sticky layer, so the
+     focused link was covered (e2e: skip-link.spec.ts). `html` outranks that
+     selector by one element. */
+  :global(html body > a[href^='#']) {
+    z-index: var(--z-index-skipLink);
+  }
+
   /* A sticky bar cannot leave its parent, and acss's `html, body { height:
      100% }` holds `body` to one viewport while the page overflows it, so the
      bar scrolled away after the first screen. `auto` lets `body` grow with
@@ -181,8 +193,8 @@ const {
     height: auto;
   }
 
-  /* Anchor jumps and the skip link land below the pinned bar, not under it
-     (WCAG 2.2 SC 2.4.11). Clears the tallest bar, as `--panel-top` below
+  /* Anchor jumps, the skip link's included, land below the pinned bar, not
+     under it (WCAG 2.2 SC 2.4.11). Clears the tallest bar, as `--panel-top` below
      does, plus 1rem. */
   :global(html:has(> body > nav[data-site-nav])) {
     scroll-padding-top: calc(2 * 1.875rem + 2 * var(--space-3) + 1rem);
