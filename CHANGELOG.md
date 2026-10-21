@@ -237,6 +237,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Design System Record renamed to Gleaner** (`DESIGN.md`): the system is named Gleaner, and the
+  record now covers the homepage sections that shipped without a spec
+  - The Overview no longer says the homepage's latest-posts list paints with the instrument
+    palette; `HomeBlog`'s posts use the Gleaner layer
+  - Documents `HomeInstall`'s Quick install cards, `HomeBlog`'s latest-post card and earlier-post
+    rows (with their contrast on Paper, computed from the shipped hex values), `CopyCommand`, and
+    the hero logo's scroll-driven fade and the conditions that keep it opaque
+  - Adds three brand type roles and six frontmatter component entries
 - **Homepage YouTube copy caught up with Gleaner `2bc1086`** (`src/components/astro/HomeFeatures.astro`):
   the youtube skill card and "What's in every clip" still said video clips are built from the
   transcript
