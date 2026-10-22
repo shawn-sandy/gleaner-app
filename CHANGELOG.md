@@ -237,6 +237,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Hero logo shrinks as it fades** (`src/components/astro/HomeHero.astro`): the scroll-driven fade
+  now also scales the logo from full size to 80% over the same first logo-height of scroll, using
+  the `scale` property so it composes with any transform. Reduced motion and browsers without
+  scroll-driven animations keep it opaque and full size. `e2e/home-hero-logo-fade.spec.ts` checks
+  the drawn width shrinks through the range and returns at the top, and stays full size under
+  reduced motion
 - **Design System Record renamed to Gleaner** (`DESIGN.md`): the system is named Gleaner, and the
   record now covers the homepage sections that shipped without a spec
   - The Overview no longer says the homepage's latest-posts list paints with the instrument

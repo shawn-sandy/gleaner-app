@@ -758,13 +758,14 @@ fallbacks alone.
   poorly on the dark bar. The bar is pinned to the top of the viewport.
 - **Hero logo:** `gleaner-symbol.svg` above the eyebrow, `clamp(7rem, 25vw, 12.5rem)` wide (112px
   on a phone, 200px from an 800px viewport), with 2rem below it and the alt "Gleaner". It fades out
-  over the first logo-height of scroll as it rises toward the pinned nav: a scroll-driven
-  animation (`animation-timeline: scroll()`, `animation-range: 0 var(--hero-logo-size)`) from full
-  opacity to 0. It applies only under `prefers-reduced-motion: no-preference` and only where the
-  browser supports both `animation-timeline: scroll()` and `animation-range`; Firefox 144 with
-  scroll-driven animations switched on has the timeline but not the range, and would spread the
-  fade over the whole page. Everywhere else the logo stays opaque. It is the system's only
-  scroll-linked animation; `e2e/home-hero-logo-fade.spec.ts` covers it.
+  and shrinks over the first logo-height of scroll as it rises toward the pinned nav: a
+  scroll-driven animation (`animation-timeline: scroll()`, `animation-range: 0 var(--hero-logo-size)`)
+  from full opacity and size to opacity 0 and `scale: 0.8`. It applies only under
+  `prefers-reduced-motion: no-preference` and only where the browser supports both
+  `animation-timeline: scroll()` and `animation-range`; Firefox 144 with scroll-driven animations
+  switched on has the timeline but not the range, and would spread the fade over the whole page.
+  Everywhere else the logo stays opaque and full size. It is the system's only scroll-linked
+  animation; `e2e/home-hero-logo-fade.spec.ts` covers it.
 - **Hero install button:** Evergreen pill, white label in Brand Button with a trailing arrow,
   52px minimum height, 1.625rem inline padding. Hover deepens the fill and adds an underline at
   3px offset so the state never relies on colour alone; colour-only 150ms `ease-out` transition.
