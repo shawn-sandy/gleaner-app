@@ -442,8 +442,8 @@ A few behaviours carry the design:
 
 ### The hero logo's scroll fade
 
-The hero logo, `gleaner-symbol.svg`, fades out over the first logo-height of scroll as it rises toward the pinned
-navigation. It is the system's only scroll-linked animation:
+The hero logo, `gleaner-symbol.svg`, fades out and shrinks to 80% over the first logo-height of scroll as it rises
+toward the pinned navigation. It is the system's only scroll-linked animation:
 
 ```css
 .home-hero .home-hero__logo {
@@ -463,15 +463,19 @@ navigation. It is the system's only scroll-linked animation:
 @keyframes home-hero-logo-fade {
   to {
     opacity: 0;
+    scale: 0.8;
   }
 }
 ```
 
-- **Reduced motion keeps it opaque.** The animation applies only under `prefers-reduced-motion: no-preference`.
+- **Reduced motion keeps it opaque and full size.** The animation applies only under
+  `prefers-reduced-motion: no-preference`.
+- **It scales with `scale`, not `transform`.** The individual property composes with any transform the logo picks up
+  later instead of replacing it.
 - **The `@supports` test checks the range as well as the timeline.** Firefox 144 with scroll-driven animations switched
   on supports `animation-timeline: scroll()` but not `animation-range`, and would spread the fade over the whole page.
-- **Everywhere else the logo stays opaque.** A browser without scroll-driven animations never sees the animation, so
-  the fade is an enhancement rather than a dependency.
+- **Everywhere else the logo stays opaque and full size.** A browser without scroll-driven animations never sees the
+  animation, so the fade is an enhancement rather than a dependency.
 
 ### Overriding the Gleaner palette
 
@@ -548,9 +552,9 @@ The Gleaner brand layer:
 - `e2e/homepage-design-direction.spec.ts` - the accent audit runs over the Gleaner sections in light and dark, the
   hero's display-to-deck ratio clears 3.0 at 1280 and 390, and the type-role probe skips headings inside
   `[data-gleaner]`
-- `e2e/home-hero-logo-fade.spec.ts` - the logo fades out over its own height of scroll and back in at the top, and
-  stays opaque under reduced motion. The fade test skips itself where `animation-timeline: scroll()` or
-  `animation-range` is unsupported
+- `e2e/home-hero-logo-fade.spec.ts` - the logo fades out and shrinks over its own height of scroll and comes back at
+  the top, and stays opaque and full size under reduced motion. The fade test skips itself where
+  `animation-timeline: scroll()` or `animation-range` is unsupported
 - `e2e/home-gleaner-lists.spec.ts` - no list item in a Gleaner section carries the vendor margin or indent, and the
   hero's copper string runs unbroken from ask to ask
 - `e2e/home-install.spec.ts` - the install cards' code stands apart from its card in light and dark

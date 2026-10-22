@@ -1,8 +1,8 @@
 import { test, expect, type Page } from '@playwright/test'
 
 /**
- * The homepage hero logo fades out over the first logo-height of scroll, and
- * stays put for visitors who ask for reduced motion.
+ * The homepage hero logo fades out and shrinks over the first logo-height of
+ * scroll, and stays put for visitors who ask for reduced motion.
  */
 
 /**
@@ -12,8 +12,8 @@ import { test, expect, type Page } from '@playwright/test'
 const logo = (page: Page) =>
   page.getByRole('banner').getByRole('img', { name: 'Gleaner', exact: true })
 
-/** Scrolls the page to `y` and returns the logo's computed opacity. */
-async function opacityAt(page: Page, y: number): Promise<number> {
+/** Scrolls the page to `y` and waits for the scroll timeline to catch up. */
+async function scrollToY(page: Page, y: number): Promise<void> {
   await page.evaluate(async top => {
     window.scrollTo({ top, behavior: 'instant' })
     // A scroll timeline updates on the next frame. Reading in the same task
@@ -23,7 +23,18 @@ async function opacityAt(page: Page, y: number): Promise<number> {
       window.requestAnimationFrame(() => window.requestAnimationFrame(resolve))
     )
   }, y)
+}
+
+/** Scrolls the page to `y` and returns the logo's computed opacity. */
+async function opacityAt(page: Page, y: number): Promise<number> {
+  await scrollToY(page, y)
   return logo(page).evaluate(el => Number(getComputedStyle(el).opacity))
+}
+
+/** Scrolls the page to `y` and returns the logo's drawn width over its layout width. */
+async function scaleAt(page: Page, y: number): Promise<number> {
+  await scrollToY(page, y)
+  return logo(page).evaluate(el => el.getBoundingClientRect().width / el.offsetWidth)
 }
 
 /** The logo's rendered height, which is also the fade's scroll distance. */
@@ -32,7 +43,9 @@ async function logoHeight(page: Page): Promise<number> {
 }
 
 test.describe('home hero logo scroll fade', () => {
-  test('fades out as the page scrolls down and back in at the top', async ({ page }) => {
+  test('fades out and shrinks as the page scrolls down, and comes back at the top', async ({
+    page,
+  }) => {
     await page.goto('/')
     test.skip(
       !(await page.evaluate(
@@ -52,13 +65,22 @@ test.describe('home hero logo scroll fade', () => {
     await expect.poll(() => opacityAt(page, height)).toBe(0)
 
     await expect.poll(() => opacityAt(page, 0)).toBe(1)
+
+    await expect.poll(() => scaleAt(page, 0)).toBeCloseTo(1, 2)
+    await expect.poll(() => scaleAt(page, height / 2)).toBeLessThan(0.99)
+    expect(await scaleAt(page, height / 2)).toBeGreaterThan(0.81)
+
+    await expect.poll(() => scaleAt(page, height)).toBeCloseTo(0.8, 2)
+
+    await expect.poll(() => scaleAt(page, 0)).toBeCloseTo(1, 2)
   })
 
-  test('stays fully opaque when reduced motion is requested', async ({ page }) => {
+  test('stays fully opaque and full size when reduced motion is requested', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/')
     const height = await logoHeight(page)
 
     await expect.poll(() => opacityAt(page, height)).toBe(1)
+    expect(await scaleAt(page, height)).toBeCloseTo(1, 2)
   })
 })

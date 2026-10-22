@@ -297,12 +297,13 @@ brand moments on Plus Jakarta Sans.
 `CopyCommand` holds one command per instance because Claude Code takes one slash command per message. Its accessible
 name is "Copy " plus the command, and the result is announced through a `role="status"` region present from the start.
 
-The hero logo (`gleaner-symbol.svg`, `--hero-logo-size: clamp(7rem, 25vw, 12.5rem)`) fades to transparent over the first
-logo-height of scroll with `animation-timeline: scroll()` and `animation-range: 0 var(--hero-logo-size)`. The rule sits
-inside `@supports (animation-timeline: scroll()) and (animation-range: 0 1px)` and
-`@media (prefers-reduced-motion: no-preference)`, so reduced motion and unsupported browsers keep the logo opaque. The
-range is checked because Firefox 144 with scroll-driven animations switched on has the timeline but not the range, and
-would spread the fade over the whole page. It is the system's only scroll-linked animation.
+The hero logo (`gleaner-symbol.svg`, `--hero-logo-size: clamp(7rem, 25vw, 12.5rem)`) fades to transparent and shrinks to
+`scale: 0.8` over the first logo-height of scroll with `animation-timeline: scroll()` and
+`animation-range: 0 var(--hero-logo-size)`. The rule sits inside
+`@supports (animation-timeline: scroll()) and (animation-range: 0 1px)` and
+`@media (prefers-reduced-motion: no-preference)`, so reduced motion and unsupported browsers keep the logo opaque and
+full size. The range is checked because Firefox 144 with scroll-driven animations switched on has the timeline but not
+the range, and would spread the fade over the whole page. It is the system's only scroll-linked animation.
 
 ### What a Gleaner override must not break
 
@@ -347,8 +348,9 @@ The Gleaner brand layer:
 - `e2e/homepage-design-direction.spec.ts` - the accent audit runs over the Gleaner sections in light and dark, the
   hero's display-to-deck ratio clears 3.0 at 1280 and 390, and the type-role probe skips headings inside
   `[data-gleaner]`
-- `e2e/home-hero-logo-fade.spec.ts` - the logo fades out over its own height of scroll and back in at the top, and
-  stays opaque under reduced motion; the fade test skips itself where scroll-driven animations are unsupported
+- `e2e/home-hero-logo-fade.spec.ts` - the logo fades out and shrinks over its own height of scroll and comes back at
+  the top, and stays opaque and full size under reduced motion; the fade test skips itself where scroll-driven
+  animations are unsupported
 - `e2e/home-gleaner-lists.spec.ts` - no list item in a Gleaner section carries the vendor margin or indent, and the
   hero's copper string runs unbroken from ask to ask
 - `e2e/home-install.spec.ts` - the install cards' code stands apart from its card in light and dark
