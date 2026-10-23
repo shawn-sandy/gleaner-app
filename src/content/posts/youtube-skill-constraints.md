@@ -21,7 +21,8 @@ transcript. The change is listed under 2.10.0 in the
 ## The short version
 
 - **Save from a desktop browser Gleaner can drive**, such as the Chrome side
-  panel or the Browser pane in Claude Code desktop, not from your phone.
+  panel or the Browser pane in Claude Code desktop. On a phone, store the clip
+  by link and finish it at a desk.
 - **Paste the transcript** when the description isn't enough, or when you want
   just part of a video.
 - **Name the time range or topic** for a part whenever Gleaner can't see the
@@ -177,6 +178,6 @@ From 2.10 on, a whole-video clip's **Video** line ends with what Gleaner read:
 clip looks thin, check that line first. It tells you which workaround to reach
 for.
 
-The skill's source is on
-[GitHub](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/youtube/SKILL.md),
+The skill's source, as of 2.10.1, is on
+[GitHub](https://github.com/shawn-sandy/gleaner/blob/v2.10.1/plugins/gleaner/skills/youtube/SKILL.md),
 and every release is on the [changelog](/changelog).
