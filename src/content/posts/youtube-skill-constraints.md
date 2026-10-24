@@ -1,7 +1,7 @@
 ---
 title: "What Gleaner's YouTube skill can't do, and how to work around it"
 pubDate: 2026-10-23
-description: 'The YouTube skill writes clips from what it can read on the video page. Here is what that rules out, from transcripts to saving on a phone, and the workaround for each.'
+description: 'As of Gleaner 2.11, the YouTube skill writes clips from what it can read on the video page. Here is what that rules out, from transcripts to saving on a phone, and the workaround for each.'
 author: 'Shawn Sandy'
 tags: ['gleaner', 'youtube', 'plugins', 'guide']
 publish: true
