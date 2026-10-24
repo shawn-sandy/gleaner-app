@@ -2,7 +2,7 @@
 
 **Gather the best of what you read into tagged, searchable clips.**
 
-Gleaner is a Claude plugin for the Chrome side panel and the Claude Code desktop browser, and its skills also work from ChatGPT's connected Chrome tabs and Work browser. Ask it in plain language to keep a page or a YouTube video, or just the parts that matter, and it writes a short, structured summary, tags it, files it by category, and hands it to you as an HTML file in the conversation, or saves it to Google Drive, Notion, a Cowork project, your Claude Code project, or a private claude.ai artifact. Later, ask what you saved there and it finds it. Shared local-first preferences manage save destinations and formats with optional Google Drive sync.
+Gleaner is a Claude plugin for the Chrome side panel and the Claude Code desktop browser, and its skills also work from ChatGPT's connected Chrome tabs and Work browser. Ask it in plain language to keep a page or a YouTube video, or just the parts that matter, and it writes a short, structured summary, tags it, files it by category, and hands it to you as a Markdown file in ChatGPT or an HTML file in Claude, or saves it to Google Drive, Notion, a Cowork project, your Claude Code project, or a private claude.ai artifact. Later, ask what you saved there and it finds it. Shared local-first preferences manage save destinations and formats with optional Google Drive sync.
 
 ```text
 You:     grab the part about animation lengths, for the motion post
@@ -64,7 +64,7 @@ Gleaner: Here's "Motion timing guidelines" as an HTML file, filed under Design E
 - **One clip per page.** In a session, saving or adding more from a page you've already clipped updates that clip instead of starting a new doc. A page clipped in an earlier session gets an updated copy that links to the original; clips from earlier sessions are never changed or deleted.
 - **Search by asking.** "What did I save about Cowork?" returns a sortable table. Ask for a spreadsheet snapshot whenever you want one.
 - **Next steps, suggested.** Ask "what should I follow up on?" and Gleaner suggests three next steps drawn from a clip's note, takeaways, and links, then saves them to the clip.
-- **In the chat, or stored where you choose.** Gives you each clip as an HTML file in the conversation by default, or saves it to Google Drive, a Notion database, a private claude.ai artifact, a Cowork project folder, or, in Claude Code, straight into the project you're working on.
+- **In the chat, or stored where you choose.** Gives you each clip as a Markdown file in ChatGPT or an HTML file in Claude by default, or saves it to Google Drive, a Notion database, a private claude.ai artifact, a Cowork project folder, or, in Claude Code, straight into the project you're working on.
 - **Your defaults, remembered.** Pick a destination and format once with `/gleaner:preferences setup`, override them for a project or a single save, and optionally sync them across devices through Google Drive.
 - **Works where you browse.** The Chrome side panel, the built-in browser in Claude Code desktop, or ChatGPT's connected Chrome tabs and Work browser. Hand it a URL and it opens or fetches the page for you.
 
@@ -141,7 +141,7 @@ If you installed the earlier **page-to-project** skill, remove it so the two don
 
 1. Open any article in Chrome.
 2. Open the Claude side panel and say **"save this page."**
-3. Gleaner replies with the clip as an HTML file you can open in any browser, its tags, and a one-line summary. Where the chat can't attach files, the clip comes as one Markdown code block instead.
+3. Gleaner replies with the clip as a Markdown (`.md`) file in ChatGPT or an HTML (`.html`) file in Claude, its tags, and a one-line summary. Where the chat can't attach files, the clip comes as one Markdown code block instead.
 4. Download the file, or copy the code block, to keep it. To store a copy, say "save to Drive". To store every clip somewhere, set a default with `/gleaner:preferences setup`.
 
 That's it. Everything below is optional.
@@ -162,11 +162,11 @@ sync my preferences
 save this page here
 ```
 
-Gleaner doesn't stop your first save to ask about setup, because its default, the chat, needs nothing stored; it mentions setup once instead. Run `/gleaner:preferences setup` to choose a default destination, format (left unset by default, so chat clips are HTML files and stored clips are Markdown wherever the destination supports it), and optional Drive sync. Choose “just this save” to continue with session settings and the existing environment defaults. Setup verifies an existing destination; it does not move clips or create research databases. “Always save here” persists at user scope; “save this here” and `--to` apply to that save only. Explicit project or session requests use that scope. Reset removes an override so the next default applies.
+Gleaner doesn't stop your first save to ask about setup, because its default, the chat, needs nothing stored; it mentions setup once instead. Run `/gleaner:preferences setup` to choose a default destination, format (left unset by default, so chat clips are Markdown in ChatGPT and HTML in Claude, and stored clips are Markdown wherever the destination supports it), and optional Drive sync. Choose “just this save” to continue with session settings and the existing environment defaults. Setup verifies an existing destination; it does not move clips or create research databases. “Always save here” persists at user scope; “save this here” and `--to` apply to that save only. Explicit project or session requests use that scope. Reset removes an override so the next default applies.
 
 User preferences live at `$XDG_CONFIG_HOME/agent-preferences/preferences.yaml`, falling back to `~/.config/agent-preferences/preferences.yaml`. Project overrides live at `.agent-preferences/preferences.yaml` under the session project root. Resolution is explicit request (`--to` beats words), session, project, user, then existing skill defaults. Show reports each effective value and its scope, persistence location, and sync status. Page and YouTube saves use the same resolved preferences.
 
-`auto` gives each destination's native output, such as an HTML file in the chat or Google Docs in Drive. `markdown` requests a raw `.md` file for the chat, local/Cowork, or a Drive connector supporting raw uploads. Notion pages and HTML artifacts are incompatible; Gleaner explains and asks before saving. Saved local paths are device-specific: an unreachable path prompts for a temporary alternative and never changes the permanent default silently.
+`auto` gives each destination's native output: Markdown chat files in ChatGPT, HTML chat files in Claude, or Google Docs in Drive. `markdown` requests a raw `.md` file for the chat, local/Cowork, or a Drive connector supporting raw uploads. Notion pages and HTML artifacts are incompatible; Gleaner explains and asks before saving. Saved local paths are device-specific: an unreachable path prompts for a temporary alternative and never changes the permanent default silently.
 
 Optional sync uses one Google Drive document titled `Agent Preferences`, discovered before creation and selected by you if duplicates exist. Only user preferences synchronize; project overrides and local `sync-state.yaml` metadata never upload. Before saves and during preference invocations, Gleaner compares local/cloud values with the last verified snapshot, propagates one-sided changes, merges independent settings, and asks about conflicting settings. Different existing copies without a baseline require reconciliation before upload. Updates persist locally first, then synchronize when connected; failures remain pending for the next invocation. There is no background service.
 
@@ -183,6 +183,8 @@ Mention the page, article, or doc, or just say "save this" with nothing highligh
 > save this page
 > keep this article for later
 > bookmark this doc
+
+Every successful save also shows a readable bookmark preview in the conversation: Overview, Key details, Why it matters, metadata, and verified links. ChatGPT uses supported conversation formatting; Claude Code and other agents use equivalent Markdown. Claude also supplies HTML companions where supported; ChatGPT supplies HTML only when requested or when updating a clip with retained HTML. An explicit HTML download request applies to that save only. See [bookmark previews](https://github.com/shawn-sandy/gleaner/blob/main/docs/bookmark-previews.md) for same-bookmark examples, optional preview suppression, and host limitations.
 
 Gleaner reads the whole page, skips navigation, ads, and comments, and writes a plain-language summary of up to ~400 words: a TL;DR, key points, notable details (code, numbers, names), and takeaways. Technical terms are explained the first time they appear, and each key point is a full sentence that says why it matters. When the TL;DR alone can't explain the main idea, a short **How it works** paragraph follows it. A tutorial gets numbered **Steps** in place of key points.
 
@@ -274,15 +276,15 @@ Notes are searchable and show up in your clip index. If you don't give one, the 
 
 ### Choosing where clips go
 
-| Destination                                                                         | How to choose it                                               | Needs                                                     |
-| ----------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------- |
-| **This conversation** → an HTML file in the chat (`.md` with the `markdown` format) | Default everywhere; "just give me the file", or `--to chat`    | Nothing                                                   |
-| **Google Drive** → `Browser Research/<category>/`                                   | "save to Drive", or `--to drive`                               | Google Drive connector                                    |
-| Another Drive folder                                                                | "save to my Research folder"                                   | Google Drive connector                                    |
-| **Cowork project** → `browser-research/<category>/`                                 | "save to my Serve513 project", or "this project" inside Cowork | Claude desktop app open and connected                     |
-| **This project** → `browser-research/<category>/`                                   | "save it to this project", or `--to local` in Claude Code      | A Claude Code session                                     |
-| **Notion** → `Browser Research` database                                            | "save to Notion", or `--to notion`                             | Notion connector                                          |
-| **Artifact** → a private page on claude.ai                                          | "save it as an artifact", or `--to artifact`                   | A session that can publish artifacts, such as Claude Code |
+| Destination                                                                                              | How to choose it                                               | Needs                                                     |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------- |
+| **This conversation** → `.md` in ChatGPT, `.html` in Claude (`.md` in either with the `markdown` format) | Default everywhere; "just give me the file", or `--to chat`    | Nothing                                                   |
+| **Google Drive** → `Browser Research/<category>/`                                                        | "save to Drive", or `--to drive`                               | Google Drive connector                                    |
+| Another Drive folder                                                                                     | "save to my Research folder"                                   | Google Drive connector                                    |
+| **Cowork project** → `browser-research/<category>/`                                                      | "save to my Serve513 project", or "this project" inside Cowork | Claude desktop app open and connected                     |
+| **This project** → `browser-research/<category>/`                                                        | "save it to this project", or `--to local` in Claude Code      | A Claude Code session                                     |
+| **Notion** → `Browser Research` database                                                                 | "save to Notion", or `--to notion`                             | Notion connector                                          |
+| **Artifact** → a private page on claude.ai                                                               | "save it as an artifact", or `--to artifact`                   | A session that can publish artifacts, such as Claude Code |
 
 Folders are created the first time they're needed. Stored clips are saved as Markdown (`.md`) files, in Drive too. Say "save it as a Google Doc" for a Doc instead, or set your default format to `auto` to get Docs whenever Drive can convert them (otherwise `auto` saves `.md` too). Notion and artifact clips keep their own formats, and a Drive connector that can't upload raw files saves Google Docs.
 
@@ -329,17 +331,17 @@ keep this article --to artifact
 done --to cowork:Serve513
 ```
 
-| Flag                          | Saves to                                                                          |
-| ----------------------------- | --------------------------------------------------------------------------------- |
-| `--to chat`                   | An HTML file in the conversation (`.md` with the `markdown` format), not stored   |
-| `--to drive`                  | Drive → `Browser Research/<Category>/`                                            |
-| `--to drive:"Folder Name"`    | Drive → `<Folder Name>/<Category>/`                                               |
-| `--to notion`                 | Notion → `Browser Research` database                                              |
-| `--to notion:"Database Name"` | Notion → that database                                                            |
-| `--to artifact`               | A new private artifact on claude.ai                                               |
-| `--to local`                  | Your working folder → `browser-research/<category>/`                              |
-| `--to cowork:"Project Name"`  | That Cowork project → `browser-research/<category>/`                              |
-| `--to <path>`                 | Any local folder, like `./notes` or `~/Documents/research` → `<path>/<category>/` |
+| Flag                          | Saves to                                                                                              |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--to chat`                   | A `.md` file in ChatGPT or `.html` in Claude (`.md` in either with the `markdown` format), not stored |
+| `--to drive`                  | Drive → `Browser Research/<Category>/`                                                                |
+| `--to drive:"Folder Name"`    | Drive → `<Folder Name>/<Category>/`                                                                   |
+| `--to notion`                 | Notion → `Browser Research` database                                                                  |
+| `--to notion:"Database Name"` | Notion → that database                                                                                |
+| `--to artifact`               | A new private artifact on claude.ai                                                                   |
+| `--to local`                  | Your working folder → `browser-research/<category>/`                                                  |
+| `--to cowork:"Project Name"`  | That Cowork project → `browser-research/<category>/`                                                  |
+| `--to <path>`                 | Any local folder, like `./notes` or `~/Documents/research` → `<path>/<category>/`                     |
 
 A flag beats a destination you describe in words, followed by session, project, user preferences, and the environment default. If the flagged destination can't be reached, Gleaner tells you rather than quietly saving somewhere else.
 
@@ -524,17 +526,17 @@ Files are named `yyyy-mm-dd-short-title`. If a name is taken, Gleaner adds `-2`,
 
 ## Troubleshooting
 
-| Problem                                             | Fix                                                                                                                                                                                                               |
-| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Code says no page is open                    | Open the Browser pane (Cmd/Ctrl+Shift+B) and load the page, or include the URL in your request.                                                                                                                   |
-| Clip is cut off at a login or paywall (Claude Code) | Sign in to the site inside the Browser pane once; it has its own logins, separate from Chrome.                                                                                                                    |
-| Gleaner doesn't respond to "save this"              | Check you're on the new side panel (not classic) and that Gleaner is enabled in your skills.                                                                                                                      |
-| ChatGPT can't see the page                          | Connect your browser in ChatGPT, or switch to Work mode for the Work browser. Or include the URL or paste the text.                                                                                               |
-| It saved the whole page instead of my highlight     | Highlight again right before asking, or name the part: "grab the part about X." Some sites clear highlights when you click away.                                                                                  |
-| Clip wasn't saved to Drive or my project            | The default is an HTML file in the conversation. Say "save to Drive" (or "save it to this project" in Claude Code and Cowork) to store that clip, or set a default destination with `/gleaner:preferences setup`. |
-| "Couldn't reach the project folder"                 | Open the Claude desktop app and make sure it's connected, then ask again.                                                                                                                                         |
-| Clip saved as a `.md` file, not a formatted Doc     | Markdown is the default for stored clips. Say "save it as a Google Doc" for one Doc, or set your default format to `auto` to get Docs whenever Drive can convert them.                                            |
-| Similar tags like `#ai-design` and `#ai-designs`    | Name the tag you want in the request ("tag it ai-design"). Gleaner reuses existing spellings by default, so this gets rarer as your library grows.                                                                |
+| Problem                                             | Fix                                                                                                                                                                                                                                                                  |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Code says no page is open                    | Open the Browser pane (Cmd/Ctrl+Shift+B) and load the page, or include the URL in your request.                                                                                                                                                                      |
+| Clip is cut off at a login or paywall (Claude Code) | Sign in to the site inside the Browser pane once; it has its own logins, separate from Chrome.                                                                                                                                                                       |
+| Gleaner doesn't respond to "save this"              | Check you're on the new side panel (not classic) and that Gleaner is enabled in your skills.                                                                                                                                                                         |
+| ChatGPT can't see the page                          | Connect your browser in ChatGPT, or switch to Work mode for the Work browser. Or include the URL or paste the text.                                                                                                                                                  |
+| It saved the whole page instead of my highlight     | Highlight again right before asking, or name the part: "grab the part about X." Some sites clear highlights when you click away.                                                                                                                                     |
+| Clip wasn't saved to Drive or my project            | The default is a Markdown file in ChatGPT or an HTML file in Claude, delivered in the conversation. Say "save to Drive" (or "save it to this project" in Claude Code and Cowork) to store that clip, or set a default destination with `/gleaner:preferences setup`. |
+| "Couldn't reach the project folder"                 | Open the Claude desktop app and make sure it's connected, then ask again.                                                                                                                                                                                            |
+| Clip saved as a `.md` file, not a formatted Doc     | Markdown is the default for stored clips. Say "save it as a Google Doc" for one Doc, or set your default format to `auto` to get Docs whenever Drive can convert them.                                                                                               |
+| Similar tags like `#ai-design` and `#ai-designs`    | Name the tag you want in the request ("tag it ai-design"). Gleaner reuses existing spellings by default, so this gets rarer as your library grows.                                                                                                                   |
 
 ## Customizing
 
@@ -656,8 +658,21 @@ MIT © Shawn Sandy
 
 ## Changelog
 
-**Unreleased**
+**2.10.2** (2026-10-23)
 
+- ChatGPT now delivers Markdown (`.md`) clips by default, including when the format is `auto`; Claude keeps HTML chat downloads. Explicit Markdown preferences still apply in both.
+- ChatGPT no longer adds automatic HTML companions to new saves. Ask for an HTML download when needed; existing HTML clips and companions keep their format during updates.
+
+**2.10.1** (2026-10-23)
+
+- Supported chat attachment downloads remain clickable in bookmark previews, including after an interactive preview fails.
+- Unqualified requests to use Markdown continue to select the saved file format; request a "Markdown preview" to change only conversation presentation.
+
+**2.10.0** (2026-10-23)
+
+- Every saved or updated clip now shows a structured preview in the active conversation, with the same content in ChatGPT and Claude Code and verified source/save links.
+- HTML bookmarks remain available without changing your storage preferences: local Markdown gets a companion file, while Drive and Notion can provide a separate chat download where attachments are supported.
+- Preview failures fall back to readable Markdown without saving again; say "no preview" to suppress the detailed preview for one request.
 - YouTube clips are now written from the video's description and chapters, since Gleaner can no longer capture transcripts in the browser. The youtube skill no longer asks whether to save a video without a transcript.
 - When a video has no description, Gleaner asks for a short one, which is optional; say "skip" to save it from the title alone.
 - Video clips have a new **Channel** line that names and links the channel. The **Video** line now records what the summary was written from (the description, your description, the title, or a pasted transcript) instead of the caption type.
