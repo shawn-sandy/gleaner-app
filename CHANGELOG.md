@@ -248,13 +248,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Site copy caught up with Gleaner 2.11.0 (`0d96d93`)** (`README.md`,
   `plugins/gleaner/skills/README.md`, `src/components/astro/HomeFeatures.astro`,
-  `upstream-sync.json`): since 2.11.0, Gleaner writes a video clip from the transcript it reads in
+  `src/content/posts/youtube-skill-constraints.md`, `upstream-sync.json`): since 2.11.0, Gleaner writes a video clip from the transcript it reads in
   YouTube's own Show transcript panel, in the Chrome side panel and Claude in Chrome, and falls
   back to the description and chapters where the panel can't be read
   - The README and skills guide mirror upstream again: upstream's changes since `f4e3174` merged
     into the mirrors, links to files that only exist upstream pointed at GitHub, then Prettier
   - The youtube skill card and "What's in every clip" say a video is clipped from its transcript,
     or from its description and chapters without one, where they said the description only
+  - `src/content/posts/youtube-skill-constraints.md`, still listed on the homepage, opens with a
+    dated update note: it describes 2.10, 2.11.0 reads the transcript panel in the Chrome side panel
+    and Claude in Chrome, and its paste workarounds now apply only where the panel can't be read.
+    Its description starts "As of Gleaner 2.10". The body is unchanged, as a record of 2.10
   - The hero, install cards and site description are unchanged: the hero already names YouTube
     moments, the ChatGPT guide changed only its YouTube transcript step, and the manifests changed
     only their version
