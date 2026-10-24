@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **YouTube skill post** (`src/content/posts/gleaner-youtube-skill.md`): a guide to the
+  `/gleaner:youtube` skill as of Gleaner 2.11.0, drafted for 2.10 and brought up to date before
+  publishing. Covers what a video clip holds, one Source per video, the no-description question,
+  reading the transcript from YouTube's Show transcript panel (and pasting it where the panel
+  can't be read, as in the Claude Code built-in browser without Claude in Chrome), clipping
+  moments, where the skill runs, follow-ups that hand a clip to another installed skill, and the
+  skill's history from 1.6.0 to 2.11.0. Written from the upstream youtube and follow-up skills and
+  the README changelog at `0d96d93`
 - **Gleaner 2.10 release post** (`src/content/posts/gleaner-2-10.md`): a blog post that follows the
   2.6 to 2.9 post through the Gleaner 2.10.1 and 2.10.2 releases: a structured bookmark preview
   after every save, "no preview", HTML companions, and description-based YouTube clips (listed
