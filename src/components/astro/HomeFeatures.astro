@@ -83,7 +83,7 @@ const callouts = [
 
 /** Destinations and their `--to` flags, as the README's flag table lists them. */
 const destinations = [
-  { name: 'This conversation', where: ['An HTML file in the chat'], flag: '--to chat' },
+  { name: 'This conversation', where: ['.md in ChatGPT, .html in Claude'], flag: '--to chat' },
   { name: 'Google Drive', where: ['Browser Research/', '<category>/'], flag: '--to drive' },
   { name: 'Notion', where: ['Browser Research database'], flag: '--to notion' },
   {
@@ -126,11 +126,11 @@ const destinations = [
       <div class="home-features__head">
         <h3 class="home-features__subtitle">What's in every clip</h3>
         <p class="home-features__muted">
-          About 400 words at most, in plain language: an HTML file in the chat, or Markdown when
-          it's saved to a folder or Drive. A title and details such as the source, date and tags
-          come first. A page clip follows with a TL;DR, key points, notable details and takeaways.
-          Videos get a channel line, a list of useful links and key moments from their chapters in
-          place of key points. Tutorial pages get numbered steps.
+          About 400 words at most, in plain language: an HTML file in a Claude chat, or Markdown in
+          ChatGPT and when it's saved to a folder or Drive. A title and details such as the source,
+          date and tags come first. A page clip follows with a TL;DR, key points, notable details
+          and takeaways. Videos get a channel line, a list of useful links and key moments from
+          their chapters in place of key points. Tutorial pages get numbered steps.
         </p>
       </div>
 
@@ -249,8 +249,10 @@ const destinations = [
       <div class="home-features__destinations-head">
         <h3 class="home-features__subtitle">Saves where you already keep things</h3>
         <p class="home-features__muted">
-          By default, each clip comes back as an HTML file in the chat, and nothing is stored. To
-          store one, name the place or add{' '}
+          By default, each clip comes back in the chat, as a Markdown file in ChatGPT or an HTML
+          file in Claude, and nothing is stored. Every save also shows a preview in the chat: an
+          overview, key details, why it matters and links to the source and the clip. To store one,
+          name the place or add{' '}
           <code class="home-features__inline-code">--to</code>. To store every clip, set a default
           with <code class="home-features__inline-code">/gleaner:preferences setup</code>.
         </p>

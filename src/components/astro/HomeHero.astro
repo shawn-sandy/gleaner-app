@@ -45,7 +45,7 @@ export type Props = {
 const {
   eyebrow = 'A web clipper for Claude and ChatGPT',
   headline = 'Gather the best of what you read.',
-  deck = 'Ask in plain words to save a page, a passage, a YouTube moment or the answer you just got. Gleaner writes a short summary, tags it, files it by topic and hands it to you as an HTML file, or saves it where you choose. Later, ask what you saved there and it finds it.',
+  deck = 'Ask in plain words to save a page, a passage, a YouTube moment or the answer you just got. Gleaner writes a short summary, tags it, files it by topic and hands it to you as a Markdown file in ChatGPT or an HTML file in Claude, or saves it where you choose. Later, ask what you saved there and it finds it.',
 } = Astro.props as Props
 
 const repo = 'https://github.com/shawn-sandy/gleaner'
@@ -90,11 +90,11 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
     </div>
 
     <p class="home-hero__fine">
-      Gives you each clip as an <strong>HTML file in the chat</strong>, or saves it to <strong
-        >Google Drive</strong
-      >, <strong>Notion</strong>, a <strong>Cowork project</strong>, your <strong
-        >Claude Code project</strong
-      > or a private <strong>claude.ai artifact</strong>.
+      Gives you each clip as a <strong>Markdown file in ChatGPT</strong> or an <strong
+        >HTML file in Claude</strong
+      >, or saves it to <strong>Google Drive</strong>, <strong>Notion</strong>, a <strong
+        >Cowork project</strong
+      >, your <strong>Claude Code project</strong> or a private <strong>claude.ai artifact</strong>.
     </p>
     <p class="home-hero__fine">
       Open source, MIT licensed. Needs a paid Claude plan or a ChatGPT workspace.

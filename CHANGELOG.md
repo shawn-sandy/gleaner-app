@@ -237,6 +237,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site copy caught up with Gleaner 2.10.2 (`f4e3174`)** (`README.md`,
+  `plugins/gleaner/skills/README.md`, `src/components/astro/HomeHero.astro`,
+  `src/components/astro/HomeFeatures.astro`, `upstream-sync.json`): since 2.10.2, a clip left in
+  the chat is a Markdown file in ChatGPT and an HTML file in Claude, and since 2.10.0 every save
+  shows a preview in the conversation
+  - The README and skills guide mirror upstream again, rebuilt the way the last sync did: upstream
+    text, links to files that only exist upstream pointed at GitHub, the fork step still naming
+    shawn-sandy/gleaner, then Prettier. The same steps applied to `2bc1086` reproduce the previous
+    mirrors byte for byte
+  - The hero deck and fine print, the "This conversation" destination, "What's in every clip" and
+    "Saves where you already keep things" say Markdown in ChatGPT and HTML in Claude where they
+    said an HTML file in the chat. The destinations paragraph adds the post-save preview: an
+    overview, key details, why it matters and links to the source and the clip
+  - The hero's example clip still reads "HTML file in the chat": it follows the README's example,
+    which is a Claude one. The install cards and site description are unchanged: the ChatGPT
+    guide's import steps did not change, and the manifests changed only their format wording and
+    version
+  - The bookmark moves from `2bc1086` to `f4e3174`, the `v2.10.2` tag, so the next drift check
+    reports nothing
 - **Hero logo shrinks as it fades** (`src/components/astro/HomeHero.astro`): the scroll-driven fade
   now also scales the logo from full size to 80% over the same first logo-height of scroll, using
   the `scale` property so it composes with any transform. Reduced motion and browsers without
