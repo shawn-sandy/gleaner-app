@@ -266,6 +266,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **YouTube limits post caught up with Gleaner 2.11.0** (`src/content/posts/youtube-skill-constraints.md`):
+  "What Gleaner's YouTube skill can't do, and how to work around it" was written for 2.10, when
+  clips came from the video's description and Gleaner couldn't capture transcripts in the browser.
+  It now covers 2.11.0, which reads transcripts from YouTube's own Show transcript panel
+  - The transcripts section says where the panel is read: the Chrome side panel and Claude in
+    Chrome; Claude Code's built-in browser only through Claude in Chrome, since YouTube sends the
+    panel there empty; and ChatGPT, which asks you to open the panel in the video's tab before
+    asking for a paste. It adds the `transcript panel` source on the Video line, the transcript's
+    language when it isn't the video's own, and that captions and videos are never downloaded with
+    command-line tools
+  - With a transcript, Gleaner skips the no-description question and takes key moments from the
+    transcript's lines, and it checks names against the uploader's keywords and YouTube's category.
+    The workarounds for thin descriptions, key moments and parts add saving or clipping in Chrome,
+    "add this part" still says where once there's a transcript, and pasting stays for where the
+    panel can't be read. The phone section, the quick reference table and the skill source link (now
+    `v2.11.0`) follow
+  - Limits that still hold are unchanged: a part still needs a transcript, ChatGPT's browsers still
+    can't read the playback position without a JavaScript tool, and a phone still has no browser
+    for Gleaner to drive. Written from the v2.11.0 release notes and the YouTube skill at that tag
+  - The dated update note the 2.11.0 copy catch-up added at the top of the post is gone, since the
+    body now describes 2.11.0 itself, and the description starts "As of Gleaner 2.11"
 - **Site copy caught up with Gleaner 2.11.0 (`0d96d93`)** (`README.md`,
   `plugins/gleaner/skills/README.md`, `src/components/astro/HomeFeatures.astro`,
   `src/content/posts/youtube-skill-constraints.md`, `upstream-sync.json`): since 2.11.0, Gleaner writes a video clip from the transcript it reads in
