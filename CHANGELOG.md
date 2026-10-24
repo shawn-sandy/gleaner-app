@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Gleaner 2.11 release post** (`src/content/posts/gleaner-2-11.md`): a blog post that follows the
+  2.10 post through the Gleaner 2.11.0 release: YouTube clips written from the transcript again,
+  read from YouTube's own Show transcript panel in the Chrome side panel and Claude in Chrome and
+  recorded as `transcript panel`, with parts and "add this part" working without pasting; the
+  empty panel in Claude Code's built-in browser, read through Claude in Chrome or else replaced by
+  the description; ChatGPT asking you to open Show transcript, and the Work browser opening it
+  itself; tag and category hints from the uploader's keywords and YouTube's category; no caption or
+  video downloads with command-line tools; and follow-ups that hand a clip to an installed skill
+  such as youtube-to-blog when the session lists one, with the install commands and where the
+  plugin stands at 2.11.0. Written from the
+  [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) GitHub release notes and README
+  changelog
 - **Gleaner 2.10 release post** (`src/content/posts/gleaner-2-10.md`): a blog post that follows the
   2.6 to 2.9 post through the Gleaner 2.10.1 and 2.10.2 releases: a structured bookmark preview
   after every save, "no preview", HTML companions, and description-based YouTube clips (listed
