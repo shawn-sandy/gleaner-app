@@ -60,10 +60,9 @@ Where Gleaner would ask you to paste a transcript, it first asks you to open
 the **Video** line says `transcript panel`. ChatGPT's Work browser goes one step
 further: when it has a click or JavaScript tool, it opens the panel itself.
 
-[What Gleaner's YouTube skill can't do](/posts/youtube-skill-constraints) was
-written for 2.10, when Gleaner couldn't capture transcripts in the browser.
-Where Gleaner reads the panel, you no longer need its paste-the-transcript
-workarounds.
+[What Gleaner's YouTube skill can't do](/posts/youtube-skill-constraints) covers
+the skill's limits, such as a browser where the panel can't be read, and the
+workaround for each.
 
 ## Sharper video clips
 
@@ -73,8 +72,9 @@ workarounds.
   transcript got wrong.
 - **Readable without the video.** Key moments and parts are written to make
   sense without the video open.
-- **Several videos, asked first.** Saving several videos confirms first whether
-  you want one clip for each or one clip for the set.
+- **Several videos, asked first.** When you save several videos without saying
+  how, Gleaner asks first whether you want one clip for each video or one clip
+  for the set.
 
 ## Two more changes
 
