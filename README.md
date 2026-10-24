@@ -58,7 +58,7 @@ Gleaner: Here's "Motion timing guidelines" as an HTML file, filed under Design E
 - **Plain-language requests.** "Keep this article," "grab the bit about easing," "done": no commands to memorize.
 - **Whole pages or just the good parts.** Highlight text, or describe a section and Gleaner finds it. Collect parts across tabs and sites, then save them as one clip.
 - **Answers too.** Ask Claude about what you're reading, then say "save that" to keep the answer, with its steps and code intact, on its own or alongside parts.
-- **YouTube videos too.** Save a video as a summary built from its description, with its channel, its useful links, and chapters that link to the exact second. Paste the transcript to clip just the moments that matter.
+- **YouTube videos too.** Save a video as a summary built from its transcript, read from YouTube's own transcript panel in your Chrome, or else from its description, with its channel, its useful links, and key moments that link to the exact second. Clip just the moments that matter, or paste the transcript where the panel can't be read.
 - **Your reasons, kept.** Add a note to any request ("…for the motion post") and it's saved with the clip. Gleaner never invents notes.
 - **Organized automatically.** Every clip gets a category (used as its folder), a type, and 3–6 specific tags, reusing your existing tag spellings.
 - **One clip per page.** In a session, saving or adding more from a page you've already clipped updates that clip instead of starting a new doc. A page clipped in an earlier session gets an updated copy that links to the original; clips from earlier sessions are never changed or deleted.
@@ -75,7 +75,7 @@ Gleaner includes four skills: two share the clip format and saving workflow, one
 | Skill                                                                                                       | Claude Code command    | Use it for                                                                                     |
 | ----------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------- |
 | [glean](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/glean/SKILL.md)             | `/gleaner:glean`       | Save pages, collect passages, keep answers, and find saved clips                               |
-| [youtube](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/youtube/SKILL.md)         | `/gleaner:youtube`     | Save videos from their description, channel, and timestamped chapters                          |
+| [youtube](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/youtube/SKILL.md)         | `/gleaner:youtube`     | Save videos from their transcript or description, with channel and timestamped key moments     |
 | [preferences](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/preferences/SKILL.md) | `/gleaner:preferences` | Shared destinations, formats, setup, and sync                                                  |
 | [follow-up](https://github.com/shawn-sandy/gleaner/blob/main/plugins/gleaner/skills/follow-up/SKILL.md)     | `/gleaner:follow-up`   | Suggest three follow-ups for a saved clip and save them to it, or ask what you want to do next |
 
@@ -249,15 +249,15 @@ On a YouTube video, ask the same way you would for a page, or pass a link:
 > clip this talk, for the motion post
 > save https://youtu.be/… to Notion
 
-Gleaner reads the video's description and writes the same plain-language summary as a page clip, with the video's chapters as **key moments** that each link to the second they start, in place of key points. A **Channel** line names and links the channel, and a **Video** line records the publish date, length, and what the summary was written from. A **Links** section keeps the description's useful links, such as docs and repos, and leaves out sponsor, social, subscribe, merch, and shortened links.
+Gleaner reads the video's transcript from YouTube's own **Show transcript** panel when the browser allows it, and its description, and writes the same plain-language summary as a page clip, with **key moments** from the transcript, or the video's chapters without one, that each link to the second they start, in place of key points. A **Channel** line names and links the channel, and a **Video** line records the publish date, length, and what the summary was written from. A **Links** section keeps the description's useful links, such as docs and repos, and leaves out sponsor, social, subscribe, merch, and shortened links.
 
-Once you've pasted the transcript, collect moments as parts by time or topic:
+With a transcript, collect moments as parts by time or topic:
 
 > keep 3:10 to 5:40
 > grab the part about generics
 > add this part _(the chapter you're watching, or the last minute or so)_
 
-Gleaner can't capture a video's transcript itself. If a video has no description, it asks for a short one, which is optional; say "skip" to save it from the title alone. Paste the transcript (**…more → Show transcript** on YouTube), before or after saving, for a fuller summary with moments from the whole video. Parts need the transcript, so without one Gleaner won't save a part; it asks you to paste the transcript and offers a clip of the whole video instead.
+Gleaner opens and reads the transcript panel itself in your own Chrome: the Chrome side panel or Claude in Chrome. YouTube sends the panel empty to the Claude Code built-in browser, even when you're signed in there, so Claude Code reads the transcript through Claude in Chrome when it's connected; otherwise the clip is written from the description and chapters, and you can paste the transcript (**…more → Show transcript** on YouTube), before or after saving, for a fuller summary with moments from the whole video. In ChatGPT, the Work browser opens the panel itself when it can click; with connected tabs, Gleaner asks you to open **Show transcript** in the video's tab and reads the lines from there. If a video has no description and no transcript, Gleaner asks for a short description, which is optional; say "skip" to save it from the title alone. Parts need the transcript, so without one Gleaner won't save a part; it asks you to paste the transcript and offers a clip of the whole video instead.
 
 Any link to a video (`youtu.be`, Shorts, a share link) is saved with the same **Source**, `youtube.com/watch?v=…`, so the duplicate check catches a video you've already clipped. A link with a timestamp opens the player at that time, so "add this part" uses that position.
 
@@ -397,7 +397,7 @@ Ask right after a save, or point at any saved clip by link, path, or topic:
 > what should I follow up on?
 > suggest follow-ups for my view transitions clip
 
-Gleaner reads the clip's TL;DR, note, content, and the links inside it, then suggests three follow-ups, each tied to something in the clip, such as reading a linked page, moving the post your note mentions forward, or comparing it with clips that share its tags. When the clip has too little to go on, it asks what you want instead of guessing.
+Gleaner reads the clip's TL;DR, note, content, and the links inside it, then suggests three follow-ups, each tied to something in the clip, such as reading a linked page, moving the post your note mentions forward, or comparing it with clips that share its tags. When the clip has too little to go on, it asks what you want instead of guessing. If your session lists a skill that turns a video or page into something, such as youtube-to-blog, one of the three may hand the clip to it, starting from the clip's source, summary, key moments, and links; with no such skill listed, Gleaner never suggests one.
 
 The follow-ups are saved after the clip's Takeaways under a dated **Follow-ups** heading. A clip from an earlier session isn't edited: you get an updated copy that links to the original. Pick a follow-up and Gleaner starts on it; nothing else is saved unless you ask.
 
@@ -521,7 +521,7 @@ Files are named `yyyy-mm-dd-short-title`. If a name is taken, Gleaner adds `-2`,
 - **No claude.ai Projects.** Cowork can read them but not write to them.
 - **ChatGPT without a JavaScript tool.** Connected Chrome tabs, and a Work browser without one, can't read highlights, the playback position, or the page facts Gleaner uses to follow an article's later pages and match its canonical URL. Name the part or paste it, and give a video part a time range or topic instead of "this part."
 - **Artifact search is one page at a time.** Gleaner opens each artifact to find its clips, about 50 per request.
-- **Gleaner doesn't capture YouTube transcripts.** Video clips are written from the description and chapters, or from a short description you give when there is none. Paste the transcript (**…more → Show transcript** on YouTube) for a fuller summary or to clip parts; in ChatGPT, transcript lines the video's tab shows work too. Private, members-only, and age-restricted videos need you signed in to YouTube in that browser.
+- **YouTube transcripts depend on the browser.** Gleaner reads the transcript from YouTube's **Show transcript** panel in your own Chrome (the side panel or Claude in Chrome), and in ChatGPT once the Work browser or you open the panel in the video's tab. YouTube sends the panel empty to the Claude Code built-in browser, so without Claude in Chrome connected, video clips there are written from the description and chapters, or from a short description you give when there is none; paste the transcript (**…more → Show transcript** on YouTube) for a fuller summary or to clip parts. Private, members-only, and age-restricted videos need you signed in to YouTube in that browser.
 - **Paywalls and sign-ins.** Only visible content is summarized, and the clip says so.
 
 ## Troubleshooting
@@ -563,7 +563,7 @@ gleaner/
 │   └── workflows/
 │       ├── cut-release.yml         # run from the Actions tab: npm run release on main, then push release/X.Y.Z
 │       ├── release.yml             # tags and publishes a GitHub Release when the version changes on main
-│       └── validate.yml            # npm run validate and npm test on every pull request and push to main
+│       └── validate.yml            # npm run validate and npm test on every pull request and push to main; warns on main when a release is owed
 ├── docs/
 │   ├── artifacts/                  # HTML artifacts
 │   ├── chatgpt-marketplace.md      # ChatGPT import, compatibility, and manual checklist
@@ -650,6 +650,8 @@ The script bumps `version` in `plugins/gleaner/.claude-plugin/plugin.json`, repl
 
 To cut a release without a local checkout, run the [cut-release workflow](https://github.com/shawn-sandy/gleaner/blob/main/.github/workflows/cut-release.yml) from the Actions tab once the `**Unreleased**` entry is on `main`. Pick the bump, enter the summary, and it runs the same script on `main`, with the Unreleased bullets as the commit body and the date in New York time, then pushes the `release/X.Y.Z` branch and links to open its PR.
 
+Merging a PR with `**Unreleased**` bullets but no version change releases nothing. Until a release dates that entry, every push to `main` gets a "Release owed" warning from the [validate workflow](https://github.com/shawn-sandy/gleaner/blob/main/.github/workflows/validate.yml), with the bullets and a link to the cut-release workflow in the run's summary. It never picks the bump or cuts the release itself, so you still choose patch, minor, or major, and entries can wait to go out together.
+
 When a merge to `main` changes the version, the [release workflow](https://github.com/shawn-sandy/gleaner/blob/main/.github/workflows/release.yml) tags `vX.Y.Z` and publishes a GitHub Release whose notes are that version's changelog entry. To publish a version that is on `main` but not released yet, run the workflow from the repository's Actions tab.
 
 ## License
@@ -657,6 +659,14 @@ When a merge to `main` changes the version, the [release workflow](https://githu
 MIT © Shawn Sandy
 
 ## Changelog
+
+**2.11.0** (2026-10-24)
+
+- YouTube clips are written from the video's transcript again. In the Chrome side panel and Claude in Chrome, Gleaner opens YouTube's own **Show transcript** panel and reads it, long transcripts included, and the **Video** line says `transcript panel`. Parts and "add this part" work from that transcript without pasting. When the transcript isn't in the video's language, the clip says which language it was written from. YouTube sends the panel empty to the Claude Code built-in browser, so Claude Code reads it through Claude in Chrome when that's connected, and otherwise writes from the description.
+- ChatGPT: where Gleaner would ask you to paste a transcript, it first asks you to open **Show transcript** in the video's tab and reads the lines from there, recorded as `transcript panel`. The Work browser opens the panel itself when it has a click or JavaScript tool.
+- Video tags and categories take hints from the uploader's keywords and YouTube's category, which also help catch misheard names in a transcript. Key moments and parts are written to make sense without the video open, and saving several videos confirms first whether you want one clip each or one for the set.
+- Gleaner never downloads captions or videos with command-line tools.
+- Follow-ups can hand a clip to another installed skill that turns a video or page into something, such as youtube-to-blog, but only when your session lists one.
 
 **2.10.2** (2026-10-23)
 
