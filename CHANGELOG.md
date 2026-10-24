@@ -246,6 +246,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site copy caught up with Gleaner 2.11.0 (`0d96d93`)** (`README.md`,
+  `plugins/gleaner/skills/README.md`, `src/components/astro/HomeFeatures.astro`,
+  `upstream-sync.json`): since 2.11.0, Gleaner writes a video clip from the transcript it reads in
+  YouTube's own Show transcript panel, in the Chrome side panel and Claude in Chrome, and falls
+  back to the description and chapters where the panel can't be read
+  - The README and skills guide mirror upstream again: upstream's changes since `f4e3174` merged
+    into the mirrors, links to files that only exist upstream pointed at GitHub, then Prettier
+  - The youtube skill card and "What's in every clip" say a video is clipped from its transcript,
+    or from its description and chapters without one, where they said the description only
+  - The hero, install cards and site description are unchanged: the hero already names YouTube
+    moments, the ChatGPT guide changed only its YouTube transcript step, and the manifests changed
+    only their version
+  - The bookmark moves from `f4e3174` to `0d96d93`, main's head one commit past the `v2.11.0` tag
+    (`075bb34`); that commit only adds a "Release owed" warning to upstream's validate workflow, with
+    its tests and notes in its README, `AGENTS.md` and `CLAUDE.md`, so the next drift check reports
+    nothing
 - **Site copy caught up with Gleaner 2.10.2 (`f4e3174`)** (`README.md`,
   `plugins/gleaner/skills/README.md`, `src/components/astro/HomeHero.astro`,
   `src/components/astro/HomeFeatures.astro`, `upstream-sync.json`): since 2.10.2, a clip left in
