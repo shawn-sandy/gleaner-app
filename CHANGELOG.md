@@ -264,9 +264,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     asking for a paste. It adds the `transcript panel` source on the Video line, the transcript's
     language when it isn't the video's own, and that captions and videos are never downloaded with
     command-line tools
-  - Thin descriptions, key moments, parts and "add this part" name saving from Chrome as the first
-    workaround and keep pasting for where the panel can't be read. The phone section, the quick
-    reference table and the skill source link (now `v2.11.0`) follow
+  - With a transcript, Gleaner skips the no-description question and takes key moments from the
+    transcript's lines, and it checks names against the uploader's keywords and YouTube's category.
+    The workarounds for thin descriptions, key moments and parts add saving or clipping in Chrome,
+    "add this part" still says where once there's a transcript, and pasting stays for where the
+    panel can't be read. The phone section, the quick reference table and the skill source link (now
+    `v2.11.0`) follow
   - Limits that still hold are unchanged: a part still needs a transcript, ChatGPT's browsers still
     can't read the playback position without a JavaScript tool, and a phone still has no browser
     for Gleaner to drive. Written from the v2.11.0 release notes and the YouTube skill at that tag

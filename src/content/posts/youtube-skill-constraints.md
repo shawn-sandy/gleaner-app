@@ -30,7 +30,7 @@ browsers that let it. The changes are listed in the
 - **Name the time range or topic** for a part whenever Gleaner can't see the
   player.
 
-## Gleaner reads transcripts only in your own Chrome
+## Not every browser can read the transcript
 
 Gleaner reads a transcript from YouTube's **Show transcript** panel, under
 **…more** below the video. It opens the panel the way a viewer does, which
@@ -119,8 +119,8 @@ ChatGPT, it first asks you to open **Show transcript** in the video's tab.
 
 **Workarounds:**
 
-- **Save from Chrome**, then collect as many parts as you like, and say "done"
-  to save them as one clip.
+- **Clip parts in Chrome:** collect as many as you like, and say "done" to save
+  them as one clip.
 - **Paste the transcript first** where Gleaner can't read the panel, then
   collect parts the same way.
 - **Save the whole video with a note** that names the moment, such as "save
@@ -205,13 +205,13 @@ small screen.
 
 | Constraint                            | Workaround                                                 |
 | ------------------------------------- | ---------------------------------------------------------- |
-| Transcripts read only in your Chrome  | Save from the Chrome side panel or Claude in Chrome        |
+| Not every browser reads transcripts   | Save from the Chrome side panel or Claude in Chrome        |
 | Built-in browser gets an empty panel  | Connect Claude in Chrome, or paste the transcript          |
 | ChatGPT: connected tabs can't click   | Open **…more → Show transcript** in the video's tab        |
 | Thin or empty description             | Save from Chrome, add a description, or paste a transcript |
 | No transcript or chapters, no moments | Save from Chrome, or paste the transcript                  |
-| Parts need a transcript               | Save from Chrome, paste it first, or save with a note      |
-| "This part" needs the player          | Say the time range or topic                                |
+| Parts need a transcript               | Clip them in Chrome, paste it first, or save with a note   |
+| "This part" needs the player          | Get a transcript, then say the time range or topic         |
 | Phone: link only, no sign-in          | Save from a desktop browser Gleaner can drive              |
 | Phone: saving now, refining later     | Store the clip, then save it again from Chrome             |
 
