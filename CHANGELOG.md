@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **YouTube skill post** (`src/content/posts/gleaner-youtube-skill.md`): a guide to the
+  `/gleaner:youtube` skill as of Gleaner 2.11.0, drafted for 2.10 and brought up to date before
+  publishing. Covers what a video clip holds, one Source per video, the no-description question,
+  reading the transcript from YouTube's Show transcript panel (and pasting it where the panel
+  can't be read, as in the Claude Code built-in browser without Claude in Chrome), clipping
+  moments, where the skill runs, follow-ups that hand a clip to another installed skill, and the
+  skill's history from 1.6.0 to 2.11.0. Written from the upstream youtube and follow-up skills and
+  the README changelog at `0d96d93`
 - **Gleaner 2.10 release post** (`src/content/posts/gleaner-2-10.md`): a blog post that follows the
   2.6 to 2.9 post through the Gleaner 2.10.1 and 2.10.2 releases: a structured bookmark preview
   after every save, "no preview", HTML companions, and description-based YouTube clips (listed
@@ -246,6 +254,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site copy caught up with Gleaner 2.11.0 (`0d96d93`)** (`README.md`,
+  `plugins/gleaner/skills/README.md`, `src/components/astro/HomeFeatures.astro`,
+  `src/content/posts/youtube-skill-constraints.md`, `upstream-sync.json`): since 2.11.0, Gleaner writes a video clip from the transcript it reads in
+  YouTube's own Show transcript panel, in the Chrome side panel and Claude in Chrome, and falls
+  back to the description and chapters where the panel can't be read
+  - The README and skills guide mirror upstream again: upstream's changes since `f4e3174` merged
+    into the mirrors, links to files that only exist upstream pointed at GitHub, then Prettier
+  - The youtube skill card and "What's in every clip" say a video is clipped from its transcript,
+    or from its description and chapters without one, where they said the description only
+  - `src/content/posts/youtube-skill-constraints.md`, still listed on the homepage, opens with a
+    dated update note: it describes 2.10, 2.11.0 reads the transcript panel in the Chrome side panel
+    and Claude in Chrome, and its paste workarounds now apply only where the panel can't be read.
+    Its description starts "As of Gleaner 2.10". The body is unchanged, as a record of 2.10
+  - The hero, install cards and site description are unchanged: the hero already names YouTube
+    moments, the ChatGPT guide changed only its YouTube transcript step, and the manifests changed
+    only their version
+  - The bookmark moves from `f4e3174` to `0d96d93`, main's head one commit past the `v2.11.0` tag
+    (`075bb34`); that commit only adds a "Release owed" warning to upstream's validate workflow, with
+    its tests and notes in its README, `AGENTS.md` and `CLAUDE.md`, so the next drift check reports
+    nothing
 - **Site copy caught up with Gleaner 2.10.2 (`f4e3174`)** (`README.md`,
   `plugins/gleaner/skills/README.md`, `src/components/astro/HomeHero.astro`,
   `src/components/astro/HomeFeatures.astro`, `upstream-sync.json`): since 2.10.2, a clip left in

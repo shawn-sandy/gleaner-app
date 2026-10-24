@@ -1,11 +1,21 @@
 ---
 title: "What Gleaner's YouTube skill can't do, and how to work around it"
 pubDate: 2026-10-23
-description: 'The YouTube skill writes clips from what it can read on the video page. Here is what that rules out, from transcripts to saving on a phone, and the workaround for each.'
+description: 'As of Gleaner 2.10, the YouTube skill writes clips from what it can read on the video page. Here is what that rules out, from transcripts to saving on a phone, and the workaround for each.'
 author: 'Shawn Sandy'
 tags: ['gleaner', 'youtube', 'plugins', 'guide']
 publish: true
 ---
+
+> **Update, October 24, 2026:** this post describes Gleaner 2.10. Since 2.11.0,
+> the skill reads a video's transcript itself from YouTube's own **Show
+> transcript** panel in the Chrome side panel and Claude in Chrome, and the
+> clip's **Video** line says `transcript panel`. In ChatGPT's connected tabs, it
+> asks you to open **Show transcript** in the video's tab and reads it from
+> there. The paste workarounds below now apply only where the panel can't be
+> read, such as Claude Code's built-in browser without Claude in Chrome
+> connected, since YouTube sends the panel there empty. See the
+> [README's changelog](https://github.com/shawn-sandy/gleaner#changelog).
 
 Gleaner's `youtube` skill saves a video as a clip: a short summary, the channel,
 the description's useful links, and the video's chapters as key moments that
