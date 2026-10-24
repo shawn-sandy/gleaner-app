@@ -256,8 +256,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **YouTube limits post caught up with Gleaner 2.11.0** (`src/content/posts/youtube-skill-constraints.md`):
   "What Gleaner's YouTube skill can't do, and how to work around it" was written for 2.10, when
-  every transcript had to be pasted. It now covers 2.11.0, which reads transcripts from YouTube's
-  own Show transcript panel
+  clips came from the video's description and Gleaner couldn't capture transcripts in the browser.
+  It now covers 2.11.0, which reads transcripts from YouTube's own Show transcript panel
   - The transcripts section says where the panel is read: the Chrome side panel and Claude in
     Chrome; Claude Code's built-in browser only through Claude in Chrome, since YouTube sends the
     panel there empty; and ChatGPT, which asks you to open the panel in the video's tab before

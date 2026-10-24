@@ -14,9 +14,9 @@ listen to it.
 
 That one fact sets every limit below. This post covers the skill as of Gleaner
 2.11.0, released October 24, 2026. It was first written for 2.10, when clips
-came from the video's description and every transcript had to be pasted. 2.11.0
-reads transcripts again, from YouTube's own **Show transcript** panel, in the
-browsers that let it. The changes are listed in the
+came from the video's description and Gleaner couldn't capture transcripts in
+the browser. 2.11.0 reads transcripts again, from YouTube's own **Show
+transcript** panel, in the browsers that let it. The changes are listed in the
 [README's changelog](https://github.com/shawn-sandy/gleaner#changelog).
 
 ## The short version
