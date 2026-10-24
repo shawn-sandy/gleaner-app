@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Gleaner 2.10 release post** (`src/content/posts/gleaner-2-10.md`): a blog post that follows the
+  2.6 to 2.9 post through the Gleaner 2.10.1 and 2.10.2 releases: a structured bookmark preview
+  after every save, "no preview", HTML companions, and description-based YouTube clips (listed
+  under 2.10.0 upstream, which has no release of its own, so first released in 2.10.1), clickable
+  download links in previews and "Markdown preview" versus "use Markdown" (2.10.1), and Markdown
+  clips by default in ChatGPT, with no automatic HTML companions there, while Claude keeps HTML
+  (2.10.2), with the install commands and where the plugin stands at 2.10.2. Written from the
+  [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) GitHub release notes and README
+  changelog
 - **Homepage blog section** (`src/components/astro/HomeBlog.astro`): "From the blog", under the
   quick-install guide, features the newest published post on an evergreen card with a "Read the
   post" link, lists up to three earlier posts as rows of date, title and a one-line description,
