@@ -15,12 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   recorded as `transcript panel`, with parts and "add this part" working without pasting; the
   empty panel in Claude Code's built-in browser, read through Claude in Chrome or else replaced by
   the description; ChatGPT asking you to open Show transcript, and the Work browser opening it
-  itself; tag and category hints from the uploader's keywords and YouTube's category; no caption or
-  video downloads with command-line tools; and follow-ups that hand a clip to an installed skill
-  such as youtube-to-blog when the session lists one, with the install commands and where the
-  plugin stands at 2.11.0. Written from the
-  [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) GitHub release notes and README
-  changelog
+  itself when it has a click or JavaScript tool; tag and category hints from the uploader's keywords
+  and YouTube's category; no caption or video downloads with command-line tools; and follow-ups
+  that hand a clip to an installed skill such as youtube-to-blog when the session lists one, with
+  the install commands and where the plugin stands at 2.11.0. Written from the
+  [shawn-sandy/gleaner](https://github.com/shawn-sandy/gleaner) GitHub release notes, README
+  changelog and README install steps
 - **YouTube skill post** (`src/content/posts/gleaner-youtube-skill.md`): a guide to the
   `/gleaner:youtube` skill as of Gleaner 2.11.0, drafted for 2.10 and brought up to date before
   publishing. Covers what a video clip holds, one Source per video, the no-description question,

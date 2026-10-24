@@ -1,7 +1,7 @@
 ---
 title: 'Gleaner 2.11: YouTube transcripts are back'
 pubDate: 2026-10-24
-description: "The Gleaner plugin's 2.11.0 release writes YouTube clips from the transcript again, read from YouTube's own Show transcript panel, and lets follow-ups hand a clip to another installed skill."
+description: "The Gleaner plugin's 2.11.0 release writes YouTube clips from the transcript again, read from YouTube's own Show transcript panel where the browser allows it, and lets follow-ups hand a clip to another installed skill."
 author: 'Shawn Sandy'
 tags: ['gleaner', 'youtube', 'claude-code', 'plugins', 'changelog']
 publish: true
@@ -13,9 +13,10 @@ is about YouTube.
 
 In 2.10, Gleaner couldn't capture transcripts in the browser, so video clips
 were written from the description. 2.11.0 writes them from the transcript
-again. It reads the lines from YouTube's own **Show transcript** panel. The
-release also sharpens video tags, rules out downloading captions or videos, and
-lets a follow-up hand a clip to another skill.
+again. It reads the lines from YouTube's own **Show transcript** panel, where
+the browser allows it. The release also sharpens video tags, rules out
+downloading captions or videos, and lets a follow-up hand a clip to another
+skill.
 
 ## Install or update
 
@@ -60,8 +61,9 @@ the **Video** line says `transcript panel`. ChatGPT's Work browser goes one step
 further: when it has a click or JavaScript tool, it opens the panel itself.
 
 [What Gleaner's YouTube skill can't do](/posts/youtube-skill-constraints) was
-written for 2.10, when every transcript had to be pasted. Where Gleaner reads
-the panel, you no longer need its paste-the-transcript workarounds.
+written for 2.10, when Gleaner couldn't capture transcripts in the browser.
+Where Gleaner reads the panel, you no longer need its paste-the-transcript
+workarounds.
 
 ## Sharper video clips
 
