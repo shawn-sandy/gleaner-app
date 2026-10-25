@@ -444,7 +444,7 @@ async function childOperation1(correlationId: string) {
 
 ```typescript
 // Clerk operation correlation
-const clerkUser = await clerkClient.users.getUser(userId)
+const clerkUser = await clerkClient(context).users.getUser(userId)
 await logger.info('Clerk user fetched', {
   correlationId,
   clerkTraceId: clerkUser.metadata?.traceId,
