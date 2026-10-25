@@ -3,6 +3,7 @@
 import Navigation from '#components/astro/Navigation.astro'
 import Footer from '#components/astro/Footer.astro'
 import Header from '#components/astro/Header.astro'
+import OpenGraph from '#components/astro/OpenGraph.astro'
 import ThemeToggle from '#components/astro/ThemeToggle.astro'
 // import PWAInstallPrompt from '#components/astro/PWAInstallPrompt.astro'
 // import OfflineIndicator from '#components/astro/OfflineIndicator.astro'
@@ -35,6 +36,11 @@ const showBreadcrumb = Astro.props.showBreadcrumb === undefined ? true : Astro.p
 const { userId } = Astro.locals
 
 const { pageTitle, pageDescription, pageImageUrl, hideHeader, hideSiteChrome } = Astro.props
+
+// Base for the share card's absolute URLs. `astro.config.mjs` always sets
+// `site`; a render without that config, such as the container API in tests,
+// falls back to the request URL rather than throwing.
+const siteUrl = Astro.site ?? Astro.url
 ---
 
 <html lang="en">
@@ -99,6 +105,19 @@ const { pageTitle, pageDescription, pageImageUrl, hideHeader, hideSiteChrome } =
 
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle || SITE_TITLE}</title>
+
+    <!--
+      Share card. A page without its own `pageImageUrl` gets
+      `og-default.png`, a 1280x640 capture of the homepage hero sized to the
+      `OpenGraph` width and height defaults. Crawlers ignore relative URLs, so
+      both are resolved against `site` in `astro.config.mjs`.
+    -->
+    <OpenGraph
+      title={pageTitle || SITE_TITLE}
+      description={pageDescription || SITE_DESCRIPTION}
+      url={new URL(Astro.url.pathname, siteUrl).href}
+      image={new URL(pageImageUrl || '/images/og-default.png', siteUrl).href}
+    />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to main content</a>
