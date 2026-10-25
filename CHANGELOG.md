@@ -648,6 +648,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Local builds failed in `@clerk/astro`'s `MenuItemRenderer.astro`** (`package.json`): every page
+  failed with `A 'return' statement can only be used within a function body` when the
+  `patch-package` fix for Clerk 3.0.23 was missing from `node_modules`. `@clerk/astro` is now
+  3.4.20, which ships Clerk's own fix (3.4.8) and the stored-XSS fix for SSR auth-state scripts
+  (3.4.19), so `patches/@clerk+astro+3.0.23.patch` is gone. Since 3.4.8, `createRouteMatcher` in
+  `src/middleware.ts` logs a one-time deprecation warning in development. 4.0.0 removes it
 - **Post links pointed at `/posts/undefined`** (`PostsList.astro`, `ContentList.astro`,
   `AstroPages.astro`, `CollectionList.astro`, `CollectionTagList.astro`, `src/pages/tags/[tag].astro`):
   post URLs were built from `post.slug`, which the content layer's glob loader no longer sets. The
