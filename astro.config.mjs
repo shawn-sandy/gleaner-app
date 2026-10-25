@@ -31,7 +31,8 @@ function clerkIntegration() {
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.SITE_URL || 'https://example.com',
+  // Base for every absolute URL the build writes (sitemap, og:url, og:image).
+  site: process.env.SITE_URL || 'https://gleaneragentskills.com',
   integrations: [
     react(),
     sitemap(),
