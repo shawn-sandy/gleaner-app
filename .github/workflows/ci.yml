@@ -74,6 +74,10 @@ jobs:
       # Hard gate: the upstream drift check. Its workflow closes the drift issue on an empty report,
       # so a regression that loses a change would hide drift instead of failing.
       - run: npx vitest run tests/check-upstream.test.ts
+      # Hard gate: the access check every protected page calls, and that each page under
+      # src/pages/dashboard and src/pages/organization calls it. The e2e gate below only covers the
+      # keyless build; this covers the signed-out redirect and the signed-in pass-through.
+      - run: npx vitest run tests/utils/require-signed-in.test.ts
       # Informational, not blocking: the rest of the suite carries ~49
       # pre-existing failures unrelated to Astro (role-validator, csrf,
       # etc.), plus tests/integration/** needs live

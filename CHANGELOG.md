@@ -266,6 +266,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **`@clerk/astro` 3.4.20 to 4.1.17**: the first major whose peer range includes Astro 7. Its
+  `.npmrc` `legacy-peer-deps` reason is gone; the flag stays for `astro-embed@0.13.0`
 - **YouTube limits post caught up with Gleaner 2.11.0** (`src/content/posts/youtube-skill-constraints.md`):
   "What Gleaner's YouTube skill can't do, and how to work around it" was written for 2.10, when
   clips came from the video's description and Gleaner couldn't capture transcripts in the browser.
@@ -806,6 +808,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+- **Route protection moved into each protected page** (`src/utils/require-signed-in.ts`): with
+  `@clerk/astro` 4, `/dashboard`, `/dashboard/users` and `/organization` each call
+  `requireSignedIn` first in their frontmatter. Signed-out visitors are redirected to sign-in, and
+  without Clerk keys the pages still render the `/auth-setup` notice with HTTP 503. Clerk removed
+  `createRouteMatcher` because middleware path matching can diverge from Astro's routing. The
+  middleware keeps a `/dashboard` and `/organization` prefix match, now on the decoded path, as a
+  backstop, and `tests/utils/require-signed-in.test.ts` fails when a page under those trees does
+  not call `requireSignedIn`. `/organization` used to redirect signed-out visitors to `/sign-in`,
+  which does not exist; it now uses Clerk's sign-in redirect like the dashboard
 - **Protected routes no longer fail open without Clerk keys** (`src/middleware.ts`): with the Clerk
   keys missing or still the `YOUR_*` placeholders, `/dashboard` and `/organization` (and their
   sub-paths) used to be served to anyone. They now render a setup notice (`/auth-setup`) with HTTP 503. With real keys, unauthenticated visitors are still redirected to sign-in. The stale

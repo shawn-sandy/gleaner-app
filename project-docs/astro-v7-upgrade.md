@@ -35,11 +35,13 @@ deploy targets green going forward.
    _Update:_ the patch is gone. `@clerk/astro` 3.4.8 fixed the early return
    upstream, and the repo now uses 3.4.20. Its peer range still stops at
    `^6`. Astro 7 support arrived in 4.0.0, which also removes
-   `createRouteMatcher`, used by `src/middleware.ts`.
+   `createRouteMatcher`, used by `src/middleware.ts`. The repo is now on 4.x;
+   each protected page checks auth itself with `requireSignedIn`.
 3. **`.npmrc` added** (`legacy-peer-deps=true`) — required because `@clerk/astro`
    and `astro-embed` both cap their `astro` peerDependency below `^7`, which
    makes strict npm installs fail with `ERESOLVE`. Remove once both packages
-   publish v7-compatible peer ranges.
+   publish v7-compatible peer ranges. _Update:_ `@clerk/astro` 4 accepts
+   Astro 7; only `astro-embed@0.13.0` still needs the flag (0.13.1 accepts `^7`).
 4. **`src/pages/offline.astro`** had a `<script type="module">` (not
    `is:inline`) importing from an absolute `/scripts/...` public path. Astro
    v6's bundler tolerated this; Astro v7's Rolldown-based bundler hard-fails
