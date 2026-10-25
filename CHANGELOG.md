@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Default share card** (`Base.astro`, `OpenGraph.astro`, `public/images/og-default.png`): every
+  page outside the Starlight guide now writes Open Graph and Twitter card tags through the existing
+  `OpenGraph` component, which no layout had rendered. A page without its own `pageImageUrl` shares
+  `og-default.png`, a 1280x640 capture of the homepage hero. Image and page URLs are absolute,
+  resolved against `site`. `OpenGraph` writes its `twitter:*` tags with `name`, the attribute X
+  documents, rather than `property`, and leaves out `twitter:site` when no handle is passed
+  instead of writing it empty. The homepage no longer passes the template's `astro-kit-cover.webp`
+  - `e2e/site-identity.spec.ts` checks that `/about` names the default image by an absolute URL,
+    that its Twitter tags use `name`, that no card tag is empty, and that the file is served at
+    the width and height its tags declare
 - **Gleaner 2.11 release post** (`src/content/posts/gleaner-2-11.md`): a blog post that follows the
   2.10 post through the Gleaner 2.11.0 release: YouTube clips written from the transcript again,
   read from YouTube's own Show transcript panel in the Chrome side panel and Claude in Chrome and
@@ -656,6 +666,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   3.4.20, which ships Clerk's own fix (3.4.8) and the stored-XSS fix for SSR auth-state scripts
   (3.4.19), so `patches/@clerk+astro+3.0.23.patch` is gone. Since 3.4.8, `createRouteMatcher` in
   `src/middleware.ts` logs a one-time deprecation warning in development. 4.0.0 removes it
+- **Sitemap pointed at `example.com`** (`astro.config.mjs`): `site` fell back to
+  `https://example.com` because the deploy sets no `SITE_URL`, so the sitemap index listed
+  `https://example.com/sitemap-0.xml`. The fallback is now `https://gleaneragentskills.com`, which
+  the new share-card URLs on prerendered pages also depend on
 - **Post links pointed at `/posts/undefined`** (`PostsList.astro`, `ContentList.astro`,
   `AstroPages.astro`, `CollectionList.astro`, `CollectionTagList.astro`, `src/pages/tags/[tag].astro`):
   post URLs were built from `post.slug`, which the content layer's glob loader no longer sets. The

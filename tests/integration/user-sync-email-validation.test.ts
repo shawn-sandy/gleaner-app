@@ -24,13 +24,11 @@ function createMockClerkUser(emailAddresses: { id: string; emailAddress: string 
   } as any
 }
 
-// Mock the Clerk client and Supabase dependencies
+// Mock the Clerk client and Supabase dependencies.
+// In @clerk/astro 3.x clerkClient is a function of the request context, not an object.
+const getUser = vi.fn()
 vi.mock('@clerk/astro/server', () => ({
-  clerkClient: {
-    users: {
-      getUser: vi.fn(),
-    },
-  },
+  clerkClient: vi.fn(() => ({ users: { getUser } })),
 }))
 
 vi.mock('#libs/supabase-native', () => ({
@@ -57,10 +55,8 @@ describe('User Sync Endpoints Email Validation Integration', () => {
 
   describe('User sync endpoint (/api/user/sync)', () => {
     it('should return error when user has no email addresses', async () => {
-      const { clerkClient } = await import('@clerk/astro/server')
-
       // Mock user with empty email addresses
-      vi.mocked(clerkClient.users.getUser).mockResolvedValue(
+      getUser.mockResolvedValue(
         createMockClerkUser([]) // No email addresses
       )
 
@@ -82,16 +78,18 @@ describe('User Sync Endpoints Email Validation Integration', () => {
       const { clerkClient } = await import('@clerk/astro/server')
 
       // Mock user with valid email addresses
-      vi.mocked(clerkClient.users.getUser).mockResolvedValue(
+      getUser.mockResolvedValue(
         createMockClerkUser([{ id: 'email_1', emailAddress: 'test@example.com' }])
       )
 
       const { POST } = await import('#pages/api/user/sync')
 
-      const mockLocals = { userId: 'user_123' }
-      const response = await POST({ locals: mockLocals } as any)
+      const context = { locals: { userId: 'user_123' } } as any
+      const response = await POST(context)
 
       expect(response.status).toBe(200)
+      expect(clerkClient).toHaveBeenCalledWith(context)
+      expect(getUser).toHaveBeenCalledWith('user_123')
 
       const responseData = await response.json()
       expect(responseData.success).toBe(true)
