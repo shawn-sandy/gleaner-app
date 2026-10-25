@@ -47,22 +47,27 @@ test.describe('Site identity metadata', () => {
 
     const meta = (property: string) =>
       page.locator(`meta[property="${property}"]`).getAttribute('content')
+    // X reads its card tags from `name`, not the `property` Open Graph uses.
+    const twitterMeta = (name: string) =>
+      page.locator(`meta[name="${name}"]`).getAttribute('content')
     const ogImage = (await meta('og:image')) ?? ''
     expect(ogImage, 'no og:image').not.toBe('')
 
     // Crawlers ignore relative URLs, so each one must parse without a base.
     const image = new URL(ogImage)
     expect(image.pathname).toBe('/images/og-default.png')
-    expect(await meta('twitter:image')).toBe(ogImage)
+    expect(await twitterMeta('twitter:card')).toBe('summary_large_image')
+    expect(await twitterMeta('twitter:image')).toBe(ogImage)
+    await expect(page.locator('meta[property^="twitter:"]')).toHaveCount(0)
     expect(new URL((await meta('og:url')) ?? '').pathname).toMatch(/^\/about\/?$/)
     expect(await meta('og:title')).toBe(await page.title())
 
     // An optional tag with no value is written as an empty one, which card
     // validators flag on every page.
     const empty = await page.evaluate(() =>
-      [...document.querySelectorAll('meta[property^="og:"], meta[property^="twitter:"]')]
+      [...document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]')]
         .filter(tag => !tag.getAttribute('content'))
-        .map(tag => tag.getAttribute('property'))
+        .map(tag => tag.getAttribute('property') ?? tag.getAttribute('name'))
     )
     expect(empty, 'card tags with no content').toEqual([])
 

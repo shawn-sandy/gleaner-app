@@ -13,11 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   page outside the Starlight guide now writes Open Graph and Twitter card tags through the existing
   `OpenGraph` component, which no layout had rendered. A page without its own `pageImageUrl` shares
   `og-default.png`, a 1280x640 capture of the homepage hero. Image and page URLs are absolute,
-  resolved against `site`. `OpenGraph` leaves out `twitter:site` when no handle is passed instead
-  of writing it empty. The homepage no longer passes the template's `astro-kit-cover.webp`
+  resolved against `site`. `OpenGraph` writes its `twitter:*` tags with `name`, the attribute X
+  documents, rather than `property`, and leaves out `twitter:site` when no handle is passed
+  instead of writing it empty. The homepage no longer passes the template's `astro-kit-cover.webp`
   - `e2e/site-identity.spec.ts` checks that `/about` names the default image by an absolute URL,
-    that no card tag is empty, and that the file is served at the width and height its tags
-    declare
+    that its Twitter tags use `name`, that no card tag is empty, and that the file is served at
+    the width and height its tags declare
 - **Gleaner 2.11 release post** (`src/content/posts/gleaner-2-11.md`): a blog post that follows the
   2.10 post through the Gleaner 2.11.0 release: YouTube clips written from the transcript again,
   read from YouTube's own Show transcript panel in the Chrome side panel and Claude in Chrome and
