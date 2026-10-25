@@ -52,6 +52,12 @@ the part, and Claude in Chrome needs the page's URL. The README's
 [Collecting across tabs and sites](https://github.com/shawn-sandy/gleaner#collecting-across-tabs-and-sites)
 section covers each one.
 
+Videos have a similar catch. Gleaner reads a transcript only where the browser
+lets it open YouTube's **Show transcript** panel. Elsewhere it writes the clip
+from the description, with key moments from its chapters.
+[What Gleaner's YouTube skill can't do](/posts/youtube-skill-constraints) covers
+the workarounds.
+
 ## How it was made
 
 Six steps take the script to a finished video:
