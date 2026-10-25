@@ -1,3 +1,4 @@
+import { URL } from 'node:url'
 import { expect, test } from '@playwright/test'
 
 /**
@@ -36,5 +37,46 @@ test.describe('Site identity metadata', () => {
     expect(siteTitle, 'no site title in the nav brand').not.toBe('')
     expect(description).toContain(siteTitle)
     await expect(page.locator('body > header')).toContainText(siteTitle)
+  })
+
+  // `Base.astro` wrote no Open Graph or Twitter tags, so a shared link showed no
+  // card at all. `/about` passes no `pageImageUrl` and is prerendered, so its
+  // URLs are resolved against `site` at build time rather than the request.
+  test('a page without its own image shares the default card', async ({ page, request }) => {
+    await page.goto('/about')
+
+    const meta = (property: string) =>
+      page.locator(`meta[property="${property}"]`).getAttribute('content')
+    // X reads its card tags from `name`, not the `property` Open Graph uses.
+    const twitterMeta = (name: string) =>
+      page.locator(`meta[name="${name}"]`).getAttribute('content')
+    const ogImage = (await meta('og:image')) ?? ''
+    expect(ogImage, 'no og:image').not.toBe('')
+
+    // Crawlers ignore relative URLs, so each one must parse without a base.
+    const image = new URL(ogImage)
+    expect(image.pathname).toBe('/images/og-default.png')
+    expect(await twitterMeta('twitter:card')).toBe('summary_large_image')
+    expect(await twitterMeta('twitter:image')).toBe(ogImage)
+    await expect(page.locator('meta[property^="twitter:"]')).toHaveCount(0)
+    expect(new URL((await meta('og:url')) ?? '').pathname).toMatch(/^\/about\/?$/)
+    expect(await meta('og:title')).toBe(await page.title())
+
+    // An optional tag with no value is written as an empty one, which card
+    // validators flag on every page.
+    const empty = await page.evaluate(() =>
+      [...document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"]')]
+        .filter(tag => !tag.getAttribute('content'))
+        .map(tag => tag.getAttribute('property') ?? tag.getAttribute('name'))
+    )
+    expect(empty, 'card tags with no content').toEqual([])
+
+    // The card's file is served, at the size its tags declare (PNG IHDR width
+    // and height sit at bytes 16 and 20).
+    const png = await request.get(image.pathname)
+    expect(png.status()).toBe(200)
+    const body = await png.body()
+    expect(String(body.readUInt32BE(16))).toBe(await meta('og:image:width'))
+    expect(String(body.readUInt32BE(20))).toBe(await meta('og:image:height'))
   })
 })
