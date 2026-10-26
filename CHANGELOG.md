@@ -18,8 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   screens. The design canvas for the three card variants considered is kept in
   `docs/designs/home-requirements/`
   - `tests/components/HomeRequirements.astro.test.ts` checks the heading levels, that every list is
-    named by its Required or Optional label, the link to the requirements doc, and the spacing
-    around inline elements
+    named by its own Required or Optional label, and the link to the requirements doc
 - **Default share card** (`Base.astro`, `OpenGraph.astro`, `public/images/og-default.png`): every
   page outside the Starlight guide now writes Open Graph and Twitter card tags through the existing
   `OpenGraph` component, which no layout had rendered. A page without its own `pageImageUrl` shares

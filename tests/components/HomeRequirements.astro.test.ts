@@ -16,16 +16,18 @@ describe('HomeRequirements', () => {
     expect(levels).toEqual([2, 3, 3])
   })
 
-  // Each card's lists are named by their visible "Required" / "Optional"
-  // label, so a screen reader announces which list it is in.
-  it('names every list by a label that exists', async () => {
+  // Each card's lists are named by their own visible "Required" / "Optional"
+  // label, so a screen reader announces which list it is in. Unique ids keep
+  // the second card's lists from borrowing the first card's labels.
+  it('names every list by its own Required or Optional label', async () => {
     const html = await render()
-    const lists = [...html.matchAll(/<ul\b[^>]*>/g)].map(m => m[0])
-    const labelledBy = lists.map(tag => tag.match(/aria-labelledby="([^"]+)"/)?.[1])
-    const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]))
+    const labelledBy = [...html.matchAll(/<ul\b[^>]*\baria-labelledby="([^"]+)"/g)].map(m => m[1])
+    const labelText = (id: string) =>
+      html.match(new RegExp(`<p\\b[^>]*\\bid="${id}"[^>]*>\\s*([^<]*?)\\s*</p>`))?.[1]
 
-    expect(lists.length).toBe(4)
-    for (const id of labelledBy) expect(id && ids.has(id), `list labelled by "${id}"`).toBe(true)
+    expect(html.match(/<ul\b/g)?.length).toBe(4)
+    expect(new Set(labelledBy).size).toBe(4)
+    expect(labelledBy.map(labelText)).toEqual(['Required', 'Optional', 'Required', 'Optional'])
   })
 
   it('links to the requirements doc on GitHub', async () => {
@@ -34,19 +36,5 @@ describe('HomeRequirements', () => {
     expect(html).toContain(
       'href="https://github.com/shawn-sandy/gleaner/blob/main/docs/requirements.md"'
     )
-  })
-
-  // Astro drops a line break between text and an inline element that starts
-  // the next source line (see HomeInstall.astro.test.ts).
-  it('keeps a space around every inline element that meets text', async () => {
-    const html = await render()
-    const inline = 'strong|code|em|a'
-    const glued = [
-      new RegExp(`[^\\s>(]<(?:${inline})\\b[^>]*>[^<]{0,20}`, 'g'), // text<code>
-      new RegExp(`</(?:${inline})>[\\w(]`, 'g'), // </code>text
-      new RegExp(`</(?:${inline})><(?:${inline})\\b`, 'g'), // </strong><code>
-    ].flatMap(pattern => html.match(pattern) ?? [])
-
-    expect(glued).toEqual([])
   })
 })

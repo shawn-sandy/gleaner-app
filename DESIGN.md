@@ -377,10 +377,10 @@ document" come from the WCAG relative-luminance formula run against the shipped 
   headline and link 10.93:1 dark. The saved clip card and the blog's latest-post card keep the
   light evergreen fill in both themes. In the Quick install cards it is the assistant name and the
   install-guide link. In the Requirements cards it is the assistant name, the filled required check
-  and the outlined optional plus (7.29:1 light, 9.39:1 dark on the card, measured), and the
-  requirements link below them sits on Paper at the same figures as the blog links; in the blog
-  section, the post-title links and "All posts", which sit on the
-  page's Paper: 7.60:1 light, 12.00:1 dark (computed for this document). In the feature section
+  and the outlined optional plus (7.29:1 light, 9.39:1 dark on the card), and the requirements link
+  below them, on the page's Paper (7.60:1 light, 12.00:1 dark), all measured. In the blog section it
+  is the post-title links and "All posts", which sit on the page's Paper: 7.60:1 light, 12.00:1
+  dark (computed for this document). In the feature section
   it is the section title and subtitles, the skill names, the chip text, and the usage-guide link
   (measured): section title and link on the band 7.79:1 light, 10.93:1 dark;
   skill name on its card 7.29:1 light, 9.39:1 dark.
