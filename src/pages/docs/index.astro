@@ -7,7 +7,7 @@ const introDoc = await getEntry('docs', '0-welcome')
 const { Content } = await render(introDoc!)
 ---
 
-<MarkdownPostLayout frontmatter={introDoc?.data}>
+<MarkdownPostLayout frontmatter={introDoc!.data}>
   <Content />
   <hr />
   <section>
