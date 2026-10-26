@@ -50,9 +50,9 @@ stops before it creates or changes anything, and asks:
 
 This works the same on a phone. A video whose description Gleaner can read
 still saves without the question, and a missing transcript alone doesn't
-trigger it. A video Gleaner could read whose description is simply empty gets
-the older question instead: add a short description, or say "skip" for a clip
-written from the title.
+trigger it. A video Gleaner could read whose description is simply empty, and
+that has no transcript, gets the older question instead: add a short
+description, or say "skip" for a clip written from the title.
 
 If you saved the video earlier in the same conversation, Gleaner offers to
 update that clip instead. Paste the text, and the clip is refreshed with its
@@ -78,10 +78,9 @@ declined offer, or an error.
   again, and whenever you ask to keep one.
 - **Your tabs are left alone.** Gleaner closes only tabs it opened itself.
 - **Adding to the clip later in the same session opens the page again.** A
-  reopened video starts at
-  the link's time, not where you were watching, so "add this part" reads your
-  position only from a tab you're watching. Otherwise, name the time range or
-  topic.
+  reopened video starts at the link's time, not where you were watching, so
+  "add this part" reads your position only from a tab you're watching.
+  Otherwise, name the time range or topic.
 
 This is Claude in Chrome only. Gleaner has no confirmed way to close tabs in
 Claude Code's built-in browser or ChatGPT's Work browser, so tabs there are left
@@ -123,8 +122,8 @@ tabs. It now picks a browser in this order:
 Once it has chosen, Gleaner stays on that page for later reads and highlights.
 It won't jump to another page because a different browser has more tools. The
 one exception is the YouTube transcript tab: when a video is in Claude Code's
-built-in browser, Gleaner still opens it in Claude in Chrome to read the
-transcript.
+built-in browser and Claude in Chrome is connected, Gleaner opens the video
+there to read the transcript.
 
 ### Drive's default folder
 
