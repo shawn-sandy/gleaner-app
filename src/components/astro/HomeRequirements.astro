@@ -1,0 +1,325 @@
+---
+/**
+ * The homepage requirements, set directly below the quick-install guide: one
+ * card per platform, each splitting what Gleaner needs into required and
+ * optional, collapsing to one column on narrow screens.
+ *
+ * Copy follows the Gleaner repo's `docs/requirements.md`, which the section
+ * links to for the full list. As in `HomeInstall`, the heading and intro stay
+ * outside `data-gleaner`, on the site's own type and colours; the cards and the
+ * footer below them paint the Gleaner palette.
+ *
+ * @component HomeRequirements
+ * @example
+ * ```astro
+ * <HomeInstall />
+ * <HomeRequirements />
+ * ```
+ */
+import '#styles/gleaner-palette.css'
+
+/** Takes no props: the section is fixed homepage copy. */
+export type Props = Record<string, never>
+
+/** One requirement: what is needed, and the line that explains it. */
+type Item = { need: string; detail: string }
+
+/** A platform card. `id` keeps its list-label ids unique on the page. */
+type Platform = {
+  id: string
+  name: string
+  where: string
+  required: Item[]
+  optional: Item[]
+}
+
+const doc = 'https://github.com/shawn-sandy/gleaner/blob/main/docs/requirements.md'
+
+/** The list kinds, in card order, with their visible labels. */
+const kinds = [
+  ['required', 'Required'],
+  ['optional', 'Optional'],
+] as const
+
+const drive: Item = {
+  need: 'Google Drive connector',
+  detail: 'Saves clips to Drive and syncs your preferences.',
+}
+const notion: Item = {
+  need: 'Notion connector',
+  detail: 'Saves each clip to a Browser Research database.',
+}
+
+const platforms: Platform[] = [
+  {
+    id: 'claude',
+    name: 'Claude',
+    where: 'Chrome side panel, Cowork and Claude Code',
+    required: [
+      {
+        need: 'A paid Claude plan with the new Chrome side panel, Claude Code, or Cowork',
+        detail:
+          "The classic panel doesn't work. The new one's three-dot menu shows Switch back to classic.",
+      },
+      {
+        need: 'A page Gleaner can read',
+        detail:
+          'The Chrome side panel, the Browser pane in Claude Code desktop, or Claude in Chrome. No browser? Paste the text or a URL.',
+      },
+    ],
+    optional: [
+      drive,
+      notion,
+      {
+        need: 'A session that publishes artifacts, such as Claude Code',
+        detail: 'Saves clips as private pages on claude.ai.',
+      },
+    ],
+  },
+  {
+    id: 'chatgpt',
+    name: 'ChatGPT',
+    where: 'Connected Chrome tabs and the Work browser',
+    required: [
+      {
+        need: 'A workspace that supports GitHub marketplace imports',
+        detail:
+          "A workspace admin imports Gleaner from the Plugins settings. Importing it doesn't connect your browser, Drive or Notion.",
+      },
+      {
+        need: 'A page Gleaner can read',
+        detail:
+          'Connected Chrome tabs, or the Work browser in Work mode. No browser? Paste the text or a URL.',
+      },
+    ],
+    optional: [drive, notion],
+  },
+]
+---
+
+<section class="home-requirements" aria-labelledby="home-requirements-title">
+  <div class="home-requirements__head">
+    <h2 class="home-requirements__title" id="home-requirements-title">Requirements</h2>
+    <p class="home-requirements__lede">
+      Only a host and a page Gleaner can read are required. The rest depends on where you want your
+      clips to go.
+    </p>
+  </div>
+
+  <div class="home-requirements__body" data-gleaner>
+    <div class="home-requirements__cols">
+      {
+        platforms.map(platform => (
+          <div class="home-requirements__card">
+            <h3 class="home-requirements__name">{platform.name}</h3>
+            <p class="home-requirements__where">{platform.where}</p>
+            {kinds.map(([kind, label]) => (
+              <>
+                <p class="home-requirements__label" id={`home-requirements-${platform.id}-${kind}`}>
+                  {label}
+                </p>
+                <ul
+                  class="home-requirements__list"
+                  aria-labelledby={`home-requirements-${platform.id}-${kind}`}
+                >
+                  {platform[kind].map(item => (
+                    <li class="home-requirements__item">
+                      <svg
+                        class={`home-requirements__mark home-requirements__mark--${kind}`}
+                        aria-hidden="true"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                        width="22"
+                        height="22"
+                      >
+                        {kind === 'required' ? (
+                          <>
+                            <circle cx="12" cy="12" r="11" />
+                            <path d="M7 12.5l3.2 3.2L17 9" />
+                          </>
+                        ) : (
+                          <>
+                            <circle cx="12" cy="12" r="10.25" />
+                            <path d="M12 8v8M8 12h8" />
+                          </>
+                        )}
+                      </svg>
+                      <div class="home-requirements__text">
+                        <p class="home-requirements__need">{item.need}</p>
+                        <p class="home-requirements__detail">{item.detail}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+    <p class="home-requirements__default">
+      Nothing else is needed for the default. Each clip comes back in the conversation: a Markdown
+      file in ChatGPT, an HTML file in Claude.
+    </p>
+    <a class="home-requirements__more" href={doc}>Full requirements on GitHub</a>
+  </div>
+</section>
+
+<style>
+  /* Two classes throughout, as in `HomeInstall`: Astro scopes with `:where()`,
+     so a lone class would lose to the site's own heading, list and link rules. */
+  .home-requirements {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family-sans, sans-serif);
+    gap: 2.5rem;
+    padding-block: 2rem 3rem;
+  }
+
+  .home-requirements .home-requirements__head {
+    max-width: 40rem;
+  }
+
+  /* Outside `[data-gleaner]`: the site's heading face, weight and colour. */
+  .home-requirements .home-requirements__title {
+    font-size: clamp(1.625rem, 4vw, 2.125rem);
+    line-height: 1.15;
+    margin: 0;
+
+    /* A sentence, not a title: the site capitalises every h2 and h3. */
+    text-transform: none;
+  }
+
+  .home-requirements .home-requirements__lede {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin: 0.75rem 0 0;
+    max-width: none;
+  }
+
+  .home-requirements .home-requirements__body {
+    color: var(--g-ink, #12302b);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Two columns while each can keep 22rem, one below that. */
+  .home-requirements .home-requirements__cols {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  }
+
+  .home-requirements .home-requirements__card {
+    background: var(--g-card, #f5f8f6);
+    border: 1px solid var(--glean-border, #d5e3de);
+    border-radius: 1rem;
+    min-width: 0;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+  }
+
+  .home-requirements .home-requirements__name {
+    color: var(--g-headline, #185c53);
+    font-family: 'Plus Jakarta Sans', var(--font-family-display, sans-serif);
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .home-requirements .home-requirements__where {
+    color: var(--g-muted, #4a615c);
+    margin: 0.375rem 0 0;
+    max-width: none;
+  }
+
+  .home-requirements .home-requirements__label {
+    font-weight: 700;
+    margin: 1.5rem 0 0.75rem;
+    max-width: none;
+  }
+
+  /* The gap spaces the items; clear the @fpkit/acss `li` margin and indent,
+     as every Gleaner list does (`e2e/home-gleaner-lists.spec.ts`). */
+  .home-requirements .home-requirements__list {
+    display: grid;
+    gap: 0.875rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .home-requirements .home-requirements__item {
+    align-items: flex-start;
+    display: flex;
+    gap: 0.75rem;
+    margin: 0;
+    padding-inline-start: 0;
+  }
+
+  /* Required is a filled check, optional an outlined plus: they differ in
+     fill, not hue alone. The button pair flips with the theme, so the check
+     keeps its contrast on the dark palette's light sage. */
+  .home-requirements .home-requirements__mark {
+    flex: none;
+    margin-block-start: 0.125rem;
+  }
+
+  .home-requirements .home-requirements__mark--required circle {
+    fill: var(--g-button-bg, #185c53);
+  }
+
+  .home-requirements .home-requirements__mark--required path {
+    fill: none;
+    stroke: var(--g-button-ink, #fff);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .home-requirements .home-requirements__mark--optional circle,
+  .home-requirements .home-requirements__mark--optional path {
+    fill: none;
+    stroke: var(--g-headline, #185c53);
+    stroke-linecap: round;
+    stroke-width: 1.75;
+  }
+
+  .home-requirements .home-requirements__text {
+    min-width: 0;
+  }
+
+  .home-requirements .home-requirements__need {
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0;
+    max-width: none;
+  }
+
+  .home-requirements .home-requirements__detail,
+  .home-requirements .home-requirements__default {
+    color: var(--g-muted, #4a615c);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    margin: 0;
+    max-width: none;
+  }
+
+  .home-requirements .home-requirements__detail {
+    margin-block-start: 0.125rem;
+  }
+
+  /* A 44px target, though it reads as a plain text link. */
+  .home-requirements .home-requirements__more {
+    align-items: center;
+    align-self: flex-start;
+    color: var(--g-link, #185c53);
+    display: inline-flex;
+    font-weight: 600;
+    min-height: 2.75rem;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+</style>

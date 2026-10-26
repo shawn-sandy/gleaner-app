@@ -1,0 +1,56 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-10-26T22:35:45Z" },
+  "title": "Home Requirements Cards",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 980,
+      "title": "A. Platform cards",
+      "expand": "fill"
+    },
+    "requirements-tiered-cards.dc.html": {
+      "x": 1360,
+      "y": 0,
+      "w": 1280,
+      "h": 880,
+      "title": "B. Tiered cards",
+      "expand": "fill"
+    },
+    "requirements-connector-tiles.dc.html": {
+      "x": 2720,
+      "y": 0,
+      "w": 1280,
+      "h": 1080,
+      "title": "C. Connector tiles",
+      "expand": "fill"
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "requirements-tiered-cards.dc.html",
+    "requirements-connector-tiles.dc.html"
+  ],
+  "notes": {
+    "heading": {
+      "x": 0,
+      "y": -300,
+      "text": "Requirements section, below Quick install",
+      "kind": "title1",
+      "maxW": 4000
+    }
+  },
+  "designSystems": [
+    {
+      "title": "Gleaner",
+      "namespace": "gleaner",
+      "artifact": "https://claude.ai/artifact/WcTU2zAmooxWeVPCmQCXFm",
+      "version": "1793054010-8924",
+      "copiedAt": "2026-10-26T22:35:45Z"
+    }
+  ]
+}

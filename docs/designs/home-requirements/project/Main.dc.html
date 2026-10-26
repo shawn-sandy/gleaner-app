@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Requirements: platform cards</title>
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@600&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          body {
+            margin: 0;
+          }
+          a {
+            color: #185c53;
+          }
+          a:hover {
+            color: #124a42;
+          }
+        </style>
+      </helmet>
+      <section
+        aria-labelledby="req-a-title"
+        style="
+          box-sizing: border-box;
+          width: 100%;
+          background: #fcfcfd;
+          color: #101418;
+          font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+          padding: 2rem 2rem 3rem;
+        "
+      >
+        <div
+          style="
+            max-width: 80rem;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+          "
+        >
+          <div style="max-width: 40rem">
+            <h2
+              id="req-a-title"
+              style="
+                margin: 0;
+                font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+                font-weight: 600;
+                font-size: clamp(1.625rem, 4vw, 2.125rem);
+                line-height: 1.15;
+                color: #101418;
+              "
+            >
+              Requirements
+            </h2>
+            <p style="margin: 0.75rem 0 0; font-size: 1.0625rem; line-height: 1.6">
+              One host is enough to start. Connectors are optional, and each one adds a place to
+              keep your clips.
+            </p>
+          </div>
+
+          <div
+            style="
+              display: grid;
+              gap: 1.5rem;
+              grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+              color: #12302b;
+            "
+          >
+            <div
+              style="
+                background: #f5f8f6;
+                border: 1px solid #d5e3de;
+                border-radius: 1rem;
+                padding: clamp(1.25rem, 3vw, 1.75rem);
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+              "
+            >
+              <h3
+                style="
+                  margin: 0;
+                  font-family: 'Plus Jakarta Sans', sans-serif;
+                  font-weight: 800;
+                  font-size: 1.75rem;
+                  letter-spacing: -0.02em;
+                  line-height: 1.1;
+                  color: #185c53;
+                "
+              >
+                Claude
+              </h3>
+              <p style="margin: 0.375rem 0 0; color: #4a615c">
+                Chrome side panel, Cowork and Claude Code
+              </p>
+
+              <p style="margin: 1.5rem 0 0.75rem; font-weight: 700">Required</p>
+              <ul style="list-style: none; margin: 0; padding: 0; display: grid; gap: 0.875rem">
+                <li style="margin: 0; display: flex; gap: 0.75rem; align-items: flex-start">
+                  <svg
+                    aria-hidden="true"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    style="flex: none; margin-top: 2px"
+                  >
+                    <circle cx="12" cy="12" r="11" fill="#185c53"></circle>
+                    <path
+                      d="M7 12.5l3.2 3.2L17 9"
+                      fill="none"
+                      stroke="#fff"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </svg>
+                  <div style="min-width: 0">
+                    <p style="margin: 0; font-weight: 600; line-height: 1.5">
+                      A paid Claude plan with the new Chrome side panel, or Claude Code
+                    </p>
+                    <p
+                      style="
+                        margin: 0.125rem 0 0;
+                        color: #4a615c;
+                        font-size: 0.9375rem;
+                        line-height: 1.55;
+                      "
+                    >
+                      The new panel's three-dot menu shows Switch back to classic.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+
+              <p style="margin: 1.5rem 0 0.75rem; font-weight: 700">Optional</p>
+              <ul style="list-style: none; margin: 0; padding: 0; display: grid; gap: 0.875rem">
+                <li style="margin: 0; display: flex; gap: 0.75rem; align-items: flex-start">
+                  <svg
+                    aria-hidden="true"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    style="flex: none; margin-top: 2px"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10.25"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.5"
+                    ></circle>
+                    <path
+                      d="M12 8v8M8 12h8"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                  <div style="min-width: 0">
+                    <p style="margin: 0; font-weight: 600; line-height: 1.5">
+                      Google Drive connector
+                    </p>
+                    <p
+                      style="
+                        margin: 0.125rem 0 0;
+                        color: #4a615c;
+                        font-size: 0.9375rem;
+                        line-height: 1.55;
+                      "
+                    >
+                      Saves clips to Drive and syncs your preferences.
+                    </p>
+                  </div>
+                </li>
+                <li style="margin: 0; display: flex; gap: 0.75rem; align-items: flex-start">
+                  <svg
+                    aria-hidden="true"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    style="flex: none; margin-top: 2px"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10.25"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.5"
+                    ></circle>
+                    <path
+                      d="M12 8v8M8 12h8"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                  <div style="min-width: 0">
+                    <p style="margin: 0; font-weight: 600; line-height: 1.5">Notion connector</p>
+                    <p
+                      style="
+                        margin: 0.125rem 0 0;
+                        color: #4a615c;
+                        font-size: 0.9375rem;
+                        line-height: 1.55;
+                      "
+                    >
+                      Saves each clip to a Browser Research database.
+                    </p>
+                  </div>
+                </li>
+                <li style="margin: 0; display: flex; gap: 0.75rem; align-items: flex-start">
+                  <svg
+                    aria-hidden="true"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    style="flex: none; margin-top: 2px"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10.25"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.5"
+                    ></circle>
+                    <path
+                      d="M12 8v8M8 12h8"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                  <div style="min-width: 0">
+                    <p style="margin: 0; font-weight: 600; line-height: 1.5">
+                      A session that publishes artifacts, such as Claude Code
+                    </p>
+                    <p
+                      style="
+                        margin: 0.125rem 0 0;
+                        color: #4a615c;
+                        font-size: 0.9375rem;
+                        line-height: 1.55;
+                      "
+                    >
+                      Saves clips as private pages on claude.ai.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+
+              <a
+                href="https://github.com/shawn-sandy/gleaner#install"
+                style="
+                  align-self: flex-start;
+                  margin-top: auto;
+                  padding-top: 1.25rem;
+                  color: #185c53;
+                  font-weight: 600;
+                  text-decoration: underline;
+                  text-underline-offset: 0.2em;
+                "
+                >Claude requirements in the README</a
+              >
+            </div>
+
+            <div
+              style="
+                background: #f5f8f6;
+                border: 1px solid #d5e3de;
+                border-radius: 1rem;
+                padding: clamp(1.25rem, 3vw, 1.75rem);
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+              "
+            >
+              <h3
+                style="
+                  margin: 0;
+                  font-family: 'Plus Jakarta Sans', sans-serif;
+                  font-weight: 800;
+                  font-size: 1.75rem;
+                  letter-spacing: -0.02em;
+                  line-height: 1.1;
+                  color: #185c53;
+                "
+              >
+                ChatGPT
+              </h3>
+              <p style="margin: 0.375rem 0 0; color: #4a615c">
+                Connected Chrome tabs and the Work browser
+              </p>
+
+              <p style="margin: 1.5rem 0 0.75rem; font-weight: 700">Required</p>
+              <ul style="list-style: none; margin: 0; padding: 0; display: grid; gap: 0.875rem">
+                <li style="margin: 0; display: flex; gap: 0.75rem; align-items: flex-start">
+                  <svg
+                    aria-hidden="true"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    style="flex: none; margin-top: 2px"
+                  >
+                    <circle cx="12" cy="12" r="11" fill="#185c53"></circle>
+                    <path
+                      d="M7 12.5l3.2 3.2L17 9"
+                      fill="none"
+                      stroke="#fff"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </svg>
+                  <div style="min-width: 0">
+                    <p style="margin: 0; font-weight: 600; line-height: 1.5">
+                      A workspace with GitHub marketplace import enabled
+                    </p>
+                    <p
+                      style="
+                        margin: 0.125rem 0 0;
+                        color: #4a615c;
+                        font-size: 0.9375rem;
+                        line-height: 1.55;
+                      "
+                    >
+                      Menus and import permissions depend on your workspace's admin policy.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+
+              <p style="margin: 1.5rem 0 0.75rem; font-weight: 700">Optional</p>
+              <ul style="list-style: none; margin: 0; padding: 0; display: grid; gap: 0.875rem">
+                <li style="margin: 0; display: flex; gap: 0.75rem; align-items: flex-start">
+                  <svg
+                    aria-hidden="true"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    style="flex: none; margin-top: 2px"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10.25"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.5"
+                    ></circle>
+                    <path
+                      d="M12 8v8M8 12h8"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                  <div style="min-width: 0">
+                    <p style="margin: 0; font-weight: 600; line-height: 1.5">Browser access</p>
+                    <p
+                      style="
+                        margin: 0.125rem 0 0;
+                        color: #4a615c;
+                        font-size: 0.9375rem;
+                        line-height: 1.55;
+                      "
+                    >
+                      Connected Chrome tabs or the Work browser let Gleaner read the page you're on.
+                      Without them, paste a URL or the text.
+                    </p>
+                  </div>
+                </li>
+                <li style="margin: 0; display: flex; gap: 0.75rem; align-items: flex-start">
+                  <svg
+                    aria-hidden="true"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    style="flex: none; margin-top: 2px"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10.25"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.5"
+                    ></circle>
+                    <path
+                      d="M12 8v8M8 12h8"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                  <div style="min-width: 0">
+                    <p style="margin: 0; font-weight: 600; line-height: 1.5">Google Drive</p>
+                    <p
+                      style="
+                        margin: 0.125rem 0 0;
+                        color: #4a615c;
+                        font-size: 0.9375rem;
+                        line-height: 1.55;
+                      "
+                    >
+                      Saves clips to Drive and syncs your preferences.
+                    </p>
+                  </div>
+                </li>
+                <li style="margin: 0; display: flex; gap: 0.75rem; align-items: flex-start">
+                  <svg
+                    aria-hidden="true"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    style="flex: none; margin-top: 2px"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10.25"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.5"
+                    ></circle>
+                    <path
+                      d="M12 8v8M8 12h8"
+                      fill="none"
+                      stroke="#185c53"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                  <div style="min-width: 0">
+                    <p style="margin: 0; font-weight: 600; line-height: 1.5">Notion</p>
+                    <p
+                      style="
+                        margin: 0.125rem 0 0;
+                        color: #4a615c;
+                        font-size: 0.9375rem;
+                        line-height: 1.55;
+                      "
+                    >
+                      Saves each clip to a Browser Research database.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+
+              <a
+                href="https://github.com/shawn-sandy/gleaner/blob/main/docs/chatgpt-marketplace.md"
+                style="
+                  align-self: flex-start;
+                  margin-top: auto;
+                  padding-top: 1.25rem;
+                  color: #185c53;
+                  font-weight: 600;
+                  text-decoration: underline;
+                  text-underline-offset: 0.2em;
+                "
+                >ChatGPT setup and compatibility</a
+              >
+            </div>
+          </div>
+
+          <p style="margin: 0; color: #4a615c; font-size: 0.9375rem; line-height: 1.6">
+            Nothing else is needed for the default. Each clip comes back in the conversation: a
+            Markdown file in ChatGPT, an HTML file in Claude.
+          </p>
+          <a
+            href="https://github.com/shawn-sandy/gleaner/blob/main/docs/requirements.md"
+            style="
+              align-self: flex-start;
+              display: inline-flex;
+              align-items: center;
+              min-height: 44px;
+              color: #185c53;
+              font-weight: 600;
+              text-decoration: underline;
+              text-underline-offset: 0.2em;
+            "
+            >Full requirements on GitHub</a
+          >
+        </div>
+      </section>
+    </x-dc>
+    <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":980}}'>
+      class Component extends DCLogic {
+      renderVals() {
+      return {};
+      }
+      }
+    </script>
+  </body>
+</html>
