@@ -276,6 +276,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site copy caught up with Gleaner 2.12.2 (`3c9a076`)** (`README.md`,
+  `src/components/astro/HomeFeatures.astro`, `upstream-sync.json`): since 2.12.1, ChatGPT shows
+  the whole clip in the conversation, phones included, with the Markdown file as a separate
+  download, while Claude keeps its HTML file and compact preview. Since 2.12.2 a Drive save with no
+  folder set goes to `Browser Research/<Category>`, and the README explains collecting parts across
+  tabs and sites
+  - The README mirrors upstream again, rebuilt the way the last sync did: upstream text, links to
+    files that only exist upstream pointed at GitHub, the fork step still naming
+    shawn-sandy/gleaner, then Prettier. The same steps applied to `0d96d93` reproduce the previous
+    mirror byte for byte. It picks up 2.11.1 to 2.12.2 and the new link to upstream's
+    `docs/requirements.md`
+  - "Saves where you already keep things" says ChatGPT shows the whole clip with a Markdown file to
+    download and Claude gives an HTML file and a preview, where it said every save shows a preview
+  - The glean skill card gathers passages from several tabs and sites, where it said several tabs
+  - The hero, install cards, skills guide and site description are unchanged: ChatGPT still gives
+    a Markdown file where attachments work, the ChatGPT guide's import steps did not change (its
+    edits cover browser choice, blocked YouTube content and inline clips), the skills guide did
+    not change upstream, and the manifest changed only its version
+  - The bookmark moves from `0d96d93` to `3c9a076`, upstream main's head one commit past the
+    `v2.12.2` tag (`0d3158c`); that commit adds `docs/requirements.md` and links it from the
+    README, so the next drift check reports nothing and closes #40
 - **`@clerk/astro` 3.4.20 to 4.1.17**: the first major whose peer range includes Astro 7. Its
   `.npmrc` `legacy-peer-deps` reason is gone; the flag stays for `astro-embed@0.13.0`
 - **YouTube limits post caught up with Gleaner 2.11.0** (`src/content/posts/youtube-skill-constraints.md`):

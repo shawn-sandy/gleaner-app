@@ -31,7 +31,7 @@ const skills = [
     name: 'glean',
     title: 'Pages, parts and answers',
     description:
-      'Save a whole page, gather passages from several tabs into one clip, or keep the answer you got about a page, steps and code intact.',
+      'Save a whole page, gather passages from several tabs and sites into one clip, or keep the answer you got about a page, steps and code intact.',
     asks: ['save this page', 'grab the part about easing', 'save that'],
   },
   {
@@ -250,10 +250,10 @@ const destinations = [
       <div class="home-features__destinations-head">
         <h3 class="home-features__subtitle">Saves where you already keep things</h3>
         <p class="home-features__muted">
-          By default, each clip comes back in the chat, as a Markdown file in ChatGPT or an HTML
-          file in Claude, and nothing is stored. Every save also shows a preview in the chat: an
-          overview, key details, why it matters and links to the source and the clip. To store one,
-          name the place or add{' '}
+          By default, each clip comes back in the chat and nothing is stored. ChatGPT shows the
+          whole clip in the conversation, phones included, with a Markdown file to download. Claude
+          gives an HTML file and a preview: an overview, key details, why it matters and links to
+          the source and the clip. To store one, name the place or add{' '}
           <code class="home-features__inline-code">--to</code>. To store every clip, set a default
           with <code class="home-features__inline-code">/gleaner:preferences setup</code>.
         </p>
