@@ -306,9 +306,10 @@ neither.
 
 The Gleaner brand arrives as a scoped layer rather than a replacement. The homepage hero, the
 navigation brand link, the hero's example thread, the feature section below the hero, the Quick
-install cards and the blog section's posts paint in the Gleaner logo's own colours (an evergreen
-disc and a copper string) and set their display moments in the wordmark's typeface. The Quick
-install and blog headings, and every other route, still paint with the instrument palette above.
+install and Requirements cards and the blog section's posts paint in the Gleaner logo's own colours
+(an evergreen disc and a copper string) and set their display moments in the wordmark's typeface.
+The Quick install, Requirements and blog headings, and every other route, still paint with the
+instrument palette above.
 The two layers never share a colour, which is what keeps the accent audit meaningful.
 
 **Key Characteristics:**
@@ -359,8 +360,9 @@ A second, scoped palette drawn from the Gleaner logo: a deep forest evergreen an
 on a faintly green-tinted ground. It paints only elements marked `data-gleaner`: the homepage hero
 (`HomeHero`, with `GleanPart`, `SavedClip` and `CopyCommand` inside it), the homepage feature
 section (`HomeFeatures`, with `SkillCard` inside it), the Quick install cards (`HomeInstall`, which
-marks its card grid, not its heading) and the blog section's posts (`HomeBlog`, which likewise
-marks only its posts). `CopyCommand` sets no `data-gleaner` of its own: it reads the palette from
+marks its card grid, not its heading), the Requirements cards below them (`HomeRequirements`,
+which marks its cards and footer, not its heading) and the blog section's posts (`HomeBlog`, which
+likewise marks only its posts). `CopyCommand` sets no `data-gleaner` of its own: it reads the palette from
 the section around it and falls back to the inherited colour. The navigation brand carries the logo itself but
 keeps inheriting the bar's ink. Light values are the frontmatter tokens; the dark values below are
 set on `[data-gleaner]` in both dark scopes by `src/styles/gleaner-palette.css`. Hero contrast
@@ -374,7 +376,10 @@ document" come from the WCAG relative-luminance formula run against the shipped 
   Gleaner's reply line; in dark those roles lift to a pale sage. Headline on ground 7.29:1 light,
   headline and link 10.93:1 dark. The saved clip card and the blog's latest-post card keep the
   light evergreen fill in both themes. In the Quick install cards it is the assistant name and the
-  install-guide link; in the blog section, the post-title links and "All posts", which sit on the
+  install-guide link. In the Requirements cards it is the assistant name, the filled required check
+  and the outlined optional plus (7.29:1 light, 9.39:1 dark on the card, measured), and the
+  requirements link below them sits on Paper at the same figures as the blog links; in the blog
+  section, the post-title links and "All posts", which sit on the
   page's Paper: 7.60:1 light, 12.00:1 dark (computed for this document). In the feature section
   it is the section title and subtitles, the skill names, the chip text, and the usage-guide link
   (measured): section title and link on the band 7.79:1 light, 10.93:1 dark;
@@ -392,8 +397,8 @@ document" come from the WCAG relative-luminance formula run against the shipped 
   so the section steps up from the hero's tinted ground; in dark it takes the hero's ground colour.
   Measured on it: lede 14.16:1 light, 14.76:1 dark; muted 6.65:1 light, 8.46:1 dark.
 - **Feature Card** (light `gleaner-surface` / dark `#152b27`): The skill cards, the sample clip
-  card and the Quick install cards, one tone off the band. Muted text on it 6.22:1 light, 7.27:1
-  dark (measured).
+  card, the Quick install cards and the Requirements cards, one tone off the band. Muted text on it
+  6.22:1 light, 7.27:1 dark (measured).
 - **Chip** (light `gleaner-chip` / dark `#234240`): The `/gleaner:` command chip, the `--to` flag
   chips, and inside the Quick install cards both the inline code and the block that holds the
   `CopyCommand` rows. Evergreen command text on it 6.61:1 light, 6.86:1 dark (measured). The install
@@ -462,8 +467,8 @@ recorded compromise: the committed `src/styles/index.css` is out of sync with it
 recompiling it to add global tokens would ship unrelated changes. The stylesheet sets the light
 values on `[data-gleaner]` and flips them in both dark scopes (`prefers-color-scheme: dark` under
 `:root:not([data-theme='light'])`, and `:root[data-theme='dark']`), honouring the Three Scopes Rule.
-Each component that sets `data-gleaner` (`HomeHero`, `HomeFeatures`, `HomeInstall`, `HomeBlog`)
-imports the stylesheet itself, and the browser loads it once; components that read the palette
+Each component that sets `data-gleaner` (`HomeHero`, `HomeFeatures`, `HomeInstall`,
+`HomeRequirements`, `HomeBlog`) imports the stylesheet itself, and the browser loads it once; components that read the palette
 from inside one (`GleanPart`, `SavedClip`, `SkillCard`) carry light-theme fallbacks for every
 property they read. Promote these to
 the global token file only alongside a deliberate recompile of `index.css`.
@@ -527,14 +532,15 @@ something else speaks in them.
 - **Chip Mono** (mono 400, 0.8125rem, 1.4): The command and `--to` flag chips. The same size sets the
   sample clip's mono path in its caption and the destination paths, at 1.5.
 - **Install Card Name** (Plus Jakarta Sans 800, 1.75rem, 1.1, `-0.02em`): "Claude" and "ChatGPT" on
-  the Quick install cards, in Evergreen.
+  the Quick install cards and the Requirements cards, in Evergreen.
 - **Latest Post Title** (Plus Jakarta Sans 800, `clamp(1.75rem, 4vw, 2.375rem)`, 1.15, `-0.02em`):
   The newest post's title on the blog's evergreen card, in white, sentence case.
 - **Post Row Title** (Plus Jakarta Sans 700, 1.125rem, 1.4): An earlier post's title in the blog
   list, set as an Evergreen link that inherits its heading's font rather than the site's 16px/400
   `a` rule.
 
-The Quick install and blog headings ("Quick install", "From the blog") sit outside `data-gleaner`
+The Quick install, Requirements and blog headings ("Quick install", "Requirements", "From the
+blog") sit outside `data-gleaner`
 on the site's own heading face, weight and colour; their components set only the size
 (`clamp(1.625rem, 4vw, 2.125rem)`, 1.15) and sentence case. The Quick install heading is the
 homepage's one display-role heading that `e2e/homepage-design-direction.spec.ts` checks.
@@ -564,7 +570,8 @@ and capitalizing a sentence produces "Please Correct The Following Errors".
 `--font-family-sans` token, so it sets reading text on every site route outside the Starlight docs. At 600-800 it is the Gleaner
 brand face, and that use is scoped to brand moments: the nav brand, the hero headline, the hero
 install button, the saved clip title, the homepage feature section's `h2` and `h3` headings and
-skill names, the Quick install cards' assistant names, and the blog section's post titles. Those
+skill names, the Quick install and Requirements cards' assistant names, and the blog section's
+post titles. Those
 are the only headings it sets; page headings on other routes stay on the Inter
 display face, and labels stay mono. It ships as one variable woff2 covering 200-800, declared once
 in `src/styles/_design-tokens.scss` and preloaded in `Base.astro` alongside the Inter display file,
