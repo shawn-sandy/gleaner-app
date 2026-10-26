@@ -5,6 +5,8 @@ import Img from '#components/astro/Img.astro'
 import Toc from '#components/astro/Toc.astro'
 import { sanitizeImageUrl } from '#utils/security'
 const frontmatter = Astro.props.frontmatter
+/** Estimated minutes to read, from `readingMinutes` in `#utils/post-navigation`. */
+const readingMinutes: number | undefined = Astro.props.readingMinutes
 
 const headings = Astro.props.headings
 const { slug } = Astro.params
@@ -32,6 +34,7 @@ const contentRoute: ContentRoute[] = [
   pageDescription={frontmatter.description}
   breadcrumbRoutes={contentRoute}
 >
+  {readingMinutes !== undefined && <p class="post-reading-time">{readingMinutes} min read</p>}
   {
     safeImageUrl && (
       <>
@@ -72,3 +75,11 @@ const contentRoute: ContentRoute[] = [
     )
   }
 </Layout>
+
+<style>
+  .post-reading-time {
+    color: var(--color-text-secondary, currentColor);
+    font-size: 0.9375rem;
+    margin-block: 0 1.5rem;
+  }
+</style>
