@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Requirements section** (`HomeRequirements.astro`, `src/pages/index.astro`): the homepage now
+  lists what Gleaner needs directly below Quick install, in a Claude card and a ChatGPT card that
+  each split it into required (a host and a page Gleaner can read) and optional (the Google Drive
+  and Notion connectors and, for Claude, a session that publishes artifacts). The copy follows the
+  Gleaner repo's `docs/requirements.md`, which the section links to. The cards reuse the Quick
+  install cards' surface, type and Gleaner palette in both themes and stack to one column on narrow
+  screens. The design canvas for the three card variants considered is kept in
+  `docs/designs/home-requirements/`
+  - `tests/components/HomeRequirements.astro.test.ts` checks the heading levels, that every list is
+    named by its own Required or Optional label, and the link to the requirements doc
 - **Default share card** (`Base.astro`, `OpenGraph.astro`, `public/images/og-default.png`): every
   page outside the Starlight guide now writes Open Graph and Twitter card tags through the existing
   `OpenGraph` component, which no layout had rendered. A page without its own `pageImageUrl` shares

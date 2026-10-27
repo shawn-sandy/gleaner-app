@@ -229,9 +229,10 @@ the direction removes, and it fails `e2e/homepage-design-direction.spec.ts` if y
 ## The Gleaner Brand Layer
 
 The site's Gleaner rebrand is a scoped layer over the direction above, not a replacement. The homepage hero, the
-feature section, the Quick install cards and the blog section's posts paint in the Gleaner logo's colours - an evergreen
-disc and a copper string - and set their display moments in the wordmark's typeface. The Quick install and blog
-headings, and every other site route outside the Starlight docs, still use the seven direction tokens. The two layers
+feature section, the Quick install and Requirements cards and the blog section's posts paint in the Gleaner logo's
+colours - an evergreen disc and a copper string - and set their display moments in the wordmark's typeface. The Quick
+install, Requirements and blog headings, and every other site route outside the Starlight docs, still use the seven
+direction tokens. The two layers
 never share a colour. `DESIGN.md` is the full record; this section is the contract.
 
 ### The scoped palette
@@ -248,7 +249,7 @@ It uses the same three theming scopes as the direction tokens: light values on `
 block sets `--glean-clip-*`, so the saved clip and the blog's latest-post card keep their evergreen fill in both themes.
 
 - **Each component that sets `data-gleaner` imports the stylesheet** - `HomeHero`, `HomeFeatures`, `HomeInstall`,
-  `HomeBlog` - and the browser loads it once.
+  `HomeRequirements`, `HomeBlog` - and the browser loads it once.
 - **Components that only read the palette carry fallbacks.** `GleanPart`, `SavedClip` and `SkillCard` give every
   property a light-theme fallback; `CopyCommand` falls back to the inherited colour.
 - **The palette stays out of `_design-tokens.scss` on purpose.** The committed `src/styles/index.css` is out of step
@@ -275,24 +276,25 @@ Plus Jakarta Sans ships as one variable woff2 (`public/fonts/plus-jakarta-sans-w
 400 it is the body face, `--font-family-sans`, so bold body text (links, labels, `strong`) renders in it at 600-700.
 Its display use, as the Gleaner brand face at 600-800, is reserved for brand moments: the
 navigation wordmark (600, drawn into its SVG), the hero headline (800), the hero install button (650), the saved clip
-title (800), the feature section's `h2` and `h3` and skill names (800), the Quick install card names (800), and the
-blog's post titles (800 for the latest, 700 for earlier rows). Page headings on other site routes outside the Starlight
-docs stay on Inter 600 and labels stay mono, so the three type roles still hold and the brand face costs no font
-request beyond the body face. The components name the face directly, so overriding `--font-family-sans` leaves the
-brand moments on Plus Jakarta Sans.
+title (800), the feature section's `h2` and `h3` and skill names (800), the Quick install and Requirements card names
+(800), and the blog's post titles (800 for the latest, 700 for earlier rows). Page headings on other site routes
+outside the Starlight docs stay on Inter 600 and labels stay mono, so the three type roles still hold and the brand
+face costs no font request beyond the body face. The components name the face directly, so overriding
+`--font-family-sans` leaves the brand moments on Plus Jakarta Sans.
 
 ### Brand components
 
-| Component      | `data-gleaner`                    | Used in                                                    | What it is                                                          |
-| -------------- | --------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------- |
-| `HomeHero`     | On its `header`                   | `src/pages/index.astro`, header slot                       | Hero band: logo, headline, install button and panel, example thread |
-| `GleanPart`    | Reads it                          | `HomeHero`'s example thread                                | One ask on the copper string                                        |
-| `SavedClip`    | Reads it                          | The last item of the same thread                           | The evergreen clip the string ties off in                           |
-| `HomeFeatures` | On its `section`                  | `src/pages/index.astro`, featured slot                     | Feature band: skill cards, sample clip anatomy, save destinations   |
-| `SkillCard`    | Reads it                          | `HomeFeatures`                                             | One skill card                                                      |
-| `HomeInstall`  | On its card grid, not its heading | `src/pages/index.astro`, main content                      | Claude and ChatGPT Quick install cards                              |
-| `HomeBlog`     | On its posts, not its heading     | `src/pages/index.astro`, main content                      | Latest-post card and up to three earlier rows; omitted with no post |
-| `CopyCommand`  | Reads it, else inherits           | `HomeHero`'s install panel and `HomeInstall`'s Claude card | One install command with a copy button                              |
+| Component          | `data-gleaner`                           | Used in                                                    | What it is                                                                  |
+| ------------------ | ---------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `HomeHero`         | On its `header`                          | `src/pages/index.astro`, header slot                       | Hero band: logo, headline, install button and panel, example thread         |
+| `GleanPart`        | Reads it                                 | `HomeHero`'s example thread                                | One ask on the copper string                                                |
+| `SavedClip`        | Reads it                                 | The last item of the same thread                           | The evergreen clip the string ties off in                                   |
+| `HomeFeatures`     | On its `section`                         | `src/pages/index.astro`, featured slot                     | Feature band: skill cards, sample clip anatomy, save destinations           |
+| `SkillCard`        | Reads it                                 | `HomeFeatures`                                             | One skill card                                                              |
+| `HomeInstall`      | On its card grid, not its heading        | `src/pages/index.astro`, main content                      | Claude and ChatGPT Quick install cards                                      |
+| `HomeRequirements` | On its cards and footer, not its heading | `src/pages/index.astro`, main content                      | Claude and ChatGPT requirement cards, each split into required and optional |
+| `HomeBlog`         | On its posts, not its heading            | `src/pages/index.astro`, main content                      | Latest-post card and up to three earlier rows; omitted with no post         |
+| `CopyCommand`      | Reads it, else inherits                  | `HomeHero`'s install panel and `HomeInstall`'s Claude card | One install command with a copy button                                      |
 
 `CopyCommand` holds one command per instance because Claude Code takes one slash command per message. Its accessible
 name is "Copy " plus the command, and the result is announced through a `role="status"` region present from the start.
@@ -318,7 +320,8 @@ loaded after it; the dark selectors carry (0,3,0), so redefining only `[data-gle
 - **The hero ratio** - the hero `h1` over the following paragraph must stay at 3.0 or more at 1280px and 390px; the deck
   is derived from the headline size.
 - **The type-role probe** - the direction spec reads the display role from the first heading outside `[data-gleaner]`,
-  today "Quick install", so keep `data-gleaner` off the Quick install and blog headings.
+  today "Quick install", so keep `data-gleaner` off the Quick install, Requirements and blog
+  headings.
 - **The recorded contrast** - no test asserts it. Re-measure every pair a change touches, and keep the components' light
   fallbacks in step if you change the stylesheet's defaults.
 
@@ -354,6 +357,8 @@ The Gleaner brand layer:
 - `e2e/home-gleaner-lists.spec.ts` - no list item in a Gleaner section carries the vendor margin or indent, and the
   hero's copper string runs unbroken from ask to ask
 - `e2e/home-install.spec.ts` - the install cards' code stands apart from its card in light and dark
+- `tests/components/HomeRequirements.astro.test.ts` - the Requirements section has one `h2` and an `h3` per card, names
+  every list by its Required or Optional label, and links to Gleaner's `docs/requirements.md`
 - `e2e/home-blog.spec.ts` - every blog link lands on a page that renders, and row title links keep their heading's size
   and weight
 - `e2e/copy-command.spec.ts` - the hero's first copy button neither scales nor dims on hover or focus
@@ -363,7 +368,7 @@ The Gleaner brand layer:
 - `DESIGN.md` - the full design record for both layers, with every contrast figure
 - `src/styles/gleaner-palette.css` - the Gleaner `--g-*` and `--glean-*` palette in all three theming scopes
 - `src/components/astro/` - `HomeHero`, `GleanPart`, `SavedClip`, `HomeFeatures`, `SkillCard`, `HomeInstall`,
-  `HomeBlog` and `CopyCommand`
+  `HomeRequirements`, `HomeBlog` and `CopyCommand`
 - `src/styles/DESIGN-TOKENS-README.md` - the wider token layer this direction extends
 - `docs/prototypes/restyle-astro-kit-homepage.html` - clickable prototype of the target state, with a working
   light/dark switch

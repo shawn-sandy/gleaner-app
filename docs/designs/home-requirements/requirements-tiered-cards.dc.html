@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Requirements: tiered cards</title>
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@600&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          body {
+            margin: 0;
+          }
+          a {
+            color: #185c53;
+          }
+          a:hover {
+            color: #124a42;
+          }
+        </style>
+      </helmet>
+      <section
+        aria-labelledby="req-b-title"
+        style="
+          box-sizing: border-box;
+          width: 100%;
+          background: #fcfcfd;
+          color: #101418;
+          font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+          padding: 2rem 2rem 3rem;
+        "
+      >
+        <div
+          style="
+            max-width: 80rem;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+          "
+        >
+          <div style="max-width: 40rem">
+            <h2
+              id="req-b-title"
+              style="
+                margin: 0;
+                font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+                font-weight: 600;
+                font-size: clamp(1.625rem, 4vw, 2.125rem);
+                line-height: 1.15;
+                color: #101418;
+              "
+            >
+              Requirements
+            </h2>
+            <p style="margin: 0.75rem 0 0; font-size: 1.0625rem; line-height: 1.6">
+              Pick one host to install Gleaner. Everything after that is optional.
+            </p>
+          </div>
+
+          <div
+            style="
+              display: grid;
+              gap: 1.5rem;
+              grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+              color: #12302b;
+            "
+          >
+            <div
+              style="
+                background: #f5f8f6;
+                border: 1px solid #d5e3de;
+                border-radius: 1rem;
+                padding: clamp(1.25rem, 3vw, 1.75rem);
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                min-width: 0;
+              "
+            >
+              <span
+                style="
+                  align-self: flex-start;
+                  background: #9a4a26;
+                  color: #fff;
+                  border-radius: 999px;
+                  padding: 0.25rem 0.75rem;
+                  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                  font-size: 0.8125rem;
+                  line-height: 1.4;
+                "
+                >Required</span
+              >
+              <h3
+                style="
+                  margin: 0;
+                  font-family: 'Plus Jakarta Sans', sans-serif;
+                  font-weight: 800;
+                  font-size: 1.75rem;
+                  letter-spacing: -0.02em;
+                  line-height: 1.1;
+                  color: #185c53;
+                "
+              >
+                Pick one host
+              </h3>
+              <ul style="list-style: none; margin: 0; padding: 0; display: grid">
+                <li style="margin: 0; padding: 1rem 0; border-top: 1px solid #d5e3de">
+                  <p style="margin: 0; font-weight: 700; font-size: 1.0625rem">Claude</p>
+                  <p style="margin: 0.25rem 0 0; line-height: 1.55">
+                    A paid plan with the new Chrome side panel, or Claude Code.
+                  </p>
+                  <p
+                    style="
+                      margin: 0.25rem 0 0;
+                      color: #4a615c;
+                      font-size: 0.9375rem;
+                      line-height: 1.55;
+                    "
+                  >
+                    The new panel's three-dot menu shows Switch back to classic.
+                  </p>
+                </li>
+                <li style="margin: 0; padding: 1rem 0 0; border-top: 1px solid #d5e3de">
+                  <p style="margin: 0; font-weight: 700; font-size: 1.0625rem">ChatGPT</p>
+                  <p style="margin: 0.25rem 0 0; line-height: 1.55">
+                    A workspace with GitHub marketplace import enabled.
+                  </p>
+                  <p
+                    style="
+                      margin: 0.25rem 0 0;
+                      color: #4a615c;
+                      font-size: 0.9375rem;
+                      line-height: 1.55;
+                    "
+                  >
+                    Connect browser access too, or paste a URL or the text. Your admin policy
+                    decides the menus.
+                  </p>
+                </li>
+              </ul>
+            </div>
+
+            <div
+              style="
+                background: #f5f8f6;
+                border: 1px solid #d5e3de;
+                border-radius: 1rem;
+                padding: clamp(1.25rem, 3vw, 1.75rem);
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                min-width: 0;
+              "
+            >
+              <span
+                style="
+                  align-self: flex-start;
+                  background: #e3efeb;
+                  color: #185c53;
+                  border-radius: 999px;
+                  padding: 0.25rem 0.75rem;
+                  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                  font-size: 0.8125rem;
+                  line-height: 1.4;
+                "
+                >Optional</span
+              >
+              <h3
+                style="
+                  margin: 0;
+                  font-family: 'Plus Jakarta Sans', sans-serif;
+                  font-weight: 800;
+                  font-size: 1.75rem;
+                  letter-spacing: -0.02em;
+                  line-height: 1.1;
+                  color: #185c53;
+                "
+              >
+                Add a place to keep clips
+              </h3>
+              <ul style="list-style: none; margin: 0; padding: 0; display: grid">
+                <li style="margin: 0; padding: 1rem 0; border-top: 1px solid #d5e3de">
+                  <p style="margin: 0; font-weight: 700; font-size: 1.0625rem">Google Drive</p>
+                  <p
+                    style="
+                      margin: 0.25rem 0 0;
+                      color: #4a615c;
+                      font-size: 0.9375rem;
+                      line-height: 1.55;
+                    "
+                  >
+                    Saves clips to a Browser Research folder and syncs your preferences.
+                  </p>
+                </li>
+                <li style="margin: 0; padding: 1rem 0; border-top: 1px solid #d5e3de">
+                  <p style="margin: 0; font-weight: 700; font-size: 1.0625rem">Notion</p>
+                  <p
+                    style="
+                      margin: 0.25rem 0 0;
+                      color: #4a615c;
+                      font-size: 0.9375rem;
+                      line-height: 1.55;
+                    "
+                  >
+                    Saves each clip to a Browser Research database you can filter and sort.
+                  </p>
+                </li>
+                <li style="margin: 0; padding: 1rem 0 0; border-top: 1px solid #d5e3de">
+                  <p style="margin: 0; font-weight: 700; font-size: 1.0625rem">Artifacts</p>
+                  <p
+                    style="
+                      margin: 0.25rem 0 0;
+                      color: #4a615c;
+                      font-size: 0.9375rem;
+                      line-height: 1.55;
+                    "
+                  >
+                    Saves a private page on claude.ai, from a session that publishes artifacts, such
+                    as Claude Code.
+                  </p>
+                </li>
+              </ul>
+            </div>
+
+            <div
+              style="
+                background: #f5f8f6;
+                border: 1px solid #d5e3de;
+                border-radius: 1rem;
+                padding: clamp(1.25rem, 3vw, 1.75rem);
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                min-width: 0;
+              "
+            >
+              <span
+                style="
+                  align-self: flex-start;
+                  background: #fff;
+                  color: #185c53;
+                  border: 1px solid #d5e3de;
+                  border-radius: 999px;
+                  padding: 0.1875rem 0.6875rem;
+                  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                  font-size: 0.8125rem;
+                  line-height: 1.4;
+                "
+                >Default</span
+              >
+              <h3
+                style="
+                  margin: 0;
+                  font-family: 'Plus Jakarta Sans', sans-serif;
+                  font-weight: 800;
+                  font-size: 1.75rem;
+                  letter-spacing: -0.02em;
+                  line-height: 1.1;
+                  color: #185c53;
+                "
+              >
+                Nothing to connect
+              </h3>
+              <p
+                style="
+                  margin: 0;
+                  padding-top: 1rem;
+                  border-top: 1px solid #d5e3de;
+                  line-height: 1.6;
+                "
+              >
+                Every clip comes back in the conversation: a Markdown file in ChatGPT, an HTML file
+                in Claude.
+              </p>
+              <p style="margin: 0; line-height: 1.6">
+                Open a page and say
+                <code
+                  style="
+                    background: #e3efeb;
+                    color: #185c53;
+                    border-radius: 0.375rem;
+                    padding: 0.0625rem 0.375rem;
+                    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                    font-size: 0.875em;
+                  "
+                  >save this page</code
+                >.
+              </p>
+              <p style="margin: 0; color: #4a615c; font-size: 0.9375rem; line-height: 1.55">
+                Pick a default destination later with
+                <code
+                  style="
+                    background: #e3efeb;
+                    color: #185c53;
+                    border-radius: 0.375rem;
+                    padding: 0.0625rem 0.375rem;
+                    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                    font-size: 0.875em;
+                    overflow-wrap: anywhere;
+                  "
+                  >/gleaner:preferences setup</code
+                >.
+              </p>
+            </div>
+          </div>
+          <a
+            href="https://github.com/shawn-sandy/gleaner/blob/main/docs/requirements.md"
+            style="
+              align-self: flex-start;
+              display: inline-flex;
+              align-items: center;
+              min-height: 44px;
+              color: #185c53;
+              font-weight: 600;
+              text-decoration: underline;
+              text-underline-offset: 0.2em;
+            "
+            >Full requirements on GitHub</a
+          >
+        </div>
+      </section>
+    </x-dc>
+    <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":880}}'>
+      class Component extends DCLogic {
+      renderVals() {
+      return {};
+      }
+      }
+    </script>
+  </body>
+</html>
