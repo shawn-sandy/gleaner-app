@@ -1,0 +1,51 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-10-27T00:21:06Z" },
+  "title": "Home Skip Nav",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 1860,
+      "title": "A. Jump-to chips in the hero",
+      "expand": "fill"
+    },
+    "skip-nav-hero-strip.dc.html": {
+      "x": 1360,
+      "y": 0,
+      "w": 1280,
+      "h": 1800,
+      "title": "B. Section strip on the hero's bottom edge",
+      "expand": "fill"
+    },
+    "skip-nav-hero-strip-phone.dc.html": {
+      "x": 2720,
+      "y": 0,
+      "w": 390,
+      "h": 2800,
+      "title": "B. Section strip, phone (390px)"
+    }
+  },
+  "order": ["Main.dc.html", "skip-nav-hero-strip.dc.html", "skip-nav-hero-strip-phone.dc.html"],
+  "notes": {
+    "heading": {
+      "x": 0,
+      "y": -300,
+      "text": "Skip to a section, inside or below the hero",
+      "kind": "title1",
+      "maxW": 3110
+    }
+  },
+  "designSystems": [
+    {
+      "title": "Gleaner",
+      "namespace": "gleaner",
+      "artifact": "https://claude.ai/artifact/WcTU2zAmooxWeVPCmQCXFm",
+      "version": "1793054010-8924",
+      "copiedAt": "2026-10-27T00:21:06Z"
+    }
+  ]
+}

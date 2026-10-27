@@ -2,12 +2,34 @@
 const platform = 'github'
 const username = 'shawn-sandy'
 import Social from './Social.astro'
+import { getHomeSections } from '#utils/home-sections'
 const today = new Date()
+
+// The homepage's section links, as a line above the site links. They jump
+// within the page, and no other route has those sections.
+const sections = Astro.url.pathname === '/' ? await getHomeSections() : []
 ---
 
 <footer>
   <div>
     <nav aria-label="Footer">
+      {
+        sections.length > 0 && (
+          <p>
+            {sections.map(({ href, label }, index) => (
+              <>
+                {index > 0 && (
+                  <>
+                    {' '}
+                    <span aria-hidden="true">·</span>{' '}
+                  </>
+                )}
+                <a href={href}>{label}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
       <p>
         <a href="/">Home</a>{' '}
         <span aria-hidden="true">·</span>{' '}
@@ -53,6 +75,12 @@ const today = new Date()
      setting font-size here would just fight its own rule. */
   footer p :global(a[href]) {
     --link-fs: 0.875rem;
+  }
+
+  /* @fpkit/acss lays every `nav` out as a row, which set the homepage's section
+     line beside the site links instead of above them. */
+  footer nav {
+    flex-direction: column;
   }
 
   /* The global `p + p` rule spaces the footer lines 1rem apart, but the links
