@@ -1,4 +1,5 @@
-import { test, expect, type Page } from '@playwright/test'
+import { test, expect } from '@playwright/test'
+import type { Page } from '@playwright/test'
 
 /** The pinned "Back to top" link every `Base` page renders. */
 const button = (page: Page) => page.getByRole('link', { name: 'Back to top' })
@@ -50,6 +51,15 @@ test.describe('Back to top', () => {
     await expect(button(page)).toBeVisible()
   })
 
+  // Just the arrow on screen; "Back to top" stays its accessible name, which
+  // `button()` already finds it by.
+  test('shows only the arrow', async ({ page }) => {
+    await page.goto('/changelog')
+    await scrollToY(page, 1600)
+
+    await expect(button(page)).toHaveText('')
+  })
+
   test('is a 44px target pinned inside the window on a phone', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 640 })
     await page.goto('/changelog')
@@ -58,6 +68,7 @@ test.describe('Back to top', () => {
     const box = await button(page).boundingBox()
     expect(box, 'the button has no box').not.toBeNull()
     expect(box!.height).toBeGreaterThanOrEqual(44)
+    expect(box!.width).toBeGreaterThanOrEqual(44)
 
     // In the bottom-right corner, about 1rem in from each edge, and no wider
     // than its label: the skip link's `body > a[href^="#"]` rule once

@@ -9,18 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Back to top button** (`BackToTop.astro`, `Base.astro`): every page that renders `Base` now has a
-  "Back to top" link pinned to the bottom-right corner, drawn as one of the section strip's tiles in
-  the Gleaner palette. It fades in over the first screen of scroll and is hidden, not just
-  transparent, at the very top. Browsers without scroll timelines and visitors who ask for reduced
-  motion see it all the time. `body` gains `id="top"`, so the jump also moves keyboard focus back
-  to the top, and bottom padding so the button never covers the footer's last line. It is wrapped
-  in a `div` because the skip link's `body > a[href^="#"]` rule otherwise stretched it across the
-  window
-  - `e2e/back-to-top.spec.ts` checks that it is hidden at the top and shown once scrolled, that it
-    returns to the top with the next Tab on the skip link, that it stays visible under reduced
-    motion, that it is a 44px target in the corner on a phone and when focused, and that it covers
-    none of the footer at the bottom of the page
+- **Back to top button** (`BackToTop.astro`, `Base.astro`): every page that renders `Base` now has an
+  arrow-only "Back to top" link pinned to the bottom-right corner: a 44px square drawn like the
+  section strip's tiles in the Gleaner palette, named by its `aria-label`. It fades in over the
+  first screen of scroll and is hidden, not just transparent, at the very top. Browsers without
+  scroll timelines and visitors who ask for reduced motion see it all the time. `body` gains
+  `id="top"`, so the jump also moves keyboard focus back to the top, and bottom padding so the
+  button never covers the footer's last line. It is wrapped in a `div` because the skip link's
+  `body > a[href^="#"]` rule otherwise stretched it across the window
+  - `e2e/back-to-top.spec.ts` checks that it shows only the arrow, that it is hidden at the top and
+    shown once scrolled, that it returns to the top with the next Tab on the skip link, that it
+    stays visible under reduced motion, that it is a 44px target in the corner on a phone and when
+    focused, and that it covers none of the footer at the bottom of the page
 - **Section strip under the hero** (`HomeSectionNav.astro`, `src/utils/home-sections.ts`,
   `Footer.astro`, `src/pages/index.astro`): an "On this page" strip on the hero's bottom edge links
   to Example, Skills, Install, Requirements and Blog without those links joining the site nav. It

@@ -380,7 +380,7 @@ document" come from the WCAG relative-luminance formula run against the shipped 
   light evergreen fill in both themes. In the Quick install cards it is the assistant name and the
   install-guide link. In the section strip under the hero it is the link text: 7.29:1 light on the
   hero's ground at desktop width, and on a phone's tiles 7.79:1 light, 9.39:1 dark, all measured.
-  The "Back to top" button's label on its tile measures the same, 7.79:1 light and 9.39:1 dark.
+  The "Back to top" button's arrow on its tile measures the same, 7.79:1 light and 9.39:1 dark.
   In the Requirements cards it is the assistant name, the filled required check
   and the outlined optional plus (7.29:1 light, 9.39:1 dark on the card), and the requirements link
   below them, on the page's Paper (7.60:1 light, 12.00:1 dark), all measured. In the blog section it

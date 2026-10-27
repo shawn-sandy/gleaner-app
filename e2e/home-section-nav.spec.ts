@@ -1,4 +1,5 @@
-import { test, expect, type Page } from '@playwright/test'
+import { test, expect } from '@playwright/test'
+import type { Page } from '@playwright/test'
 
 /** The "On this page" strip under the hero. */
 const strip = (page: Page) => page.getByRole('navigation', { name: 'On this page' })
