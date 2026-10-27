@@ -26,9 +26,9 @@
         "rule": "overused-font",
         "value": "inter",
         "files": [
-          "docs/designs/home-requirements/project/Main.dc.html",
-          "docs/designs/home-requirements/project/requirements-tiered-cards.dc.html",
-          "docs/designs/home-requirements/project/requirements-connector-tiles.dc.html"
+          "docs/designs/home-requirements/Main.dc.html",
+          "docs/designs/home-requirements/requirements-tiered-cards.dc.html",
+          "docs/designs/home-requirements/requirements-connector-tiles.dc.html"
         ],
         "createdAt": "2026-10-26T22:39:11.794Z",
         "reason": "Claude: DESIGN.md typography and the Gleaner design system set h1-h6 in Inter 600; the live site ships it"
@@ -36,14 +36,14 @@
       {
         "rule": "cramped-padding",
         "value": "*",
-        "files": ["docs/designs/home-requirements/project/Main.dc.html"],
+        "files": ["docs/designs/home-requirements/Main.dc.html"],
         "createdAt": "2026-10-26T22:39:11.812Z",
         "reason": "Claude: card padding is clamp(1.25rem, 3vw, 1.75rem), copied from the shipped HomeInstall cards; the fixed-padding tiles file with the same chips was not flagged"
       },
       {
         "rule": "cramped-padding",
         "value": "*",
-        "files": ["docs/designs/home-requirements/project/requirements-tiered-cards.dc.html"],
+        "files": ["docs/designs/home-requirements/requirements-tiered-cards.dc.html"],
         "createdAt": "2026-10-26T22:39:11.828Z",
         "reason": "Claude: card padding is clamp(1.25rem, 3vw, 1.75rem), copied from the shipped HomeInstall cards; the fixed-padding tiles file with the same chips was not flagged"
       }

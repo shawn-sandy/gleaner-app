@@ -64,7 +64,7 @@ const platforms: Platform[] = [
       {
         need: 'A page Gleaner can read',
         detail:
-          'The Chrome side panel, the Browser pane in Claude Code desktop, or Claude in Chrome. No browser? Paste the text or a URL.',
+          'The Chrome side panel, the Browser pane in Claude Code desktop, or Claude in Chrome. No browser? Paste the text, or give a URL if the session can fetch pages.',
       },
     ],
     optional: [
@@ -82,14 +82,14 @@ const platforms: Platform[] = [
     where: 'Connected Chrome tabs and the Work browser',
     required: [
       {
-        need: 'A workspace that supports GitHub marketplace imports',
+        need: 'Gleaner installed in your ChatGPT workspace',
         detail:
-          "A workspace admin imports Gleaner from the Plugins settings; without marketplace import, install the skills individually instead. Importing doesn't connect your browser, Drive or Notion.",
+          "A workspace admin imports it from the Plugins settings, or, where marketplace import is unavailable, you install the skills individually. Importing doesn't connect your browser, Drive or Notion.",
       },
       {
         need: 'A page Gleaner can read',
         detail:
-          'Connected Chrome tabs, or the Work browser in Work mode. No browser? Paste the text or a URL.',
+          'Connected Chrome tabs, or the Work browser in Work mode. No browser? Paste the text, or give a URL if the session can fetch pages.',
       },
     ],
     optional: [drive, notion],
