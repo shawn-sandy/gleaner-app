@@ -1,0 +1,124 @@
+---
+/**
+ * A "Back to top" link pinned to the bottom-right corner of every page that
+ * renders `Base`, drawn as one of the homepage section strip's tiles
+ * (`HomeSectionNav`) in the Gleaner palette.
+ *
+ * It fades in over the first screen of scroll on a scroll-driven animation,
+ * and is `visibility: hidden` at the very top, so keyboard users cannot tab to
+ * it there. Browsers without scroll timelines, and visitors who ask for
+ * reduced motion, see it all the time: the reduced-motion reset in the vendor
+ * stylesheet would otherwise hold the animation on its hidden first frame.
+ *
+ * `#top` is the `id` on `Base`'s `body`, so the jump also moves where keyboard
+ * focus starts: the next Tab reaches the skip link.
+ *
+ * @component BackToTop
+ * @example
+ * ```astro
+ * <body id="top">
+ *   <slot />
+ *   <BackToTop />
+ * </body>
+ * ```
+ */
+import '#styles/gleaner-palette.css'
+
+/** Takes no props. */
+export type Props = Record<string, never>
+---
+
+<div class="back-to-top" data-gleaner>
+  <a class="back-to-top__link" href="#top">
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16">
+      <path
+        d="M12 19V5M6 11l6-6 6 6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+    Back to top
+  </a>
+</div>
+
+<style>
+  /*
+   * Pinned and revealed on a wrapper, not the link: a link straight under
+   * `body` with a `#` href picks up the skip link's `body > a[href^="#"]`
+   * rules, which stretch it across the window and pull it to the top on
+   * focus. Below the site nav (1100) and the skip link (1600).
+   */
+  .back-to-top {
+    inset-block-end: 1rem;
+    inset-inline-end: 1rem;
+    position: fixed;
+    z-index: 1000;
+  }
+
+  /* Room at the foot of every page for the button's 44px and 1rem either
+     side, so at the bottom it sits below the footer's last line instead of
+     over it. */
+  :global(body) {
+    padding-block-end: calc(44px + 2rem);
+  }
+
+  /* Two classes, to outrank the vendor `a[href]` rule's colour, size, weight,
+     background, radius and transition. */
+  .back-to-top .back-to-top__link {
+    align-items: center;
+    background-color: var(--glean-surface);
+    border: 1px solid var(--glean-border);
+    border-radius: 0.875rem;
+    box-sizing: border-box;
+    color: var(--g-link);
+    display: inline-flex;
+    font-size: 1rem;
+    font-weight: 600;
+    gap: 0.375rem;
+    min-height: 44px;
+    padding: 0 0.875rem;
+    text-decoration: none;
+
+    /* Colour only, so there is no motion to suppress for reduced motion. */
+    transition: background-color 150ms ease-out;
+  }
+
+  .back-to-top .back-to-top__link:hover {
+    background-color: var(--g-code-bg);
+
+    /* A cue that does not rely on colour alone. */
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .back-to-top .back-to-top__link:focus-visible {
+    outline: 2px solid var(--g-headline);
+    outline-offset: 3px;
+  }
+
+  /* `animation-range` is checked too, as for the hero logo: a timeline
+     without the range would spread the reveal over the whole page. */
+  @supports (animation-timeline: scroll()) and (animation-range: 0 1px) {
+    @media (prefers-reduced-motion: no-preference) {
+      .back-to-top {
+        animation: back-to-top-reveal linear both;
+        animation-range: 0 100vh;
+        animation-timeline: scroll();
+      }
+    }
+  }
+
+  @keyframes back-to-top-reveal {
+    from {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    to {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+</style>
