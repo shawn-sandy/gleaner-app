@@ -1,25 +1,9 @@
 import { test, expect } from '@playwright/test'
 import type { Page } from '@playwright/test'
+import { scrollSettled } from './test-utils'
 
 /** The "On this page" strip under the hero. */
 const strip = (page: Page) => page.getByRole('navigation', { name: 'On this page' })
-
-/** Resolves once the page has held the same scroll position for two frames. */
-const scrollSettled = (page: Page) =>
-  page.evaluate(
-    () =>
-      new Promise<void>(resolve => {
-        let last = -1
-        let still = 0
-        const tick = () => {
-          still = window.scrollY === last ? still + 1 : 0
-          last = window.scrollY
-          if (still >= 2) resolve()
-          else window.requestAnimationFrame(tick)
-        }
-        tick()
-      })
-  )
 
 test.describe('Homepage section strip', () => {
   test('every link lands on a section of the page', async ({ page }) => {

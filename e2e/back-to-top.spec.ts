@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 import type { Page } from '@playwright/test'
+import { scrollSettled } from './test-utils'
 
 /** The pinned "Back to top" link every `Base` page renders. */
 const button = (page: Page) => page.getByRole('link', { name: 'Back to top' })
@@ -100,17 +101,27 @@ test.describe('Back to top', () => {
     expect(covered).toEqual([])
   })
 
-  // The skip link's `:focus` rule moves any `body > a[href^="#"]` to the top
-  // of the window; the button must stay in its corner when tabbed to.
-  test('stays in its corner when it has focus', async ({ page }) => {
+  // Reached with Tab, not `focus()`, so a `tabindex="-1"` would fail here: it
+  // comes straight after the footer's last link. The skip link's `:focus`
+  // rule moves any `body > a[href^="#"]` to the top of the window, so it must
+  // also stay in its corner, and Enter must work like a click.
+  test('is reached with Tab, stays in its corner, and works with Enter', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
     await page.goto('/changelog')
-    await scrollToY(page, 1600)
 
-    await button(page).focus()
+    // Focusing the footer glides the page down (`html:focus-within` scrolls
+    // smoothly), so let it arrive, as a person would, before the next Tab.
+    await page.getByRole('contentinfo').getByRole('link').last().focus()
+    await scrollSettled(page)
+    await expect(button(page)).toBeVisible()
+    await page.keyboard.press('Tab')
+    await expect(button(page)).toBeFocused()
+
     const box = await button(page).boundingBox()
-
     expect(box!.y).toBeGreaterThan(800 / 2)
     expect(box!.width).toBeLessThan(200)
+
+    await page.keyboard.press('Enter')
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
   })
 })

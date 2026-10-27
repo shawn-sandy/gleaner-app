@@ -19,8 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `body > a[href^="#"]` rule otherwise stretched it across the window
   - `e2e/back-to-top.spec.ts` checks that it shows only the arrow, that it is hidden at the top and
     shown once scrolled, that it returns to the top with the next Tab on the skip link, that it
-    stays visible under reduced motion, that it is a 44px target in the corner on a phone and when
-    focused, and that it covers none of the footer at the bottom of the page
+    stays visible under reduced motion, that it is a 44px target in the corner on a phone, that Tab
+    reaches it and Enter works it while it stays in its corner, and that it covers none of the
+    footer at the bottom of the page
 - **Section strip under the hero** (`HomeSectionNav.astro`, `src/utils/home-sections.ts`,
   `Footer.astro`, `src/pages/index.astro`): an "On this page" strip on the hero's bottom edge links
   to Example, Skills, Install, Requirements and Blog without those links joining the site nav. It
