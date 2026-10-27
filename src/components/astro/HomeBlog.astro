@@ -17,7 +17,7 @@
  * <HomeBlog />
  * ```
  */
-import { getCollection } from 'astro:content'
+import { getPublishedPosts } from '#utils/home-sections'
 import '#styles/gleaner-palette.css'
 
 /** Takes no props: the posts come from the `posts` collection. */
@@ -26,7 +26,7 @@ export type Props = Record<string, never>
 /** The feature card plus the earlier rows under it. */
 const POST_LIMIT = 4
 
-const [latest, ...earlier] = (await getCollection('posts', ({ data }) => data.publish))
+const [latest, ...earlier] = (await getPublishedPosts())
   // Posts with the same `pubDate` fall back to their id, so the order never
   // depends on the order the collection happens to return.
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime() || a.id.localeCompare(b.id))

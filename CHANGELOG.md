@@ -9,6 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Section strip under the hero** (`HomeSectionNav.astro`, `src/utils/home-sections.ts`,
+  `Footer.astro`, `src/pages/index.astro`): an "On this page" strip on the hero's bottom edge links
+  to Example, Skills, Install, Requirements and Blog without those links joining the site nav. It
+  is one numbered row from 60rem up and a grid of tiles below that, two columns on a phone and one
+  under about 368px, and it is not sticky. On the homepage the footer repeats the same links as a
+  plain line above Home, Blog and Changelog. Both read one list, `getHomeSections`, which leaves
+  Blog out while no post is published. The homepage now scrolls smoothly, so a jump glides to its
+  section; reduced motion keeps the instant jump, and no other page changes. `HomeFeatures`, `HomeInstall`, `HomeRequirements` and
+  `HomeBlog` gain the ids the links target. The design canvas is kept in
+  `docs/designs/home-skip-nav/`
+  - `tests/components/HomeSectionNav.astro.test.ts` checks the landmark's name, the link order,
+    the Blog rule, and that every link targets an id one of the homepage sections renders
+  - `tests/components/Footer.astro.test.ts` checks the footer line appears on `/` only, above the
+    site links, with a space either side of each dot
+  - `e2e/home-section-nav.spec.ts` checks that the strip's and the footer's links land on a
+    section, that a jump clears the pinned nav, the one-row and two-column layouts, and that
+    only the homepage scrolls smoothly, and only without reduced motion.
+    `e2e/navigation-popover.spec.ts` now scrolls with `behavior: 'instant'` so its pinned-nav
+    check still measures a finished scroll
 - **Requirements section** (`HomeRequirements.astro`, `src/pages/index.astro`): the homepage now
   lists what Gleaner needs directly below Quick install, in a Claude card and a ChatGPT card that
   each split it into required (a host and a page Gleaner can read) and optional (the Google Drive

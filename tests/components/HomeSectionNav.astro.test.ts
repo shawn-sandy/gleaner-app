@@ -69,10 +69,12 @@ describe('HomeSectionNav', () => {
   })
 
   // HomeBlog renders nothing until a post is published, so a Blog link would
-  // point at nothing.
-  it('leaves out the blog link while no post is published', async () => {
+  // point at nothing. Both must read the same posts for the two to agree.
+  it('leaves out the blog link exactly when HomeBlog renders no section', async () => {
     posts = [post(false)]
+    const { default: HomeBlog } = await import('#components/astro/HomeBlog.astro')
 
+    expect(await render(HomeBlog)).not.toMatch(/\bid="blog"/)
     expect(links(await renderNav()).map(([href]) => href)).toEqual([
       '#how',
       '#skills',
@@ -82,13 +84,16 @@ describe('HomeSectionNav', () => {
   })
 
   // The links and the ids live in different components, so renaming either
-  // side breaks a jump without breaking anything else.
-  it('points every link at an id one of the homepage sections renders', async () => {
+  // side breaks a jump without breaking anything else. Only a `section`'s id
+  // counts, so an unrelated element that happens to share the id cannot pass.
+  it('points every link at the id of a homepage section', async () => {
     const { default: HomeBlog } = await import('#components/astro/HomeBlog.astro')
     const pages = await Promise.all(
       [HomeHero, HomeFeatures, HomeInstall, HomeRequirements, HomeBlog].map(render)
     )
-    const ids = new Set([...pages.join('').matchAll(/\bid="([^"]+)"/g)].map(([, id]) => id))
+    const ids = new Set(
+      [...pages.join('').matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map(([, id]) => id)
+    )
 
     for (const [href] of links(await renderNav())) {
       expect(ids.has(href.slice(1)), `${href} points at nothing`).toBe(true)

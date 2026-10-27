@@ -9,6 +9,13 @@ export type HomeSection = {
 }
 
 /**
+ * The published posts. `HomeBlog` renders from this set and nothing at all
+ * when it is empty, so `getHomeSections` reads the same set to decide whether
+ * a Blog link has a section to land on.
+ */
+export const getPublishedPosts = () => getCollection('posts', ({ data }) => data.publish)
+
+/**
  * The homepage sections in page order, for the "On this page" strip under the
  * hero (`HomeSectionNav`) and the footer's line of the same links. `#how` is
  * the hero's example; the rest are `HomeFeatures`, `HomeInstall`,
@@ -19,7 +26,7 @@ export type HomeSection = {
  * nothing then.
  */
 export async function getHomeSections(): Promise<HomeSection[]> {
-  const hasPosts = (await getCollection('posts', ({ data }) => data.publish)).length > 0
+  const hasPosts = (await getPublishedPosts()).length > 0
 
   return [
     { href: '#how', label: 'Example' },

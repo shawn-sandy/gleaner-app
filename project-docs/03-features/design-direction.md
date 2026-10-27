@@ -248,8 +248,8 @@ It uses the same three theming scopes as the direction tokens: light values on `
 `:root[data-theme='dark'] [data-gleaner]`. The `:not()` means a light toggle needs no block of its own. Neither dark
 block sets `--glean-clip-*`, so the saved clip and the blog's latest-post card keep their evergreen fill in both themes.
 
-- **Each component that sets `data-gleaner` imports the stylesheet** - `HomeHero`, `HomeFeatures`, `HomeInstall`,
-  `HomeRequirements`, `HomeBlog` - and the browser loads it once.
+- **Each component that sets `data-gleaner` imports the stylesheet** - `HomeHero`, `HomeSectionNav`, `HomeFeatures`,
+  `HomeInstall`, `HomeRequirements`, `HomeBlog` - and the browser loads it once.
 - **Components that only read the palette carry fallbacks.** `GleanPart`, `SavedClip` and `SkillCard` give every
   property a light-theme fallback; `CopyCommand` falls back to the inherited colour.
 - **The palette stays out of `_design-tokens.scss` on purpose.** The committed `src/styles/index.css` is out of step
@@ -287,6 +287,7 @@ face costs no font request beyond the body face. The components name the face di
 | Component          | `data-gleaner`                           | Used in                                                    | What it is                                                                  |
 | ------------------ | ---------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
 | `HomeHero`         | On its `header`                          | `src/pages/index.astro`, header slot                       | Hero band: logo, headline, install button and panel, example thread         |
+| `HomeSectionNav`   | On its root `div`                        | `src/pages/index.astro`, header slot after `HomeHero`      | "On this page" strip: one numbered row on a desktop, tiles on a phone       |
 | `GleanPart`        | Reads it                                 | `HomeHero`'s example thread                                | One ask on the copper string                                                |
 | `SavedClip`        | Reads it                                 | The last item of the same thread                           | The evergreen clip the string ties off in                                   |
 | `HomeFeatures`     | On its `section`                         | `src/pages/index.astro`, featured slot                     | Feature band: skill cards, sample clip anatomy, save destinations           |
@@ -359,6 +360,12 @@ The Gleaner brand layer:
 - `e2e/home-install.spec.ts` - the install cards' code stands apart from its card in light and dark
 - `tests/components/HomeRequirements.astro.test.ts` - the Requirements section has one `h2` and an `h3` per card, names
   every list by its Required or Optional label, and links to Gleaner's `docs/requirements.md`
+- `tests/components/HomeSectionNav.astro.test.ts` - the section strip is a nav named "On this page", lists the sections
+  in page order, drops Blog with no published post, and points every link at an id a homepage section renders
+- `tests/components/Footer.astro.test.ts` - the footer's line of section links appears on `/` only, above the site
+  links, with a space either side of each dot
+- `e2e/home-section-nav.spec.ts` - the strip's and the footer's links land on a section, a jump clears the pinned nav,
+  and the strip is one row on a desktop and two columns of 44px tiles on a phone
 - `e2e/home-blog.spec.ts` - every blog link lands on a page that renders, and row title links keep their heading's size
   and weight
 - `e2e/copy-command.spec.ts` - the hero's first copy button neither scales nor dims on hover or focus
@@ -367,8 +374,9 @@ The Gleaner brand layer:
 
 - `DESIGN.md` - the full design record for both layers, with every contrast figure
 - `src/styles/gleaner-palette.css` - the Gleaner `--g-*` and `--glean-*` palette in all three theming scopes
-- `src/components/astro/` - `HomeHero`, `GleanPart`, `SavedClip`, `HomeFeatures`, `SkillCard`, `HomeInstall`,
-  `HomeRequirements`, `HomeBlog` and `CopyCommand`
+- `src/components/astro/` - `HomeHero`, `HomeSectionNav`, `GleanPart`, `SavedClip`, `HomeFeatures`, `SkillCard`,
+  `HomeInstall`, `HomeRequirements`, `HomeBlog` and `CopyCommand`
+- `src/utils/home-sections.ts` - the homepage section list that `HomeSectionNav` and the footer share
 - `src/styles/DESIGN-TOKENS-README.md` - the wider token layer this direction extends
 - `docs/prototypes/restyle-astro-kit-homepage.html` - clickable prototype of the target state, with a working
   light/dark switch
