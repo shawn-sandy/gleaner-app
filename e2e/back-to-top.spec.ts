@@ -1,0 +1,127 @@
+import { test, expect } from '@playwright/test'
+import type { Page } from '@playwright/test'
+import { scrollSettled } from './test-utils'
+
+/** The pinned "Back to top" link every `Base` page renders. */
+const button = (page: Page) => page.getByRole('link', { name: 'Back to top' })
+
+/** Scrolls straight to `top`, so a smooth-scrolling page is not still gliding when measured. */
+const scrollToY = (page: Page, top: number) =>
+  page.evaluate(y => window.scrollTo({ top: y, behavior: 'instant' }), top)
+
+/** Whether this browser runs the scroll timeline that reveals the button. */
+const hasScrollTimelines = (page: Page) =>
+  page.evaluate(
+    () =>
+      window.CSS.supports('animation-timeline: scroll()') &&
+      window.CSS.supports('animation-range: 0 1px')
+  )
+
+test.describe('Back to top', () => {
+  // The homepage scrolls smoothly and `/changelog` does not; both are taller
+  // than two screens at this size.
+  for (const path of ['/', '/changelog']) {
+    test(`${path}: appears once scrolled and takes you back to the top`, async ({ page }) => {
+      await page.setViewportSize({ width: 1280, height: 800 })
+      await page.goto(path)
+
+      // Hidden, not just transparent, so keyboard users cannot tab to an
+      // invisible control at the top. Browsers without scroll timelines
+      // show it all the time instead.
+      if (await hasScrollTimelines(page)) await expect(button(page)).toBeHidden()
+
+      await scrollToY(page, 1600)
+      await expect(button(page)).toBeVisible()
+
+      await button(page).click()
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+
+      // The jump also moves where keyboard focus starts, so the next Tab
+      // reaches the skip link instead of the end of the page.
+      await page.keyboard.press('Tab')
+      await expect(page.locator('.skip-link')).toBeFocused()
+    })
+  }
+
+  // The reveal is an animation, and the reduced-motion reset would leave it
+  // stuck on its hidden first frame, so under reduced motion it is not run.
+  test('stays visible under reduced motion', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto('/changelog')
+
+    await expect(button(page)).toBeVisible()
+  })
+
+  // Just the arrow on screen; "Back to top" stays its accessible name, which
+  // `button()` already finds it by.
+  test('shows only the arrow', async ({ page }) => {
+    await page.goto('/changelog')
+    await scrollToY(page, 1600)
+
+    await expect(button(page)).toHaveText('')
+  })
+
+  test('is a 44px target pinned inside the window on a phone', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 640 })
+    await page.goto('/changelog')
+    await scrollToY(page, 1600)
+
+    const box = await button(page).boundingBox()
+    expect(box, 'the button has no box').not.toBeNull()
+    expect(box!.height).toBeGreaterThanOrEqual(44)
+    expect(box!.width).toBeGreaterThanOrEqual(44)
+
+    // In the bottom-right corner, about 1rem in from each edge, and no wider
+    // than its label: the skip link's `body > a[href^="#"]` rule once
+    // stretched it across the whole window.
+    expect(box!.width).toBeLessThan(200)
+    expect(320 - (box!.x + box!.width)).toBeGreaterThanOrEqual(8)
+    expect(320 - (box!.x + box!.width)).toBeLessThanOrEqual(24)
+    expect(640 - (box!.y + box!.height)).toBeGreaterThanOrEqual(8)
+    expect(640 - (box!.y + box!.height)).toBeLessThanOrEqual(24)
+  })
+
+  // At the foot of the page the button sits below the footer's last line
+  // instead of over it.
+  test('covers none of the footer at the bottom of the page', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 640 })
+    await page.goto('/changelog')
+    await scrollToY(page, 100_000)
+
+    const covered = await page.evaluate(() => {
+      const b = document.querySelector('.back-to-top a')!.getBoundingClientRect()
+      return [...document.querySelectorAll('footer p, footer a')]
+        .filter(el => {
+          const r = el.getBoundingClientRect()
+          return r.right > b.left && r.left < b.right && r.bottom > b.top && r.top < b.bottom
+        })
+        .map(el => el.textContent?.trim().slice(0, 40))
+    })
+
+    expect(covered).toEqual([])
+  })
+
+  // Reached with Tab, not `focus()`, so a `tabindex="-1"` would fail here: it
+  // comes straight after the footer's last link. The skip link's `:focus`
+  // rule moves any `body > a[href^="#"]` to the top of the window, so it must
+  // also stay in its corner, and Enter must work like a click.
+  test('is reached with Tab, stays in its corner, and works with Enter', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 })
+    await page.goto('/changelog')
+
+    // Focusing the footer glides the page down (`html:focus-within` scrolls
+    // smoothly), so let it arrive, as a person would, before the next Tab.
+    await page.getByRole('contentinfo').getByRole('link').last().focus()
+    await scrollSettled(page)
+    await expect(button(page)).toBeVisible()
+    await page.keyboard.press('Tab')
+    await expect(button(page)).toBeFocused()
+
+    const box = await button(page).boundingBox()
+    expect(box!.y).toBeGreaterThan(800 / 2)
+    expect(box!.width).toBeLessThan(200)
+
+    await page.keyboard.press('Enter')
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+  })
+})

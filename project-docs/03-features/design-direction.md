@@ -248,8 +248,8 @@ It uses the same three theming scopes as the direction tokens: light values on `
 `:root[data-theme='dark'] [data-gleaner]`. The `:not()` means a light toggle needs no block of its own. Neither dark
 block sets `--glean-clip-*`, so the saved clip and the blog's latest-post card keep their evergreen fill in both themes.
 
-- **Each component that sets `data-gleaner` imports the stylesheet** - `HomeHero`, `HomeFeatures`, `HomeInstall`,
-  `HomeRequirements`, `HomeBlog` - and the browser loads it once.
+- **Each component that sets `data-gleaner` imports the stylesheet** - `HomeHero`, `HomeSectionNav`, `HomeFeatures`,
+  `HomeInstall`, `HomeRequirements`, `HomeBlog`, `BackToTop` - and the browser loads it once.
 - **Components that only read the palette carry fallbacks.** `GleanPart`, `SavedClip` and `SkillCard` give every
   property a light-theme fallback; `CopyCommand` falls back to the inherited colour.
 - **The palette stays out of `_design-tokens.scss` on purpose.** The committed `src/styles/index.css` is out of step
@@ -284,17 +284,19 @@ face costs no font request beyond the body face. The components name the face di
 
 ### Brand components
 
-| Component          | `data-gleaner`                           | Used in                                                    | What it is                                                                  |
-| ------------------ | ---------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `HomeHero`         | On its `header`                          | `src/pages/index.astro`, header slot                       | Hero band: logo, headline, install button and panel, example thread         |
-| `GleanPart`        | Reads it                                 | `HomeHero`'s example thread                                | One ask on the copper string                                                |
-| `SavedClip`        | Reads it                                 | The last item of the same thread                           | The evergreen clip the string ties off in                                   |
-| `HomeFeatures`     | On its `section`                         | `src/pages/index.astro`, featured slot                     | Feature band: skill cards, sample clip anatomy, save destinations           |
-| `SkillCard`        | Reads it                                 | `HomeFeatures`                                             | One skill card                                                              |
-| `HomeInstall`      | On its card grid, not its heading        | `src/pages/index.astro`, main content                      | Claude and ChatGPT Quick install cards                                      |
-| `HomeRequirements` | On its cards and footer, not its heading | `src/pages/index.astro`, main content                      | Claude and ChatGPT requirement cards, each split into required and optional |
-| `HomeBlog`         | On its posts, not its heading            | `src/pages/index.astro`, main content                      | Latest-post card and up to three earlier rows; omitted with no post         |
-| `CopyCommand`      | Reads it, else inherits                  | `HomeHero`'s install panel and `HomeInstall`'s Claude card | One install command with a copy button                                      |
+| Component          | `data-gleaner`                           | Used in                                                      | What it is                                                                  |
+| ------------------ | ---------------------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| `HomeHero`         | On its `header`                          | `src/pages/index.astro`, header slot                         | Hero band: logo, headline, install button and panel, example thread         |
+| `HomeSectionNav`   | On its root `div`                        | `src/pages/index.astro`, header slot after `HomeHero`        | "On this page" strip: one numbered row on a desktop, tiles on a phone       |
+| `BackToTop`        | On its wrapper `div`                     | `src/layouts/Base.astro`, every page but the Starlight guide | "Back to top" tile pinned to the bottom-right corner                        |
+| `GleanPart`        | Reads it                                 | `HomeHero`'s example thread                                  | One ask on the copper string                                                |
+| `SavedClip`        | Reads it                                 | The last item of the same thread                             | The evergreen clip the string ties off in                                   |
+| `HomeFeatures`     | On its `section`                         | `src/pages/index.astro`, featured slot                       | Feature band: skill cards, sample clip anatomy, save destinations           |
+| `SkillCard`        | Reads it                                 | `HomeFeatures`                                               | One skill card                                                              |
+| `HomeInstall`      | On its card grid, not its heading        | `src/pages/index.astro`, main content                        | Claude and ChatGPT Quick install cards                                      |
+| `HomeRequirements` | On its cards and footer, not its heading | `src/pages/index.astro`, main content                        | Claude and ChatGPT requirement cards, each split into required and optional |
+| `HomeBlog`         | On its posts, not its heading            | `src/pages/index.astro`, main content                        | Latest-post card and up to three earlier rows; omitted with no post         |
+| `CopyCommand`      | Reads it, else inherits                  | `HomeHero`'s install panel and `HomeInstall`'s Claude card   | One install command with a copy button                                      |
 
 `CopyCommand` holds one command per instance because Claude Code takes one slash command per message. Its accessible
 name is "Copy " plus the command, and the result is announced through a `role="status"` region present from the start.
@@ -359,6 +361,14 @@ The Gleaner brand layer:
 - `e2e/home-install.spec.ts` - the install cards' code stands apart from its card in light and dark
 - `tests/components/HomeRequirements.astro.test.ts` - the Requirements section has one `h2` and an `h3` per card, names
   every list by its Required or Optional label, and links to Gleaner's `docs/requirements.md`
+- `tests/components/HomeSectionNav.astro.test.ts` - the section strip is a nav named "On this page", lists the sections
+  in page order, drops Blog with no published post, and points every link at an id a homepage section renders
+- `tests/components/Footer.astro.test.ts` - the footer's line of section links appears on `/` only, above the site
+  links, with a space either side of each dot
+- `e2e/home-section-nav.spec.ts` - the strip's and the footer's links land on a section, a jump clears the pinned nav,
+  and the strip is one row on a desktop and two columns of 44px tiles on a phone
+- `e2e/back-to-top.spec.ts` - the button is hidden at the top and shown once scrolled, returns focus and scroll to the
+  top, stays visible under reduced motion, keeps to its corner, and covers none of the footer at the page's foot
 - `e2e/home-blog.spec.ts` - every blog link lands on a page that renders, and row title links keep their heading's size
   and weight
 - `e2e/copy-command.spec.ts` - the hero's first copy button neither scales nor dims on hover or focus
@@ -367,8 +377,9 @@ The Gleaner brand layer:
 
 - `DESIGN.md` - the full design record for both layers, with every contrast figure
 - `src/styles/gleaner-palette.css` - the Gleaner `--g-*` and `--glean-*` palette in all three theming scopes
-- `src/components/astro/` - `HomeHero`, `GleanPart`, `SavedClip`, `HomeFeatures`, `SkillCard`, `HomeInstall`,
-  `HomeRequirements`, `HomeBlog` and `CopyCommand`
+- `src/components/astro/` - `HomeHero`, `HomeSectionNav`, `GleanPart`, `SavedClip`, `HomeFeatures`, `SkillCard`,
+  `HomeInstall`, `HomeRequirements`, `HomeBlog`, `CopyCommand` and `BackToTop`
+- `src/utils/home-sections.ts` - the homepage section list that `HomeSectionNav` and the footer share
 - `src/styles/DESIGN-TOKENS-README.md` - the wider token layer this direction extends
 - `docs/prototypes/restyle-astro-kit-homepage.html` - clickable prototype of the target state, with a working
   light/dark switch

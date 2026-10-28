@@ -291,7 +291,11 @@ test('anonymous visitors get no dashboard or profile links anywhere', async ({ p
 // held `body` to one screen, so the bar scrolled away once the page passed it.
 test('site nav stays pinned past the first screen', async ({ page }) => {
   await page.goto('/')
-  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight))
+  // `instant`, because the homepage scrolls smoothly: a plain scrollTo would
+  // still be gliding when the bar is measured.
+  await page.evaluate(() =>
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' })
+  )
 
   const measured = await page.evaluate(() => {
     const nav = document.querySelector('body > nav[data-site-nav]')

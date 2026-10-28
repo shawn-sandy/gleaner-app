@@ -358,11 +358,14 @@ Status colours, used only in alerts, form validation, and system feedback — ne
 
 A second, scoped palette drawn from the Gleaner logo: a deep forest evergreen and a warm copper,
 on a faintly green-tinted ground. It paints only elements marked `data-gleaner`: the homepage hero
-(`HomeHero`, with `GleanPart`, `SavedClip` and `CopyCommand` inside it), the homepage feature
+(`HomeHero`, with `GleanPart`, `SavedClip` and `CopyCommand` inside it), the "On this page" strip
+on its bottom edge (`HomeSectionNav`), the homepage feature
 section (`HomeFeatures`, with `SkillCard` inside it), the Quick install cards (`HomeInstall`, which
 marks its card grid, not its heading), the Requirements cards below them (`HomeRequirements`,
-which marks its cards and footer, not its heading) and the blog section's posts (`HomeBlog`, which
-likewise marks only its posts). `CopyCommand` sets no `data-gleaner` of its own: it reads the palette from
+which marks its cards and footer, not its heading), the blog section's posts (`HomeBlog`, which
+likewise marks only its posts) and, the one exception that leaves the homepage, the "Back to top"
+button pinned to the corner of every page that renders `Base` (`BackToTop`, which marks its
+wrapper; the Starlight guide has its own layout and no such button). `CopyCommand` sets no `data-gleaner` of its own: it reads the palette from
 the section around it and falls back to the inherited colour. The navigation brand carries the logo itself but
 keeps inheriting the bar's ink. Light values are the frontmatter tokens; the dark values below are
 set on `[data-gleaner]` in both dark scopes by `src/styles/gleaner-palette.css`. Hero contrast
@@ -376,7 +379,10 @@ document" come from the WCAG relative-luminance formula run against the shipped 
   Gleaner's reply line; in dark those roles lift to a pale sage. Headline on ground 7.29:1 light,
   headline and link 10.93:1 dark. The saved clip card and the blog's latest-post card keep the
   light evergreen fill in both themes. In the Quick install cards it is the assistant name and the
-  install-guide link. In the Requirements cards it is the assistant name, the filled required check
+  install-guide link. In the section strip under the hero it is the link text: 7.29:1 light on the
+  hero's ground at desktop width, and on a phone's tiles 7.79:1 light, 9.39:1 dark, all measured.
+  The "Back to top" button's arrow on its tile measures the same, 7.79:1 light and 9.39:1 dark.
+  In the Requirements cards it is the assistant name, the filled required check
   and the outlined optional plus (7.29:1 light, 9.39:1 dark on the card), and the requirements link
   below them, on the page's Paper (7.60:1 light, 12.00:1 dark), all measured. In the blog section it
   is the post-title links and "All posts", which sit on the page's Paper: 7.60:1 light, 12.00:1
@@ -467,8 +473,8 @@ recorded compromise: the committed `src/styles/index.css` is out of sync with it
 recompiling it to add global tokens would ship unrelated changes. The stylesheet sets the light
 values on `[data-gleaner]` and flips them in both dark scopes (`prefers-color-scheme: dark` under
 `:root:not([data-theme='light'])`, and `:root[data-theme='dark']`), honouring the Three Scopes Rule.
-Each component that sets `data-gleaner` (`HomeHero`, `HomeFeatures`, `HomeInstall`,
-`HomeRequirements`, `HomeBlog`) imports the stylesheet itself, and the browser loads it once; components that read the palette
+Each component that sets `data-gleaner` (`HomeHero`, `HomeSectionNav`, `HomeFeatures`, `HomeInstall`,
+`HomeRequirements`, `HomeBlog`, `BackToTop`) imports the stylesheet itself, and the browser loads it once; components that read the palette
 from inside one (`GleanPart`, `SavedClip`, `SkillCard`) carry light-theme fallbacks for every
 property they read. Promote these to
 the global token file only alongside a deliberate recompile of `index.css`.

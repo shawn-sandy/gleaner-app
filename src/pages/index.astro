@@ -6,6 +6,7 @@ import HomeFeatures from '#components/astro/HomeFeatures.astro'
 import HomeHero from '#components/astro/HomeHero.astro'
 import HomeInstall from '#components/astro/HomeInstall.astro'
 import HomeRequirements from '#components/astro/HomeRequirements.astro'
+import HomeSectionNav from '#components/astro/HomeSectionNav.astro'
 import { SITE_DESCRIPTION, SITE_TITLE } from '#utils/site-config.js'
 ---
 
@@ -16,6 +17,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '#utils/site-config.js'
   hideSidebar
 >
   <HomeHero slot="header" />
+  <HomeSectionNav slot="header" />
   <div slot="featured">
     <!-- <section>
       <Featured />
@@ -28,6 +30,16 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '#utils/site-config.js'
 </Layout>
 
 <style>
+  /* Every scroll on the homepage glides: a link in the strip under the hero or
+     the footer's line of the same links, the skip link, and any script
+     `scrollTo` that names no `behavior`. Off under reduced motion, and scoped
+     through :has so no other page scrolls smoothly. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html:has(.home-section-nav)) {
+      scroll-behavior: smooth;
+    }
+  }
+
   /* `main > section` carries 2rem of inline padding, which set the install
      guide 32px in from the hero and features above it. This keeps it on the
      shared gutter, so its outer edges meet the features' edges: 1.25rem while

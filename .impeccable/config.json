@@ -12,7 +12,9 @@
       {
         "rule": "broken-image",
         "value": "*",
-        "files": ["tests/components/Navigation.astro.test.ts"],
+        "files": [
+          "tests/components/Navigation.astro.test.ts"
+        ],
         "createdAt": "2026-10-18T19:37:35.610Z",
         "reason": "Claude: the matches are a regex literal (/<img\\b[^>]*>/) in a unit test, not markup"
       },
@@ -36,16 +38,74 @@
       {
         "rule": "cramped-padding",
         "value": "*",
-        "files": ["docs/designs/home-requirements/Main.dc.html"],
+        "files": [
+          "docs/designs/home-requirements/Main.dc.html"
+        ],
         "createdAt": "2026-10-26T22:39:11.812Z",
         "reason": "Claude: card padding is clamp(1.25rem, 3vw, 1.75rem), copied from the shipped HomeInstall cards; the fixed-padding tiles file with the same chips was not flagged"
       },
       {
         "rule": "cramped-padding",
         "value": "*",
-        "files": ["docs/designs/home-requirements/requirements-tiered-cards.dc.html"],
+        "files": [
+          "docs/designs/home-requirements/requirements-tiered-cards.dc.html"
+        ],
         "createdAt": "2026-10-26T22:39:11.828Z",
         "reason": "Claude: card padding is clamp(1.25rem, 3vw, 1.75rem), copied from the shipped HomeInstall cards; the fixed-padding tiles file with the same chips was not flagged"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "docs/designs/home-skip-nav/project/Main.dc.html"
+        ],
+        "createdAt": "2026-10-27T00:27:19.598Z",
+        "reason": "Claude: false positive - the flagged page-root div and full-bleed #skills band hold padded children or carry 4rem block and max(1.25rem, ...) inline padding the detector does not resolve"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "docs/designs/home-skip-nav/project/Main.dc.html"
+        ],
+        "createdAt": "2026-10-27T00:27:19.613Z",
+        "reason": "Claude: sanctioned label - the 36-char hero eyebrow is mono uppercase, the Gleaner design system label style and the shipped HomeHero eyebrow"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "docs/designs/home-skip-nav/project/skip-nav-hero-strip.dc.html"
+        ],
+        "createdAt": "2026-10-27T00:27:19.628Z",
+        "reason": "Claude: false positive - the flagged page-root div and full-bleed #skills band hold padded children or carry 4rem block and max(1.25rem, ...) inline padding the detector does not resolve"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "docs/designs/home-skip-nav/project/skip-nav-hero-strip.dc.html"
+        ],
+        "createdAt": "2026-10-27T00:27:19.643Z",
+        "reason": "Claude: sanctioned label - the 36-char hero eyebrow is mono uppercase, the Gleaner design system label style and the shipped HomeHero eyebrow"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "docs/designs/home-skip-nav/project/skip-nav-hero-strip-phone.dc.html"
+        ],
+        "createdAt": "2026-10-27T00:45:50.098Z",
+        "reason": "Claude: false positive - the flagged page-root div holds padded bands, and the #skills band carries 4.5rem/4rem block and 1.25rem inline padding"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "docs/designs/home-skip-nav/project/skip-nav-hero-strip-phone.dc.html"
+        ],
+        "createdAt": "2026-10-27T00:45:50.114Z",
+        "reason": "Claude: sanctioned label - the 36-char hero eyebrow is mono uppercase, the Gleaner design system label style and the shipped HomeHero eyebrow"
       }
     ]
   }

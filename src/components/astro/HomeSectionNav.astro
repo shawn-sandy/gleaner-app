@@ -1,0 +1,192 @@
+---
+/**
+ * The homepage's "On this page" strip: numbered jump links on the hero's
+ * bottom edge, one row on a desktop and two columns of tiles on a phone. It is
+ * not sticky, so it never acts as a second site nav.
+ *
+ * Rendered into the `header` slot after `HomeHero`, which makes it a direct
+ * child of `body`. The root is a `div`, not a `nav`: the `body > nav` rules in
+ * the site stylesheet and `_navigation.scss` belong to the primary nav and
+ * would restyle a strip that sat there.
+ *
+ * The links come from `getHomeSections`, which the footer's homepage line
+ * shares, so the two lists never drift apart.
+ *
+ * @component HomeSectionNav
+ * @example
+ * ```astro
+ * <Layout pageTitle={SITE_TITLE}>
+ *   <HomeHero slot="header" />
+ *   <HomeSectionNav slot="header" />
+ * </Layout>
+ * ```
+ */
+import { getHomeSections } from '#utils/home-sections'
+import '#styles/gleaner-palette.css'
+
+/** Takes no props: the sections are the homepage's own. */
+export type Props = Record<string, never>
+
+const sections = await getHomeSections()
+---
+
+<div class="home-section-nav" data-gleaner>
+  <nav class="home-section-nav__inner" aria-labelledby="home-section-nav-label">
+    <p class="home-section-nav__label" id="home-section-nav-label">On this page</p>
+    <ul class="home-section-nav__list" role="list">
+      {
+        sections.map(({ href, label }, index) => (
+          <li class="home-section-nav__item">
+            <a class="home-section-nav__link" href={href}>
+              <span class="home-section-nav__number" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
+
+<style>
+  /* Full-bleed band on the hero's ground, content held to the page measure. */
+  .home-section-nav {
+    background-color: var(--g-ground);
+    border-block-start: 1px solid var(--glean-border);
+    box-sizing: border-box;
+    color: var(--g-ink);
+    padding-inline: max(1.25rem, calc((100% - var(--max-content-width, 80rem)) / 2));
+    width: 100%;
+  }
+
+  /*
+   * Undoes the flex row and `place-items: center` every `nav` gets from
+   * @fpkit/acss, so on a phone the label sits above the links, flush left.
+   * A `ul` rather than an `ol` for the same reason: `nav:not(body > nav) ol
+   * li` is the breadcrumb style, and shrinks each item to `fit-content`.
+   */
+  .home-section-nav .home-section-nav__inner {
+    display: block;
+    padding-block: 1rem 1.25rem;
+    place-items: normal;
+  }
+
+  .home-section-nav .home-section-nav__label {
+    color: var(--g-muted);
+    font-family: var(--font-family-mono, ui-monospace, monospace);
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    margin: 0;
+    max-width: none;
+    text-transform: uppercase;
+  }
+
+  /*
+   * A phone: two columns of tiles, or one below about 368px. 10rem is the
+   * widest tile, "04 Requirements", with its padding and border.
+   */
+  .home-section-nav .home-section-nav__list {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+  }
+
+  /* Block and unpadded, not the flex `nav ul > li` the site gives every nav
+     list, so each link fills its cell. */
+  .home-section-nav .home-section-nav__item {
+    display: block;
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .home-section-nav .home-section-nav__link {
+    align-items: baseline;
+    background-color: var(--glean-surface);
+    border: 1px solid var(--glean-border);
+    border-radius: 0.875rem;
+    box-sizing: border-box;
+    color: var(--g-link);
+    display: flex;
+    font-size: 1rem;
+    font-weight: 600;
+    gap: 0.375rem;
+    min-height: 44px;
+    padding: 0.875rem 0.75rem;
+    text-decoration: none;
+
+    /* Colour only, so there is no motion to suppress for reduced motion. */
+    transition: background-color 150ms ease-out;
+  }
+
+  .home-section-nav .home-section-nav__link:hover {
+    background-color: var(--g-code-bg);
+
+    /* A cue that does not rely on colour alone. */
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .home-section-nav .home-section-nav__link:focus-visible {
+    outline: 2px solid var(--g-headline);
+    outline-offset: 3px;
+  }
+
+  .home-section-nav .home-section-nav__number {
+    color: var(--g-muted);
+    font-family: var(--font-family-mono, ui-monospace, monospace);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+  }
+
+  /* Wide enough for one row: the label beside the links, hairlines between. */
+  @media (min-width: 60rem) {
+    .home-section-nav .home-section-nav__inner {
+      align-items: center;
+      column-gap: 1.5rem;
+      display: flex;
+      padding-block: 0.375rem;
+    }
+
+    .home-section-nav .home-section-nav__label {
+      flex: none;
+    }
+
+    /* `ul, ol` in the site stylesheet sets `flex-direction: column`. */
+    .home-section-nav .home-section-nav__list {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: row;
+      gap: 0;
+      margin: 0;
+      min-width: 0;
+    }
+
+    .home-section-nav .home-section-nav__item {
+      flex: 1 0 auto;
+    }
+
+    .home-section-nav .home-section-nav__item + .home-section-nav__item {
+      border-inline-start: 1px solid var(--glean-border);
+    }
+
+    .home-section-nav .home-section-nav__link {
+      background-color: transparent;
+      border: 0;
+      border-radius: 0;
+      padding: 1rem 1.25rem;
+      white-space: nowrap;
+    }
+
+    .home-section-nav .home-section-nav__link:hover {
+      background-color: var(--g-code-bg);
+    }
+  }
+</style>
