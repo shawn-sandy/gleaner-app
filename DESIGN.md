@@ -363,8 +363,9 @@ on its bottom edge (`HomeSectionNav`), the homepage feature
 section (`HomeFeatures`, with `SkillCard` inside it), the Quick install cards (`HomeInstall`, which
 marks its card grid, not its heading), the Requirements cards below them (`HomeRequirements`,
 which marks its cards and footer, not its heading), the blog section's posts (`HomeBlog`, which
-likewise marks only its posts) and, the one exception that reaches every route, the "Back to top"
-button pinned to each page's corner (`BackToTop`, which marks its wrapper). `CopyCommand` sets no `data-gleaner` of its own: it reads the palette from
+likewise marks only its posts) and, the one exception that leaves the homepage, the "Back to top"
+button pinned to the corner of every page that renders `Base` (`BackToTop`, which marks its
+wrapper; the Starlight guide has its own layout and no such button). `CopyCommand` sets no `data-gleaner` of its own: it reads the palette from
 the section around it and falls back to the inherited colour. The navigation brand carries the logo itself but
 keeps inheriting the bar's ink. Light values are the frontmatter tokens; the dark values below are
 set on `[data-gleaner]` in both dark scopes by `src/styles/gleaner-palette.css`. Hero contrast

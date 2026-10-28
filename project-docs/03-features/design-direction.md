@@ -284,19 +284,19 @@ face costs no font request beyond the body face. The components name the face di
 
 ### Brand components
 
-| Component          | `data-gleaner`                           | Used in                                                    | What it is                                                                  |
-| ------------------ | ---------------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `HomeHero`         | On its `header`                          | `src/pages/index.astro`, header slot                       | Hero band: logo, headline, install button and panel, example thread         |
-| `HomeSectionNav`   | On its root `div`                        | `src/pages/index.astro`, header slot after `HomeHero`      | "On this page" strip: one numbered row on a desktop, tiles on a phone       |
-| `BackToTop`        | On its wrapper `div`                     | `src/layouts/Base.astro`, every route                      | "Back to top" tile pinned to the bottom-right corner                        |
-| `GleanPart`        | Reads it                                 | `HomeHero`'s example thread                                | One ask on the copper string                                                |
-| `SavedClip`        | Reads it                                 | The last item of the same thread                           | The evergreen clip the string ties off in                                   |
-| `HomeFeatures`     | On its `section`                         | `src/pages/index.astro`, featured slot                     | Feature band: skill cards, sample clip anatomy, save destinations           |
-| `SkillCard`        | Reads it                                 | `HomeFeatures`                                             | One skill card                                                              |
-| `HomeInstall`      | On its card grid, not its heading        | `src/pages/index.astro`, main content                      | Claude and ChatGPT Quick install cards                                      |
-| `HomeRequirements` | On its cards and footer, not its heading | `src/pages/index.astro`, main content                      | Claude and ChatGPT requirement cards, each split into required and optional |
-| `HomeBlog`         | On its posts, not its heading            | `src/pages/index.astro`, main content                      | Latest-post card and up to three earlier rows; omitted with no post         |
-| `CopyCommand`      | Reads it, else inherits                  | `HomeHero`'s install panel and `HomeInstall`'s Claude card | One install command with a copy button                                      |
+| Component          | `data-gleaner`                           | Used in                                                      | What it is                                                                  |
+| ------------------ | ---------------------------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| `HomeHero`         | On its `header`                          | `src/pages/index.astro`, header slot                         | Hero band: logo, headline, install button and panel, example thread         |
+| `HomeSectionNav`   | On its root `div`                        | `src/pages/index.astro`, header slot after `HomeHero`        | "On this page" strip: one numbered row on a desktop, tiles on a phone       |
+| `BackToTop`        | On its wrapper `div`                     | `src/layouts/Base.astro`, every page but the Starlight guide | "Back to top" tile pinned to the bottom-right corner                        |
+| `GleanPart`        | Reads it                                 | `HomeHero`'s example thread                                  | One ask on the copper string                                                |
+| `SavedClip`        | Reads it                                 | The last item of the same thread                             | The evergreen clip the string ties off in                                   |
+| `HomeFeatures`     | On its `section`                         | `src/pages/index.astro`, featured slot                       | Feature band: skill cards, sample clip anatomy, save destinations           |
+| `SkillCard`        | Reads it                                 | `HomeFeatures`                                               | One skill card                                                              |
+| `HomeInstall`      | On its card grid, not its heading        | `src/pages/index.astro`, main content                        | Claude and ChatGPT Quick install cards                                      |
+| `HomeRequirements` | On its cards and footer, not its heading | `src/pages/index.astro`, main content                        | Claude and ChatGPT requirement cards, each split into required and optional |
+| `HomeBlog`         | On its posts, not its heading            | `src/pages/index.astro`, main content                        | Latest-post card and up to three earlier rows; omitted with no post         |
+| `CopyCommand`      | Reads it, else inherits                  | `HomeHero`'s install panel and `HomeInstall`'s Claude card   | One install command with a copy button                                      |
 
 `CopyCommand` holds one command per instance because Claude Code takes one slash command per message. Its accessible
 name is "Copy " plus the command, and the result is announced through a `role="status"` region present from the start.
