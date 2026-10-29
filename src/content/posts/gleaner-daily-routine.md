@@ -69,7 +69,8 @@ over directly:
 > `save https://example.com/article`
 
 Gleaner opens or fetches the page and writes a plain-language summary of up to about 400 words:
-a TL;DR, key points, notable details, and takeaways. It files the clip under one
+a TL;DR, key points (or numbered Steps for a tutorial), notable details, and
+takeaways. It files the clip under one
 category, gives it a type, and adds 3 to 6 tags, reusing the spellings you've
 already used.
 
@@ -118,8 +119,9 @@ watch. Save it and come back to the moments that matter:
 > keep 3:10 to 5:40
 
 Gleaner reads the transcript from YouTube's **Show transcript** panel when the
-browser allows it, and writes a summary with **key moments** that each link to
-the exact second. It also keeps the description's useful links, such as docs
+browser allows it, and writes a summary. When it has transcript lines or the
+video's chapters, the summary lists **key moments** that each link to the exact
+second. It also keeps the description's useful links, such as docs
 and repos.
 
 Transcripts are easiest in your own Chrome: the Chrome side panel or Claude in
@@ -192,10 +194,11 @@ already a live index, and Gleaner links it first.
 - **Name your tags when they matter.** "tag it motion and css" keeps the
   spelling you want, and Gleaner reuses it from then on.
 - **Use `--to` for one-offs.** Keep your daily default, and send a single clip
-  elsewhere with `--to notion`, `--to local`, or `--to drive:"Design
-Inspiration"`.
-- **Save in the conversation you collected in.** Parts and answers live in the
-  conversation until you say "done."
+  elsewhere with `--to notion`, `--to local`, or a named Drive folder such as
+  `--to drive:"Research"`.
+- **Save in the conversation you collected in.** While you're collecting parts,
+  they live in the conversation until you say "done," and so does an answer you
+  add to them. A plain "save that" right after an answer saves it at once.
 - **Trust the follow-up prompt.** It's the quickest way back to a clip from a
   new session.
 
