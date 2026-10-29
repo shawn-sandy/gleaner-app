@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **"Where should my clips go?" guide** (`src/content/posts/gleaner-where-clips-go.md`): the first
+  of six short follow-ups to the daily-routine guide, tagged `guide`. It covers setting a default
+  once, a one-line pick per destination with what it needs, `--to` for one-off saves, and Markdown
+  vs Google Docs, written for Gleaner 2.13. The daily-routine guide's setup step now links to it.
 - **Daily-routine user guide** (`src/content/posts/gleaner-daily-routine.md`): a blog post, tagged
   `guide`, that walks through fitting Gleaner 2.12.5 into a workday in a short, phone-friendly read:
   one-time preferences setup, morning tabs with notes, parts and answers while working, a YouTube
