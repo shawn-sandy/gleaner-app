@@ -36,17 +36,18 @@ note above a short summary. Here's a real one, opened on a phone:
 
 ## Pick a destination
 
-| If you want…                       | Pick           | Needs                      |
-| ---------------------------------- | -------------- | -------------------------- |
-| Nothing set up, one clip at a time | The chat       | Nothing                    |
-| Clips in folders, by category      | Google Drive   | Google Drive connector     |
-| A clip table you can filter        | Notion         | Notion connector           |
-| Clips next to your code            | This project   | A Claude Code session      |
-| Clips in a Cowork project          | Cowork project | The Claude desktop app     |
-| A private web page per clip        | Artifact       | A session like Claude Code |
+| If you want…                       | Pick           | Needs                              |
+| ---------------------------------- | -------------- | ---------------------------------- |
+| Nothing set up, one clip at a time | The chat       | Nothing                            |
+| Clips in folders, by category      | Google Drive   | Google Drive connector             |
+| A clip table you can filter        | Notion         | Notion connector                   |
+| Clips next to your code            | This project   | A Claude Code session              |
+| Clips in a Cowork project          | Cowork project | Claude desktop, open and connected |
+| A private web page per clip        | Artifact       | A session like Claude Code         |
 
-**The chat** is the default. You get the clip as a file, but it isn't
-stored, so a later search can't find it. Fine for a one-off, not for a habit.
+**The chat** is the default. You get the clip right in the conversation, as a
+file where the app allows it, but it isn't stored, so a later search can't find
+it. Fine for a one-off, not for a habit.
 
 **Google Drive** files each clip under `Browser Research/<category>/`. Say
 "save to my Research folder" to use another folder.
@@ -74,7 +75,8 @@ To change the default instead, say **"always save here."**
 
 Stored clips are Markdown files, in Drive too. Say **"save it as a Google
 Doc"** for one Doc, or set your format to `auto` to get Docs whenever Drive
-can make them. Notion and artifact clips keep their own formats.
+can make them. A Drive connector that can't upload raw files saves Docs
+instead. Notion and artifact clips keep their own formats.
 
 ## If a save fails
 
