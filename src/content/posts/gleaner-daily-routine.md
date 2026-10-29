@@ -44,8 +44,8 @@ Or ask in plain words, such as "set up my save preferences."
 
 Setup can also sync your preferences through one Google Drive document, so your
 laptop and desktop can share the same defaults. There's no background service:
-Gleaner checks the document when you save or change preferences, and a change
-it can't upload yet waits for the next time. You can always override the default
+Gleaner checks the document only when you save or change preferences. Run
+`/gleaner:preferences show` to see each setting and whether it has synced. You can always override the default
 for a single save, such as "save this to Notion" or `--to drive`.
 
 **Tip:** Drive and Notion make the best daily default. Both are searchable
