@@ -244,6 +244,24 @@ article > figure > img[alt] {
   min-width: 100%;
 }
 
+// A phone screenshot in a post (`<figure data-size="phone">`). The rules above
+// stretch figures to the full column, which turns a 390px-wide phone capture
+// into a screen-tall image on desktop, so this keeps it at phone width. The
+// `:has()` matches the specificity of the stretch rule so this one wins.
+article > figure[data-size="phone"]:has(img[alt]) {
+  margin-inline: auto;
+  max-width: 18rem;
+  min-width: 0;
+}
+
+article > figure[data-size="phone"] > img[alt] {
+  border: var(--border-width-1) solid var(--rule);
+  border-radius: var(--img-radius);
+  height: auto;
+  min-width: 0;
+  width: 100%;
+}
+
 img + * {
   padding-block-start: 1rem;
 }

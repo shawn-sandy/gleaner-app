@@ -24,7 +24,7 @@ later.
 Wherever it goes, a clip carries its source, date, category, tags, and your
 note above a short summary. Here's a real one, opened on a phone:
 
-<figure>
+<figure data-size="phone">
   <img
     src="/images/guides/clip-phone.webp"
     width="390"
