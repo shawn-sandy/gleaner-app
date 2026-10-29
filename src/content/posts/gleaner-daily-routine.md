@@ -43,7 +43,9 @@ Or ask in plain words, such as "set up my save preferences."
 | want a private page you can share later | **Artifact**     | a session that publishes artifacts         |
 
 Setup can also sync your preferences through one Google Drive document, so your
-laptop and desktop save to the same place. You can always override the default
+laptop and desktop can share the same defaults. There's no background service:
+Gleaner checks the document when you save or change preferences, and a change
+it can't upload yet waits for the next time. You can always override the default
 for a single save, such as "save this to Notion" or `--to drive`.
 
 **Tip:** Drive and Notion make the best daily default. Both are searchable
@@ -75,8 +77,8 @@ category, gives it a type, and adds 3 to 6 tags, reusing the spellings you've
 already used.
 
 If you clipped the same page in an earlier session, Gleaner shows you the
-earlier clip and offers an updated copy or a skip, so morning catch-up never
-fills your library with duplicates.
+earlier clip and offers an updated copy that links to the original, or a skip,
+so morning catch-up doesn't quietly pile up copies of the same page.
 
 ## While you work: keep only the parts that matter
 
@@ -143,7 +145,8 @@ you name, ask:
 >
 > suggest follow-ups for my view transitions clip
 
-Gleaner reads the clip's TL;DR, your note, and the links inside it, and
+Gleaner reads the clip's TL;DR, your note, its content, and the links inside
+it, and
 suggests three next steps tied to them, such as reading a linked page or moving
 the post your note mentions forward. It saves them to the clip under a dated
 **Follow-ups** heading. Pick one, and Gleaner starts on it.
