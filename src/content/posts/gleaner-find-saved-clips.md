@@ -1,6 +1,6 @@
 ---
 title: 'Find anything you saved with Gleaner'
-pubDate: 2026-10-30
+pubDate: 2026-10-29
 description: 'Ask Gleaner what you saved and get a table back. The phrases that find clips by topic, tag, or date, plus index sheets, bookmarks, and why a clip kept in the chat is hard to find. Written for Gleaner 2.13.1.'
 author: 'Shawn Sandy'
 tags: ['gleaner', 'guide', 'plugins']
@@ -46,9 +46,10 @@ You don't need Claude open to find a clip.
 
 A clip that stayed in the conversation isn't stored anywhere, so a Drive or
 Notion search can't see it. Gleaner tags those chats with a plain
-`Gleaner clip` line instead. Where your app can search past conversations,
-a Gleaner search lists those chats too, marked "(chat)." You can also type
-`Gleaner clip` and a tag into the app's own chat search.
+`Gleaner clip` line instead. Where your app can search past conversations
+(Claude Code desktop, or claude.ai with chat search turned on), a Gleaner search
+lists those chats too, marked "(chat)." You can also type `Gleaner clip` and a
+tag into that conversation search yourself.
 
 If a clip matters, save it somewhere stored. See
 [where should my clips go?](/posts/gleaner-where-clips-go)
@@ -59,7 +60,9 @@ If a clip matters, save it somewhere stored. See
 
 You get a Google Sheet called `Clip Index <date>`, with one row per clip. It's a
 snapshot, so ask for a fresh one when you need it. If your Drive connector
-can't make Sheets, you get a `.csv` file instead.
+can't make Sheets, you get a `.csv` file instead. If you save to Notion, you get
+the database link first, since it's already a live index. Ask again if you still
+want the sheet.
 
 > export my gleans as bookmarks
 
