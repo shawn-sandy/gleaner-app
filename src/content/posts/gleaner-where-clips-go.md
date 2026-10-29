@@ -49,8 +49,8 @@ note above a short summary. Here's a real one, opened on a phone:
 file where the app allows it, but it isn't stored, so a later search can't find
 it. Fine for a one-off, not for a habit.
 
-**Google Drive** files each clip under `Browser Research/<category>/`. Say
-"save to my Research folder" to use another folder.
+**Google Drive** files each clip under `Browser Research/<category>/`, unless
+you set or name another folder, as in "save to my Research folder."
 
 **Notion** turns each clip into a row in a **Browser Research** database, with
 tags, note, and source as real columns. The first time, Gleaner asks which page
