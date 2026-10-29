@@ -167,8 +167,10 @@ want to sort it in a spreadsheet:
 
 > make me an index sheet
 
-That creates a `Clip Index` Google Sheet in Drive. It's a snapshot, so ask for
-a fresh one whenever you need it. If you store clips in Notion, the database is
+That creates a Google Sheet named `Clip Index <date>` in your Browser Research
+folder in Drive. If your Drive connector can't make Sheets, as in ChatGPT, you
+get a `.csv` file instead. Either way it's a snapshot, so ask for a fresh one
+whenever you need it. If you store clips in Notion, the database is
 already a live index, and Gleaner links it first.
 
 ## The routine at a glance
