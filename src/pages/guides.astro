@@ -1,0 +1,46 @@
+---
+/**
+ * Guides index: every published post tagged `guide`, newest first.
+ *
+ * Gleaner user guides are ordinary blog posts with a `guide` tag, so this page
+ * is a filtered view of the `posts` collection rather than a collection of its
+ * own. Adding a guide needs no change here: tag the post and publish it.
+ */
+export const prerender = true
+import { getCollection } from 'astro:content'
+import Layout from '#layouts/Layout.astro'
+import BlogPosts from '#components/astro/BlogPosts.astro'
+
+/** The tag that marks a post as a user guide. */
+const GUIDE_TAG = 'guide'
+
+const guides = (
+  await getCollection(
+    'posts',
+    ({ data }) => data.publish === true && (data.tags ?? []).includes(GUIDE_TAG)
+  )
+).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+---
+
+<Layout
+  pageTitle="Guides"
+  pageDescription="Short guides to getting more out of Gleaner, each a quick read you can finish on your phone."
+>
+  {
+    guides.length ? (
+      guides.map(guide => (
+        <article>
+          <BlogPosts
+            url={`/posts/${guide.id}`}
+            title={guide.data.title}
+            description={guide.data.description}
+          />
+        </article>
+      ))
+    ) : (
+      <p>
+        No guides yet. Browse the <a href="/posts/1">blog</a> in the meantime.
+      </p>
+    )
+  }
+</Layout>
