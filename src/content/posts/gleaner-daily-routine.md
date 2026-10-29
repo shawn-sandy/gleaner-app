@@ -127,7 +127,9 @@ and repos.
 Transcripts are easiest in your own Chrome: the Chrome side panel or Claude in
 Chrome. In Claude Code's built-in browser without Claude in Chrome, the clip
 comes from the description and chapters; paste the transcript for a fuller
-summary. On a phone in ChatGPT, if Gleaner can't read the video, it asks before
+summary. A time range such as "keep 3:10 to 5:40" needs the transcript too:
+without one, Gleaner asks you to paste it and offers a clip of the whole video
+instead. On a phone in ChatGPT, if Gleaner can't read the video, it asks before
 saving: paste a description or transcript, or say "save link only" and finish
 it at a desk. [What Gleaner's YouTube skill can't do](/posts/youtube-skill-constraints)
 has the workaround for each case.
@@ -147,7 +149,10 @@ the post your note mentions forward. It saves them to the clip under a dated
 **Follow-ups** heading. Pick one, and Gleaner starts on it.
 
 Every clip also ends with a ready-made prompt. Paste it into a new chat on any
-day to pick the clip back up, even from a different session.
+day to get follow-ups for a stored clip, even from a different session. A clip
+you only got in the chat isn't stored anywhere, so its prompt asks you to attach
+or paste the file. And when a clip has too little to go on, Gleaner asks what
+you want instead of guessing.
 
 ## End of day: a five-minute review
 
