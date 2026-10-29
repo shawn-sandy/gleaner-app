@@ -10,9 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Daily-routine user guide** (`src/content/posts/gleaner-daily-routine.md`): a blog post, tagged
-  `guide`, that walks through fitting Gleaner 2.12.5 into a workday: one-time preferences setup,
-  morning tabs with notes, parts and answers while working, a YouTube video at lunch, follow-ups,
-  and an end-of-day review with clip search and the index sheet. It is a post rather than a
+  `guide`, that walks through fitting Gleaner 2.12.5 into a workday in a short, phone-friendly read:
+  one-time preferences setup, morning tabs with notes, parts and answers while working, a YouTube
+  video at lunch, follow-ups, and an end-of-day review. It is a post rather than a
   Starlight page because the Starlight guide holds the site's developer docs, while Gleaner's
   user-facing writing lives on the blog, where the homepage, tag pages and RSS already surface it
 - **Back to top button** (`BackToTop.astro`, `Base.astro`): every page that renders `Base` now has an
