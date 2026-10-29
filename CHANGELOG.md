@@ -9,12 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Guides page** (`src/pages/guides.astro`): `/guides` lists every published post tagged `guide`,
+  newest first, so Gleaner user guides have a home of their own instead of an unlinked tag page.
+  Guides stay ordinary blog posts; tagging a post `guide` adds it here. The primary navigation
+  (after Blog) and the footer's site links now link to it.
 - **Daily-routine user guide** (`src/content/posts/gleaner-daily-routine.md`): a blog post, tagged
   `guide`, that walks through fitting Gleaner 2.12.5 into a workday in a short, phone-friendly read:
   one-time preferences setup, morning tabs with notes, parts and answers while working, a YouTube
   video at lunch, follow-ups, and an end-of-day review. It is a post rather than a
   Starlight page because the Starlight guide holds the site's developer docs, while Gleaner's
-  user-facing writing lives on the blog, where the homepage, tag pages and RSS already surface it
+  user-facing writing lives on the blog, where the homepage, tag pages, RSS and the new `/guides`
+  page already surface it.
 - **Back to top button** (`BackToTop.astro`, `Base.astro`): every page that renders `Base` now has an
   arrow-only "Back to top" link pinned to the bottom-right corner: a 44px square drawn like the
   section strip's tiles in the Gleaner palette, named by its `aria-label`. It fades in over the
