@@ -19,6 +19,21 @@ Or run `/gleaner:preferences setup`. Gleaner asks for a default destination
 and a format, then remembers them. Say "show my preferences" to check them
 later.
 
+## Every clip looks the same
+
+Wherever it goes, a clip carries its source, date, category, tags, and your
+note above a short summary. Here's a real one, opened on a phone:
+
+<figure>
+  <img
+    src="/images/guides/clip-phone.webp"
+    width="390"
+    height="844"
+    alt="A Gleaner clip on a phone: title, rows for source, date, category, type, tags, and note, then a TL;DR."
+  />
+  <figcaption>A clip saved as a file in Claude, before it goes anywhere.</figcaption>
+</figure>
+
 ## Pick a destination
 
 | If you want…                       | Pick           | Needs                      |
