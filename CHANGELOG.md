@@ -318,6 +318,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site copy caught up with Gleaner 2.12.5 (`0665272`)** (`README.md`, `upstream-sync.json`):
+  since 2.12.3 a new clip's confirmation opens with its title (`Saved "<title>"`), since 2.12.4
+  the plugin's icon is the square stacked-card logo the site already uses, and since 2.12.5 a
+  YouTube clip saved without Chrome suggests saving it again from the video's page in Chrome. The
+  README also documents the new automatic releases
+  - The README mirrors upstream again, rebuilt the same way: upstream text, links to files that
+    only exist upstream pointed at GitHub, the fork step still naming shawn-sandy/gleaner, then
+    Prettier. The same steps applied to `3c9a076` reproduce the previous mirror byte for byte
+  - Upstream's `gleaner-symbol.svg` now matches `public/images/gleaner-symbol.svg` apart from
+    whitespace, so the favicon, app icons, palette and wordmarks are unchanged
+  - The homepage is unchanged: the hero's saved clip already leads with its title, and the
+    YouTube card already says transcripts are read in Chrome
+
 - **Site copy caught up with Gleaner 2.12.2 (`3c9a076`)** (`README.md`,
   `src/components/astro/HomeFeatures.astro`, `upstream-sync.json`): since 2.12.1, ChatGPT shows
   the whole clip in the conversation, phones included, with the Markdown file as a separate
