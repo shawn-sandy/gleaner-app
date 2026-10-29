@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **"Find anything you saved" guide** (`src/content/posts/gleaner-find-saved-clips.md`): the second
+  follow-up Gleaner guide, tagged `guide`, on getting clips back with Gleaner 2.13.1: plain-language
+  searches by topic, tag, or date, searching Drive, Notion, and artifacts directly, finding clips kept
+  in the chat, and index sheet and bookmarks exports. The daily-routine guide's end-of-day section links
+  to it.
 - **Guides page** (`src/pages/guides.astro`): `/guides` lists every published post tagged `guide`,
   newest first, so Gleaner user guides have a home of their own instead of an unlinked tag page.
   Guides stay ordinary blog posts; tagging a post `guide` adds it here. The primary navigation

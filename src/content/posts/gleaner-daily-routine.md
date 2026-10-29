@@ -68,6 +68,8 @@ and it starts on it.
 You get a table of what you kept, newest first. On Fridays, say **"make me an
 index sheet"** for a spreadsheet snapshot.
 
+More on this: [find anything you saved](/posts/gleaner-find-saved-clips).
+
 ## The routine at a glance
 
 | When      | Say                              |
