@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   searches by topic, tag, or date, searching Drive, Notion, and artifacts directly, finding clips kept
   in the chat, and index sheet and bookmarks exports. The daily-routine guide's end-of-day section links
   to it.
+- **"Where should my clips go?" guide** (`src/content/posts/gleaner-where-clips-go.md`): the first
+  of six short follow-ups to the daily-routine guide, tagged `guide`. It covers setting a default
+  once, a one-line pick per destination with what it needs, `--to` for one-off saves, and Markdown
+  vs Google Docs, written for Gleaner 2.13. The daily-routine guide's setup step now links to it.
 - **Guides page** (`src/pages/guides.astro`): `/guides` lists every published post tagged `guide`,
   newest first, so Gleaner user guides have a home of their own instead of an unlinked tag page.
   Guides stay ordinary blog posts; tagging a post `guide` adds it here. The primary navigation

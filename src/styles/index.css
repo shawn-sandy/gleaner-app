@@ -498,6 +498,18 @@ article > figure > img[alt] {
   border-radius: 0;
   min-width: 100%;
 }
+article > figure[data-size='phone']:has(img[alt]) {
+  min-width: 0;
+  max-width: 18rem;
+  margin-inline: auto;
+}
+article > figure[data-size='phone'] > img[alt] {
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  border: var(--border-width-1) solid var(--rule);
+  border-radius: var(--img-radius);
+}
 img + * {
   padding-block-start: 1rem;
 }

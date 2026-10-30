@@ -20,6 +20,8 @@ find. Pick **Google Drive** or **Notion** instead, so every clip is stored and
 searchable. You can still send one clip elsewhere with `--to`, such as
 `--to local`.
 
+More on this: [where should my clips go?](/posts/gleaner-where-clips-go)
+
 New to Gleaner? [Install it](/#install) first.
 
 ## Morning: clear your tabs
