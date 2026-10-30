@@ -756,6 +756,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Blog post header** (`src/styles/_base.scss`): the shared page header's title block now follows
+  the design system's Headline and Deck roles instead of the `@fpkit/acss` defaults that outranked
+  them. The title is set on the site's h1 scale at weight 600 (the only weight the self-hosted Inter
+  ships; the vendor declared 500) with balanced line breaks, the deck is Soft Ink at a 1.5 line
+  height on a centred 34em measure, and the block takes the 5xl measure inside the band gutter, so a
+  phone's title is no longer squeezed into 80% of the screen while the article under it gets more.
+  Measured at 1280, 375 and 320 wide in both themes; the deck on the band is 5.39:1 light and
+  6.77:1 dark, the pair DESIGN.md records as the system's lowest.
 - **Local builds failed in `@clerk/astro`'s `MenuItemRenderer.astro`** (`package.json`): every page
   failed with `A 'return' statement can only be used within a function body` when the
   `patch-package` fix for Clerk 3.0.23 was missing from `node_modules`. `@clerk/astro` is now

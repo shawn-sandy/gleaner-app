@@ -404,8 +404,23 @@ body > header {
 body [data-card] {
   background-color: var(--card-background);
 }
+header > section#header {
+  max-width: min(100%, var(--max-width-5xl));
+  padding-inline: var(--space-5);
+}
+header > section#header h1 {
+  font-size: var(--h1);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.1;
+  text-wrap: balance;
+}
 header > section#header p {
+  color: var(--ink-soft);
   font-size: var(--header-deck-font-size);
+  line-height: 1.5;
+  margin-inline: auto;
+  max-width: 34em;
+  text-wrap: pretty;
 }
 h1,
 h2,
@@ -499,16 +514,16 @@ article > figure > img[alt] {
   min-width: 100%;
 }
 article > figure[data-size='phone']:has(img[alt]) {
-  min-width: 0;
-  max-width: 18rem;
   margin-inline: auto;
+  max-width: 18rem;
+  min-width: 0;
 }
 article > figure[data-size='phone'] > img[alt] {
-  min-width: 0;
-  width: 100%;
-  height: auto;
   border: var(--border-width-1) solid var(--rule);
   border-radius: var(--img-radius);
+  height: auto;
+  min-width: 0;
+  width: 100%;
 }
 img + * {
   padding-block-start: 1rem;
