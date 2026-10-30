@@ -84,7 +84,7 @@ const dateIso = pubDate.toISOString().slice(0, 10)
         </p>
         {
           tags.length > 0 && (
-            <ul class="post-header__tags" aria-label="Tags">
+            <ul class="post-header__tags" role="list" aria-label="Tags">
               {tags.map(tag => (
                 <li>
                   <a href={`/tags/${tag}`}>{tag}</a>
@@ -215,7 +215,9 @@ const dateIso = pubDate.toISOString().slice(0, 10)
     text-transform: uppercase;
   }
 
-  /* @fpkit/acss stacks every list in a column and indents each `li`. */
+  /* @fpkit/acss stacks every list in a column and indents each `li`. The
+     markup sets `role="list"`: Safari drops the role from a list once it has
+     `list-style: none`. */
   .post-header .post-header__tags {
     display: flex;
     flex-direction: row;

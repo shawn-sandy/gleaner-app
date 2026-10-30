@@ -23,6 +23,9 @@ test.describe('Post header', () => {
     await expect(meta.locator('time')).toHaveAttribute('datetime', '2026-10-29')
     await expect(meta).toHaveText(/^29 Oct 2026 · \d+ min read · Shawn Sandy$/)
 
+    // Safari drops a list's role once it has `list-style: none`.
+    await expect(header.locator('ul[aria-label="Tags"]')).toHaveAttribute('role', 'list')
+
     const chips = header.locator('ul[aria-label="Tags"] a')
     expect(await chips.count(), 'no tag chips in the band').toBeGreaterThan(0)
     for (const chip of await chips.all()) {
