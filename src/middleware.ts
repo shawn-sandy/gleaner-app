@@ -41,23 +41,23 @@ if (!hasValidClerkKeys) {
  * This is a backstop, so a page added under those trees without its own check
  * still fails closed. Each protected page also calls `requireSignedIn`: Clerk
  * removed `createRouteMatcher` in `@clerk/astro` 4 because middleware path
- * matching can diverge from Astro's routing. The path is decoded first because
- * Astro routes `/%64ashboard` to the dashboard.
+ * matching can diverge from Astro's routing. So this reads `context.url`,
+ * Astro's normalized path: fully decoded with repeated slashes collapsed, which
+ * makes `/%64ashboard`, `/%2564ashboard` and `//dashboard` match. `request.url`
+ * is neither, and Astro routes all three to the dashboard.
  *
- * @param {Request} request - Incoming request
+ * Known gap: `context.url` also resolves dot segments and routing does not, so
+ * `/dashboard/%252e%252e/x` reads as `/x` here but reaches a catch-all route
+ * under /dashboard. No such route exists today, and
+ * `tests/utils/require-signed-in.test.ts` requires the page check in a new one.
+ *
+ * @param {URL} url - `context.url`, never a URL built from `request.url`
  * @returns {boolean} True for /dashboard and /organization paths
  * @security Second layer of route protection; the page check is the first
  * @see {@link requireSignedIn} in `#utils/require-signed-in` for the page check
  */
-const isProtectedRoute = (request: Request): boolean => {
-  let { pathname } = new URL(request.url)
-  try {
-    pathname = decodeURI(pathname)
-  } catch {
-    // Malformed escapes: match the raw path
-  }
-  return /^\/(dashboard|organization)/i.test(pathname)
-}
+const isProtectedRoute = ({ pathname }: URL): boolean =>
+  /^\/(dashboard|organization)/i.test(pathname)
 
 /**
  * Synchronizes user activity from Clerk to Supabase for analytics and user tracking.
@@ -358,7 +358,7 @@ const authMiddleware = clerkMiddleware(async (auth, context, next) => {
   const { locals } = context
 
   // Backstop: a protected page also refuses a signed-out visitor itself (requireSignedIn)
-  if (isProtectedRoute(context.request) && !auth().userId) {
+  if (isProtectedRoute(context.url) && !auth().userId) {
     return auth().redirectToSignIn()
   }
 
@@ -382,7 +382,7 @@ const authMiddleware = clerkMiddleware(async (auth, context, next) => {
       locals.clerkToken = token
 
       // Log authenticated access with route and user context
-      const isProtected = isProtectedRoute(context.request)
+      const isProtected = isProtectedRoute(context.url)
       const logContext = {
         userId: locals.userId ?? undefined,
         userRole: locals.userRole,
@@ -441,7 +441,7 @@ const authMiddleware = clerkMiddleware(async (auth, context, next) => {
  * @security Without this, a keyless deploy would serve protected routes to anyone
  */
 const authNotConfiguredMiddleware: MiddlewareHandler = (context, next) =>
-  isProtectedRoute(context.request) ? next('/auth-setup') : next()
+  isProtectedRoute(context.url) ? next('/auth-setup') : next()
 
 /**
  * Main middleware pipeline combining security, rate limiting, and authentication.
