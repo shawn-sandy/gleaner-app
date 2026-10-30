@@ -79,9 +79,10 @@ the clip, and a search still finds them there.
 
 - **A clip with nothing to open.** An answer saved only to a local folder has
   no web link, so it's skipped. Gleaner says how many it left out and why.
-- **Clips kept only in a chat.** They aren't stored anywhere a search can
-  reach, so they can't be in the file. See
-  [where should my clips go?](/posts/gleaner-where-clips-go)
+- **Clips kept only in a chat.** Where your app searches past conversations, a
+  search can point you to that chat, but the clip isn't stored as a file, so
+  the export has nothing to read. To make a clip exportable, save it somewhere
+  stored. See [where should my clips go?](/posts/gleaner-where-clips-go)
 - **Nothing to export** means no file, and Gleaner says so.
 
 ## It's a snapshot
