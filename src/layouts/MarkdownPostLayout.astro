@@ -4,41 +4,60 @@ import Youtube from '#components/astro/Youtube.astro'
 import Img from '#components/astro/Img.astro'
 import Toc from '#components/astro/Toc.astro'
 import { sanitizeImageUrl } from '#utils/security'
-const frontmatter = Astro.props.frontmatter
+import type { MarkdownHeading } from 'astro'
 
-const headings = Astro.props.headings
+/** The frontmatter fields this layout reads, shared by `posts`, `content` and `docs` entries. */
+export type MarkdownFrontmatter = {
+  title: string
+  description?: string | undefined
+  image?: { url: string; alt: string; caption?: string | undefined } | undefined
+  youtube?: { id: string } | undefined
+  tags?: string[] | undefined
+}
+
+export type Props = {
+  frontmatter: MarkdownFrontmatter
+  /** The entry's headings, for the sidebar table of contents. */
+  headings?: MarkdownHeading[]
+  /** Estimated minutes to read, from `readingMinutes` in `#utils/post-navigation`. */
+  readingMinutes?: number
+}
+
+const { frontmatter, headings, readingMinutes } = Astro.props
 const { slug } = Astro.params
 
+const { image } = frontmatter
 // Sanitize image URL to prevent XSS attacks
-const safeImageUrl = frontmatter.image?.url ? sanitizeImageUrl(frontmatter.image.url) : null
+const safeImageUrl = image?.url ? sanitizeImageUrl(image.url) : null
 
 type ContentRoute = {
   name: string
   url: string
-  path: string | undefined
+  path?: string
 }
 
 const contentRoute: ContentRoute[] = [
   {
     name: frontmatter.title,
     url: '', // not necessary for post paths
-    path: slug?.toString(),
+    ...(slug === undefined ? {} : { path: slug.toString() }),
   },
 ]
 ---
 
 <Layout
   pageTitle={frontmatter.title}
-  pageDescription={frontmatter.description}
+  {...frontmatter.description === undefined ? {} : { pageDescription: frontmatter.description }}
   breadcrumbRoutes={contentRoute}
 >
+  {readingMinutes !== undefined && <p class="post-reading-time">{readingMinutes} min read</p>}
   {
-    safeImageUrl && (
+    image && safeImageUrl && (
       <>
         <Img
           imgSrc={safeImageUrl}
-          imgAlt={frontmatter.image?.alt}
-          imgCaption={frontmatter.image?.caption}
+          imgAlt={image.alt}
+          {...(image.caption === undefined ? {} : { imgCaption: image.caption })}
         />
       </>
     )
@@ -52,7 +71,7 @@ const contentRoute: ContentRoute[] = [
   }
 
   <div slot="sidebar">
-    <Toc headings={headings} />
+    <Toc headings={headings ?? []} />
   </div>
 
   <slot />
@@ -72,3 +91,11 @@ const contentRoute: ContentRoute[] = [
     )
   }
 </Layout>
+
+<style>
+  .post-reading-time {
+    color: var(--color-text-secondary, currentColor);
+    font-size: 0.9375rem;
+    margin-block: 0 1.5rem;
+  }
+</style>

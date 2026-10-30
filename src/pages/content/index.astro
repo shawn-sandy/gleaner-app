@@ -8,7 +8,7 @@ const article = await getEntry('content', 'content')
 const { Content } = await render(article!)
 ---
 
-<MarkdownPostLayout frontmatter={article?.data}>
+<MarkdownPostLayout frontmatter={article!.data}>
   <Content />
   <hr />
   <section>

@@ -1,0 +1,114 @@
+---
+/**
+ * Older and newer post links at the foot of a blog post, so a reader can walk
+ * the release series without going back to the list. Renders nothing when the
+ * post has no published neighbour.
+ *
+ * @component PostNav
+ * @example
+ * ```astro
+ * <PostNav
+ *   older={{ id: 'gleaner-2-10', title: 'Gleaner 2.10' }}
+ *   newer={undefined}
+ * />
+ * ```
+ *
+ * The nav sets `data-gleaner`, so its rules and links paint the Gleaner
+ * palette in either theme, as `HomeBlog`'s posts do.
+ */
+import '#styles/gleaner-palette.css'
+
+/** One neighbouring post, as much as the link needs. */
+export type PostLink = {
+  id: string
+  title: string
+}
+
+export type Props = {
+  /** The post published just before this one. */
+  older: PostLink | undefined
+  /** The post published just after this one. */
+  newer: PostLink | undefined
+}
+
+const { older, newer } = Astro.props
+---
+
+{
+  (older || newer) && (
+    <nav class="post-nav" aria-label="More posts" data-gleaner>
+      {older && (
+        <a class="post-nav__link post-nav__link--older" href={`/posts/${older.id}`} rel="prev">
+          <span class="post-nav__label">Older post</span>
+          <span class="post-nav__title">{older.title}</span>
+        </a>
+      )}
+      {newer && (
+        <a class="post-nav__link post-nav__link--newer" href={`/posts/${newer.id}`} rel="next">
+          <span class="post-nav__label">Newer post</span>
+          <span class="post-nav__title">{newer.title}</span>
+        </a>
+      )}
+    </nav>
+  )
+}
+
+<style>
+  /* Two classes throughout: Astro scopes with `:where()`, so a lone class
+     would lose to the site's own link rules. */
+  /* `stretch` undoes the @fpkit/acss `nav` centring, so both links match in
+     height when one title wraps. */
+  .post-nav {
+    align-items: stretch;
+    border-block-start: 1px solid var(--glean-border, #d5e3de);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-block-start: 2.5rem;
+    padding-block-start: 1.5rem;
+  }
+
+  /* Each link keeps 14rem, so the pair stacks on a phone. */
+  .post-nav .post-nav__link {
+    border: 1px solid var(--glean-border, #d5e3de);
+    border-radius: 0.75rem;
+    display: flex;
+    flex: 1 1 14rem;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+    min-height: 44px;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+  }
+
+  .post-nav .post-nav__link--newer {
+    text-align: end;
+  }
+
+  /* With no older post, the newer link still sits on the right. */
+  .post-nav .post-nav__link--newer:only-child {
+    flex-grow: 0;
+    margin-inline-start: auto;
+  }
+
+  .post-nav .post-nav__label {
+    color: var(--g-muted, #4a615c);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .post-nav .post-nav__title {
+    color: var(--g-link, #185c53);
+    font-weight: 700;
+    line-height: 1.4;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .post-nav .post-nav__link:hover .post-nav__title {
+    text-decoration-thickness: 2px;
+  }
+</style>

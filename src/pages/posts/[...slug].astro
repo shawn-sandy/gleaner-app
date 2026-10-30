@@ -1,6 +1,8 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content'
 import MarkdownPostLayout from '#layouts/MarkdownPostLayout.astro'
+import PostNav from '#components/astro/PostNav.astro'
+import { adjacentPosts, readingMinutes } from '#utils/post-navigation'
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts')
@@ -30,8 +32,18 @@ if (Astro.props.entry) {
 }
 
 const { Content, headings } = await render(entry)
+
+const { older, newer } = adjacentPosts(await getCollection('posts'), entry.id)
+/** The neighbour as `PostNav` links it. */
+const link = (post: CollectionEntry<'posts'> | undefined) =>
+  post && { id: post.id, title: post.data.title }
 ---
 
-<MarkdownPostLayout frontmatter={entry.data} headings={headings}>
+<MarkdownPostLayout
+  frontmatter={entry.data}
+  headings={headings}
+  readingMinutes={readingMinutes(entry.body)}
+>
   <Content />
+  <PostNav older={link(older)} newer={link(newer)} />
 </MarkdownPostLayout>
