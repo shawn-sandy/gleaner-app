@@ -78,8 +78,9 @@ the clip, and a search still finds them there.
 
 ## What's left out
 
-- **A clip with nothing to open.** An answer saved only to a local folder has
-  no web link, so it's skipped. Gleaner says how many it left out and why.
+- **A clip with nothing to open.** A clip with no web link, such as an answer
+  without a page saved only to a local folder, is skipped. Gleaner says how
+  many it left out and why.
 - **Clips kept only in a chat.** Where your app searches past conversations, a
   search can point you to that chat, but Gleaner's README says a clip kept only
   in a past conversation can't go in the file. To make a clip exportable, save
