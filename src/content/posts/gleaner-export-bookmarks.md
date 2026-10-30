@@ -38,7 +38,7 @@ importing is what's in the file:
 - **One bookmark per clip.** It opens the page you clipped. An answer saved
   without a page opens the clip itself.
 - **The clip's saved date** as the bookmark's date, so sorting by date added
-  keeps your order.
+  groups them by the day you saved them.
 - **The clip's tags**, without the `#`.
 - **Your note and a link back to the clip**, in the bookmark's description.
 
@@ -52,14 +52,15 @@ Any filter a search takes works here too:
 
 ## Import it
 
-Every browser imports a bookmarks HTML file from its bookmark manager:
+Every browser can import a bookmarks HTML file:
 
-- **Chrome**: open the bookmark manager, then **Import bookmarks** from its
-  menu. If you already have bookmarks, the import lands under **Other
-  bookmarks**.
+- **Chrome**: at the top right, **More**, then **Bookmarks and lists**, then
+  **Import bookmarks and settings**, and choose the file. If you already have
+  bookmarks, the import lands under **Other bookmarks**.
 - **Firefox**: Manage bookmarks, then **Import and Backup**, then **Import
   Bookmarks from HTML**.
-- **Safari**: **File**, then **Import From**, then **Bookmarks HTML File**.
+- **Safari**: **File**, then **Import Browsing Data from File or Folder**, and
+  choose the file.
 - **Edge**: Settings, then **Import browser data**, from a favorites or
   bookmarks HTML file.
 
@@ -80,9 +81,10 @@ the clip, and a search still finds them there.
 - **A clip with nothing to open.** An answer saved only to a local folder has
   no web link, so it's skipped. Gleaner says how many it left out and why.
 - **Clips kept only in a chat.** Where your app searches past conversations, a
-  search can point you to that chat, but the clip isn't stored as a file, so
-  the export has nothing to read. To make a clip exportable, save it somewhere
-  stored. See [where should my clips go?](/posts/gleaner-where-clips-go)
+  search can point you to that chat, but Gleaner's README says a clip kept only
+  in a past conversation can't go in the file. To make a clip exportable, save
+  it somewhere stored. See
+  [where should my clips go?](/posts/gleaner-where-clips-go)
 - **Nothing to export** means no file, and Gleaner says so.
 
 ## It's a snapshot
