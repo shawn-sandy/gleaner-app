@@ -67,7 +67,9 @@ want the sheet.
 > export my gleans as bookmarks
 
 You get a bookmarks file to import into Chrome, Firefox, Safari, or Edge, with
-one folder per category. It's a snapshot too.
+one folder per category. It's a snapshot too. See
+[turn your clips into browser bookmarks](/posts/gleaner-export-bookmarks) for
+what's in the file and how to import it.
 
 ## Quick reference
 

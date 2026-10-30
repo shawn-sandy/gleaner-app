@@ -94,17 +94,48 @@ body [data-card] {
   background-color: var(--card-background);
 }
 
-// The deck under the shared header's h1.
+// The shared header's title block. Every rule below is scoped to the shared
+// header's own `#header`, which lifts specificity to (1,0,2)-(1,0,3): that
+// beats @fpkit/acss's `header > section` rules outright, whatever order the
+// bundler emits the sheets in, and cannot reach `HomeHero`, whose `header`
+// has no such id.
+// The vendor caps the block at 80% of the viewport, which at 375px squeezed a
+// post title into 268px while the article under it got 311px. The block now
+// takes the 5xl measure: the same 1024px it had at 1280 wide, the full width
+// below that, inside the gutter the direction gives every full-bleed band.
+header > section#header {
+  max-width: min(100%, var(--max-width-5xl));
+  padding-inline: var(--space-5);
+}
+
+// Headline role. The vendor declares `font-weight: 500` on `header > section
+// > h1`, a weight the self-hosted Inter does not ship, and sizes it on
+// `--fs-12`, which climbs to 6.375rem on a wide screen; the site's own h1
+// scale caps at 5.063rem. Balanced wrapping keeps a three-line title from
+// stranding its last word.
+header > section#header h1 {
+  font-size: var(--h1);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+// Deck role: Soft Ink on the band (DESIGN.md records the pair as the lowest
+// in the system), the role's 1.5 line height, and the homepage hero's 34em
+// measure centred under the title in place of the vendor's 60ch, which ran
+// the deck 980px wide at 1280.
 // The old `header > section > p` selector never matched anything: the deck
 // lives in `Header.astro` as `header > section > div > p`, so what actually
 // painted was @fpkit/acss's descendant rule `header > section p`, whose
 // `--fs-8` clamps to 3rem and produced the 48px the review measured against a
-// 78.4px h1 — a 1.63 ratio. Matching the real DOM and scoping to the shared
-// header's own `#header` lifts specificity to (1,0,2), which beats the
-// vendor's (0,0,3) outright and cannot reach `HomeHero`, whose `header` has
-// no such id.
+// 78.4px h1 — a 1.63 ratio.
 header > section#header p {
+  color: var(--ink-soft);
   font-size: var(--header-deck-font-size);
+  line-height: 1.5;
+  margin-inline: auto;
+  max-width: 34em;
+  text-wrap: pretty;
 }
 
 // Type role one of three: display, on every heading level. All six render at

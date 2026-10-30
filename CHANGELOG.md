@@ -25,6 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   widens the page at 320px; the chips keep a 44px tap target below 30rem. `e2e/post-header.spec.ts`
   checks the band, its date, read time and tag links on a post, that a `/content/` article keeps the
   shared header, and the 320px reflow.
+- **"Turn your clips into browser bookmarks" guide** (`src/content/posts/gleaner-export-bookmarks.md`):
+  the third follow-up Gleaner guide, tagged `guide`, on the bookmarks export that shipped in Gleaner
+  2.13.0: the phrases that trigger it, what the file holds (a `Gleaner` folder with one subfolder per
+  category, one bookmark per clip, the saved date, tags, note, and clip link), filtering the export,
+  importing it in Chrome, Firefox, Safari, and Edge, what browsers drop on import, which clips are
+  left out, and why it's a snapshot. Written for Gleaner 2.13.1 from the upstream README and glean
+  skill. The "Find anything you saved" guide's bookmarks paragraph links to it.
 - **"Find anything you saved" guide** (`src/content/posts/gleaner-find-saved-clips.md`): the second
   follow-up Gleaner guide, tagged `guide`, on getting clips back with Gleaner 2.13.1: plain-language
   searches by topic, tag, or date, searching Drive, Notion, and artifacts directly, finding clips kept
@@ -772,6 +779,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Blog post header** (`src/styles/_base.scss`): the shared page header's title block now follows
+  the design system's Headline and Deck roles instead of the `@fpkit/acss` defaults that outranked
+  them. The title is set on the site's h1 scale at weight 600 (the only weight the self-hosted Inter
+  ships; the vendor declared 500) with balanced line breaks, the deck is Soft Ink at a 1.5 line
+  height on a centred 34em measure, and the block takes the 5xl measure inside the band gutter, so a
+  phone's title is no longer squeezed into 80% of the screen while the article under it gets more.
+  Measured at 1280, 375 and 320 wide in both themes; the deck on the band is 5.39:1 light and
+  6.77:1 dark, the pair DESIGN.md records as the system's lowest.
 - **Local builds failed in `@clerk/astro`'s `MenuItemRenderer.astro`** (`package.json`): every page
   failed with `A 'return' statement can only be used within a function body` when the
   `patch-package` fix for Clerk 3.0.23 was missing from `node_modules`. `@clerk/astro` is now
