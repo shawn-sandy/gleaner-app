@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **"Save the good parts" guide** (`src/content/posts/gleaner-save-good-parts.md`): the third follow-up
+- **"Save the good parts" guide** (`src/content/posts/gleaner-save-good-parts.md`): the fourth follow-up
   Gleaner guide, tagged `guide`, on clipping parts with Gleaner 2.13.1: adding, checking, and saving
   parts, collecting across tabs by surface, keeping an answer, and fixing a wrong guess. It shows a
   two-part clip on a phone (`public/images/guides/clip-parts-phone.webp`). The daily-routine guide's

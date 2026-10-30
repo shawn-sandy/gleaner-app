@@ -27,7 +27,7 @@ Or skip the highlight and describe it:
 Gleaner confirms each part with its first few words, so you can check it's the
 right one. Nothing is saved yet.
 
-A highlight needs to be about a sentence long. A stray word is ignored.
+A highlight counts when it is about 40 characters or more. A stray word is ignored.
 
 ## Check what you've got
 
