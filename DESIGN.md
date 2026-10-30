@@ -363,7 +363,8 @@ on its bottom edge (`HomeSectionNav`), the homepage feature
 section (`HomeFeatures`, with `SkillCard` inside it), the Quick install cards (`HomeInstall`, which
 marks its card grid, not its heading), the Requirements cards below them (`HomeRequirements`,
 which marks its cards and footer, not its heading), the blog section's posts (`HomeBlog`, which
-likewise marks only its posts) and, the one exception that leaves the homepage, the "Back to top"
+likewise marks only its posts) and, the two that leave the homepage, the post header that opens
+every `/posts/<slug>` page in place of the shared header (`PostHeader`) and the "Back to top"
 button pinned to the corner of every page that renders `Base` (`BackToTop`, which marks its
 wrapper; the Starlight guide has its own layout and no such button). `CopyCommand` sets no `data-gleaner` of its own: it reads the palette from
 the section around it and falls back to the inherited colour. The navigation brand carries the logo itself but
@@ -474,8 +475,8 @@ recompiling it to add global tokens would ship unrelated changes. The stylesheet
 values on `[data-gleaner]` and flips them in both dark scopes (`prefers-color-scheme: dark` under
 `:root:not([data-theme='light'])`, and `:root[data-theme='dark']`), honouring the Three Scopes Rule.
 Each component that sets `data-gleaner` (`HomeHero`, `HomeSectionNav`, `HomeFeatures`, `HomeInstall`,
-`HomeRequirements`, `HomeBlog`, `BackToTop`) imports the stylesheet itself, and the browser loads it once; components that read the palette
-from inside one (`GleanPart`, `SavedClip`, `SkillCard`) carry light-theme fallbacks for every
+`HomeRequirements`, `HomeBlog`, `BackToTop`, `PostHeader`) imports the stylesheet itself, and the
+browser loads it once; components that read the palette from inside one (`GleanPart`, `SavedClip`, `SkillCard`) carry light-theme fallbacks for every
 property they read. Promote these to
 the global token file only alongside a deliberate recompile of `index.css`.
 
@@ -544,6 +545,11 @@ something else speaks in them.
 - **Post Row Title** (Plus Jakarta Sans 700, 1.125rem, 1.4): An earlier post's title in the blog
   list, set as an Evergreen link that inherits its heading's font rather than the site's 16px/400
   `a` rule.
+- **Post Title** (Plus Jakarta Sans 800, `clamp(2.125rem, 1rem + 3vw, 3.25rem)`, 1.08, `-0.03em`,
+  sentence case, balanced wrap): A blog post's `h1` in its header band, in Evergreen, left-aligned
+  on the page measure. Its deck is body sans at `clamp(1.0625rem, 0.5vw + 0.9rem, 1.25rem)` on a
+  1.5 line and at most 34em wide, and its meta line (date, read time, author) is the label role in
+  Muted.
 
 The Quick install, Requirements and blog headings ("Quick install", "Requirements", "From the
 blog") sit outside `data-gleaner`
@@ -821,6 +827,21 @@ fallbacks alone.
   `list-style: none`. "All posts" closes the section as an Evergreen 600 link with a trailing arrow
   and a 44px minimum target. Posts sort newest first and fall back to their id when two share a
   date; dates print in UTC, so a build machine west of UTC never dates a post a day early.
+- **Post header (`PostHeader`):** The band that opens every `/posts/<slug>` page in place of the
+  shared header: the ground, full-bleed, with a Card Border hairline at its foot, 3.5rem/3rem block
+  padding (2.5rem/2.25rem below 30rem) and the content on the main content's left edge: the page
+  measure plus the 2rem inset every `main > section` carries, so the lane starts where the
+  breadcrumb and the article do. A 3.5rem lane (2.75rem below 30rem) carries the 3px copper string
+  from the band's top edge down to the logo's knot (52 by 31px; 40 by 24px on a phone), level with
+  the bottom of the title block, which is held to 46rem: the title in Post Title, the deck, then a
+  row holding the meta line and the tags as Chip
+  pills (Evergreen mono 0.8125rem, 0.25rem by 0.75rem padding) that link to their tag pages. Below
+  30rem each chip's tap target grows to 44px by an invisible extension above and below it, and
+  wrapped rows sit 1.125rem apart so targets never overlap. The string and knot are `aria-hidden`.
+  Measured on the ground: deck 13.24:1 and meta 6.22:1 light, 14.76:1 and 8.46:1 dark; chip text
+  on Chip 6.61:1 light, 6.86:1 dark. The "N min read" line and the end-of-post tag list that
+  `MarkdownPostLayout` printed in the article body now live here; docs and content articles keep
+  the shared header.
 - **GleanPart (signature):** One ask on the string. A list item whose 3px copper string runs from
   its top through the gap to the next item, so consecutive parts read as one unbroken line, with
   the two-bar wrap 1.375rem down. The card is white with a 1px border at 14px radius
@@ -873,8 +894,8 @@ fallbacks alone.
   `data-gleaner`, and give components that read the palette a light-theme fallback for each
   property they read.
 - **Do** keep Plus Jakarta Sans headings to brand moments: nav brand, hero headline, hero CTA, clip
-  title, the feature section's headings and skill names, the Quick install cards' names, and the
-  blog's post titles. Everywhere else it sets body copy only.
+  title, the feature section's headings and skill names, the Quick install cards' names, the
+  blog's post titles and the post header's title. Everywhere else it sets body copy only.
 - **Do** give every install command its own `CopyCommand`; one button never copies two commands.
 
 ### Don't:

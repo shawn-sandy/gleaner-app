@@ -42,7 +42,11 @@ const link = (post: CollectionEntry<'posts'> | undefined) =>
 <MarkdownPostLayout
   frontmatter={entry.data}
   headings={headings}
-  readingMinutes={readingMinutes(entry.body)}
+  post={{
+    pubDate: entry.data.pubDate,
+    author: entry.data.author,
+    readingMinutes: readingMinutes(entry.body),
+  }}
 >
   <Content />
   <PostNav older={link(older)} newer={link(newer)} />
