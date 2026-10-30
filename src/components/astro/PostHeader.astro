@@ -1,0 +1,313 @@
+---
+/**
+ * The blog post header, on the string: a full-bleed band in the Gleaner brand
+ * layer holding the title, the deck, a mono meta line (date, read time,
+ * author) and the post's tags as chips. A copper string runs down the left
+ * lane from the band's top edge and ties off in the logo's knot, level with
+ * the bottom of the title block: the same bow `SavedClip` draws at the end of
+ * the homepage hero's string.
+ *
+ * Replaces the shared `Header` on `/posts/<slug>` only, through the `header`
+ * slot `MarkdownPostLayout` passes to `Layout` when its `post` prop is set;
+ * docs and content articles keep the shared header. Colours are the `--g-*`
+ * and `--glean-*` properties `src/styles/gleaner-palette.css` sets on
+ * `[data-gleaner]` in both themes, each read with its light value as the
+ * fallback. The band owns its own padding and no outer margin (DESIGN.md,
+ * "The Composition Owns Spacing Rule").
+ *
+ * @component PostHeader
+ * @example
+ * ```astro
+ * <!-- The slot name is required: without it the band renders into the page
+ *      body under the shared Header. -->
+ * <Layout pageTitle={title}>
+ *   <PostHeader
+ *     slot="header"
+ *     title={title}
+ *     description={description}
+ *     pubDate={pubDate}
+ *     author="Shawn Sandy"
+ *     readingMinutes={2}
+ *     tags={['gleaner', 'guide']}
+ *   />
+ * </Layout>
+ * ```
+ */
+import '#styles/gleaner-palette.css'
+
+export type Props = {
+  /** The post title, the page's single `h1`, kept in the case it was written. */
+  title: string
+  /** The deck under the title; left out when the post has none. */
+  description: string | undefined
+  /** The publish date from frontmatter, a UTC midnight. */
+  pubDate: Date
+  /** The author's name as written in frontmatter. */
+  author: string
+  /** Estimated minutes to read, from `readingMinutes` in `#utils/post-navigation`. */
+  readingMinutes: number
+  /** Tag names; each chip links to `/tags/<tag>`. */
+  tags: string[]
+}
+
+const { title, description, pubDate, author, readingMinutes, tags } = Astro.props
+
+// `pubDate: 2026-10-29` parses to midnight UTC. Read in a US zone that is
+// October 28, so the day is printed in UTC, as `HomeBlog` prints it.
+const dateLabel = pubDate.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  timeZone: 'UTC',
+})
+const dateIso = pubDate.toISOString().slice(0, 10)
+---
+
+<header class="post-header" data-gleaner>
+  <div class="post-header__grid">
+    <div class="post-header__lane" aria-hidden="true">
+      <span class="post-header__string"></span>
+      <!-- The knot from public/images/gleaner-symbol.svg, as `SavedClip` draws it. -->
+      <svg class="post-header__bow" viewBox="276 88 130 76" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round">
+          <path d="M283 108h67"></path>
+          <path stroke-linecap="round" d="M305 124h45l23-24q16-12 22 3 7 17-13 24h-29l35 31"></path>
+        </g>
+      </svg>
+    </div>
+    <div class="post-header__body">
+      <h1 class="post-header__title">{title}</h1>
+      {description && <p class="post-header__deck">{description}</p>}
+      <div class="post-header__footer">
+        <p class="post-header__meta" data-ui="label">
+          <time datetime={dateIso}>{dateLabel}</time> · {readingMinutes} min read · {author}
+        </p>
+        {
+          tags.length > 0 && (
+            <ul class="post-header__tags" aria-label="Tags">
+              {tags.map(tag => (
+                <li>
+                  <a href={`/tags/${tag}`}>{tag}</a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Two classes throughout: Astro scopes with `:where()`, so a lone class
+     would lose to the vendor's `header > div p` and the site's heading, list
+     and link rules. */
+  .post-header {
+    /* The string lane, the width the hero gives its string. */
+    --glean-gutter: 3.5rem;
+
+    /* Named so the string can reach back up through it to the band's top. */
+    --post-header-pad-top: 3.5rem;
+
+    background-color: var(--g-ground, #f5f8f6);
+    border-block-end: 1px solid var(--glean-border, #d5e3de);
+    box-sizing: border-box;
+    color: var(--g-ink, #12302b);
+
+    /* Undoes the @fpkit/acss overlay pattern every `header` gets: a centred
+       grid, `min-height: 40vh` and a 20rem `min-width` that would widen a
+       320px viewport. */
+    display: block;
+    min-height: 0;
+    min-width: 0;
+    padding-block: var(--post-header-pad-top) 3rem;
+
+    /* Full-bleed band, content held to the page measure. */
+    padding-inline: max(1.25rem, calc((100% - var(--max-content-width, 80rem)) / 2));
+    width: 100%;
+  }
+
+  /* The vendor's `header > div` is 80% wide, centred and centre-aligned. */
+  .post-header .post-header__grid {
+    column-gap: 1rem;
+    display: grid;
+    grid-template-columns: var(--glean-gutter) minmax(0, 46rem);
+    margin-inline: 0;
+    max-width: none;
+    padding-inline: 0;
+    text-align: left;
+  }
+
+  /* Stretches to the title block's height, so the knot sits at its bottom. */
+  .post-header .post-header__lane {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* From the band's top edge down to the knot. */
+  .post-header .post-header__string {
+    background-color: var(--glean-string, #c46b43);
+    border-radius: 2px;
+    flex: 1 1 auto;
+    margin-block-start: calc(var(--post-header-pad-top) * -1);
+    width: 3px;
+  }
+
+  .post-header .post-header__bow {
+    color: var(--glean-string, #c46b43);
+    display: block;
+    height: 31px;
+    margin-block-start: -1px;
+    width: 52px;
+  }
+
+  .post-header .post-header__body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-width: 0;
+  }
+
+  .post-header .post-header__title {
+    color: var(--g-headline, #185c53);
+    font-family: 'Plus Jakarta Sans', var(--font-family-display, sans-serif);
+    font-size: clamp(2.125rem, 1rem + 3vw, 3.25rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin: 0;
+    overflow-wrap: break-word;
+
+    /* The site capitalises every h1; a post title keeps the case it was written in. */
+    text-transform: none;
+    text-wrap: balance;
+  }
+
+  .post-header .post-header__deck {
+    color: var(--g-ink, #12302b);
+    font-family: var(--font-family-sans, sans-serif);
+    font-size: clamp(1.0625rem, 0.5vw + 0.9rem, 1.25rem);
+    line-height: 1.5;
+    margin: 0;
+    max-width: 34em;
+    text-wrap: pretty;
+    width: auto;
+  }
+
+  .post-header .post-header__footer {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin-block-start: 0.25rem;
+  }
+
+  /* The site's label role (`data-ui="label"`), in the brand's muted ink. */
+  .post-header .post-header__meta {
+    color: var(--g-muted, #4a615c);
+    font-family: var(--font-family-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+    margin: 0;
+    max-width: none;
+    text-transform: uppercase;
+  }
+
+  /* @fpkit/acss stacks every list in a column and indents each `li`. */
+  .post-header .post-header__tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-header .post-header__tags li {
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-header .post-header__tags a {
+    background-color: var(--g-chip, #e3efeb);
+    border-radius: 999px;
+    box-sizing: border-box;
+    color: var(--g-headline, #185c53);
+    display: inline-flex;
+    font-family: var(--font-family-mono, ui-monospace, monospace);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    justify-content: center;
+    line-height: 1.4;
+    min-width: 2.75rem;
+    padding: 0.25rem 0.75rem;
+    position: relative;
+    text-decoration: none;
+  }
+
+  /* A cue that does not rely on colour alone. */
+  .post-header .post-header__tags a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .post-header .post-header__tags a:focus-visible {
+    outline: 2px solid var(--g-headline, #185c53);
+    outline-offset: 2px;
+  }
+
+  /*
+   * The theme toggle and the OS preference each repaint `body > header` in
+   * the site stylesheet with more specificity than a lone class, so the band
+   * repaints itself in both dark scopes.
+   */
+  :global(:root[data-theme='dark']) .post-header {
+    background-color: var(--g-ground, #f5f8f6);
+    color: var(--g-ink, #12302b);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .post-header {
+      background-color: var(--g-ground, #f5f8f6);
+      color: var(--g-ink, #12302b);
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .post-header {
+      --glean-gutter: 2.75rem;
+      --post-header-pad-top: 2.5rem;
+
+      padding-block-end: 2.25rem;
+    }
+
+    .post-header .post-header__grid {
+      column-gap: 0.75rem;
+    }
+
+    .post-header .post-header__bow {
+      height: 24px;
+      width: 40px;
+    }
+
+    .post-header .post-header__body {
+      gap: 1rem;
+    }
+
+    /* The chips keep their size and the tap target grows to 44px: the hit
+       area extends 9px above and below each pill, and wrapped rows sit far
+       enough apart that neighbours' targets never overlap. */
+    .post-header .post-header__tags {
+      gap: 1.125rem 0.5rem;
+    }
+
+    .post-header .post-header__tags a::after {
+      content: '';
+      inset: -0.5625rem 0;
+      position: absolute;
+    }
+  }
+</style>

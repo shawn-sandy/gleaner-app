@@ -3,7 +3,10 @@ import Layout from './Layout.astro'
 import Youtube from '#components/astro/Youtube.astro'
 import Img from '#components/astro/Img.astro'
 import Toc from '#components/astro/Toc.astro'
+import PostHeader from '#components/astro/PostHeader.astro'
+import Header from '#components/astro/Header.astro'
 import { sanitizeImageUrl } from '#utils/security'
+import { SITE_DESCRIPTION } from '#utils/site-config'
 import type { MarkdownHeading } from 'astro'
 
 /** The frontmatter fields this layout reads, shared by `posts`, `content` and `docs` entries. */
@@ -19,11 +22,21 @@ export type Props = {
   frontmatter: MarkdownFrontmatter
   /** The entry's headings, for the sidebar table of contents. */
   headings?: MarkdownHeading[]
-  /** Estimated minutes to read, from `readingMinutes` in `#utils/post-navigation`. */
-  readingMinutes?: number
+  /**
+   * Set for blog posts only. Renders `PostHeader`, the Gleaner band with the
+   * title, deck, date, read time, author and tag chips, in place of the shared
+   * `Header`, and the article then leaves out the tag list it prints at the
+   * end. Docs and content articles leave it unset and keep the shared header.
+   */
+  post?: {
+    pubDate: Date
+    author: string
+    /** Estimated minutes to read, from `readingMinutes` in `#utils/post-navigation`. */
+    readingMinutes: number
+  }
 }
 
-const { frontmatter, headings, readingMinutes } = Astro.props
+const { frontmatter, headings, post } = Astro.props
 const { slug } = Astro.params
 
 const { image } = frontmatter
@@ -50,7 +63,35 @@ const contentRoute: ContentRoute[] = [
   {...frontmatter.description === undefined ? {} : { pageDescription: frontmatter.description }}
   breadcrumbRoutes={contentRoute}
 >
-  {readingMinutes !== undefined && <p class="post-reading-time">{readingMinutes} min read</p>}
+  {
+    /*
+     * Always passed, with the choice made inside it. A header slot inside a
+     * conditional (`{post && <PostHeader slot="header" />}`) still registers
+     * the slot when `post` is unset, and `Layout` then skips its fallback: the
+     * shared `Header` vanished from every docs and content article (measured:
+     * `/content/content` rendered no `h1` at all). The shared branch resolves
+     * the description as `Layout` does for its fallback.
+     */
+  }
+  <Fragment slot="header">
+    {
+      post ? (
+        <PostHeader
+          title={frontmatter.title}
+          description={frontmatter.description}
+          pubDate={post.pubDate}
+          author={post.author}
+          readingMinutes={post.readingMinutes}
+          tags={frontmatter.tags ?? []}
+        />
+      ) : (
+        <Header
+          headerTitle={frontmatter.title}
+          headerDescription={frontmatter.description || SITE_DESCRIPTION}
+        />
+      )
+    }
+  </Fragment>
   {
     image && safeImageUrl && (
       <>
@@ -76,7 +117,7 @@ const contentRoute: ContentRoute[] = [
 
   <slot />
   {
-    frontmatter.tags && frontmatter.tags.length > 0 && (
+    !post && frontmatter.tags && frontmatter.tags.length > 0 && (
       <div>
         <ul class="tags" data-list="unstyled inline">
           {frontmatter.tags.map((tag: string) => (
@@ -91,11 +132,3 @@ const contentRoute: ContentRoute[] = [
     )
   }
 </Layout>
-
-<style>
-  .post-reading-time {
-    color: var(--color-text-secondary, currentColor);
-    font-size: 0.9375rem;
-    margin-block: 0 1.5rem;
-  }
-</style>

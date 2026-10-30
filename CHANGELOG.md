@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Post header on the string** (`src/components/astro/PostHeader.astro`): every `/posts/<slug>`
+  page now opens with a Gleaner-brand band in place of the shared header: a full-bleed ground
+  holding the title in evergreen Plus Jakarta Sans, left-aligned on the site's measure, the deck, a
+  mono meta line (date, read time, author) and the post's tags as chips linking to their tag pages,
+  with a copper string running down the left gutter from the band's top edge to the logo's knot at
+  the bottom of the title block. The "N min read" line and the end-of-post tag list move into the
+  band, so the article body starts with the text. `MarkdownPostLayout` gains a `post` prop
+  (`pubDate`, `author`, `readingMinutes`), set by the posts route, that gates the band; docs and
+  content articles leave it unset and keep the shared header. The layout always passes the header
+  slot and chooses inside it, because a slot inside a conditional still registers and switched the
+  shared header off on every docs and content page. The band paints only `--g-*` and `--glean-*`
+  properties from `gleaner-palette.css`, so it flips with the brand layer in both dark scopes.
+  Measured: deck 13.24:1 and meta 6.22:1 on the light ground, 14.76:1 and 8.46:1 dark; nothing
+  widens the page at 320px; the chips keep a 44px tap target below 30rem. `e2e/post-header.spec.ts`
+  checks the band, its date, read time and tag links on a post, that a `/content/` article keeps the
+  shared header, and the 320px reflow.
 - **"Find anything you saved" guide** (`src/content/posts/gleaner-find-saved-clips.md`): the second
   follow-up Gleaner guide, tagged `guide`, on getting clips back with Gleaner 2.13.1: plain-language
   searches by topic, tag, or date, searching Drive, Notion, and artifacts directly, finding clips kept
