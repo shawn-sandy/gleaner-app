@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   category, one bookmark per clip, the saved date, tags, note, and clip link), filtering the export,
   importing it in Chrome, Firefox, Safari, and Edge, what browsers drop on import, which clips are
   left out, and why it's a snapshot. Written for Gleaner 2.13.1 from the upstream README and glean
-  skill.
+  skill. The "Find anything you saved" guide's bookmarks paragraph links to it.
 - **"Find anything you saved" guide** (`src/content/posts/gleaner-find-saved-clips.md`): the second
   follow-up Gleaner guide, tagged `guide`, on getting clips back with Gleaner 2.13.1: plain-language
   searches by topic, tag, or date, searching Drive, Notion, and artifacts directly, finding clips kept
