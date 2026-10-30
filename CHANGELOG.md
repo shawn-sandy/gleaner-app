@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **"Find anything you saved" guide** (`src/content/posts/gleaner-find-saved-clips.md`): the second
+  follow-up Gleaner guide, tagged `guide`, on getting clips back with Gleaner 2.13.1: plain-language
+  searches by topic, tag, or date, searching Drive, Notion, and artifacts directly, finding clips kept
+  in the chat, and index sheet and bookmarks exports. The daily-routine guide's end-of-day section links
+  to it.
 - **"Where should my clips go?" guide** (`src/content/posts/gleaner-where-clips-go.md`): the first
   of six short follow-ups to the daily-routine guide, tagged `guide`. It covers setting a default
   once, a one-line pick per destination with what it needs, `--to` for one-off saves, and Markdown
