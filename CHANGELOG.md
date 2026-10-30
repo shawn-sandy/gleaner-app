@@ -480,12 +480,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     changes was updated separately
   - The bookmark moves from `79b80e2` to `2bc1086`, so the next drift check reports nothing
 - **Browser and home-screen icons use the stacked-card symbol** (`public/favicon.svg`,
-  `public/icons/icon-192x192.png`, `public/icons/icon-512x512.png`): the tab icon was still the
-  evergreen hand without the cards, and the PNG icons were the Astro starter logo
+  `public/favicon.ico`, `public/icons/icon-192x192.png`, `public/icons/icon-512x512.png`): the tab
+  icon was still the evergreen hand without the cards, and the PNG icons were the Astro starter logo
   - `favicon.svg` is a copy of `public/images/gleaner-symbol.svg`
+  - `favicon.ico` holds 16, 32 and 48px PNG frames rendered from it with sharp, on a transparent
+    background, for browsers without SVG favicons and for clients that request `/favicon.ico`
+    directly. `Base.astro` and the Starlight `head` link it with `sizes="32x32"` so Chrome still
+    prefers the SVG
   - The PNGs are rendered from it with sharp and flattened on `paper` (`#fcfcfd`), since iOS fills
     a transparent apple-touch icon's corners with black. The 192px one is the apple-touch icon
-  - The upstream drift check's logo watch lists both PNGs beside the favicon
+  - The upstream drift check's logo watch lists the ICO and both PNGs beside the SVG favicon
 - **Site nav pinned, with the Gleaner wordmark as its brand** (`src/components/astro/Navigation.astro`,
   `src/components/astro/HomeHero.astro`, `public/images/gleaner-wordmark-65px.svg`): the nav stays
   at the top of the viewport as the page scrolls, and the homepage hero opens with the Gleaner
