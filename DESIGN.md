@@ -829,10 +829,12 @@ fallbacks alone.
   date; dates print in UTC, so a build machine west of UTC never dates a post a day early.
 - **Post header (`PostHeader`):** The band that opens every `/posts/<slug>` page in place of the
   shared header: the ground, full-bleed, with a Card Border hairline at its foot, 3.5rem/3rem block
-  padding (2.5rem/2.25rem below 30rem) and the content on the page measure. A 3.5rem lane (2.75rem
-  below 30rem) carries the 3px copper string from the band's top edge down to the logo's knot (52
-  by 31px; 40 by 24px on a phone), level with the bottom of the title block, which is held to
-  46rem: the title in Post Title, the deck, then a row holding the meta line and the tags as Chip
+  padding (2.5rem/2.25rem below 30rem) and the content on the main content's left edge: the page
+  measure plus the 2rem inset every `main > section` carries, so the lane starts where the
+  breadcrumb and the article do. A 3.5rem lane (2.75rem below 30rem) carries the 3px copper string
+  from the band's top edge down to the logo's knot (52 by 31px; 40 by 24px on a phone), level with
+  the bottom of the title block, which is held to 46rem: the title in Post Title, the deck, then a
+  row holding the meta line and the tags as Chip
   pills (Evergreen mono 0.8125rem, 0.25rem by 0.75rem padding) that link to their tag pages. Below
   30rem each chip's tap target grows to 44px by an invisible extension above and below it, and
   wrapped rows sit 1.125rem apart so targets never overlap. The string and knot are `aria-hidden`.

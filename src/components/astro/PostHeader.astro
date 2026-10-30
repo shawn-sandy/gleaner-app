@@ -115,15 +115,20 @@ const dateIso = pubDate.toISOString().slice(0, 10)
     color: var(--g-ink, #12302b);
 
     /* Undoes the @fpkit/acss overlay pattern every `header` gets: a centred
-       grid, `min-height: 40vh` and a 20rem `min-width` that would widen a
-       320px viewport. */
+       grid, `min-height: 40vh`, a 20rem `min-width` that would widen a 320px
+       viewport, and `place-items: center`, which Chrome also applies to a
+       block's children: it shrank the grid to its tracks and centred it in
+       the band, 236px right of the padding edge at 1489px. */
     display: block;
     min-height: 0;
     min-width: 0;
     padding-block: var(--post-header-pad-top) 3rem;
 
-    /* Full-bleed band, content held to the page measure. */
-    padding-inline: max(1.25rem, calc((100% - var(--max-content-width, 80rem)) / 2));
+    /* Full-bleed band, the lane on the main content's left edge: `main` is
+       centred at `--max-content-width` and each `main > section` adds 2rem
+       (`_base.scss`), so the string lands on the breadcrumb and the article. */
+    padding-inline: calc(max(0px, (100% - var(--max-content-width, 80rem)) / 2) + 2rem);
+    place-items: normal;
     width: 100%;
   }
 

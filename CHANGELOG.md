@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Post header on the string** (`src/components/astro/PostHeader.astro`): every `/posts/<slug>`
   page now opens with a Gleaner-brand band in place of the shared header: a full-bleed ground
-  holding the title in evergreen Plus Jakarta Sans, left-aligned on the site's measure, the deck, a
+  holding the title in evergreen Plus Jakarta Sans, left-aligned with the article, the deck, a
   mono meta line (date, read time, author) and the post's tags as chips linking to their tag pages,
   with a copper string running down the left gutter from the band's top edge to the logo's knot at
   the bottom of the title block. The "N min read" line and the end-of-post tag list move into the
