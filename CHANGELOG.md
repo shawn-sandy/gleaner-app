@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **"From clip to next step" guide** (`src/content/posts/gleaner-clip-next-step.md`): the fifth follow-up
+  Gleaner guide, tagged `guide`, on follow-ups with Gleaner 2.13.1: asking for next steps, what the three
+  suggestions draw on, where they're saved in the clip, the copy-and-paste prompt for picking a clip up
+  later, hand-offs to other skills, and what to do when it asks instead. The daily-routine guide's
+  afternoon section links to it.
 - **Post header on the string** (`src/components/astro/PostHeader.astro`): every `/posts/<slug>`
   page now opens with a Gleaner-brand band in place of the shared header: a full-bleed ground
   holding the title in evergreen Plus Jakarta Sans, left-aligned with the article, the deck, a
