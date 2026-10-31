@@ -55,24 +55,27 @@ to get follow-ups:
 
 > To get follow-ups, paste this into a new chat: …
 
-It names the clip and where it's stored, so Gleaner can find it. Clips saved in
-your Claude Code project also get a terminal command that starts Claude Code
-with the prompt.
+It names the clip and where it's stored, so Gleaner can find it. A clip kept in
+the chat isn't stored anywhere, so its line asks you to attach or paste the clip
+instead. Clips saved in your Claude Code project also get a terminal command
+that starts Claude Code with the prompt.
 
 ## Hand it to another skill
 
 If your session has a skill that writes something new from a page or video,
 such as a blog post or newsletter piece, one of the three steps may hand the
-clip to it, starting from its key points and links. Gleaner only suggests a
-skill your session actually lists.
+clip to it, starting from the clip's source, summary, key moments, and links.
+Gleaner only suggests a skill your session actually lists.
 
 ## When it doesn't go to plan
 
 - **It asked a question instead.** The clip had too little to go on, such as no
   note and no links. Say what you want: go deeper, use it in something, or find
   related clips.
-- **"Isn't stored anywhere."** A clip kept in the chat can't be found from a
-  later session. Download it, or save it somewhere stored. See
+- **"Isn't stored anywhere."** A clip kept in the chat can't be read from a
+  later session. Where your app can search past chats, a search can point you
+  back to it, but a follow-up still needs the file. Download it, or save it
+  somewhere stored. See
   [where should my clips go?](/posts/gleaner-where-clips-go)
 - **Not a Gleaner clip.** You still get suggestions, but nothing is saved.
   Gleaner offers to save the page as a clip first.
