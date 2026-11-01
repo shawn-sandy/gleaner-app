@@ -44,15 +44,15 @@ JavaScript tool.
 By default, the full clip shows right in the chat, formatted, with its links,
 tags, and note. Where ChatGPT can attach files, a **Download Markdown (.md)**
 link sits below it as a separate copy; where it can't, the clip stays in the
-chat and Gleaner says no file was attached. Say "save to Drive" or set a default with `/gleaner:preferences setup` to
-store clips instead.
+chat and Gleaner says no file was attached. Say "save to Drive" or set a default
+with `/gleaner:preferences setup` to store clips instead.
 
 ## On your phone
 
 The clip in the chat is the reading view, so you never have to open a file.
-If there's a download link, tapping **Download Markdown (.md)** may download it or offer another app; a
-preview isn't guaranteed on mobile. A Drive or Notion link opens the clip in
-that app.
+If there's a download link, tapping **Download Markdown (.md)** may download it
+or offer another app; a preview isn't guaranteed on mobile. A Drive or Notion
+link opens the clip in that app.
 
 > show the full saved clip here
 >
