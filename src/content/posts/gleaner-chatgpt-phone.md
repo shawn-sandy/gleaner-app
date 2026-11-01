@@ -15,8 +15,9 @@ Gleaner 2.13.4.
 ## Set it up once
 
 In a ChatGPT workspace that allows plugin imports, open the workspace's
-**Plugins** settings and import `https://github.com/shawn-sandy/gleaner`. Then
-connect what Gleaner needs. Importing the plugin doesn't grant any of these:
+**Plugins** settings and import `https://github.com/shawn-sandy/gleaner`. Enable
+Gleaner for the workspace and install it in a new chat. Then connect what
+Gleaner needs. Importing the plugin doesn't grant any of these:
 
 - **Your browser**, so it can read your Chrome tabs
 - **Google Drive** or **Notion**, if you want clips stored there
