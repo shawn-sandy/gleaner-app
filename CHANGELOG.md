@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **"Clip a video in three phrases" guide** (`src/content/posts/gleaner-clip-video.md`): the
+  seventh and last follow-up Gleaner guide, tagged `guide`, on Gleaner 2.14.0's YouTube clips: saving
+  a whole video, keeping a time range or a topic as parts, what a video clip holds, and what to do
+  without a transcript, in Claude and in ChatGPT. The daily-routine guide's lunch section links to it.
 - **Post header on the string** (`src/components/astro/PostHeader.astro`): every `/posts/<slug>`
   page now opens with a Gleaner-brand band in place of the shared header: a full-bleed ground
   holding the title in evergreen Plus Jakarta Sans, left-aligned with the article, the deck, a
