@@ -49,7 +49,8 @@ one clip.
 
 The same short summary as a page clip, plus:
 
-- **Key moments** in place of key points, each linking to the second it starts.
+- **Key moments** in place of key points, from the transcript or the video's
+  chapters, each linking to the second it starts.
 - A **Channel** line that names and links the channel.
 - A **Video** line with the publish date, length, and what the summary was
   written from.
@@ -65,15 +66,17 @@ that works best in your own Chrome, through the side panel or Claude in Chrome.
 YouTube sends the panel empty to the Claude Code built-in browser.
 
 Without a transcript, the clip is written from the description and chapters.
-That's fine for the whole video, but parts need the transcript. To fix it, paste
-the transcript yourself (**…more → Show transcript** on YouTube), before or
-after saving.
+That's fine for the whole video, but parts need the transcript. Ask for a part
+without one, and Gleaner offers a clip of the whole video instead. To fix it,
+paste the transcript yourself (**…more → Show transcript** on YouTube), before
+or after saving.
 
 If a video has no description either, Gleaner asks for a short one. Say "skip"
 to save it from the title alone.
 
-In ChatGPT, open **Show transcript** in the video's tab when Gleaner asks. If it
-can't read the video at all, paste a description or transcript, or say
+In ChatGPT, the Work browser opens the panel itself when it can click. With
+connected tabs, open **Show transcript** in the video's tab when Gleaner asks.
+If it can't read the video at all, paste a description or transcript, or say
 **"save link only"** for a plain bookmark.
 
 For more workarounds, see
