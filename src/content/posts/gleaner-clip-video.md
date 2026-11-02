@@ -40,8 +40,10 @@ links straight to 3:10 in the video.
 > add this part
 
 Name a topic and Gleaner finds it in the transcript. "Add this part" keeps the
-chapter you're watching, or about the last minute. Collect as many parts as you
-like, then say **"done"** to save them as one clip.
+chapter you're watching, or about the last minute. In ChatGPT, Gleaner often
+can't see where you are in the video, so name a time range or topic there
+instead. Collect as many parts as you like, then say **"done"** to save them as
+one clip.
 
 ## What you get
 
@@ -84,7 +86,7 @@ For more workarounds, see
 | Save a video         | "save this video"          |
 | Keep a time range    | "keep 3:10 to 5:40"        |
 | Keep a topic         | "grab the part about …"    |
-| Keep what's playing  | "add this part"            |
+| Keep what's playing  | "add this part" (Claude)   |
 | Save collected parts | "done"                     |
 | Bookmark only        | "save link only" (ChatGPT) |
 
