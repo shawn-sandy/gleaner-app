@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   connecting a browser and storage, connected tabs versus the Work browser, the inline clip and Markdown
   download, reading clips and saving videos on the phone app, and what to do when it can't see the page.
   The daily-routine guide's morning section links to it.
+- **"From clip to next step" guide** (`src/content/posts/gleaner-clip-next-step.md`): the fifth follow-up
+  Gleaner guide, tagged `guide`, on follow-ups with Gleaner 2.13.1: asking for next steps, what the three
+  suggestions draw on, where they're saved in the clip, the copy-and-paste prompt for picking a clip up
+  later, hand-offs to other skills, and what to do when it asks instead. The daily-routine guide's
+  afternoon section links to it.
 - **"Save the good parts" guide** (`src/content/posts/gleaner-save-good-parts.md`): the fourth follow-up
   Gleaner guide, tagged `guide`, on clipping parts with Gleaner 2.13.1: adding, checking, and saving
   parts, collecting across tabs by surface, keeping an answer, and fixing a wrong guess. It shows a

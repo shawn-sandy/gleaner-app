@@ -65,6 +65,8 @@ workarounds.
 Gleaner suggests three next steps from the clip and saves them to it. Pick one,
 and it starts on it.
 
+More on this: [from clip to next step](/posts/gleaner-clip-next-step).
+
 ## End of day: look back
 
 > show my clips from this week
