@@ -1,7 +1,7 @@
 ---
 title: 'From clip to next step'
 pubDate: 2026-10-31
-description: 'Ask Gleaner what to do with a clip and get three next steps tied to its note, takeaways, and links, saved to the clip. The phrases, what lands in the clip, and how to pick a clip up again later. Written for Gleaner 2.13.1.'
+description: 'Ask Gleaner what to do with a clip and get three next steps tied to its note, takeaways, and links, saved to the clip. It covers the phrases, what Gleaner saves to the clip, and how to pick a clip up again later. Written for Gleaner 2.13.1.'
 author: 'Shawn Sandy'
 tags: ['gleaner', 'guide', 'plugins']
 publish: true
