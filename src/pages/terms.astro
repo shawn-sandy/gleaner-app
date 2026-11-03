@@ -1,0 +1,108 @@
+---
+/** Public terms for Gleaner; available without signing in. */
+export const prerender = true
+import Layout from '#layouts/Layout.astro'
+
+const privacyUrl =
+  'https://github.com/shawn-sandy/gleaner/blob/30dd4fb4ab3deda20fb20c1557f40c9cd3998c49/plugins/gleaner/PRIVACY.md'
+---
+
+<Layout
+  pageTitle="Terms of Service"
+  pageDescription="Terms for using Gleaner, its skills, and its documentation."
+  hideSidebar
+>
+  <p>Last updated: <time datetime="2026-11-03">November 3, 2026</time></p>
+
+  <h2>About these terms</h2>
+  <p>
+    Gleaner is an open-source collection of assistant skills maintained by Shawn Jason Sandy,
+    publicly known as Shawn Sandy. It helps you summarize and save web pages, videos, and other
+    content through a compatible assistant and the tools you choose to connect.
+  </p>
+  <p>
+    These terms describe your use of Gleaner and its documentation. By using them, you agree to
+    these terms, subject to your rights under the applicable open-source licenses and laws. If you
+    do not agree, stop using the service. Nothing here limits rights that the law does not allow to
+    be waived.
+  </p>
+
+  <h2>Open-source license</h2>
+  <p>
+    Gleaner's source code is provided under the{' '}
+    <a href="https://github.com/shawn-sandy/gleaner/blob/main/LICENSE">MIT License</a>. That license
+    governs your rights to use, copy, modify, and distribute the software. These terms do not
+    replace or restrict those rights. Third-party components and source content remain subject to
+    their own licenses and terms.
+  </p>
+
+  <h2>Your content and responsibilities</h2>
+  <p>
+    You retain any rights you have in content you provide. These terms do not transfer ownership of
+    your content to Gleaner's maintainer or grant you ownership of someone else's content. Only
+    access, summarize, save, and share material you are permitted to use, and respect copyright,
+    privacy, confidentiality, and the source provider's terms.
+  </p>
+  <p>
+    Do not use Gleaner to bypass access controls, obtain unauthorized access, or carry out unlawful
+    activity. You are responsible for choosing appropriate sources, instructions, destinations,
+    sharing settings, and permissions. Do not include passwords, access tokens, or other secrets in
+    clips or public support requests.
+  </p>
+
+  <h2>Assistant platforms and connected services</h2>
+  <p>
+    Gleaner runs through your assistant platform and available tools. Features depend on the
+    platform, account permissions, and connected services, and may differ between clients. Those
+    providers have their own terms, privacy policies, availability, and any applicable charges. You
+    are responsible for those accounts and charges; Gleaner's maintainer does not control those
+    services.
+  </p>
+
+  <h2>Privacy, storage, and deletion</h2>
+  <p>
+    The distributed Gleaner plugin does not operate its own hosted storage backend or analytics
+    service. Your assistant and the tools you use process content and save it to the destination you
+    select. See the <a href={privacyUrl}>Gleaner plugin Privacy Policy</a> for details about plugin data
+    handling. That policy covers the plugin, not the separate policies of this website or third-party
+    providers.
+  </p>
+  <p>
+    Check where content is saved and who can access it. Keep backups of anything important.
+    Uninstalling Gleaner, disconnecting a tool, or resetting preferences does not automatically
+    delete previously saved content. Manage and delete copies through the service or location where
+    they are stored.
+  </p>
+
+  <h2>Check generated results</h2>
+  <p>
+    AI-generated summaries, tags, transcripts, and other outputs may be inaccurate, incomplete, or
+    misleading. Check important claims against the original source and confirm that saves succeeded
+    before relying on them. Gleaner's output is not a substitute for qualified professional advice.
+  </p>
+
+  <h2>Availability and warranties</h2>
+  <p>
+    Gleaner and its documentation are provided as available, without a promise of uninterrupted
+    operation, ongoing support, or fitness for a particular purpose. Features may change or be
+    discontinued. The software's warranty disclaimer and limitation of liability are set out in the
+    MIT License linked above and apply only to the extent permitted by applicable law. These terms
+    do not exclude any mandatory consumer rights or liability that cannot lawfully be excluded.
+  </p>
+
+  <h2>Stopping use and changes to these terms</h2>
+  <p>
+    You can stop using Gleaner at any time by removing it from your assistant and disconnecting
+    tools through the relevant provider's controls. Your open-source license rights remain governed
+    by the applicable license. Updates to these terms will appear on this page with a revised date
+    and apply prospectively; they do not change the license of software already released.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    For questions about Gleaner or these terms, use the{' '}
+    <a href="https://github.com/shawn-sandy/gleaner/issues">Gleaner issue tracker</a> or the contact options
+    on <a href="https://github.com/shawn-sandy">Shawn Sandy's GitHub profile</a>. GitHub issues are
+    public, so do not include private content or account credentials.
+  </p>
+</Layout>
