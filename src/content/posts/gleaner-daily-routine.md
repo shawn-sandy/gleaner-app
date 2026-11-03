@@ -58,6 +58,8 @@ range needs the transcript, which Gleaner reads best in your own Chrome. See
 [what the YouTube skill can't do](/posts/youtube-skill-constraints) for the
 workarounds.
 
+More on this: [clip a video in three phrases](/posts/gleaner-clip-video).
+
 ## Afternoon: decide what's next
 
 > what should I follow up on?
