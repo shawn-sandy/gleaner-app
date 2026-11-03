@@ -43,6 +43,8 @@ Parts can come from different tabs. Keep the same conversation open until you
 say "done." After Claude answers a question about the page, say **"save that"**
 to keep the answer.
 
+More on this: [save the good parts, not the whole page](/posts/gleaner-save-good-parts).
+
 ## Lunch: save the talk
 
 > save this video
