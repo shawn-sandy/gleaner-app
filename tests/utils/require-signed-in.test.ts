@@ -70,9 +70,10 @@ describe('pages under /dashboard and /organization', () => {
     )
   })
 
-  it.each(files)('%s returns the requireSignedIn refusal', file => {
+  it.each(files)('%s returns the requireSignedIn refusal first', file => {
     expect(file).toMatch(/\.astro$/)
-    const source = readFileSync(join(pagesDir, file), 'utf8')
-    expect(source).toMatch(/const (\w+) = await requireSignedIn\(Astro\)\s+if \(\1\) return \1\b/)
+    const [, frontmatter = ''] = readFileSync(join(pagesDir, file), 'utf8').split(/^---$/m)
+    const code = frontmatter.replace(/^import\b[^'"]*'[^']+'$/gm, '').trimStart()
+    expect(code).toMatch(/^const (\w+) = await requireSignedIn\(Astro\)\s+if \(\1\) return \1\b/)
   })
 })
