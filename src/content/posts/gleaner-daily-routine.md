@@ -31,6 +31,8 @@ New to Gleaner? [Install it](/#install) first.
 The words after the comma become the clip's **note**, which is how you'll find
 it later. Got links instead of tabs? Say `save https://…`.
 
+More on this: [Gleaner in ChatGPT and on your phone](/posts/gleaner-chatgpt-phone).
+
 ## While you work: keep just the good parts
 
 > grab the part about animation lengths
