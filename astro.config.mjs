@@ -40,6 +40,8 @@ export default defineConfig({
     starlight({
       title: 'Astro-Basics Guide',
       disable404Route: true,
+      // Starlight links /favicon.svg itself; add the ICO fallback Base.astro links.
+      head: [{ tag: 'link', attrs: { rel: 'icon', href: '/favicon.ico', sizes: '32x32' } }],
       // Social links (array format for v0.35.2)
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/shawn-sandy/astro-basics' },
