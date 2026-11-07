@@ -193,8 +193,9 @@ won't rebuild earlier ones from memory.
   HTML file. ChatGPT also makes a private editable Page and links to it, or
   gives a Markdown file if Page tools are missing.
 - **Every clip** ends with Further reading links when the page has good ones.
-- **Five places to store a clip:** Google Drive, Notion, a Cowork project, your
-  Claude Code project, and a private claude.ai artifact. An optional clip list
+- **Places to store a clip:** a private editable Page in ChatGPT (its default),
+  plus Google Drive, Notion, a Cowork project, your Claude Code project, and a
+  private claude.ai artifact. An optional clip list
   keeps a row for each clip, wherever it went.
 - **Getting them out:** an index sheet, a browser bookmarks file, and, in
   ChatGPT, a clip index file.
@@ -205,6 +206,9 @@ won't rebuild earlier ones from memory.
 Several of these have a step-by-step guide:
 [where clips go](/posts/gleaner-where-clips-go),
 [ChatGPT and your phone](/posts/gleaner-chatgpt-phone), and
-[clipping a video](/posts/gleaner-clip-video). Every published release, with its
+[clipping a video](/posts/gleaner-clip-video). The first two were written for
+earlier releases. Where they call the chat, or a Markdown download, ChatGPT's
+default, a ChatGPT save now makes an editable Page unless you choose
+otherwise. Every published release, with its
 notes, is on the [changelog](/changelog). The source is on
 [GitHub](https://github.com/shawn-sandy/gleaner).
