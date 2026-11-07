@@ -92,7 +92,15 @@ const platforms: Platform[] = [
           'Connected Chrome tabs, or the Work browser in Work mode. No browser? Paste the text, or give a URL if the session can fetch pages.',
       },
     ],
-    optional: [drive, notion],
+    optional: [
+      {
+        need: 'ChatGPT Page tools',
+        detail:
+          "Save clips as private editable Pages, which is ChatGPT's default. Without them, a default save comes back as a Markdown file, while a Page you ask for by name needs another choice.",
+      },
+      drive,
+      notion,
+    ],
   },
 ]
 ---
@@ -158,8 +166,9 @@ const platforms: Platform[] = [
       }
     </div>
     <p class="home-requirements__default">
-      Nothing else is needed for the default. Each clip comes back in the conversation: a Markdown
-      file in ChatGPT, an HTML file in Claude.
+      Nothing else is needed for the default. Each clip comes back in full in the conversation. In
+      ChatGPT it is also a private editable Page, or a Markdown file when Page tools are missing. In
+      Claude it comes with an HTML file.
     </p>
     <a class="home-requirements__more" href={doc}>Full requirements on GitHub</a>
   </div>

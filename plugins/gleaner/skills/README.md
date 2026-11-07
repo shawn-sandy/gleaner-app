@@ -21,7 +21,7 @@ The rename does not change existing clips or plain-language requests such as "sa
 
 ## preferences: shared save settings
 
-Gleaner skips the setup prompt on your first save, since its default, the chat, needs nothing stored; it mentions setup once instead. Run `/gleaner:preferences setup` to choose a verified default destination, a format (left unset by default, so chat clips are Markdown in ChatGPT and HTML in Claude, and stored clips are Markdown where supported; `default_format` is written only if you pick `auto` or `markdown`), and optional Drive sync, or choose “just this save” to keep session settings. Existing environment defaults remain when setup is skipped. Both page and video saves use the same preferences.
+Gleaner skips first-save setup for its built-in defaults: an editable Page in ChatGPT and chat delivery in Claude. Page creation requires no setup or test Page; creation and readback establish the save. It mentions preference setup once instead. Run `/gleaner:preferences setup` to choose a verified default destination, a format (left unset by default, so chat clips are Markdown in ChatGPT and HTML in Claude, and stored clips are Markdown where supported; `default_format` is written only if you pick `auto` or `markdown`), and optional Drive sync, or choose “just this save” to keep session settings. Existing environment defaults remain when setup is skipped. Both page and video saves use the same preferences.
 
 ```text
 /gleaner:preferences setup
@@ -39,7 +39,7 @@ Preferences use local user storage and optional project overrides. Drive sync ru
 ## Before you start
 
 - **A page Claude can see.** Use the Claude side panel in Chrome, or the Browser pane in Claude Code desktop (Cmd+Shift+B on Mac, Ctrl+Shift+B on Windows). In ChatGPT, use connected Chrome tabs or the Work browser. Or skip browsing and put a URL in the request.
-- **A destination, if you want one stored.** Until you set your own with preferences, ChatGPT gives you the clip as a Markdown file in the conversation and Claude gives you an HTML file. Other destinations need their connector or app; see [Choosing where clips go](../../../README.md#choosing-where-clips-go).
+- **A destination.** Unconfigured ChatGPT saves use a private editable Page with full in-chat content and a verified Page link when required tools and access are available. Explicit/saved destinations and raw-file requests win. Missing required Page tools before a write allow explained Markdown chat/file fallback only for the built-in default; an explicit or retained Page requires an alternative choice. Claude keeps its HTML chat delivery. Other destinations need their connector or app; see [Choosing where clips go](../../../README.md#choosing-where-clips-go).
 
 ## glean: pages, parts, answers, and search
 
@@ -111,10 +111,11 @@ tag it motion and css
 what did I save about Cowork?
 show my #prompting clips
 clips from this week
+which chat did I save that in?
 make me an index sheet
 ```
 
-You get a table, newest first, with a link to each clip. "Make me an index sheet" creates a Google Sheet snapshot that doesn't update itself; ask for a new one when you need it.
+You get a table, newest first, with a link to each clip. Every save tags its chat with a plain `Gleaner clip` line, so where your host can search past conversations, a search can also point you to the chat a clip was kept in, marked "(chat)". "Make me an index sheet" creates a Google Sheet snapshot that doesn't update itself; ask for a new one when you need it.
 
 ## youtube: videos and moments
 
@@ -145,7 +146,7 @@ done
 
 ### Transcripts and missing descriptions
 
-In your own Chrome (the Chrome side panel or Claude in Chrome), Gleaner opens the video's **Show transcript** panel and reads it. YouTube sends the panel empty to the Claude Code Browser pane, even signed in, so Claude Code reads the transcript through Claude in Chrome when it's connected; otherwise a clip is written from the video's description and chapters unless you paste the transcript. If the video has no description and no transcript, Gleaner asks for a short description, which is optional; say "skip" to save it from the title alone.
+In your own Chrome (the Chrome side panel or Claude in Chrome), Gleaner opens the video's **Show transcript** panel and reads it. YouTube sends the panel empty to the Claude Code Browser pane, even signed in, so Claude Code reads the transcript through Claude in Chrome when it's connected, or else through the Playwright browser tools if the session has them; otherwise a clip is written from the video's description and chapters unless you paste the transcript. If the video has no description and no transcript, Gleaner asks for a short description, which is optional; say "skip" to save it from the title alone.
 
 A part can't be clipped without the transcript. If you ask for one anyway, Gleaner asks you to paste the transcript and offers a clip of the whole video instead.
 
@@ -178,6 +179,10 @@ Gleaner reads the clip's link, TL;DR, note, content, and the links inside it, th
 
 ## Automatic bookmark previews
 
-All existing save commands show a structured preview after saving, including `@gleaner save <URL>` in ChatGPT and `/gleaner:glean <URL>` in Claude Code. Both use one bookmark model for metadata, summary, HTML, and the conversation preview. The stored format and configured destination remain independent of presentation. Say "use a Markdown preview" or "no preview" for one request without changing storage preferences.
+All existing save commands show the full clip in the conversation after saving, wherever it was stored, including `@gleaner save <URL>` in ChatGPT and `/gleaner:glean <URL>` in Claude Code. Both use one bookmark model for metadata, summary, HTML, and the conversation copy. The stored format and configured destination remain independent of presentation. Say "short preview" for a compact layout, or "no preview" for just the outcome, for one request without changing storage preferences. With nothing saved or attached, the clip is shown anyway, since it's the only copy.
 
 See [the cross-platform examples](https://github.com/shawn-sandy/gleaner/blob/main/docs/bookmark-previews.md) for the same bookmark in ChatGPT and Claude Code, HTML companion behavior, and offline versus live testing limits.
+
+## Editable Pages in ChatGPT
+
+ChatGPT defaults to a private editable Page when no explicit, retained, session, project, or user destination and no raw-file request wins. Preserve the full in-chat clip and follow-up output alongside a verified Page link; honor explicit short-response or Page-only requests. Missing required tools before any write allow Markdown chat/file fallback only for the built-in default, with a truthful explanation. Refusals and uncertain writes require recovery, never silent redirection. Exports read current Page content, including manual edits, and are not automatically synchronized. Pages are not a schema-1 provider or traditional chat Canvas. Claude workflows remain unchanged.

@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Gleaner 2.13 to 2.15 release post** (`src/content/posts/gleaner-2-13-to-2-15.md`): covers the 18
+  releases after the 2.12 post, 2.12.3 to 2.15.6, grouped by what a user notices: editable Pages as
+  ChatGPT's default (2.15.5, 2.15.6), the full clip in the chat on every host (2.14.0), Further
+  reading links (2.15.0), the optional clip list (2.14.1), the bookmarks export and chat tagging
+  (2.13.0, 2.13.1), Playwright transcripts and fewer prompts (2.13.2 to 2.13.4), fetching pasted
+  links first on phones (2.14.2), the ChatGPT clip index file (2.15.2), and the README's new prompt
+  examples. It links the existing guides for bookmarks, finding clips, video clips and ChatGPT on a
+  phone.
 - **"Clip a video in three phrases" guide** (`src/content/posts/gleaner-clip-video.md`): the
   seventh and last follow-up Gleaner guide, tagged `guide`, on Gleaner 2.14.0's YouTube clips: saving
   a whole video, keeping a time range or a topic as parts, what a video clip holds, and what to do
@@ -380,6 +388,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site copy caught up with Gleaner 2.15.6 (`d77172b`)** (`README.md`,
+  `plugins/gleaner/skills/README.md`, `HomeHero.astro`, `HomeFeatures.astro`,
+  `HomeRequirements.astro`, `upstream-sync.json`): since 2.15.6 an unconfigured ChatGPT save is a
+  private editable Page with the whole clip in the chat, not a Markdown file; since 2.14.0 every host
+  shows the whole clip in the chat; since 2.15.0 clips end with Further reading links; since 2.14.1 an
+  optional clip list gives each saved clip a row; and since 2.13.1 a chat-only clip can be found
+  through tagged chats. The two READMEs mirror upstream main (`d77172b`) again by the same steps as
+  before (upstream text, links to files that only exist upstream pointed at GitHub, the fork step
+  naming shawn-sandy/gleaner, then Prettier); the same steps applied to `0665272` reproduce the
+  previous mirrors byte for byte. The hero, the features section and the requirements section drop the
+  "Markdown file in ChatGPT" default, add an Editable Page destination (`--to page`) and a ChatGPT
+  Page tools line, mention Further reading and the clip list, and replace "a clip left in the chat
+  won't turn up" and "nothing is stored". `gleaner-symbol.svg` is unchanged upstream, so no image,
+  icon or palette changes. `upstream-sync.json` moves to `d77172b`, upstream main's head.
 - **Site copy caught up with Gleaner 2.12.5 (`0665272`)** (`README.md`, `upstream-sync.json`):
   since 2.12.3 a new clip's confirmation opens with its title (`Saved "<title>"`), since 2.12.4
   the plugin's icon is the square stacked-card logo the site already uses, and since 2.12.5 a
