@@ -1,7 +1,7 @@
 ---
 title: 'Find anything you saved with Gleaner'
 pubDate: 2026-10-29
-description: 'Ask Gleaner what you saved and get a table back. The phrases that find clips by topic, tag, or date, plus index sheets, bookmarks, and why a clip kept in the chat is hard to find. Written for Gleaner 2.13.1.'
+description: 'Find clips by topic, tag, or date, keep an optional clip list or ChatGPT index, and export snapshots as spreadsheets or bookmarks. Updated for Gleaner 2.15.10.'
 author: 'Shawn Sandy'
 tags: ['gleaner', 'guide', 'plugins']
 publish: true
@@ -9,8 +9,8 @@ publish: true
 
 Saving is half the job. This guide covers the other half: getting a clip back
 when you need it. It's the end-of-day step of
-[a day with Gleaner](/posts/gleaner-daily-routine), in more detail. Written for
-Gleaner 2.13.1.
+[a day with Gleaner](/posts/gleaner-daily-routine), in more detail. Updated
+November 9, 2026 for Gleaner 2.15.10.
 
 ## Just ask
 
@@ -44,6 +44,10 @@ You don't need Claude open to find a clip.
 
 ## Clips you kept in the chat
 
+ChatGPT now defaults to editable Pages when available. Keep the verified Page
+link to return to that clip. The limits below apply to clips delivered only in
+the conversation, such as an explicit `--to chat` save.
+
 A clip that stayed in the conversation isn't stored anywhere, so a Drive or
 Notion search can't see it. Gleaner tags those chats with a plain
 `Gleaner clip` line instead. Where your app can search past conversations
@@ -53,6 +57,30 @@ tag into that conversation search yourself.
 
 If a clip matters, save it somewhere stored. See
 [where should my clips go?](/posts/gleaner-where-clips-go)
+
+## Keep a list as you save
+
+> keep my clip list in Notion
+
+An optional clip list records saves across destinations, including chat-only
+clips. Choose a Google Sheet in Drive, a Notion database, or a `Clip List.md`
+file in a local or Cowork folder. Drive lists also need the Google Sheets
+connector. The list stays off until you set it up.
+
+Say "don't list this" to skip one row, or "stop my clip list" to turn it off.
+Neither deletes clips. A failed row does not undo a successful save, and searches
+still read your clips rather than the list. A same-session update adds a row
+only when its link changes; the newest row then holds the current link.
+
+In ChatGPT, you can also ask:
+
+> Keep a Gleaner Clip Index.md file in ChatGPT and update it whenever I save or update a clip.
+
+With persistent file tools, Gleaner maintains that one file and refreshes an
+existing clip's row when it changes. Without those tools, it can provide a
+downloadable snapshot. For use across chats, add the instruction and saved-file
+link to your project's instructions. Adding the file to Project Sources and
+refreshing an uploaded copy are manual steps.
 
 ## Take your clips with you
 

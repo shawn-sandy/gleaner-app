@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { RESET_MS, bindCopyCommands } from '#utils/copy-command'
 
-const COMMAND = '/plugin install gleaner@shawn-sandy'
+const COMMAND = '/plugin install gleaner@gleaner'
 
 const writeText = vi.fn<(text: string) => Promise<void>>()
 

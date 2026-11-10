@@ -92,7 +92,15 @@ const platforms: Platform[] = [
           'Connected Chrome tabs, or the Work browser in Work mode. No browser? Paste the text, or give a URL if the session can fetch pages.',
       },
     ],
-    optional: [drive, notion],
+    optional: [
+      {
+        need: 'Page tools and access',
+        detail:
+          'Create, read and edit tools let Gleaner keep a private editable Page, its default for new unconfigured ChatGPT clips.',
+      },
+      drive,
+      notion,
+    ],
   },
 ]
 ---
@@ -158,8 +166,10 @@ const platforms: Platform[] = [
       }
     </div>
     <p class="home-requirements__default">
-      Nothing else is needed for the default. Each clip comes back in the conversation: a Markdown
-      file in ChatGPT, an HTML file in Claude.
+      The full clip stays readable in the conversation. ChatGPT also creates an editable Page when
+      its tools are available and no chosen destination or raw-file request takes precedence.
+      Missing Page tools before a default save mean Markdown delivery instead. Claude defaults to an
+      HTML file. No Node.js installation is needed to use Gleaner.
     </p>
     <a class="home-requirements__more" href={doc}>Full requirements on GitHub</a>
   </div>

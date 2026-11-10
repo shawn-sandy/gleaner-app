@@ -5,10 +5,7 @@ import CopyCommand from '#components/astro/CopyCommand.astro'
 import HomeHero from '#components/astro/HomeHero.astro'
 import HomeInstall from '#components/astro/HomeInstall.astro'
 
-const INSTALL = [
-  '/plugin marketplace add shawn-sandy/gleaner',
-  '/plugin install gleaner@shawn-sandy',
-]
+const INSTALL = ['/plugin marketplace add shawn-sandy/gleaner', '/plugin install gleaner@gleaner']
 
 /** The text each copy button hands to the clipboard, in page order. */
 function copied(html: string): string[] {

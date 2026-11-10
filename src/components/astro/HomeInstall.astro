@@ -53,8 +53,15 @@ const repo = 'https://github.com/shawn-sandy/gleaner'
       <p class="home-install__label">In Claude Code</p>
       <div class="home-install__code">
         <CopyCommand command="/plugin marketplace add shawn-sandy/gleaner" />
-        <CopyCommand command="/plugin install gleaner@shawn-sandy" />
+        <CopyCommand command="/plugin install gleaner@gleaner" />
       </div>
+      <p class="home-install__needs">
+        Installed from the old <code>shawn-sandy</code> marketplace? Follow the{' '}
+        <a href={`${repo}#upgrading-from-shawn-sandy-to-gleaner`}>marketplace migration steps</a>{
+          ' '
+        }
+        to reinstall under <code>gleaner</code> and keep your data.
+      </p>
       <p class="home-install__needs">
         Needs a paid Claude plan with the new Chrome side panel, or Claude Code. Google Drive and
         Notion connectors are optional, for storing clips there.
