@@ -33,6 +33,8 @@ New to Gleaner? [Install it](/#install) first.
 The words after the comma become the clip's **note**, which is how you'll find
 it later. Got links instead of tabs? Say `save https://…`.
 
+More on this: [Gleaner in ChatGPT and on your phone](/posts/gleaner-chatgpt-phone).
+
 ## While you work: keep just the good parts
 
 > grab the part about animation lengths
@@ -45,6 +47,8 @@ Parts can come from different tabs. Keep the same conversation open until you
 say "done." After Claude answers a question about the page, say **"save that"**
 to keep the answer.
 
+More on this: [save the good parts, not the whole page](/posts/gleaner-save-good-parts).
+
 ## Lunch: save the talk
 
 > save this video
@@ -56,12 +60,16 @@ range needs the transcript, which Gleaner reads best in your own Chrome. See
 [what the YouTube skill can't do](/posts/youtube-skill-constraints) for the
 workarounds.
 
+More on this: [clip a video in three phrases](/posts/gleaner-clip-video).
+
 ## Afternoon: decide what's next
 
 > what should I follow up on?
 
 Gleaner suggests three next steps from the clip and saves them to it. Pick one,
 and it starts on it.
+
+More on this: [from clip to next step](/posts/gleaner-clip-next-step).
 
 ## End of day: look back
 

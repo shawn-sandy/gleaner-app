@@ -1,7 +1,7 @@
 ---
 const platform = 'github'
 const username = 'shawn-sandy'
-import Social from './Social.astro'
+import Social from '#components/astro/Social.astro'
 import { getHomeSections } from '#utils/home-sections'
 const today = new Date()
 
@@ -37,7 +37,9 @@ const sections = Astro.url.pathname === '/' ? await getHomeSections() : []
         <span aria-hidden="true">·</span>{' '}
         <a href="/guides">Guides</a>{' '}
         <span aria-hidden="true">·</span>{' '}
-        <a href="/changelog">Changelog</a>
+        <a href="/changelog">Changelog</a>{' '}
+        <span aria-hidden="true">·</span>{' '}
+        <a href="/terms">Terms of Service</a>
       </p>
     </nav>
     <p>
@@ -50,7 +52,7 @@ const sections = Astro.url.pathname === '/' ? await getHomeSections() : []
       <Social platform="youtube" username="astrodotbuild" />
     </p>
     <p>
-      &copy; {today.getFullYear()} Your name here. All rights reserved.
+      &copy; {today.getFullYear()} Shawn Sandy. All rights reserved.
     </p>
   </div>
 </footer>

@@ -14,6 +14,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   ChatGPT index, Further reading, and the `gleaner@gleaner` install command. Add a
   release roundup covering YouTube routing and browser-read fallback. Refresh the
   upstream README copies and sync bookmark to `f997824` (2.15.10).
+- **Gleaner 2.13 to 2.15 release post** (`src/content/posts/gleaner-2-13-to-2-15.md`): covers the 18
+  releases after the 2.12 post, 2.12.3 to 2.15.6, grouped by what a user notices: editable Pages as
+  ChatGPT's default (2.15.5, 2.15.6), the full clip in the chat on every host (2.14.0), Further
+  reading links (2.15.0), the optional clip list (2.14.1), the bookmarks export and chat tagging
+  (2.13.0, 2.13.1), Playwright transcripts and fewer prompts (2.13.2 to 2.13.4), fetching pasted
+  links first on phones (2.14.2), the ChatGPT clip index file (2.15.2), and the README's new prompt
+  examples. It links the existing guides for bookmarks, finding clips, video clips and ChatGPT on a
+  phone.
+- **"Clip a video in three phrases" guide** (`src/content/posts/gleaner-clip-video.md`): the
+  seventh and last follow-up Gleaner guide, tagged `guide`, on Gleaner 2.14.0's YouTube clips: saving
+  a whole video, keeping a time range or a topic as parts, what a video clip holds, and what to do
+  without a transcript, in Claude and in ChatGPT. The daily-routine guide's lunch section links to it.
+- **"Gleaner in ChatGPT and on your phone" guide** (`src/content/posts/gleaner-chatgpt-phone.md`): the
+  sixth follow-up Gleaner guide, tagged `guide`, on Gleaner 2.13.4 in ChatGPT: importing the plugin and
+  connecting a browser and storage, connected tabs versus the Work browser, the inline clip and Markdown
+  download, reading clips and saving videos on the phone app, and what to do when it can't see the page.
+  The daily-routine guide's morning section links to it.
+- **"From clip to next step" guide** (`src/content/posts/gleaner-clip-next-step.md`): the fifth follow-up
+  Gleaner guide, tagged `guide`, on follow-ups with Gleaner 2.13.1: asking for next steps, what the three
+  suggestions draw on, where they're saved in the clip, the copy-and-paste prompt for picking a clip up
+  later, hand-offs to other skills, and what to do when it asks instead. The daily-routine guide's
+  afternoon section links to it.
+- **"Save the good parts" guide** (`src/content/posts/gleaner-save-good-parts.md`): the fourth follow-up
+  Gleaner guide, tagged `guide`, on clipping parts with Gleaner 2.13.1: adding, checking, and saving
+  parts, collecting across tabs by surface, keeping an answer, and fixing a wrong guess. It shows a
+  two-part clip on a phone (`public/images/guides/clip-parts-phone.webp`). The daily-routine guide's
+  "While you work" section links to it.
 - **Post header on the string** (`src/components/astro/PostHeader.astro`): every `/posts/<slug>`
   page now opens with a Gleaner-brand band in place of the shared header: a full-bleed ground
   holding the title in evergreen Plus Jakarta Sans, left-aligned with the article, the deck, a
@@ -388,6 +415,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The hero, install cards, requirements and site description are unchanged, and 2.13.4's fewer
     prompts contradict nothing on the site
 
+- **Site copy caught up with Gleaner 2.15.6 (`d77172b`)** (`README.md`,
+  `plugins/gleaner/skills/README.md`, `HomeHero.astro`, `HomeFeatures.astro`,
+  `HomeRequirements.astro`, `upstream-sync.json`): since 2.15.6 an unconfigured ChatGPT save is a
+  private editable Page with the whole clip in the chat, not a Markdown file; since 2.14.0 every host
+  shows the whole clip in the chat; since 2.15.0 clips end with Further reading links; since 2.14.1 an
+  optional clip list gives each saved clip a row; and since 2.13.1 a chat-only clip can be found
+  through tagged chats. The two READMEs mirror upstream main (`d77172b`) again by the same steps as
+  before (upstream text, links to files that only exist upstream pointed at GitHub, the fork step
+  naming shawn-sandy/gleaner, then Prettier); the same steps applied to `0665272` reproduce the
+  previous mirrors byte for byte. The hero, the features section and the requirements section drop the
+  "Markdown file in ChatGPT" default, add an Editable Page destination (`--to page`) and a ChatGPT
+  Page tools line, mention Further reading and the clip list, and replace "a clip left in the chat
+  won't turn up" and "nothing is stored". `gleaner-symbol.svg` is unchanged upstream, so no image,
+  icon or palette changes. `upstream-sync.json` moves to `d77172b`, upstream main's head.
 - **Site copy caught up with Gleaner 2.12.5 (`0665272`)** (`README.md`, `upstream-sync.json`):
   since 2.12.3 a new clip's confirmation opens with its title (`Saved "<title>"`), since 2.12.4
   the plugin's icon is the square stacked-card logo the site already uses, and since 2.12.5 a
@@ -981,10 +1022,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `requireSignedIn` first in their frontmatter. Signed-out visitors are redirected to sign-in, and
   without Clerk keys the pages still render the `/auth-setup` notice with HTTP 503. Clerk removed
   `createRouteMatcher` because middleware path matching can diverge from Astro's routing. The
-  middleware keeps a `/dashboard` and `/organization` prefix match, now on the decoded path, as a
-  backstop, and `tests/utils/require-signed-in.test.ts` fails when a page under those trees does
-  not call `requireSignedIn`. `/organization` used to redirect signed-out visitors to `/sign-in`,
-  which does not exist; it now uses Clerk's sign-in redirect like the dashboard
+  middleware keeps a `/dashboard` and `/organization` prefix match, now on Astro's normalized
+  `context.url`, as a backstop, and `tests/utils/require-signed-in.test.ts` fails when a page
+  under those trees does not call `requireSignedIn` first. `/organization` used to redirect
+  signed-out visitors to `/sign-in`, which does not exist; it now uses Clerk's sign-in redirect
+  like the dashboard
 - **Protected routes no longer fail open without Clerk keys** (`src/middleware.ts`): with the Clerk
   keys missing or still the `YOUR_*` placeholders, `/dashboard` and `/organization` (and their
   sub-paths) used to be served to anyone. They now render a setup notice (`/auth-setup`) with HTTP 503. With real keys, unauthenticated visitors are still redirected to sign-in. The stale

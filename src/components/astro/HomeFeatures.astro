@@ -81,7 +81,10 @@ const callouts = [
   },
 ]
 
-/** Destinations and their `--to` flags, as the README's flag table lists them. */
+/**
+ * Destinations and their `--to` flags, as the README's flag table lists them, plus the editable
+ * Page (`--to page`), which the README documents in its destinations table instead.
+ */
 const destinations = [
   { name: 'Editable Page', where: ['Private, editable in ChatGPT'], flag: '--to page' },
   { name: 'This conversation', where: ['.md in ChatGPT, .html in Claude'], flag: '--to chat' },
