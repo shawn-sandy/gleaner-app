@@ -29,7 +29,8 @@ read. The changes are listed in the
   at a desk. In ChatGPT, when Gleaner can't read the video at all, it asks you
   to paste its description or transcript, or to save the link only.
 - **Paste the transcript** only where Gleaner can't read it, such as Claude
-  Code's built-in browser without Claude in Chrome, or a chat with no browser.
+  Code's built-in browser with neither Claude in Chrome nor Playwright, or a
+  chat with no browser.
   In ChatGPT, open **Show transcript** in the video's tab first.
 - **Name the time range or topic** for a part whenever Gleaner can't see the
   player.
@@ -165,9 +166,10 @@ them. When Gleaner runs in a chat with no browser tools and you give it a link,
 such as one shared from the YouTube app, it can only fetch the video's page from
 the web. It says the video was read without a browser. The Claude phone and web
 apps do the same when your browser is on your computer, since 2.14.2: one fetch,
-no Chrome windows to approve. The clip is written from the description, and the
-confirmation says how to get the transcript. Ask for it, and Gleaner opens the
-video in Chrome on your computer.
+with no Chrome windows to approve. If the fetch can't read the video, Gleaner
+falls back to the browser. A clip saved from the fetch is written from the
+description, and the confirmation says how to get the transcript. Ask for it,
+and Gleaner opens the video in Chrome on your computer.
 
 What that costs you:
 
