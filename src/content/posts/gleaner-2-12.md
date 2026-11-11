@@ -17,6 +17,9 @@ to open, and picks the right browser when a session has more than one. The one
 minor release, 2.12.0, is for Claude: Gleaner closes the Claude in Chrome tabs
 it opens.
 
+This post is the 2.12 snapshot. ChatGPT's default has since changed: see
+[Gleaner 2.13 to 2.15](/posts/gleaner-2-13-to-2-15).
+
 ## Install or update
 
 In Claude Code:
