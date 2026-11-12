@@ -1,7 +1,7 @@
 ---
 title: 'Gleaner 2.13 to 2.15: bookmarks, a clip list, and editable pages in ChatGPT'
 pubDate: 2026-11-07
-description: "Eighteen releases of the Gleaner plugin, 2.12.3 to 2.15.6: a browser bookmarks export, an optional clip list, Further reading links in clips, the full clip in the chat on every host, and editable Pages as ChatGPT's new default."
+description: 'Gleaner updates through 2.15.10: bookmarks, clip lists, Further reading, full clips in chat, editable Pages in ChatGPT, the renamed marketplace, and more reliable page and video reads.'
 author: 'Shawn Sandy'
 tags: ['gleaner', 'chatgpt', 'claude-code', 'plugins', 'changelog']
 publish: true
@@ -10,6 +10,8 @@ publish: true
 Gleaner went from 2.12.2 to 2.15.6 between October 27 and November 7, 2026,
 after [the 2.12 post](/posts/gleaner-2-12). That is 18 releases, so this post
 groups them by what you notice rather than walking through each one.
+
+Updated November 9, 2026 to include the four releases through **2.15.10**.
 
 Three changes matter most. Every save now shows the whole clip in the chat, on
 every host. Clips now end with links to read next, when the page has good ones. And ChatGPT now saves
@@ -22,16 +24,35 @@ In Claude Code:
 
 ```text
 /plugin marketplace add shawn-sandy/gleaner
-/plugin install gleaner@shawn-sandy
+/plugin install gleaner@gleaner
 ```
 
 In the Claude app or Cowork, open **Customize → Plugins**, choose **Add → Add
 marketplace**, enter `shawn-sandy/gleaner`, and install **Gleaner**. If a new
 command does not show up after an update in Claude Code, run `/reload-plugins`.
 
+The marketplace was renamed to `gleaner` in 2.15.8. Existing installs from
+`shawn-sandy` need a reinstall; follow the
+[migration steps](https://github.com/shawn-sandy/gleaner#upgrading-from-shawn-sandy-to-gleaner)
+to keep your data.
+
+## 2.15.7 to 2.15.10: installation and more reliable reads
+
+- **2.15.7:** the optional Node bookmark renderer was removed. You don't need
+  Node.js to use Gleaner; the plugin ships instructions, metadata, and icons.
+- **2.15.8:** the Claude Code install ID is now `gleaner@gleaner`. The GitHub
+  repository remains `shawn-sandy/gleaner`.
+- **2.15.9:** video requests, including Shorts, go to the YouTube skill before
+  ordinary page extraction, so video sourcing and transcript fallbacks apply.
+- **2.15.10:** when a browser read fails, returns no text, or site access is
+  declined, Gleaner tries one web fetch and says the clip was read without a
+  browser. Sign-in pages, paywall notices, and bot checks are not saved as
+  content. A cut-off response is marked partial and cannot replace a fuller
+  existing clip.
+
 ## 2.15.5 and 2.15.6: editable Pages are ChatGPT's default
 
-This is the one change that moves where your clips go, so it comes first.
+This is the change that moves where your clips go.
 
 In 2.15.5, ChatGPT could save a clip as an editable Page if you asked: say
 "save this clip as an editable ChatGPT Page", or add `--to page`. In 2.15.6,
@@ -44,7 +65,7 @@ that became what happens when you have not chosen anything else.
   clip you are updating, or a request for a raw file all come before the Page.
 - **Edits are kept.** If you edit the Page and then add to the clip in the same
   conversation, Gleaner keeps your edits. Ask for the Page as Markdown, and the
-  export includes them.
+  export includes them. Downloaded copies do not automatically stay in sync.
 - **No Page tools?** If ChatGPT doesn't have them when you save, Gleaner says so
   and falls back to a Markdown file in the chat. It does this only for the
   built-in default.
@@ -55,6 +76,9 @@ that became what happens when you have not chosen anything else.
 Claude doesn't change. You still get the clip in the chat with an HTML file.
 Gleaner's notes list the installed plugin, Android, and live Claude checks as
 release gates for this change.
+
+Pages require the available create, read, and edit tools and access. `--to page`
+applies to one save; Pages cannot be stored as a persistent destination preference.
 
 ## 2.14.0: the whole clip, on every host
 
@@ -154,7 +178,9 @@ than once.
   `Gleaner Clip Index.md` file, and update the same file when clips change. To
   use it across chats, add that to your ChatGPT project's instructions with the
   file's link. Adding it to the project's sources is still up to you. Claude's
-  clip lists are unchanged.
+  clip lists are unchanged. Persistent file tools are required to maintain one
+  file; without them, Gleaner can provide a downloadable snapshot. Refreshing an
+  uploaded project copy remains a manual step.
 - **Previews after edits (2.15.4).** After every edit to a clip, ChatGPT shows
   the complete updated clip in the conversation, and fixes a missing preview
   there without making another file. A Markdown link is still a download, and
@@ -186,7 +212,7 @@ see on a phone: the formatted clip in the chat, and a separate download link.
 For a session clip, Gleaner saves only the messages it can actually read. It
 won't rebuild earlier ones from memory.
 
-## Where Gleaner stands at 2.15.6
+## Where Gleaner stands at 2.15.10
 
 - **Four skills:** `glean`, `youtube`, `preferences`, and `follow-up`.
 - **In the chat by default:** the whole clip, on every host. Claude adds an
@@ -206,9 +232,9 @@ won't rebuild earlier ones from memory.
 Several of these have a step-by-step guide:
 [where clips go](/posts/gleaner-where-clips-go),
 [ChatGPT and your phone](/posts/gleaner-chatgpt-phone), and
-[clipping a video](/posts/gleaner-clip-video). The first two were written for
-earlier releases. Where they call the chat, or a Markdown download, ChatGPT's
+[clipping a video](/posts/gleaner-clip-video). The phone guide was written for an
+earlier release. Where it calls the chat, or a Markdown download, ChatGPT's
 default, a ChatGPT save now makes an editable Page unless you choose
 otherwise. Every published release, with its
 notes, is on the [changelog](/changelog). The source is on
-[GitHub](https://github.com/shawn-sandy/gleaner).
+[GitHub](https://github.com/shawn-sandy/gleaner/blob/f99782493e368b8887591109beb90cffa3aa572c/README.md).

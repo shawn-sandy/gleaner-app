@@ -38,14 +38,14 @@ const skills = [
     name: 'youtube',
     title: 'Videos and the moments in them',
     description:
-      "Save a video as a summary built from its transcript, read from YouTube's own transcript panel in your Chrome, or else from its description, with its channel, its useful links and key moments that link to the exact second. Clip just the moments that matter, or paste the transcript where the panel can't be read.",
+      "Save a video as a summary built from its transcript, read from YouTube's own transcript panel in your Chrome or Playwright, or else from its description, with its channel, its useful links and key moments that link to the exact second. Clip just the moments that matter, or paste the transcript where the panel can't be read.",
     asks: ['save this video', 'keep 3:10 to 5:40', 'grab the part about generics'],
   },
   {
     name: 'preferences',
     title: 'Where clips go, set once',
     description:
-      'Run setup once to choose where clips go and in what format. Pages and videos share these settings, which can sync through Google Drive if you want.',
+      'Choose where clips go and in what format, and optionally keep a clip list in Drive, Notion or a project folder. Pages and videos share these settings, which can sync through Google Drive if you want.',
     asks: ['always save here', 'use markdown by default', 'show my preferences'],
   },
   {
@@ -65,7 +65,7 @@ const skills = [
 const callouts = [
   {
     title: 'Search by asking',
-    body: 'Ask "what did I save about Cowork?" to get a table of matching stored clips, newest first, each linked. Gleaner searches titles, tags, notes and summaries. A clip left only in the chat isn\'t stored, but where your host can search past chats, Gleaner points you to the chat that holds it.',
+    body: 'Ask "what did I save about Cowork?" to get a table of matching stored clips, newest first, each linked. Gleaner searches titles, tags, notes and summaries, and where your app searches past conversations, it can find the chat that holds a clip. You can export clips as browser bookmarks too.',
   },
   {
     title: 'One clip per page',
@@ -86,7 +86,7 @@ const callouts = [
  * Page (`--to page`), which the README documents in its destinations table instead.
  */
 const destinations = [
-  { name: 'Editable Page', where: ['A private page in ChatGPT'], flag: '--to page' },
+  { name: 'Editable Page', where: ['Private, editable in ChatGPT'], flag: '--to page' },
   { name: 'This conversation', where: ['.md in ChatGPT, .html in Claude'], flag: '--to chat' },
   { name: 'Google Drive', where: ['Browser Research/', '<category>/'], flag: '--to drive' },
   { name: 'Notion', where: ['Browser Research database'], flag: '--to notion' },
@@ -130,13 +130,12 @@ const destinations = [
       <div class="home-features__head">
         <h3 class="home-features__subtitle">What's in every clip</h3>
         <p class="home-features__muted">
-          About 400 words at most, in plain language: an HTML file in a Claude chat, an editable
-          Page in ChatGPT, or Markdown when it's saved to a folder or Drive. A title and details
-          such as the source, date and tags come first. A page clip follows with a TL;DR, key
-          points, notable details and takeaways, then a few links for further reading when the page
-          has good ones. Videos get a channel line, a list of useful links and key moments from
-          their transcript, or their chapters without one, in place of key points. Tutorial pages
-          get numbered steps.
+          About 400 words at most, in plain language, with the full clip readable in your chat. A
+          title and details such as the source, date and tags come first. A page clip follows with a
+          TL;DR, key points, notable details and takeaways. Videos get a channel line, a list of
+          useful links and key moments from their transcript, or their chapters without one, in
+          place of key points. Tutorial pages get numbered steps. Further reading keeps useful links
+          from the source, with a short explanation of what each adds.
         </p>
       </div>
 
@@ -218,15 +217,17 @@ const destinations = [
               <span class="home-features__gutter" aria-hidden="true"></span>
               <span class="home-features__sections">
                 {
-                  ['TL;DR', 'Key points', 'Notable details', 'Takeaways'].map(heading => (
-                    <span>
-                      <span class="home-features__syntax" aria-hidden="true">
-                        ##{' '}
+                  ['TL;DR', 'Key points', 'Notable details', 'Takeaways', 'Further reading'].map(
+                    heading => (
+                      <span>
+                        <span class="home-features__syntax" aria-hidden="true">
+                          ##{' '}
+                        </span>
+                        <span class="home-features__strong">{heading}</span>{' '}
+                        <span class="home-features__syntax">…</span>
                       </span>
-                      <span class="home-features__strong">{heading}</span>{' '}
-                      <span class="home-features__syntax">…</span>
-                    </span>
-                  ))
+                    )
+                  )
                 }
               </span>
             </div>
@@ -255,13 +256,12 @@ const destinations = [
       <div class="home-features__destinations-head">
         <h3 class="home-features__subtitle">Saves where you already keep things</h3>
         <p class="home-features__muted">
-          By default, each clip comes back in full in the chat, phones included. ChatGPT also saves
-          it as a private editable Page and links to it. Claude adds an HTML file to download. Say
-          "short preview" for just an overview, key details and links. To store a clip somewhere
-          else, name the place or add <code class="home-features__inline-code">--to</code>. To store
-          every clip, set a default with{' '}
-          <code class="home-features__inline-code">/gleaner:preferences setup</code>, which can also
-          keep a clip list with a row for each clip you save.
+          In ChatGPT, new clips default to a private editable Page with the full text in chat and a
+          verified Page link, when Page tools are available. Your chosen destination or raw-file
+          request takes precedence. Claude keeps HTML chat delivery and shows the full clip too.
+          Name a destination or add <code class="home-features__inline-code">--to</code> for one save,
+          or choose a supported default with{' '}
+          <code class="home-features__inline-code">/gleaner:preferences setup</code>.
         </p>
       </div>
 
@@ -280,6 +280,13 @@ const destinations = [
           ))
         }
       </ul>
+
+      <p class="home-features__muted">
+        Want a file in ChatGPT? Ask for Markdown or use{' '}
+        <code class="home-features__inline-code">--to chat</code>. If Page tools are missing before
+        a default save starts, Gleaner explains and delivers Markdown instead. An explicit Page
+        request needs an alternative choice. Pages cannot be set as a persistent preference.
+      </p>
 
       <div class="home-features__foot">
         <p class="home-features__muted">

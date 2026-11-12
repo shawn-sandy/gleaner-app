@@ -1,7 +1,7 @@
 ---
 title: 'A day with Gleaner: a quick guide to your daily reading routine'
 pubDate: 2026-10-29
-description: 'A five-minute guide to fitting Gleaner into your workday: set it up once, then save, collect, follow up, and review with a few plain phrases. Written for Gleaner 2.12.5.'
+description: 'A five-minute guide to fitting Gleaner into your workday: save, collect, follow up, and review with a few plain phrases. Updated for Gleaner 2.15.10.'
 author: 'Shawn Sandy'
 tags: ['gleaner', 'guide', 'claude-code', 'chatgpt', 'plugins']
 publish: true
@@ -9,16 +9,18 @@ publish: true
 
 Keep what you read without adding another app to your day. Say what you want
 in plain words, and Gleaner writes a short, tagged clip. Here's one workday with
-it, for Gleaner 2.12.5.
+it, updated November 9, 2026 for Gleaner 2.15.10.
 
 ## Once: pick where clips go
 
 Run `/gleaner:preferences setup`, or say "set up my save preferences."
 
-By default, a clip comes back as a file in the chat, which a later search can't
-find. Pick **Google Drive** or **Notion** instead, so every clip is stored and
-searchable. You can still send one clip elsewhere with `--to`, such as
-`--to local`.
+New, unconfigured ChatGPT clips default to private editable Pages when Page tools
+are available, with the full clip and a verified link in chat. Claude defaults to
+an HTML chat file. Pick **Google Drive** or **Notion** if you want clips stored and
+searchable there. You can still send one clip elsewhere with `--to`, such as
+`--to local` or `--to chat`. Chat-only clips can be found through conversation
+search where your host supports it.
 
 More on this: [where should my clips go?](/posts/gleaner-where-clips-go)
 

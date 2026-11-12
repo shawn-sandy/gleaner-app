@@ -160,9 +160,9 @@ don't need to paste anything. You still name the time range or topic.
 ## On a phone, there's usually no browser for Gleaner to drive
 
 Every browser Gleaner reads a video in is one it drives: the Chrome side panel,
-the Browser pane in Claude Code desktop, Claude in Chrome, or ChatGPT's
-connected Chrome tabs and Work browser. On a phone, you usually aren't in any of
-them. When Gleaner runs in a chat with no browser tools and you give it a link,
+the Browser pane in Claude Code desktop, Claude in Chrome, Playwright in Claude
+Code, or ChatGPT's connected Chrome tabs and Work browser. On a phone, you
+usually aren't in any of them. When Gleaner runs in a chat with no browser tools and you give it a link,
 such as one shared from the YouTube app, it can only fetch the video's page from
 the web. It says the video was read without a browser. The Claude phone and web
 apps do the same when your browser is on your computer, since 2.14.2: one fetch,

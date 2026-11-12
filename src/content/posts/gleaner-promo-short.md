@@ -118,9 +118,12 @@ ChatGPT re-record and the new logo, ships as its example.
 
 In Claude Code:
 
+The install command below uses the current marketplace name. If you installed
+from `shawn-sandy`, follow the [marketplace migration steps](https://github.com/shawn-sandy/gleaner#upgrading-from-shawn-sandy-to-gleaner).
+
 ```text
 /plugin marketplace add shawn-sandy/gleaner
-/plugin install gleaner@shawn-sandy
+/plugin install gleaner@gleaner
 ```
 
 In the Claude app or Cowork, open **Customize → Plugins**, choose **Add → Add

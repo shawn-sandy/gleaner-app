@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Gleaner 2.13–2.15.10 site refresh**: update the homepage and current guides for
+  editable Pages in ChatGPT, full clips in every host, optional clip lists and the
+  ChatGPT index, Further reading, and the `gleaner@gleaner` install command. Add a
+  release roundup covering YouTube routing and browser-read fallback. Refresh the
+  upstream README copies and sync bookmark to `f997824` (2.15.10).
 - **Gleaner 2.13 to 2.15 release post** (`src/content/posts/gleaner-2-13-to-2-15.md`): covers the 18
   releases after the 2.12 post, 2.12.3 to 2.15.6, grouped by what a user notices: editable Pages as
   ChatGPT's default (2.15.5, 2.15.6), the full clip in the chat on every host (2.14.0), Further
@@ -387,6 +392,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The `project-setup` skill now hands login and database setup off to it
 
 ### Changed
+
+- **Site copy caught up with Gleaner 2.13.4 (`ad897bf`)** (`README.md`,
+  `plugins/gleaner/skills/README.md`, `src/components/astro/HomeFeatures.astro`,
+  `src/content/posts/gleaner-where-clips-go.md`, `src/content/posts/youtube-skill-constraints.md`,
+  `upstream-sync.json`): since 2.13.0 clips export as a browser bookmarks file, since 2.13.1 every
+  save tags its chat so a search can find it where the host searches past conversations, since
+  2.13.2 Claude Code can read YouTube transcripts through the Playwright browser tools, since
+  2.13.3 ChatGPT tries an untried browser after a failed fetch, and since 2.13.4 Gleaner asks for
+  permission less often
+  - The README and skills guide mirror upstream again, rebuilt the same way: upstream text, links
+    to files that only exist upstream pointed at GitHub, the fork step still naming
+    shawn-sandy/gleaner, then Prettier. The same steps applied to `0665272` reproduce the previous
+    mirrors byte for byte
+  - Homepage: "Search by asking" no longer says a clip left in the chat won't turn up, and mentions
+    the bookmarks export. The YouTube card says the transcript panel is read in your Chrome or
+    Playwright
+  - "Where should my clips go?" no longer says a later search can't find a chat clip
+  - The YouTube limits post moves to 2.13.4: the Playwright route, ChatGPT's browser fallback, the
+    ad wait and newer transcript panel, and no playback position from a tab Gleaner opened. Its
+    source link points at the `v2.13.4` tag
+  - The hero, install cards, requirements and site description are unchanged, and 2.13.4's fewer
+    prompts contradict nothing on the site
 
 - **Site copy caught up with Gleaner 2.15.6 (`d77172b`)** (`README.md`,
   `plugins/gleaner/skills/README.md`, `HomeHero.astro`, `HomeFeatures.astro`,

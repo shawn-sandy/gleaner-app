@@ -1,7 +1,7 @@
 ---
 title: 'Where should my Gleaner clips go?'
 pubDate: 2026-10-29
-description: 'Chat, Google Drive, Notion, your project, or an artifact: a one-line pick for each place Gleaner can save a clip, what each one needs, and how to send one clip somewhere else. Written for Gleaner 2.13.'
+description: 'Editable Pages in ChatGPT, chat files, Google Drive, Notion, your project, or an artifact: where Gleaner saves clips and how to choose. Updated for Gleaner 2.15.10.'
 author: 'Shawn Sandy'
 tags: ['gleaner', 'guide', 'plugins']
 publish: true
@@ -9,7 +9,7 @@ publish: true
 
 Pick one place to keep your clips and Gleaner saves there every time. This is
 the first step of [a day with Gleaner](/posts/gleaner-daily-routine), in more
-detail. Written for Gleaner 2.13.
+detail. Updated November 9, 2026 for Gleaner 2.15.10.
 
 ## Set it once
 
@@ -18,6 +18,10 @@ detail. Written for Gleaner 2.13.
 Or run `/gleaner:preferences setup`. Gleaner asks for a default destination
 and a format, then remembers them. Say "show my preferences" to check them
 later.
+
+No setup is needed for the built-in defaults: an editable Page in ChatGPT when
+Page tools are available, or HTML chat delivery in Claude. Pages can be requested
+with `--to page`, but cannot be stored as a persistent destination preference.
 
 ## Every clip looks the same
 
@@ -36,18 +40,26 @@ note above a short summary. Here's a real one, opened on a phone:
 
 ## Pick a destination
 
-| If you want…                       | Pick           | Needs                              |
-| ---------------------------------- | -------------- | ---------------------------------- |
-| Nothing set up, one clip at a time | The chat       | Nothing                            |
-| Clips in folders, by category      | Google Drive   | Google Drive connector             |
-| A clip table you can filter        | Notion         | Notion connector                   |
-| Clips next to your code            | This project   | A Claude Code session              |
-| Clips in a Cowork project          | Cowork project | Claude desktop, open and connected |
-| A private web page per clip        | Artifact       | A session like Claude Code         |
+| If you want…                  | Pick           | Needs                              |
+| ----------------------------- | -------------- | ---------------------------------- |
+| An editable clip in ChatGPT   | Editable Page  | Page create, read and edit tools   |
+| A file in the conversation    | The chat       | No destination connector           |
+| Clips in folders, by category | Google Drive   | Google Drive connector             |
+| A clip table you can filter   | Notion         | Notion connector                   |
+| Clips next to your code       | This project   | A Claude Code session              |
+| Clips in a Cowork project     | Cowork project | Claude desktop, open and connected |
+| A private web page per clip   | Artifact       | A session like Claude Code         |
 
-**The chat** is the default. You get the clip right in the conversation, as a
-file where the app allows it, but it isn't stored, so a later search can't find
-it. Fine for a one-off, not for a habit.
+**Editable Pages** are the default for new, unconfigured ChatGPT clips. You get
+a private editable Page, its verified link, and the full clip in the conversation.
+An explicit or saved destination, a retained clip's destination, or a winning
+raw-file request takes precedence. Exports include your current Page edits;
+downloaded copies do not automatically stay in sync.
+
+**The chat** is still Claude's default. In either host, use `--to chat` for
+conversation delivery: HTML in Claude, Markdown in ChatGPT, with a file where the
+app supports attachments. This does not store a clip in Drive or Notion. A later
+search can point back to the chat only where your app can search past conversations.
 
 **Google Drive** files each clip under `Browser Research/<category>/`, unless
 you set or name another folder, as in "save to my Research folder."
@@ -68,20 +80,28 @@ Add `--to` to any request. It changes that save only.
 > grab the part about easing --to local
 >
 > save this page --to drive:"Design Inspiration"
+>
+> save this page --to page
 
-To change the default instead, say **"always save here."**
+To change a supported persistent default instead, say **"always save here."**
+Editable Pages are the exception: use the ChatGPT built-in default or request
+one for this save.
 
 ## Markdown or Google Docs?
 
 Stored clips are Markdown files, in Drive too. Say **"save it as a Google
 Doc"** for one Doc, or set your format to `auto` to get Docs whenever Drive
 can make them. A Drive connector that can't upload raw files saves Docs
-instead. Notion and artifact clips keep their own formats.
+instead. Editable Pages, Notion and artifact clips keep their own formats.
 
 ## If a save fails
 
-If Gleaner can't reach your destination, it gives you the clip as a file and
-says plainly that it wasn't saved. It never claims a save that didn't happen.
+For destinations with file fallback, Gleaner gives you the clip in the chat and
+says where it wasn't saved. Pages have separate recovery rules. Missing Page
+tools before a built-in default save allow Markdown delivery with an explanation;
+an explicit Page request needs your choice of an alternative. A refused or failed
+Page save is reported, and an uncertain write is checked before another save is
+attempted. Gleaner never claims an unverified save.
 
 For every option, see
 [choosing where clips go](https://github.com/shawn-sandy/gleaner#choosing-where-clips-go)
