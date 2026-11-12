@@ -1,7 +1,7 @@
 ---
 title: "What Gleaner's YouTube skill can't do, and how to work around it"
 pubDate: 2026-10-23
-description: 'As of Gleaner 2.13, the YouTube skill writes clips from what it can read on the video page. Here is what that rules out, from transcripts to saving on a phone, and the workaround for each.'
+description: 'As of Gleaner 2.15, the YouTube skill writes clips from what it can read on the video page. Here is what that rules out, from transcripts to saving on a phone, and the workaround for each.'
 author: 'Shawn Sandy'
 tags: ['gleaner', 'youtube', 'plugins', 'guide']
 publish: true
@@ -13,26 +13,24 @@ It gets all of that by reading the video page. It doesn't watch the video or
 listen to it.
 
 That one fact sets every limit below. This post covers the skill as of Gleaner
-2.13.4, released November 1, 2026. It was first written for 2.10, when clips
+2.15.10, released November 9, 2026. It was first written for 2.10, when clips
 came from the video's description and Gleaner couldn't capture transcripts in
 the browser. 2.11.0 reads transcripts again, from YouTube's own **Show
-transcript** panel, in the browsers that let it. 2.11.1 and 2.12.1 change ChatGPT in
-ways that matter most on a phone: it asks before saving a video it can't read,
-and shows the whole clip in the chat. 2.13.2 lets Claude Code read transcripts
-through the Playwright browser tools, and 2.13.3 has ChatGPT try its other
-browsers before it asks. The changes are listed in the
+transcript** panel, in the browsers that let it, and 2.13.2 adds one more way
+in Claude Code. 2.11.1 and 2.13.3 change ChatGPT in ways that matter most on a
+phone: it tries every browser it has, then asks before saving a video it can't
+read. The changes are listed in the
 [README's changelog](https://github.com/shawn-sandy/gleaner#changelog).
 
 ## The short version
 
 - **Save from Chrome:** the Chrome side panel or Claude in Chrome. Gleaner reads
   the transcript there itself. On a phone, store the clip by link and finish it
-  at a desk. In ChatGPT, when a fetch fails, Gleaner tries any browser it hasn't
-  tried yet. If it still can't read the video, it asks you to paste its
-  description or transcript, or to save the link only.
+  at a desk. In ChatGPT, when Gleaner can't read the video at all, it asks you
+  to paste its description or transcript, or to save the link only.
 - **Paste the transcript** only where Gleaner can't read it, such as Claude
-  Code's built-in browser without Claude in Chrome or Playwright, or a chat with
-  no browser.
+  Code's built-in browser with neither Claude in Chrome nor Playwright, or a
+  chat with no browser.
   In ChatGPT, open **Show transcript** in the video's tab first.
 - **Name the time range or topic** for a part whenever Gleaner can't see the
   player.
@@ -42,8 +40,6 @@ browsers before it asks. The changes are listed in the
 Gleaner reads a transcript from YouTube's **Show transcript** panel, under
 **…more** below the video. It opens the panel the way a viewer does, which
 submits nothing and changes no setting, and reads it, long transcripts included.
-It waits for an ad to finish first, since a panel opened during an ad stays
-empty, and it reads YouTube's newer transcript panel as well as the classic one.
 The clip's **Video** line records this as `from: transcript panel`. When the
 transcript isn't in the video's own language, the clip says which language it
 was written from.
@@ -56,9 +52,9 @@ Where that works depends on the browser:
   empty, even when you're signed in. When Claude in Chrome is connected, Claude
   Code opens the video in a Claude in Chrome tab and reads the transcript there.
   Without it, Claude Code uses the Playwright browser tools if the session has
-  them: it opens the video in a new tab, reads the panel, and closes the tab.
-  Otherwise the clip is written from the description, and the confirmation says
-  that saving the video from Chrome reads its transcript.
+  them: it reads the panel in a new tab and closes the tab. Otherwise the clip
+  is written from the description, and the confirmation says that saving the
+  video from Chrome reads its transcript.
 - **ChatGPT:** where Gleaner would ask you to paste a transcript, it first asks
   you to open **…more → Show transcript** in the video's tab, then reads the
   lines from there. It asks for a paste only if no tab shows the video, or the
@@ -123,8 +119,8 @@ give Gleaner real moments to link to, chapters or not.
 
 Clipping part of a video, such as "keep 3:10 to 5:40" or "grab the part about
 generics", needs the transcript's lines for that stretch. In the Chrome side
-panel, Claude in Chrome, and Playwright, Gleaner reads them from the panel, so
-parts work without pasting. Where it has no transcript, Gleaner won't save a part. It asks
+panel and Claude in Chrome, Gleaner reads them from the panel, so parts work
+without pasting. Where it has no transcript, Gleaner won't save a part. It asks
 you to paste the transcript and offers a clip of the whole video instead. In
 ChatGPT, it first asks you to open **Show transcript** in the video's tab.
 
@@ -150,13 +146,12 @@ in the browser, and where it can't run one, it can't tell where you are:
 - **A chat with no browser at all**, which has no player to read.
 
 **Workaround: say where.** Once Gleaner has a transcript, "keep 12:00 to 15:30"
-or "the part about generics" works everywhere. In a tab you're watching in a
-Claude browser (the Chrome side panel, the Browser pane in Claude Code desktop,
-or Claude in Chrome), a link with a timestamp (`?t=190`) opens the player at that
-time, so "add this part" uses that position. A tab Gleaner opened itself, such
-as a Playwright tab or a Claude in Chrome tab reopened after a save, plays on its
-own and doesn't show where you were watching, so Gleaner won't use its position.
-Name the time range or topic there.
+or "the part about generics" works everywhere. In a Claude browser (the Chrome
+side panel, the Browser pane in Claude Code desktop, or Claude in Chrome), a
+link with a timestamp (`?t=190`) opens the player at that time, so "add this
+part" uses that position. In Claude in Chrome, Gleaner closes its own tab once a
+clip is saved. A part added later opens the video again at the link's time, not
+where you were watching, so name the time range or topic.
 
 In ChatGPT, the transcript can come from the tab: open **…more → Show
 transcript** in the video's tab, and Gleaner reads the lines from there, so you
@@ -167,10 +162,14 @@ don't need to paste anything. You still name the time range or topic.
 Every browser Gleaner reads a video in is one it drives: the Chrome side panel,
 the Browser pane in Claude Code desktop, Claude in Chrome, Playwright in Claude
 Code, or ChatGPT's connected Chrome tabs and Work browser. On a phone, you
-usually aren't in any of them. When Gleaner runs in a chat with no browser tools
-and you give it a link, such as one shared from the YouTube app, it can only
-fetch the video's page from the web. It says the video's details were read
-without a browser.
+usually aren't in any of them. When Gleaner runs in a chat with no browser tools and you give it a link,
+such as one shared from the YouTube app, it can only fetch the video's page from
+the web. It says the video was read without a browser. The Claude phone and web
+apps do the same when your browser is on your computer, since 2.14.2: one fetch,
+with no Chrome windows to approve. If the fetch can't read the video, Gleaner
+falls back to the browser. A clip saved from the fetch is written from the
+description, and the confirmation says how to get the transcript. Ask for it,
+and Gleaner opens the video in Chrome on your computer.
 
 What that costs you:
 
@@ -198,8 +197,8 @@ What that costs you:
   has its own sign-ins, separate from Chrome, so sign in to YouTube there once
   for private or members-only videos. YouTube sends the pane an empty transcript
   panel, so Claude Code reads the transcript through Claude in Chrome when
-  that's connected, or else through Playwright if the session has it, and
-  otherwise writes the clip from the description.
+  that's connected, or through Playwright if the session has it, and otherwise
+  writes the clip from the description.
 - **Claude in Chrome** (Claude Code with `--chrome`, or Cowork): it works in tabs
   it opens itself, so pass the link: `save https://youtu.be/…`. It reads the
   transcript too.
@@ -221,13 +220,11 @@ bookmark now. Paste the description or transcript later in the same
 conversation, and Gleaner fills in that clip instead of making a new one. If the
 clip is stored somewhere that needs a replacement file, it asks first.
 
-The phone is still a good place to read clips. In ChatGPT, the whole clip shows
-in the conversation. Since 2.15.6, new unconfigured saves also create a private
-editable Page with a verified link when Page tools are available. Explicit chat
-or raw-file requests use Markdown delivery, with a download when attachments are
-available. In
-Claude Code, save with `--to artifact`, and the clip becomes a private
-claude.ai page that reads well on a small screen.
+The phone is still a good place to read clips. Every save shows the whole clip
+in the conversation, phone included. In ChatGPT, a new clip is also saved as an
+editable Page by default, linked below it. In Claude Code, save with
+`--to artifact`, and the clip becomes a private claude.ai page that reads well
+on a small screen.
 
 ## Quick reference
 
@@ -252,6 +249,6 @@ A whole-video clip's **Video** line ends with what Gleaner read:
 2.11.1 added `link only`. When a clip looks thin, check that line first. It
 tells you which workaround to reach for.
 
-The skill's source, as of 2.13.4, is on
-[GitHub](https://github.com/shawn-sandy/gleaner/blob/v2.13.4/plugins/gleaner/skills/youtube/SKILL.md),
+The skill's source, as of 2.15.10, is on
+[GitHub](https://github.com/shawn-sandy/gleaner/blob/v2.15.10/plugins/gleaner/skills/youtube/SKILL.md),
 and every release is on the [changelog](/changelog).

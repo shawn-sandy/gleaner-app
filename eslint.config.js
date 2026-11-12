@@ -271,6 +271,7 @@ export default [
       'test-results/**',
       '*.d.ts',
       '**/*.astro', // Temporarily ignore all Astro files until parser issues are resolved
+      '.claude/worktrees/**', // Other local checkouts; git-ignored, not part of this tree
     ],
   },
 ]
