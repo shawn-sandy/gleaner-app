@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Gleaner 2.15.11 site refresh**: add 2.15.11 (Claude Code pre-approves the read-only
+  Claude in Chrome tools during glean and youtube saves) to the 2.13 to 2.15 release post,
+  mirror its upstream README changelog entry, and move the sync bookmark to `0f466ec`.
 - **Gleaner 2.13–2.15.10 site refresh**: update the homepage and current guides for
   editable Pages in ChatGPT, full clips in every host, optional clip lists and the
   ChatGPT index, Further reading, and the `gleaner@gleaner` install command. Add a
