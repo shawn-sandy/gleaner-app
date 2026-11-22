@@ -1,7 +1,7 @@
 ---
 title: 'Gleaner 2.13 to 2.15: bookmarks, a clip list, and editable pages in ChatGPT'
 pubDate: 2026-11-07
-description: 'Gleaner updates through 2.15.10: bookmarks, clip lists, Further reading, full clips in chat, editable Pages in ChatGPT, the renamed marketplace, and more reliable page and video reads.'
+description: 'Gleaner updates through 2.15.11: bookmarks, clip lists, Further reading, full clips in chat, editable Pages in ChatGPT, the renamed marketplace, more reliable page and video reads, and fewer Chrome approvals in Claude Code.'
 author: 'Shawn Sandy'
 tags: ['gleaner', 'chatgpt', 'claude-code', 'plugins', 'changelog']
 publish: true
@@ -11,7 +11,7 @@ Gleaner went from 2.12.2 to 2.15.6 between October 27 and November 7, 2026,
 after [the 2.12 post](/posts/gleaner-2-12). That is 18 releases, so this post
 groups them by what you notice rather than walking through each one.
 
-Updated November 9, 2026 to include the four releases through **2.15.10**.
+Updated November 22, 2026 to include the five releases through **2.15.11**.
 
 Three changes matter most. Every save now shows the whole clip in the chat, on
 every host. Clips now end with links to read next, when the page has good ones. And ChatGPT now saves
@@ -36,7 +36,7 @@ The marketplace was renamed to `gleaner` in 2.15.8. Existing installs from
 [migration steps](https://github.com/shawn-sandy/gleaner#upgrading-from-shawn-sandy-to-gleaner)
 to keep your data.
 
-## 2.15.7 to 2.15.10: installation and more reliable reads
+## 2.15.7 to 2.15.11: installation, more reliable reads, and fewer approvals
 
 - **2.15.7:** the optional Node bookmark renderer was removed. You don't need
   Node.js to use Gleaner; the plugin ships instructions, metadata, and icons.
@@ -49,6 +49,14 @@ to keep your data.
   browser. Sign-in pages, paywall notices, and bot checks are not saved as
   content. A cut-off response is marked partial and cannot replace a fuller
   existing clip.
+- **2.15.11:** in Claude Code, saving a page or video through Claude in
+  Chrome asks for fewer approvals. While a save runs, the `glean` and `youtube`
+  skills pre-approve only the Chrome tools that look at a page: listing tabs,
+  reading page text, and finding elements. Opening, navigating, and closing
+  tabs, running Gleaner's page scripts, and clicking still ask, because those
+  can act on any page or tab; choosing "always allow" covers them for the rest
+  of the session. The Chrome extension's own site permissions are a separate
+  setting.
 
 ## 2.15.5 and 2.15.6: editable Pages are ChatGPT's default
 
@@ -212,7 +220,7 @@ see on a phone: the formatted clip in the chat, and a separate download link.
 For a session clip, Gleaner saves only the messages it can actually read. It
 won't rebuild earlier ones from memory.
 
-## Where Gleaner stands at 2.15.10
+## Where Gleaner stands at 2.15.11
 
 - **Four skills:** `glean`, `youtube`, `preferences`, and `follow-up`.
 - **In the chat by default:** the whole clip, on every host. Claude adds an
@@ -237,4 +245,4 @@ earlier release. Where it calls the chat, or a Markdown download, ChatGPT's
 default, a ChatGPT save now makes an editable Page unless you choose
 otherwise. Every published release, with its
 notes, is on the [changelog](/changelog). The source is on
-[GitHub](https://github.com/shawn-sandy/gleaner/blob/f99782493e368b8887591109beb90cffa3aa572c/README.md).
+[GitHub](https://github.com/shawn-sandy/gleaner/blob/0f466ec2f3841f2940c7f92027bbe2ded647a75f/README.md).
